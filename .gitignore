@@ -1,44 +1,44 @@
-
 # Temporary
 *.log
 tmp/
 
-# archive
+# Archive
 archive/
 
 # Private
 .pri/
 *-pri
 
-### Vim template
-# Swap
+
+# Editors
+
+## Vim template
+### Swap
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
 [._]s[a-v][a-z]
 [._]sw[a-p]
 
-# Session
+### Session
 Session.vim
 
-# Temporary
+### Temporary
 .netrwhist
 
-# Auto-generated tag files
-tags
-
-
-### VisualStudioCode template
+## VisualStudioCode template
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 
-
-# Sublime-github package stores a github token in this file
+## Sublime-github package stores a github token in this file
 # https://packagecontrol.io/packages/sublime-github
 GitHub.sublime-settings
 
+
+# Auto-generated tag files
+tags
 
 # Dump file
 *.stackdump
@@ -49,8 +49,8 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
-### macOS template
-# General
+# macOS template
+## General
 *.DS_Store
 .AppleDouble
 .LSOverride
