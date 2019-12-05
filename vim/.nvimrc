@@ -358,6 +358,11 @@ augroup RunFile
 augroup END
 " }}}
 
+" Commands {{{
+
+" Shortcut for qa
+command! Q :qa
+" }}}
 " buffers {{{
 
 " open buffers with FZF
