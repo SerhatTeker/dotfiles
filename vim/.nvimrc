@@ -175,6 +175,7 @@ set nofoldenable                " no fold when opening a file
 set foldmethod=marker           " manual fold with '{...}'
 " }}}2
 
+
 " enable to copy to clipboard for operations like yank, delete, change and put
 " http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
 if has('unnamedplus')
@@ -193,6 +194,14 @@ autocmd! bufwritepost $MYNVIMRC source $MYNVIMRC
 
 " $MYNVIMRC filetype
 autocmd BufNewFile,BufRead .nvimrc set filetype=vim
+
+" Preview {{{2
+
+if has('nvim')
+	" Preview command results
+	set inccommand=nosplit
+endif
+" }}}
 
 " autoload buffer {{{2
 
@@ -336,9 +345,9 @@ let mapleader = ","
 " Jump to next error with Ctrl-n and previous error with Ctrl-b. Close the
 " quickfix window with <leader>a
 nnoremap <C-q> :copen<CR>
-nnoremap <C-q>c :cclose<CR>
-" map <C-n> :cnext<CR>
-" map <C-m> :cprevious<CR>
+nnoremap <C-q> :copen<CR>
+nnoremap <C-q>n :cnext<CR>
+nnoremap <C-q>m :cprevious<CR>
 " }}}
 
 " Run {{{
