@@ -70,7 +70,7 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'jeetsukumaran/vim-pythonsense'
 
 " Golang
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " markdown
 Plug 'gabrielelana/vim-markdown'
@@ -101,7 +101,9 @@ Plug 'bkad/CamelCaseMotion'
 
 " Others
 Plug 'godlygeek/tabular'
-Plug 'jiangmiao/auto-pairs'     " insert mode auto-completion for quotes, parens, brackets, etc
+"" Pair
+Plug 'SerhatTeker/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'     " insert mode auto-completion for quotes, parens, brackets, etc
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -795,6 +797,8 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 " Markdown
 " vim-markdown
 let g:markdown_enable_spell_checking = 0
+let g:markdown_enable_mappings = 1
+let g:markdown_enable_conceal = 0
 
 augroup MarkdownFiles
 	autocmd!
@@ -1030,6 +1034,8 @@ inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 " auto-pair {{{
 " Toggle Autopairs dsiabled due to conflict
 let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsUseInsertedCount = 1
+let g:AutoPairsDelRepeatedPairs = 1
 " }}}
 
 " editorconfig {{{
