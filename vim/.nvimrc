@@ -1032,10 +1032,13 @@ inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 " }}}2
 
 " auto-pair {{{
-" Toggle Autopairs dsiabled due to conflict
+
+" Toggle Autopairs disabled due to conflict
 let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsUseInsertedCount = 1
 let g:AutoPairsDelRepeatedPairs = 1
+" Map <space> to insert a space after the opening character and before the closing one
+let g:AutoPairsMapSpace = 0
 " }}}
 
 " editorconfig {{{
