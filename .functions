@@ -1,0 +1,309 @@
+#!/bin/bash
+#
+#		     __			 _   _
+#		    / _|_   _ _ __   ___| |_(_) ___  _ __  ___
+#		   | |_| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+#		   |  _| |_| | | | | (__| |_| | (_) | | | \__ \
+#		   |_|	\__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+#
+# Author: Serhat Teker <serhat.teker@gmail.com>
+# Source: https://github.com/SerhatTeker/system-bak
+#
+# to handle more complex tasks than alias
+
+
+# Journal {{{1
+
+# journal in vim
+journal(){
+	# check journal exist
+	. $(find "$SCRIPTS_DIR/" -name "journalCheck" 2>/dev/null)
+
+	DATE=$(date '+%Y-%m-%d')
+	WNUMBER=$(date +%U -d "$DATE + 1 week")
+	YNUMF=$(date +%Y -d $DATE)
+
+	vi $(find "$BLOG_DIR/content/journal/$YNUMF" -name "w$WNUMBER.md")
+}
+
+tj(){
+	. $(find "$SCRIPTS_DIR/" -name "journalStartAll" 2>/dev/null)
+}
+
+hugo-start(){
+	nohup hugo server -s "$BLOG_DIR" -p 1134 >/dev/null 2>&1 &
+}
+
+hugo-kill(){
+	# kill hugo server which runs in the background
+	echo "$(kill -9 $(ps -u $USER | grep hugo | awk '{print $1}'))"
+}
+# }}}1
+
+
+# Back Up {{{1
+
+# back-up all {{{2
+
+bak-all(){
+	. $(find "$SCRIPTS_DIR/" -name "bu-all.sh" 2>/dev/null)
+}
+# }}}2
+
+# back-up pri {{{2
+
+bu-lock-pri(){
+	. $(find "$SCRIPTS_DIR/" -name "bu-lock-pri.sh" 2>/dev/null)
+}
+
+bu-unlock-pri(){
+	. $(find "$SCRIPTS_DIR/" -name "bu-unlock-pri.sh" 2>/dev/null)
+}
+# }}}2
+
+# compare files {{{2
+
+# hash two files and compare their hashes
+hsum() {
+	echo "$(sha1sum $1) | $(sha1sum $2)"
+	if [[ "$(sha1sum $1 | awk '{print $1}')" == "$(sha1sum $2 | awk '{print $1}')" ]]; then
+		echo "equal"
+	else
+		echo "not equal"
+	fi
+}
+
+# hsum alternative
+ecmp() {
+	if cmp -s "$1" "$2"; then
+		echo "eq"
+	else
+		echo "neq"
+	fi
+}
+# }}}2
+# }}}1
+
+
+# Security {{{1
+
+# encrypt given file
+# must cd into dir first
+# TODO: dir agnostic
+enc-file() {
+	cat "$1" | gpg --armor --output "$1.gpg" --symmetric --cipher-algo AES256
+}
+
+# decrypt given file
+# must cd into dir first
+# TODO: dir agnostic
+dec-file() {
+	gpg --output "$(echo $1 | cut -d '.' -f1).$(echo $1 | cut -d '.' -f2)" --decrypt "$1"
+}
+# }}}1
+
+
+# Network {{{1
+myip() {
+	curl http://ipecho.net/plain; echo
+}
+
+# }}}1
+
+# Git {{{1
+
+# Outputs the name of the current branch
+# Usage example: git pull origin $(git_current_branch)
+# Using '--quiet' with 'symbolic-ref' will not cause a fatal error (128) if
+# it's not a symbolic ref, but in a Git repo
+git_current_branch() {
+	local ref
+	ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
+	local ret=$?
+	if [[ $ret != 0 ]]; then
+		[[ $ret == 128 ]] && return  # no git repo.
+		ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
+	fi
+	echo ${ref#refs/heads/}
+}
+
+# sync upstream fork with local
+git_sync_fork() {
+	# Fetch all branches of remote upstream
+	# Rewrite master with upstream’s master using git rebase:
+	git fetch upstream && \
+		git rebase upstream/master
+}
+
+# Download all files from a github gist url
+# Usage Example: $ ddl-gist 'https://gist.github.com/7fee6d84f2f3d16ef3628e9a4a7f57e7' ~/Downloads/gists
+ddl_gist(){
+	if [ $# -ne 2 ];
+	then
+		echo 'Failed. Syntax: $> ddl-gist GITHUB_GIST_URL DOWNLOAD_PATH'
+		return
+	fi
+
+	gist_url=$1
+	download_path=$2
+
+	echo '[*] Getting all GIST File URLs from '$gist_url
+
+	gists=`curl -ksL -H 'User-Agent: Mozilla/5.0' $gist_url  | grep '<a\ .*href=".*/raw/' | sed 's/.*a\ .*href="//' | sed 's/".*//'`
+	echo '[*] Downloading all files'
+
+	for lines in `echo $gists | xargs -L1`;
+	do
+		if [ ! -z $lines ];
+		then
+			echo $lines
+			gistfile=`echo $lines | sed 's/.*\///'`
+			save_as=$download_path"/"$gistfile
+			echo "Downloading URL: https://gist.github.com"$lines
+			echo "to "$save_as"....."
+			wget -c -O $save_as "https://gist.github.com"$lines
+		fi
+	done
+}
+# }}}
+
+
+# Dirs {{{1
+
+# Open DIR
+f() {
+	# if $1 empty open $HOME
+	# -w to open it in a new window
+	if [ -z "$1" ];then
+		nohup nautilus -w "$HOME" >/dev/null 2>&1 &
+	else
+		nohup nautilus -w "$HOME/$1" >/dev/null 2>&1 &
+	fi
+}
+
+# cd then ll
+cdl() {
+	builtin cd "$@" && ls -ahlF
+}
+
+# make dir then cd
+mkcd() {
+	mkdir -p "$1" && cd "$1"
+}
+
+# Zip {{{2
+
+tar-it () {
+	dirorfile="$1"
+	destination="$1.tar.gz"
+	tar -czvf $destination $dirorfile
+}
+
+untar-it () {
+	file="$1"
+	filename="${file%%.*}"
+
+	# alternative to get the filename
+	# filename=$(basename -- "$fullfile")
+	# extension="${filename##*.}"
+	# filename="${filename%.*}"
+
+	tar -xzvf $file $filename
+}
+
+x() {
+	# With the above code in your .bashrc, typing an x followed by a filename will
+	# extract most archives you come across (assuming you have the packages needed to
+	# extract that type of archive).
+	if [ -f $1 ] ; then
+		case $1 in
+			*.tar.bz2)   tar xvjf $1    ;;
+			*.tar.gz)    tar xvzf $1    ;;
+			*.bz2)       bunzip2 $1     ;;
+			*.rar)       unrar x $1     ;;
+			*.gz)        gunzip $1      ;;
+			*.tar)       tar xvf $1     ;;
+			*.tbz2)      tar xvjf $1    ;;
+			*.tgz)       tar xvzf $1    ;;
+			*.zip)       unzip $1       ;;
+			*.Z)         uncompress $1  ;;
+			*.7z)        7z x $1        ;;
+			*)           echo "Unable to extract '$1'" ;;
+		esac
+	else
+			echo "'$1' is not a valid file"
+	fi
+}
+# }}}2
+# }}}1
+
+
+# Files {{{1
+bu-tmux-resurrect() {
+	# make bu dir if not exist
+	mkdir -p $TMUX_RESURRECT/bu
+	# backup newest one
+	cp $(ls -lt $TMUX_RESURRECT/tmux_*.txt | head -n 1 | awk '{print $9}') $TMUX_RESURRECT/bu/
+	# clean all backups except newest one
+	ls -lt $TMUX_RESURRECT/tmux_*.txt | awk '{if(NR!=1) print $9}' | xargs -i rm {}
+}
+
+# replace spaces with underscores in filenames
+replace-spaces() {
+	for file in $1/*
+	do
+		mv $file ${file// /_}
+	done
+}
+
+add_file_suffix_all() {
+	find . -type f -not -name "*.$1" -exec mv "{}" "{}.$1" \;
+}
+
+delete_file_part() {
+	suffix=$1
+	delete_part="$2"
+
+	for filename in *.$suffix; do
+		[ -f "$filename" ] || continue
+		mv "$filename" "${filename//$delete_part/}"
+	done
+}
+# }}}1
+
+
+# Other {{{1
+
+# prints Dennis Ritchie
+unix-print () {
+	. $(find "$SCRIPTS_DIR/" -name "unix-print" 2>/dev/null)
+}
+
+# get last apt-get update date
+info-update-last () {
+	ls -lt --time-style="long-iso" /var/log/apt | grep -o '\([0-9]\{2,4\}[- ]\)\{3\}[0-9]\{2\}:[0-9]\{2\}' -m 1
+}
+
+ssh_joke() {
+	ssh -X user@192.168.0.112 DISPLAY=:0 notify-send 'HAHA I am In Your Computer!' 'Deleting all your stuff!' -u critical -i face-worried
+}
+
+history_statistic() {
+	#A one-liner allows us to see our most used commands
+	history | \
+		awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | \
+		grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
+}
+# }}}1
+
+
+# Update {{{1
+
+_update_all() {
+	sudo apt update && \
+		sudo apt -y upgrade && \
+		notify-send 'Updates Complete' \
+			'Your system updated successfully!' \
+			-u normal -t 7500 -i checkbox-checked-symbolic
+}
+# }}}1
