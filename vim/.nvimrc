@@ -860,17 +860,17 @@ let g:markdown_enable_folding = 1
 " show hiddens
 let NERDTreeShowHidden=1
 
-" utomatically close NerdTree when you open a file
+" Automatically close NerdTree when you open a file
 let NERDTreeQuitOnOpen = 1
 
 " Automatically delete the buffer of the file you just deleted with NerdTree
 let NERDTreeAutoDeleteBuffer = 1
 
-" disable that old “Press ? for help”.
+" Disable that old “Press ? for help”.
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-" ignore
+" Ignore
 let NERDTreeIgnore = [
 			\ '\.pyc$',
 			\ '^__pycache__$',
