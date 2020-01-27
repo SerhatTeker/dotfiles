@@ -4,6 +4,8 @@ alias la='ls -A'
 alias l='ls -CF'
 # show all files
 alias lsf='ls -p | grep -v /'
+# show all symbolic links
+alias fln='ls -la . | grep "\->"'
 # show all regular files
 alias laf='ls -lAhp | grep -v /'
 # watch
