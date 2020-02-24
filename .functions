@@ -31,7 +31,7 @@ tj(){
 }
 
 hugo-start(){
-	nohup hugo server -s "$BLOG_DIR" -p 1134 >/dev/null 2>&1 &
+	nohup hugo server --navigateToChanged -s "$BLOG_DIR" -p 1134 >/dev/null 2>&1 &
 }
 
 hugo-kill(){
@@ -191,11 +191,12 @@ mkcd() {
 	mkdir -p "$1" && cd "$1"
 }
 
-# Zip {{{2
+# Zip Tar {{{2
 
 tar-it () {
 	dirorfile="$1"
 	destination="$1.tar.gz"
+
 	tar -czvf $destination $dirorfile
 }
 
@@ -209,6 +210,13 @@ untar-it () {
 	# filename="${filename%.*}"
 
 	tar -xzvf $file $filename
+}
+
+unzip-it () {
+    zipfile="$1"
+    zipdir=${1%.zip}
+
+    unzip -d "$zipdir" "$zipfile"
 }
 
 x() {
