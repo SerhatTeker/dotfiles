@@ -110,6 +110,7 @@ myip() {
 
 # }}}1
 
+
 # Git {{{1
 
 # Outputs the name of the current branch
@@ -240,6 +241,22 @@ x() {
 		esac
 	else
 			echo "'$1' is not a valid file"
+	fi
+}
+# }}}2
+# }}}1
+
+
+# Environment {{{1
+
+# Python venv auto-load {{{2
+
+# If a virtualenv with name of .venv, load it.
+auto-venv() {
+	if [ -z "$VIRTUAL_ENV" ]; then
+		if [ -d .venv/ ]; then
+			source .venv/bin/activate
+		fi
 	fi
 }
 # }}}2
