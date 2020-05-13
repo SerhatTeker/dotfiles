@@ -52,6 +52,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'fatih/molokai'
 Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/base16-vim'
+Plug 'chuling/vim-equinusocio-material'
 " Colors
 Plug 'gko/vim-coloresque'
 " Statusbar
@@ -76,6 +77,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'gabrielelana/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'dkarter/bullets.vim'
+Plug 'greyblake/vim-preview'
+Plug 'gu-fan/InstantRst'
+
 " }}}3
 
 " code complete
@@ -576,6 +580,10 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_generate_tags = 1
 
+" there is a bug. open an issue
+" I'm using nvim 0.3.8 but it gives an error
+let g:go_version_warning = 0
+
 " Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
 imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
@@ -857,6 +865,15 @@ let g:markdown_enable_folding = 1
 
 " NERDtree {{{
 
+" some usefull commands to remember {{{
+
+" r Refresh NERDTREE
+" m modify in TREE
+" B Bookmarks
+" }}}
+
+" NERDTree Settings {{{
+
 " show hiddens
 let NERDTreeShowHidden=1
 
@@ -883,13 +900,14 @@ let NERDTreeIgnore = [
 " To make sure vim does not open files and other buffers on NerdTree window
 " If more than one window and previous buffer was NERDTree, go back to it.
 autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
+" }}}
 
-" some usefull commands to remember
-" r Refresh NERDTREE
-" m modify in TREE
-" B Bookmarks
-
+" NERDTree Mappings {{{
 nmap <C-t> :NERDTreeToggle<CR>
+
+" Directly open NerdTree on the file you’re editing
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+" }}}
 " }}}
 
 " Undo Tree {{{
@@ -979,7 +997,15 @@ let g:bullets_enabled_file_types = [
 " CtrlSF {{{2
 
 " Substitute the word under the cursor.
+" &	Keep the flags from the previous substitute.
+" c	Prompt to confirm each substitution.
+" e	Do not report errors.
+" g	Replace all occurrences in the line.
+" i	Case-insensitive matching.
+" I	Case-sensitive matching.
+" n	Report the number of matches, do not actually substitute.
 nmap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
+
 
 " keymaps {{{3
 
