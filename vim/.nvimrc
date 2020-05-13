@@ -221,6 +221,14 @@ autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 " }}}2
 
+" Auto Split Equally {{{
+
+" Not using for performance
+" autocmd VimEnter * wincmd =
+" autocmd VimEnter * execute "normal \<C-=>"
+" autocmd BufNewFile,BufRead,BufEnter *
+" }}}
+
 " tags {{{2
 
 set tags=tags
@@ -579,10 +587,6 @@ let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_generate_tags = 1
-
-" there is a bug. open an issue
-" I'm using nvim 0.3.8 but it gives an error
-let g:go_version_warning = 0
 
 " Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
