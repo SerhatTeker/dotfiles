@@ -1,4 +1,6 @@
-#some more ls aliases
+# ls {{{
+
+# some more ls aliases
 alias ll='ls -ahlF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -10,20 +12,26 @@ alias fln='ls -la . | grep "\->"'
 alias laf='ls -lAhp | grep -v /'
 # watch
 alias wad='watch -d ls -lAh'
+# }}}
 
-# alert
+# alert {{{
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# }}}
 
-# Manual alias
+# Manual alias {{{
+
 alias pri-lock='. $(find "$SCRIPTS_DIR" -name lock-pri 2>/dev/null)'
 alias pri-unlock='. $(find "$SCRIPTS_DIR" -name unlock-pri 2>/dev/null)'
 # print all and ignore .git and .venv dir
 alias tree='tree -aI ".git|.venv"'
 # alias mkcd='makecd(){mkdir -p "$1"; cd "$1"}; makecd'
 
-# System
+# }}}
+# System {{{
+
 alias shutdown='sudo shutdown -h now'
 alias sleep='systemctl suspend'
 ## thrash
@@ -44,16 +52,24 @@ alias update-all='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y
 # alias updateAll='sudo bash -c "for i in update {,dist-}upgrade auto{remove,clean}; do apt $i -y; done"'
 alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purge'
 
-# vim
+# }}}
+# vim {{{
+
 alias vi='nvim'
 alias vs='nvim -S'
+# to remove error E138: ShaDa file exist, cannot write ShaDa file!
+alias rm-shada='rm ~/.local/share/nvim/shada/main.shada.tmp.x'
 
-# git
+# }}}
+# git {{{
+
 alias gac='git add . && git commit'
 alias glog-fav='glola'
 alias glog-lean-fav='gloga'
+# }}}
 
-# tmux
+# tmux {{{
+
 alias ta='tmux a -t'
 alias tnew='tmux new -s'
 alias tls='tmux ls'
@@ -65,40 +81,50 @@ alias mux='pgrep -vx tmux > /dev/null && \
 		tmux kill-session -t delete-me && \
 		tmux attach || tmux attach'
 # alias tmux='tmux -2'
+# }}}
 
-# journal
+# journal {{{
+
 alias j='tmux a -t journal'
 alias t='tmux a -t tmp'
+# }}}
 
-# hugo
+# hugo {{{
+
 # get initial hugo git initial template
 alias gist-hugo='ddl_gist "https://gist.github.com/SerhatTeker/7fee6d84f2f3d16ef3628e9a4a7f57e7" .'
+# }}}
 
-# docker
+# docker {{{
+
 alias dps='docker ps'
 ## redis
-alias redis-start='docker-compose -f $SCRIPTS_DIR/docker/redis-commander.yaml start'
-alias redis-stop='docker-compose -f $SCRIPTS_DIR/docker/redis-commander.yaml stop'
+alias redis-start='docker-compose -f $SCRIPTS_DIR/docker/redis-commander.yml start'
+alias redis-stop='docker-compose -f $SCRIPTS_DIR/docker/redis-commander.yml stop'
 alias redis-bash='docker exec -ti localredis bash'
 alias redis-cli='docker exec -ti localredis redis-cli'
 ## postgres
-alias postgres-start='docker-compose -f $SCRIPTS_DIR/docker/postgres.yaml start'
-alias postgres-stop='docker-compose -f $SCRIPTS_DIR/docker/postgres.yaml stop'
+alias postgres-start='docker-compose -f $SCRIPTS_DIR/docker/postgres.yml start'
+alias postgres-stop='docker-compose -f $SCRIPTS_DIR/docker/postgres.yml stop'
+# }}}
 
-# python
+# python {{{
+
 alias pip='pip3'
 alias python='python3'
 ## create and activate virtual environment
-alias vvenv='virtualenv -p python3 .venv && source .venv/bin/activate'
+alias vvenv='virtualenv -p python3.8 .venv && source .venv/bin/activate'
 ## activate virtual environment
-alias sv='source .venv/bin/activate'
+alias av='source .venv/bin/activate'
 ## reactivate virtual environment
 alias rv='deactivate && source .venv/bin/activate'
+# }}}
 
 # images
 alias webify="mogrify -resize 690\> *.png"
 
-# other
+# other {{{
+
 alias cmatrix='cmatrix -Baf'
 alias umatrix='unimatrix -a -f -b -s 96 -l m'
 alias matrix='gnome-terminal --full-screen -- /bin/bash -c "unimatrix -a -f -b -s 96 -l m;read"'
@@ -110,16 +136,21 @@ alias room='space'
 ## symstem in ASCII art terminal
 ### take screenshot
 alias nfs='neofetch -S'
+# }}}
 
-# configs
+# configs {{{
+
 alias vconf='vi ~/.vimrc'
 alias zconf='vi ~/.zshrc'
 alias bconf='vi ~/.bashrc'
 alias tconf='vi ~/.tmux.conf'
 # config:source
 alias sz='source ~/.zshrc'
+# }}}
 
-# tar - archive - zip
+# tar - archive - zip {{{
+
 # first name for tar then dir
 tar='tar -czvf $1.tar.gz $2'
 untar='tar -xzvf $1 $2'
+# }}}
