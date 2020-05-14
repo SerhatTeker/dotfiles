@@ -1,0 +1,80 @@
+# override existing snippets from UltiSnips
+priority 1
+
+snippet sec "Section" b
+# ${1:Section Name} #
+$0
+endsnippet
+
+############
+# Journal  #
+############
+snippet todayDate "Today for Journal" b
+## `date +%d` `date +%b` | `date +%a` | `date +%w`
+$0
+endsnippet
+
+snippet journal "Journal Start Elements" b
+## `date +%d` `date +%b` | `date +%a` | `date +%w`
+
+### TODO
+__Main__
+
+1. [ ]
+
+__Normal__
+
+1. [ ]
+
+
+### memento
+$0
+
+
+endsnippet
+
+snippet 4 "4# or ####" b
+#### $1
+$0
+endsnippet
+
+snippet ncal "print ncal into buffer" b
+:read !ncal -w
+endsnippet
+
+snippet com "comment insert" b
+<!-- ${1:Comment} -->
+$0
+endsnippet
+
+# TODO: with ${VISUAL} like in
+# https://github.com/honza/vim-snippets/blob/master/UltiSnips/markdown.snippets
+snippet fold "fold insert" b
+<!-- ${1:Comment} \{\{\{${2:Level} -->
+$0
+endsnippet
+
+
+################
+# Common stuff #
+################
+snippet link "Link to something"
+[${1:${VISUAL:Text}}](${2:https://})$0
+endsnippet
+
+
+# Code Block
+snippet cbl "Codeblock" b
+\`\`\`$1
+$2
+\`\`\`
+$0
+endsnippet
+
+# cbl for bash
+snippet cbash "Codeblock" b
+\`\`\`bash
+\$ $1
+\`\`\`
+$0
+endsnippet
