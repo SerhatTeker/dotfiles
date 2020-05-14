@@ -110,8 +110,6 @@ alias postgres-stop='docker-compose -f $SCRIPTS_DIR/docker/postgres.yml stop'
 
 # python {{{
 
-alias pip='pip3'
-alias python='python3'
 ## create and activate virtual environment
 alias vvenv='virtualenv -p python3.8 .venv && source .venv/bin/activate'
 ## activate virtual environment
