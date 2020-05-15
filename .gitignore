@@ -8,6 +8,7 @@ archive/
 # Private
 .pri/
 *-pri
+*_private
 
 
 # Editors
