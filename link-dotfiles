@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Bash {{{
+
+ln -s $HOME/dotfiles/bash/.bashrc $HOME
+ln -s $HOME/dotfiles/bash/.bash_logout $HOME
+# }}}
+
+# Git {{{
+
+ln -s $HOME/dotfiles/.gitconfig $HOME
+# }}}
+
+# Tmux {{{
+
+ln -s $HOME/dotfiles/tmux/.tmux.conf $HOME
+# }}}
+
+# Vim {{{
+
+ln -s $HOME/dotfiles/vim/.vim $HOME
+ln -s $HOME/dotfiles/vim/.nvimrc $HOME
+# }}}
+
+# Zsh {{{
+
+ln -s $HOME/dotfiles/zsh/.zshrc $HOME
+ln -s $HOME/dotfiles/zsh/.zlogin $HOME
+ln -s $HOME/dotfiles/zsh/.zsh_private $HOME
+# }}}
+
