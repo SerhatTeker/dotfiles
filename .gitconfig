@@ -1,0 +1,10 @@
+[user]
+	name = Serhat Teker
+	email = serhat.teker@gmail.com
+	signingkey = E4E824E75934CABA11ED9686F037930082E016E1
+[core]
+	editor = nvim
+
+
+[credential]
+	helper = cache --timeout=3600
