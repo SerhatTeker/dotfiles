@@ -1010,8 +1010,10 @@ let g:bullets_enabled_file_types = [
 " n	Report the number of matches, do not actually substitute.
 nmap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 
+" shows the preview window automatically while moving from match to match in the results pane
+let g:ctrlsf_auto_preview = 1
 
-" keymaps {{{3
+" mappings {{{3
 
 " In CtrlSF window:
 " Enter, o, double-click - Open corresponding file of current line in the window which CtrlSF is launched from.
@@ -1026,6 +1028,20 @@ nmap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 " <C-J> - Move cursor to next match.
 " <C-K> - Move cursor to previous match.
 " <C-C> - Stop a background searching process.
+
+" let g:ctrlsf_mapping = {
+"     \ "popen": "<C-LeftMouse>"
+"     \ }
+
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+nmap     <C-F>F <Plug>CtrlSFCwordPath
+" vmap     <C-F>F <Plug>CtrlSFVwordExec
+" nmap     <C-F>p <Plug>CtrlSFPwordPath
+
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 " }}}3
 
 " commands {{{3
@@ -1049,15 +1065,6 @@ nmap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 " <Plug>CtrlSFPwordPath
 " Input :CtrlSF foo in command line where foo is the last search pattern of vim.
 
-nmap     <C-F>f <Plug>CtrlSFPrompt
-vmap     <C-F>f <Plug>CtrlSFVwordPath
-nmap     <C-F>F <Plug>CtrlSFCwordPath
-" vmap     <C-F>F <Plug>CtrlSFVwordExec
-" nmap     <C-F>p <Plug>CtrlSFPwordPath
-
-nnoremap <C-F>o :CtrlSFOpen<CR>
-nnoremap <C-F>t :CtrlSFToggle<CR>
-inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 " }}}3
 " }}}2
 
