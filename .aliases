@@ -145,10 +145,3 @@ alias tconf='vi ~/.tmux.conf'
 # config:source
 alias sz='source ~/.zshrc'
 # }}}
-
-# tar - archive - zip {{{
-
-# first name for tar then dir
-tar='tar -czvf $1.tar.gz $2'
-untar='tar -xzvf $1 $2'
-# }}}
