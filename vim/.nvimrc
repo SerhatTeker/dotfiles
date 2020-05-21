@@ -886,7 +886,7 @@ let g:markdown_enable_folding = 1
 let NERDTreeShowHidden=1
 
 " Automatically close NerdTree when you open a file
-let NERDTreeQuitOnOpen = 1
+" let NERDTreeQuitOnOpen = 1
 
 " Automatically delete the buffer of the file you just deleted with NerdTree
 let NERDTreeAutoDeleteBuffer = 1
