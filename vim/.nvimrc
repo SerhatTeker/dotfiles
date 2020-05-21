@@ -484,6 +484,10 @@ map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 " fugitive {{{
 
 " Git diff
+
+" always open diffs vertical
+set diffopt+=vertical
+
 nnoremap <leader>d :Gvdiff<CR>
 " Git status
 nnoremap <silent>ss :20G<CR>
