@@ -1,0 +1,141 @@
+#!/bin/bash
+
+# Details {{{
+
+# -e: Returns true value if file exists.
+# -f: Return true value if file exists and regular file.
+# -r: Return true value if file exists and is readable.
+# -w: Return true value if file exists and is writable.
+# -x: Return true value if file exists and is executable.
+# -d: Return true value if exists and is a directory.
+
+# calendar manipulation
+# ncal -h | grep -vE "^S|^ |^$" | sed "s/[[:alpha:]]//g" | fmt -w 1 | sort -n
+# ncal -h  | grep -vE "^2019|^ |^$"  | sed "s/[[:alpha:]]//g"
+
+# date format details
+# %%     a literal %
+# %a     locale's abbreviated weekday name (e.g., Sun)
+# %A     locale's full weekday name (e.g., Sunday)
+# %b     locale's abbreviated month name (e.g., Jan)
+# %B     locale's full month name (e.g., January)
+# %c     locale's date and time (e.g., Thu Mar  3 23:05:25 2005)
+# %C     century; like %Y, except omit last two digits (e.g., 21)
+# %d     day of month (e.g, 01)
+# %D     date; same as %m/%d/%y
+# %e     day of month, space padded; same as %_d
+# %F     full date; same as %Y-%m-%d
+# %g     last two digits of year of ISO week number (see %G)
+# %G     year of ISO week number (see %V); normally useful only with %V
+# %h     same as %b
+# %H     hour (00..23)
+# %I     hour (01..12)
+# %j     day of year (001..366)
+# %k     hour ( 0..23)
+# %l     hour ( 1..12)
+# %m     month (01..12)
+# %M     minute (00..59)
+# %n     a newline
+# %N     nanoseconds (000000000..999999999)
+# %p     locale's equivalent of either AM or PM; blank if not known
+# %P     like %p, but lower case
+# %r     locale's 12-hour clock time (e.g., 11:11:04 PM)
+# %R     24-hour hour and minute; same as %H:%M
+# %s     seconds since 1970-01-01 00:00:00 UTC
+# %S     second (00..60)
+# %t     a tab
+# %T     time; same as %H:%M:%S
+# %u     day of week (1..7); 1 is Monday
+# %U     week number of year, with Sunday as first day of week (00..53)
+# %V     ISO week number, with Monday as first day of week (01..53)
+# %w     day of week (0..6); 0 is Sunday
+# %W     week number of year, with Monday as first day of week (00..53)
+# %x     locale's date representation (e.g., 12/31/99)
+# %X     locale's time representation (e.g., 23:13:48)
+# %y     last two digits of year (00..99)
+# %Y     year
+# %z     +hhmm numeric timezone (e.g., -0400)
+# %Z     alphabetic time zone abbreviation (e.g., EDT)
+# }}}
+
+DRAFT="$BLOG_DIR/content/journal/draft.md"
+
+# Dates
+DATE=$(date '+%Y-%m-%d')
+## nums
+WNUM=$(date +%U -d "$DATE + 1 week")
+DAY=$(date +%d -d $DATE)
+MNAME="$(date +%b -d $DATE)"
+# MNAME_UPPER="$(echo $MNAME | tr [a-z] [A-Z])"
+MNAME_UPPER="$(echo $MNAME | tr a-z A-Z)"
+MNUM=$(date +%m -d $DATE)
+QNAME="Q$((($(date -d "-1 month" +%-m)-1)/3+1 ))"
+YNUM=$(date +%y -d $DATE)
+YNUMF=$(date +%Y -d $DATE)
+
+FILENAME="$BLOG_DIR/content/journal/$YNUMF/m$MNUM/w$WNUM.md"
+WFILE="$(find "$BLOG_DIR" -wholename $FILENAME)"
+
+# Manual Test {{{1
+
+_test() {
+	TEST_DATE=2019-03-04
+	# DATE=$TEST_DATE
+
+	echo "FILENAME: $FILENAME"
+	echo "WFILE: $WFILE"
+}
+
+_mkdir() {
+	echo "$BLOG_DIR/content/journal/$YNUMF/m$MNUM/"
+	echo "FILENAME: $FILENAME"
+	echo "WFILE: $WFILE"
+}
+# }}}
+
+# Main {{{1
+main() {
+	if [ -e "$WFILE" ]; then
+		:
+	else
+		if [ ! -f $FILENAME ]; then
+			mkdir -p "$BLOG_DIR/content/journal/$YNUMF/m$MNUM/"
+			touch $FILENAME
+			echo "$FILENAME created"
+		else
+			:
+		fi
+
+	    # copy draft.md to $FILENAME
+	    cat "$DRAFT" > $FILENAME
+	    # replace with current date and times
+	    sed -i "s/2020-01-01/$YNUMF-$MNUM-$DAY/" $FILENAME
+	    sed -i "s/w01/w$WNUM/" $FILENAME
+	    sed -i "s/JAN/$MNAME_UPPER/" $FILENAME
+	    sed -i "s/Q1/$QNAME/" $FILENAME
+	    sed -i "s/20/$YNUM/" $FILENAME
+	    sed -i 's/2020/'$YNUMF'/' $FILENAME
+	    sed -i "s/draft: true/draft: false/" $FILENAME
+
+	    FIRST_SUN=$(date +%y-%m-%d)
+	    # check today is sunday
+	    if [[ $(date +%w -d $DATE) -gt 0 ]]; then
+		    # FIRST_SUN=$(date +%y-%m-%d -d "last sunday")
+		    FIRST_SUN=$(date +%y-%m-%d -d "$DATE -$(date -d $DATE +%u) days")
+	    fi
+
+	    # date change
+	    ## 11 Jan | Sun | 0
+	    CDATE=2020-01-11
+
+	    for i in {0..6}
+	    do
+		    NEXT_DATE=$(date "+%d %b" -d "$FIRST_SUN + $i day")
+		    NEXT_CDATE=$(date "+%d %b" -d "$CDATE + $i day")
+		    sed -i "s/$NEXT_CDATE/$NEXT_DATE/" $FILENAME
+	    done
+    fi
+}
+# }}}
+
+_mkdir
