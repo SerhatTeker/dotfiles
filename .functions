@@ -38,6 +38,10 @@ hugo-kill(){
 	# kill hugo server which runs in the background
 	echo "$(kill -9 $(ps -u $USER | grep hugo | awk '{print $1}'))"
 }
+
+hugo-find(){
+	pgrep -U $USER hugo
+}
 # }}}1
 
 
