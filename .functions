@@ -16,8 +16,8 @@
 
 # journal in vim
 journal(){
-	# check journal exist
-	. $(find "$SCRIPTS_DIR/" -name "journalCheck" 2>/dev/null)
+	# check journal exist, if not exist create
+    journal-check
 
 	DATE=$(date '+%Y-%m-%d')
 	WNUMBER=$(date +%U -d "$DATE + 1 week")

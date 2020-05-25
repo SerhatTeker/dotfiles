@@ -307,5 +307,3 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt SHARE_HISTORY
 # }}}2
 # }}}1
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
