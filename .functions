@@ -42,6 +42,10 @@ hugo-kill(){
 hugo-find(){
 	pgrep -U $USER hugo
 }
+
+hugo-grep(){
+	hugo-find
+}
 # }}}1
 
 
