@@ -12,9 +12,9 @@
 
 " Automatic Plugin Manager and Plugins installation
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-	silent !curl -fLSso ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYNVIMRC
+    silent !curl -fLSso ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYNVIMRC
 endif
 
 " Plugins will be downloaded under the specified directory.
@@ -58,6 +58,8 @@ Plug 'gko/vim-coloresque'
 " Statusbar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+" Search mathcup coints and position
+Plug 'osyo-manga/vim-anzu'
 " }}}3
 
 " Filetype {{{3
@@ -129,9 +131,9 @@ call plug#end()
 
 " Automatically install missing plugins on startup
 autocmd VimEnter *
-	\  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-	\|   PlugInstall --sync | q
-	\| endif
+            \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+            \|   PlugInstall --sync | q
+            \| endif
 " ----------------------------------------------------------------------------"
 "	}}}
 " ----------------------------------------------------------------------------"
@@ -185,14 +187,14 @@ set foldmethod=marker           " manual fold with '{...}'
 " enable to copy to clipboard for operations like yank, delete, change and put
 " http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
 if has('unnamedplus')
-	set clipboard^=unnamed
-	set clipboard^=unnamedplus
+    set clipboard^=unnamed
+    set clipboard^=unnamedplus
 endif
 
 " this enables us to undo files even if you exit vim.
 if has('persistent_undo')
-	set undofile
-	set undodir=~/.local/share/nvim/tmp/undo//
+    set undofile
+    set undodir=~/.local/share/nvim/tmp/undo//
 endif
 
 " auto source .vimrc after save
@@ -204,8 +206,8 @@ autocmd BufNewFile,BufRead .nvimrc set filetype=vim
 " Preview {{{2
 
 if has('nvim')
-	" Preview command results
-	set inccommand=nosplit
+    " Preview command results
+    set inccommand=nosplit
 endif
 " }}}
 
@@ -218,7 +220,7 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * checktime
 " Notification after file change
 " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
-  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+            \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 " }}}2
 
 " Auto Split Equally {{{
@@ -281,8 +283,8 @@ set listchars=eol:$,extends:»,precedes:«,nbsp:‡,space:␣
 
 " legacy Vim settings {{{2
 if !has('nvim')
-	set ttymouse=xterm2             " indicate terminal type for mouse codes
-	set ttyscroll=3                 " speedup scrolling
+    set ttymouse=xterm2             " indicate terminal type for mouse codes
+    set ttyscroll=3                 " speedup scrolling
 endif
 " }}}2
 " ----------------------------------------------------------------------------"
@@ -300,16 +302,16 @@ endif
 " If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 " (see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 " if (empty($TMUX))
-	if (has("nvim"))
-		"For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-	endif
-	" For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-	" Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-	" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-	if (has("termguicolors"))
-		set termguicolors
-	endif
+if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+" For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+" Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+    set termguicolors
+endif
 " endif
 
 " airline
@@ -320,18 +322,18 @@ let g:airline_theme='onedark'
 
 " check base16 theme
 if filereadable(expand("~/.vimrc_background"))
-	let base16colorspace=256
-	source ~/.vimrc_background
-" default colorscheme
+    let base16colorspace=256
+    source ~/.vimrc_background
+    " default colorscheme
 elseif filereadable(expand("~/.vim/colors/neodark.vim"))
-" elseif !isdirectory($VIMRUNTIME . "/colors/neodark.vim")
-	colorscheme neodark
+    " elseif !isdirectory($VIMRUNTIME . "/colors/neodark.vim")
+    colorscheme neodark
 else
-	" custom default colors
-	let g:onedark_color_overrides = {
-				\ "black": {"gui": "#1b1b1b", "cterm": "233", "cterm16": "0" },
-				\}
-	colorscheme onedark
+    " custom default colors
+    let g:onedark_color_overrides = {
+                \ "black": {"gui": "#1b1b1b", "cterm": "233", "cterm16": "0" },
+                \}
+    colorscheme onedark
 endif
 " }}}2
 
@@ -372,12 +374,12 @@ nnoremap <F10> :execute getline(".")<CR>
 
 " Save and run File according to it's filetype
 augroup RunFile
-	autocmd!
-	autocmd FileType python nnoremap <buffer><silent><C-S-F10> :w<CR> :! python3 %<CR>
-	autocmd FileType sh nnoremap <buffer><silent><C-S-F10> :w<CR> :! "%:p"<CR>
-	autocmd FileType c nnoremap <buffer><silent><C-S-F10> :w<CR> :!clear; gcc %; ./a.out<CR>
-	autocmd FileType cpp  nnoremap <buffer><silent><C-S-F10> :w<CR> :!clear; g++ %; ./a.out<CR>
-	autocmd FileType ruby nnoremap <buffer><silent><C-S-F10> :w<CR> :!clear; ruby %<CR>
+    autocmd!
+    autocmd FileType python nnoremap <buffer><silent><C-S-F10> :w<CR> :! python3 %<CR>
+    autocmd FileType sh nnoremap <buffer><silent><C-S-F10> :w<CR> :! "%:p"<CR>
+    autocmd FileType c nnoremap <buffer><silent><C-S-F10> :w<CR> :!clear; gcc %; ./a.out<CR>
+    autocmd FileType cpp  nnoremap <buffer><silent><C-S-F10> :w<CR> :!clear; g++ %; ./a.out<CR>
+    autocmd FileType ruby nnoremap <buffer><silent><C-S-F10> :w<CR> :!clear; ruby %<CR>
 augroup END
 " }}}
 
@@ -411,21 +413,21 @@ nnoremap <C-B>c :BufCurOnly<CR>
 
 " Align {{{
 if exists(":Tabularize")
-	" Align
-	vnoremap <leader>ss :Tabularize /\S\(' . split(&commentstring, '%s')[0] . '.*\)\@<!\zs\ /l0<CR>
-	nnoremap <leader>ss :Tabularize /\S\(' . split(&commentstring, '%s')[0] . '.*\)\@<!\zs\ /l0<CR>
-	" align with `:`
-	nmap <leader>a: :Tabularize /:\zs<CR>
-	vmap <leader>a: :tabularize /:\zs<CR>
-	" align with `-`
-	nmap <leader>a- :Tabularize /-<CR>
-	vmap <leader>a- :tabularize /-<CR>
-	" align with `=`
-	nmap <leader>a= :Tabularize /:\zs<CR>
-	vmap <leader>a= :tabularize /:\zs<CR>
-	" align end comments
-	vnoremap <expr> <Leader>a. ':Tabularize /^\s*\S.*\zs' . split(&commentstring, '%s')[0] . "<CR>"
-	nnoremap <expr> <Leader>a. ':Tabularize /^\s*\S.*\zs' . split(&commentstring, '%s')[0] . "<CR>"
+    " Align
+    vnoremap <leader>ss :Tabularize /\S\(' . split(&commentstring, '%s')[0] . '.*\)\@<!\zs\ /l0<CR>
+    nnoremap <leader>ss :Tabularize /\S\(' . split(&commentstring, '%s')[0] . '.*\)\@<!\zs\ /l0<CR>
+    " align with `:`
+    nmap <leader>a: :Tabularize /:\zs<CR>
+    vmap <leader>a: :tabularize /:\zs<CR>
+    " align with `-`
+    nmap <leader>a- :Tabularize /-<CR>
+    vmap <leader>a- :tabularize /-<CR>
+    " align with `=`
+    nmap <leader>a= :Tabularize /:\zs<CR>
+    vmap <leader>a= :tabularize /:\zs<CR>
+    " align end comments
+    vnoremap <expr> <Leader>a. ':Tabularize /^\s*\S.*\zs' . split(&commentstring, '%s')[0] . "<CR>"
+    nnoremap <expr> <Leader>a. ':Tabularize /^\s*\S.*\zs' . split(&commentstring, '%s')[0] . "<CR>"
 endif
 
 " Align blocks of text and keep them selected
@@ -475,8 +477,8 @@ map <C-h> <C-w><Left>
 " Debug Highlight {{{
 
 map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+            \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+            \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " }}}
 
 " Others {{{
@@ -522,11 +524,11 @@ com! DiffSaved call s:DiffWithSaved()
 
 " see changes in current buffer. like Code git diff
 function! s:DiffWithSaved()
-	let filetype=&ft
-	diffthis
-	vnew | r # | normal! 1Gdd
-	diffthis
-	exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+    let filetype=&ft
+    diffthis
+    vnew | r # | normal! 1Gdd
+    diffthis
+    exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 " }}}2
 
@@ -555,8 +557,8 @@ endfunction
 
 " check var
 if trim_white_spaces_auto == 1
-	" run when file saved
-	autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+    " run when file saved
+    autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 endif
 
 " map to <F5>
@@ -597,53 +599,53 @@ nmap <C-g> :GoDeclsDir<cr>
 imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
 
 augroup go
-	autocmd!
+    autocmd!
 
-	" Show by default 4 spaces for a tab
-	autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+    " Show by default 4 spaces for a tab
+    autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
-	" :GoBuild and :GoTestCompile
-	autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+    " :GoBuild and :GoTestCompile
+    autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
-	" :GoTest
-	autocmd FileType go nmap <leader>t  <Plug>(go-test)
+    " :GoTest
+    autocmd FileType go nmap <leader>t  <Plug>(go-test)
 
-	" :GoRun
-	autocmd FileType go nmap <leader>r  <Plug>(go-run)
+    " :GoRun
+    autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
-	" :GoDoc
-	autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+    " :GoDoc
+    autocmd FileType go nmap <Leader>d <Plug>(go-doc)
 
-	" :GoCoverageToggle
-	autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+    " :GoCoverageToggle
+    autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 
-	" :GoInfo
-	autocmd FileType go nmap <Leader>i <Plug>(go-info)
+    " :GoInfo
+    autocmd FileType go nmap <Leader>i <Plug>(go-info)
 
-	" :GoMetaLinter
-	autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+    " :GoMetaLinter
+    autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
 
-	" :GoDef but opens in a vertical split
-	autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
-	" :GoDef but opens in a horizontal split
-	autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+    " :GoDef but opens in a vertical split
+    autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+    " :GoDef but opens in a horizontal split
+    autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
 
-	" :GoAlternate  commands :A, :AV, :AS and :AT
-	autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-	autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-	autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-	autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+    " :GoAlternate  commands :A, :AV, :AS and :AT
+    autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+    autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+    autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+    autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 augroup END
 
 " build_go_files is a custom function that builds or compiles the test file.
 " It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
 function! s:build_go_files()
-	let l:file = expand('%')
-	if l:file =~# '^\f\+_test\.go$'
-		call go#test#Test(0, 1)
-	elseif l:file =~# '^\f\+\.go$'
-		call go#cmd#Build(0)
-	endif
+    let l:file = expand('%')
+    if l:file =~# '^\f\+_test\.go$'
+        call go#test#Test(0, 1)
+    elseif l:file =~# '^\f\+\.go$'
+        call go#cmd#Build(0)
+    endif
 endfunction
 " }}}
 
@@ -686,20 +688,20 @@ let g:airline#extensions#ale#enabled = 1
 
 " linters
 let g:ale_linters = {
-	\ 'python': ['flake8'],
-	\ 'javascript': ['eslint'],
-	\ 'html': ['prettier'],
-\}
+            \ 'python': ['flake8'],
+            \ 'javascript': ['eslint'],
+            \ 'html': ['prettier'],
+            \}
 
 " fixers
 let g:ale_fixers = {
-	\ 'javascript': ['eslint'],
-	\ 'html': ['tidy'],
-	\ 'python': [
-		\ 'black',
-		\ 'reorder-python-imports',
-	\],
-\}
+            \ 'javascript': ['eslint'],
+            \ 'html': ['tidy'],
+            \ 'python': [
+            \ 'black',
+            \ 'reorder-python-imports',
+            \],
+            \}
 " }}}
 
 " signs {{{
@@ -768,9 +770,9 @@ nmap <F8> <Plug>(ale_fix)
 
 " This is the default extra key bindings
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit' }
 
 map <C-B> :Buffers<CR>
 map <leader>h :History<CR>
@@ -817,9 +819,9 @@ let g:markdown_enable_mappings = 1
 let g:markdown_enable_conceal = 0
 
 augroup MarkdownFiles
-	autocmd!
-	" define markdown file extensions
-	autocmd BufNewFile,BufRead *.{markdown,mdown,mkd,mkdn,mdwn,md}  setf markdown
+    autocmd!
+    " define markdown file extensions
+    autocmd BufNewFile,BufRead *.{markdown,mdown,mkd,mkdn,mdwn,md}  setf markdown
 augroup END
 " }}}
 
@@ -863,9 +865,9 @@ augroup END
 
 " vim-polyglot
 let g:polyglot_disabled = [
-			\'markdown',
-			\'python',
-			\]
+            \'markdown',
+            \'python',
+            \]
 
 " gabrielelana/vim-markdown
 let g:markdown_enable_folding = 1
@@ -897,10 +899,10 @@ let NERDTreeDirArrows = 1
 
 " Ignore
 let NERDTreeIgnore = [
-			\ '\.pyc$',
-			\ '^__pycache__$',
-			\ '\.retry$'
-			\]
+            \ '\.pyc$',
+            \ '^__pycache__$',
+            \ '\.retry$'
+            \]
 
 " show bookmarkds
 " let NERDTreeShowBookmarks=1
@@ -998,8 +1000,8 @@ let g:indentLine_char = '|'
 
 " Bullets.vim {{{
 let g:bullets_enabled_file_types = [
-    \ 'markdown',
-    \]
+            \ 'markdown',
+            \]
 " }}}
 
 " CtrlSF {{{2
