@@ -108,7 +108,8 @@ let rehash256 = 1
 let molokai_original = 1
 
 " Colorscheme
-colorscheme solokai
+" Use default one for now: neodark
+" colorscheme solokai
 
 " Airline
 " check if the plugin is loaded
