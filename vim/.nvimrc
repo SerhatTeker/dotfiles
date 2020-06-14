@@ -58,7 +58,7 @@ Plug 'gko/vim-coloresque'
 " Statusbar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Search mathcup coints and position
+" Search mathcup counts and position
 Plug 'osyo-manga/vim-anzu'
 " }}}3
 
