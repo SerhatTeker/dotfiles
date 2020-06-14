@@ -277,7 +277,7 @@ prompt_dir() {
 }
 # }}}3
 
-# fzf {{{3
+# FZF {{{3
 
 [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
 
@@ -288,6 +288,23 @@ export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore-dir={__pycache__,
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# preview {{{4
+
+# WARNING
+# https://github.com/sharkdp/bat/issues/357#issuecomment-429649196
+## bat doesn't work with any input other than the list of files
+### ps -ef | fzf
+### seq 100 | fzf
+### history | fzf
+# https://github.com/sharkdp/bat/issues/357#issuecomment-429649196
+export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+
+# alternative
+# https://github.com/sharkdp/bat/issues/357#issuecomment-555971886
+# export FZF_PREVIEW_COMMAND="bat --style=numbers,changes --wrap never --color always {} || cat {} || tree -C {}"
+# export FZF_CTRL_T_OPTS="--min-height 30 --preview-window down:60% --preview-window noborder --preview '($FZF_PREVIEW_COMMAND) 2> /dev/null'"
+# }}}4
 # }}}3
 # }}}2
 # }}}1
