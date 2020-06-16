@@ -75,3 +75,12 @@ endsnippet
 snippet emdash "emdash" b
 — $1
 endsnippet
+
+# hugo-notice
+snippet notice "hugo notice {note, warning, tip, info}" b
+{{< notice $1 >}}
+$2
+{{< /notice >}}
+
+$0
+endsnippet
