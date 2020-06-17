@@ -108,8 +108,9 @@ Plug 'bkad/CamelCaseMotion'
 " Others
 Plug 'godlygeek/tabular'
 "" Pair
-Plug 'SerhatTeker/auto-pairs'
-" Plug 'jiangmiao/auto-pairs'     " insert mode auto-completion for quotes, parens, brackets, etc
+" Disabled.
+" Plug 'SerhatTeker/auto-pairs'
+Plug 'jiangmiao/auto-pairs'     " insert mode auto-completion for quotes, parens, brackets, etc
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'AndrewRadev/splitjoin.vim'
@@ -1076,12 +1077,30 @@ inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 " auto-pair {{{
 
-" Toggle Autopairs disabled due to conflict
+
+" Change defaults {{{
+
+" Defaults
+" au Filetype * let b:AutoPairs={'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+" Change defaults
+au Filetype * let b:AutoPairs={'(':')', '[':']', '{':'}'}
+" }}}
+
+" Define Custom AutoPairs {{{
+
+" Markdown
+" No Need. Using snippet
+" au Filetype markdown let b:AutoPairs = AutoPairsDefine({'{{<' : ' >}}'})
+" }}}
+
+" Toggle Autopairs disabled due to conflict {{{
+
 let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsUseInsertedCount = 1
 let g:AutoPairsDelRepeatedPairs = 1
 " Map <space> to insert a space after the opening character and before the closing one
 let g:AutoPairsMapSpace = 0
+" }}}
 " }}}
 
 " editorconfig {{{
