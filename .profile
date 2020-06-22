@@ -40,7 +40,8 @@ DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # NeoVim Resource {{{2
 
-export MYNVIMRC=$HOME/.nvimrc
+export MYNVIMRC=$HOME/dotfiles/vim/.nvimrc
+# export MYNVIMRC=$HOME/.nvimrc
 # }}}2
 
 # Colors {{{2

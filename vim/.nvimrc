@@ -198,11 +198,20 @@ if has('persistent_undo')
     set undodir=~/.local/share/nvim/tmp/undo//
 endif
 
-" auto source .vimrc after save
-autocmd! bufwritepost $MYNVIMRC source $MYNVIMRC
+" MYNVIMRC {{{2
 
-" $MYNVIMRC filetype
-autocmd BufNewFile,BufRead .nvimrc set filetype=vim
+augroup nvimrc
+    " auto source .vimrc after save
+    " autocmd! bufwritepost $MYNVIMRC source $MYNVIMRC
+    " FIXME: use $MYNVIMRC instead of hardcoded path
+    autocmd! BufWritePost ~/dotfiles/vim/.nvimrc source % | echom "Reloaded $NVIMRC"
+    autocmd! BufWritePost ~/.nvimrc source % | echom "Reloaded $NVIMRC"
+    " autocmd! BufWritePost ~/dotfiles/vim/.nvimrc source % | echom "Reloaded $NVIMRC" | redraw
+
+    " $MYNVIMRC filetype
+    autocmd! BufNewFile,BufRead .nvimrc set filetype=vim
+augroup END
+" }}}
 
 " Preview {{{2
 
