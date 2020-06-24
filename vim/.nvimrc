@@ -75,12 +75,20 @@ Plug 'jeetsukumaran/vim-pythonsense'
 " Golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" markdown
-Plug 'gabrielelana/vim-markdown'
+" markdown {{{4
+"
+" default plugin
+Plug 'plasticboy/vim-markdown'
+" Plug 'plasticboy/vim-markdown', { 'on': [], 'for': []  }
+" Plug 'serhatteker/vim-markdown-default'
+"
+" Preview Plug 'greyblake/vim-preview'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+" Bullets
 Plug 'dkarter/bullets.vim'
-Plug 'greyblake/vim-preview'
+" Rst
 Plug 'gu-fan/InstantRst'
+" }}}4
 
 " }}}3
 
@@ -113,6 +121,8 @@ Plug 'godlygeek/tabular'
 Plug 'jiangmiao/auto-pairs'     " insert mode auto-completion for quotes, parens, brackets, etc
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+" Needed for 'vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'dbakker/vim-projectroot'
@@ -126,6 +136,9 @@ Plug 'tpope/vim-obsession'
 " icons
 " Has to be last according to docs
 " Plug 'ryanoasis/vim-devicons'
+
+" Vim Wiki
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 " }}}2
@@ -825,7 +838,7 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 " Markdown
 " vim-markdown
 let g:markdown_enable_spell_checking = 0
-let g:markdown_enable_mappings = 1
+let g:markdown_enable_mappings = 0
 let g:markdown_enable_conceal = 0
 
 augroup MarkdownFiles
@@ -870,7 +883,12 @@ augroup END
 " let xml_syntax_folding=1      " XML
 
 " 3 | plasticboy
-" let g:vim_markdown_folding_style_pythonic = 0
+
+" let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_folding_style_pythonic = 1
+
+let g:vim_markdown_toml_frontmatter = 1
+
 " }}}
 
 " vim-polyglot
@@ -1125,6 +1143,35 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 " both the stock Vim 8.0+ motions and vim-pythonsense
 let g:is_pythonsense_alternate_motion_keymaps = 1
 " }}}
+
+" Vim Wiki {{{
+
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                  \ 'syntax': 'markdown', 'ext': '.md'}]
+
+let g:vimwiki_global_ext = 0
+" }}}
 " ----------------------------------------------------------------------------"
 "	}}}
 " ----------------------------------------------------------------------------"
+
+" FIXME: Do it later
+" choose markdown plug for vimwiki and thre rest
+" function! SetupMarkdown()
+"     if &filetype == 'markdown'
+"         echom "Filetype is Markdown"
+
+"         let l:path = expand('%:p')
+"         if l:path =~ '~/vimwiki'
+"             echom "Path is vimwiki"
+"             Plug 'plasticboy/vim-markdown'
+"         elseif l:path =~ '~/projects/blog'
+"             echom "Path is BLOG"
+"         else
+"             Plug 'serhatteker/vim-markdown-default'
+"             echom "Path is NOT vimwiki"
+"         endif
+"     endif
+" endfunction
+
+" autocmd! BufReadPost,BufNewFile * call SetupMarkdown()
