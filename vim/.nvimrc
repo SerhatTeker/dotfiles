@@ -140,6 +140,10 @@ Plug 'tpope/vim-obsession'
 " Vim Wiki
 Plug 'vimwiki/vimwiki'
 
+" Minimal Center
+Plug 'jmckiern/vim-venter'
+Plug 'junegunn/goyo.vim'
+
 call plug#end()
 " }}}2
 
@@ -1146,7 +1150,7 @@ let g:is_pythonsense_alternate_motion_keymaps = 1
 
 " Vim Wiki {{{
 
-let g:vimwiki_list = [{'path': '~/vimwiki/',
+let g:vimwiki_list = [{'path': '~/wisdom/',
                   \ 'syntax': 'markdown', 'ext': '.md'}]
 
 let g:vimwiki_global_ext = 0
