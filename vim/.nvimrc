@@ -1154,6 +1154,11 @@ let g:vimwiki_list = [{'path': '~/wisdom/',
                   \ 'syntax': 'markdown', 'ext': '.md'}]
 
 let g:vimwiki_global_ext = 0
+
+" disable all mappings
+let g:vimwiki_key_mappings = { 'all_maps': 0, }
+
+nmap <Leader>d <Plug>VimwikiFollowLink
 " }}}
 
 " goyo {{{
