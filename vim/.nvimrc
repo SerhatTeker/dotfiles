@@ -1168,24 +1168,3 @@ let g:goyo_width = 120
 " ----------------------------------------------------------------------------"
 "	}}}
 " ----------------------------------------------------------------------------"
-
-" FIXME: Do it later
-" choose markdown plug for vimwiki and thre rest
-" function! SetupMarkdown()
-"     if &filetype == 'markdown'
-"         echom "Filetype is Markdown"
-
-"         let l:path = expand('%:p')
-"         if l:path =~ '~/vimwiki'
-"             echom "Path is vimwiki"
-"             Plug 'plasticboy/vim-markdown'
-"         elseif l:path =~ '~/projects/blog'
-"             echom "Path is BLOG"
-"         else
-"             Plug 'serhatteker/vim-markdown-default'
-"             echom "Path is NOT vimwiki"
-"         endif
-"     endif
-" endfunction
-
-" autocmd! BufReadPost,BufNewFile * call SetupMarkdown()
