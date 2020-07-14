@@ -92,7 +92,10 @@ alias t='tmux a -t tmp'
 # hugo {{{
 
 # get initial hugo git initial template
-alias gist-hugo='ddl_gist "https://gist.github.com/SerhatTeker/7fee6d84f2f3d16ef3628e9a4a7f57e7" .'
+alias hugo-gist='ddl_gist "https://gist.github.com/SerhatTeker/7fee6d84f2f3d16ef3628e9a4a7f57e7" .'
+alias hg='hugo-grep'
+alias hs='hugo-start'
+alias hk='hugo-kill'
 # }}}
 
 # docker {{{
