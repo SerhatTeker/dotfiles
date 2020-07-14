@@ -109,3 +109,9 @@ snippet hugo-shortcode "Hugo shortcode" b
 {{< $1 >}}
 $0
 endsnippet
+
+# relref anchor
+snippet hugo-relref-anchor "relref for #anchors" b
+[$1]({{< relref "#$2" >}})
+$0
+endsnippet
