@@ -24,6 +24,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
 # alternatives
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_THEME="avit"
 # ZSH_THEME="powerlevel9k/powerlevel9k"
 # ZSH_THEME="simple"
@@ -259,6 +260,7 @@ ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
 
 # oh-my-zsh/themes/agnoster.zsh-theme
 # https://github.com/robbyrussell/oh-my-zsh/blob/00ec11d3c0a2b2b7413ad84940ddec299aafbb04/themes/agnoster.zsh-theme#L63
+
 # prompt
 DEFAULT_USER=
 
@@ -269,12 +271,20 @@ prompt_context() {
 		prompt_segment 235 9 "%(!.%{%F{yellow}%}.)$USER@%m"
 	else
 		prompt_segment 235 cyan "%(!.%{%F{yellow}%}.)$USER"
+        # prompt_segment $PRIMARY_FG default " %(!.%{%F{yellow}%}.)$user@%m "
 	fi
 }
 # prompt dir
 prompt_dir() {
 	prompt_segment blue white '%~'
+    # if too long show parent and itself dir
+	# prompt_segment blue white '%2~'
 }
+
+# To disable background jobs next to vsc
+prompt_hg() {
+}
+
 # }}}3
 
 # FZF {{{3
