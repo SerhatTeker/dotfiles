@@ -155,7 +155,7 @@ fi
 
 # Senstive functions which are not pushed to Github
 # It containssome functions, aliases etc...
-[ -f ~/.zsh_private ] && source ~/.zsh_private
+[ -f $HOME/.zsh/.zsh_private ] && source $HOME/.zsh/.zsh_private
 # }}}2
 
 # python venv {{{2
@@ -264,7 +264,7 @@ ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
 
 # FZF {{{3
 
-[ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
+[ -f $HOME/.zsh/.fzf.zsh ] && source $HOME/.zsh/.fzf.zsh
 
 # fzf + ag configuration
 # Setting ag as the default source for fzf
