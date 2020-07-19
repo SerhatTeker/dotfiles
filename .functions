@@ -23,7 +23,7 @@ journal(){
 	WNUMBER=$(date +%U -d "$DATE + 1 week")
 	YNUMF=$(date +%Y -d $DATE)
 
-	vi $(find "$BLOG_DIR/content/journal/$YNUMF" -name "w$WNUMBER.md")
+	vi $(find "$JOURNAL_DIR/content/journal/$YNUMF" -name "w$WNUMBER.md")
 }
 
 tj(){
@@ -31,7 +31,7 @@ tj(){
 }
 
 hugo-start(){
-	nohup hugo server --navigateToChanged -s "$BLOG_DIR" -p 1134 >/dev/null 2>&1 &
+	nohup hugo server --navigateToChanged -s "$JOURNAL_DIR" -p 1134 >/dev/null 2>&1 &
 }
 
 hugo-kill(){

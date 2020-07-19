@@ -58,7 +58,7 @@
 # %Z     alphabetic time zone abbreviation (e.g., EDT)
 # }}}
 
-DRAFT="$BLOG_DIR/content/journal/draft.md"
+DRAFT="$JOURNAL_DIR/content/journal/draft.md"
 
 # Dates
 DATE=$(date '+%Y-%m-%d')
@@ -73,8 +73,8 @@ QNAME="Q$((($(date -d "-1 month" +%-m)-1)/3+1 ))"
 YNUM=$(date +%y -d $DATE)
 YNUMF=$(date +%Y -d $DATE)
 
-FILENAME="$BLOG_DIR/content/journal/$YNUMF/m$MNUM/w$WNUM.md"
-WFILE="$(find "$BLOG_DIR" -wholename $FILENAME)"
+FILENAME="$JOURNAL_DIR/content/journal/$YNUMF/m$MNUM/w$WNUM.md"
+WFILE="$(find "$JOURNAL_DIR" -wholename $FILENAME)"
 
 # Manual Test {{{1
 
@@ -87,7 +87,7 @@ _test() {
 }
 
 _mkdir() {
-	echo "$BLOG_DIR/content/journal/$YNUMF/m$MNUM/"
+	echo "$JOURNAL_DIR/content/journal/$YNUMF/m$MNUM/"
 	echo "FILENAME: $FILENAME"
 	echo "WFILE: $WFILE"
 }
@@ -99,7 +99,7 @@ main() {
 		:
 	else
 		if [ ! -f $FILENAME ]; then
-			mkdir -p "$BLOG_DIR/content/journal/$YNUMF/m$MNUM/"
+			mkdir -p "$JOURNAL_DIR/content/journal/$YNUMF/m$MNUM/"
 			touch $FILENAME
 			echo "$FILENAME created"
 		else
