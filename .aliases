@@ -43,7 +43,7 @@ alias screenshots-clear='rm -r $HOME/Pictures/Screenshot*'
 alias screenshots-clean='screenshots-clear'
 alias clean-screenshots='screenshots-clear'
 alias fan='mono /opt/nbfc/nbfc.exe status -a'
-alias wifi-restart='nmcli radio wifi off && nmcli radio wifi on'
+alias wifi-reboot='nmcli radio wifi off && nmcli radio wifi on'
 ## night-mode
 alias night-on='gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true'
 alias night-off='gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false'
