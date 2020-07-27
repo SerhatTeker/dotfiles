@@ -715,7 +715,7 @@ let g:airline#extensions#ale#enabled = 1
 
 " linters
 let g:ale_linters = {
-            \ 'python': ['flake8'],
+            \ 'python': ['flake8', 'mypy', 'pylint' ],
             \ 'javascript': ['eslint'],
             \ 'html': ['prettier'],
             \}
@@ -725,8 +725,8 @@ let g:ale_fixers = {
             \ 'javascript': ['eslint'],
             \ 'html': ['tidy'],
             \ 'python': [
-            \ 'black',
-            \ 'reorder-python-imports',
+                \ 'black',
+                \ 'isort',
             \],
             \}
 " }}}
