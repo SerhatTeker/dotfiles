@@ -715,7 +715,7 @@ let g:airline#extensions#ale#enabled = 1
 
 " linters
 let g:ale_linters = {
-            \ 'python': ['flake8', 'mypy', 'pylint' ],
+            \ 'python': ['flake8', 'mypy',],
             \ 'javascript': ['eslint'],
             \ 'html': ['prettier'],
             \}
