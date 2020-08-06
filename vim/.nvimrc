@@ -806,7 +806,7 @@ map <leader>h :History<CR>
 map <leader>l :Lines<CR>
 
 " Files for git project root
-map <C-p> :<C-u>FZF<CR>
+map <C-p> :<C-u>FZF!<CR>
 " map <C-p> :<C-u>ProjectRootExe Files<CR>
 
 " ag for git project root
