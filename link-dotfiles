@@ -31,3 +31,9 @@ ln -s $HOME/dotfiles/zsh/.agnoster.zsh $HOME/.zsh
 ln -s $HOME/dotfiles/zsh/.fzf.zsh $HOME/.zsh
 # }}}
 
+
+# Ctags {{{
+
+ln -s $HOME/dotfiles/ctags/.ctags $HOME
+# }}}
+

@@ -144,6 +144,9 @@ Plug 'vimwiki/vimwiki'
 Plug 'jmckiern/vim-venter'
 Plug 'junegunn/goyo.vim'
 
+" ctags
+Plug 'ludovicchabant/vim-gutentags'
+
 call plug#end()
 " }}}2
 
@@ -289,6 +292,9 @@ let g:airline#extensions#obsession#indicator_text = '$'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" gutentag airline
+let g:airline#extensions#gutentags#enabled = 1
 " }}}
 
 " save {{{2
@@ -1164,6 +1170,20 @@ nmap <Leader>d <Plug>VimwikiFollowLink
 " goyo {{{
 
 let g:goyo_width = 120
+" }}}
+
+" vim-gutentags {{{
+
+" markers {{{
+
+" How To Generate Ctags Include Python site-packages
+" https://github.com/ludovicchabant/vim-gutentags/issues/179
+let g:gutentags_file_list_command = {
+ \ 'markers': {
+     \ '.pythontags': '~/dotfiles/ctags/python_file_lister.py',
+     \ },
+ \ }
+" }}}
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}

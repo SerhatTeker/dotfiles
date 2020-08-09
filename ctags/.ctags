@@ -1,0 +1,13 @@
+--recurse=yes
+--tag-relative=yes
+
+--exclude=.git
+--exclude=*.pyc
+--exclude=*.pyo
+--exclude=.DS_Store
+--exclude=*/build/*
+--exclude=*.md
+
+--fields=+ailmnS
+
+--python-kinds=-iv
