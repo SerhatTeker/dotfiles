@@ -53,6 +53,7 @@ Plug 'fatih/molokai'
 Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'chuling/vim-equinusocio-material'
+Plug 'morhetz/gruvbox'
 " Colors
 Plug 'gko/vim-coloresque'
 " Statusbar
@@ -361,6 +362,10 @@ if filereadable(expand("~/.vimrc_background"))
 elseif filereadable(expand("~/.vim/colors/neodark.vim"))
     " elseif !isdirectory($VIMRUNTIME . "/colors/neodark.vim")
     colorscheme neodark
+    " TODO: make opt possible
+    " gruvbox
+    " colorscheme gruvbox
+    " let g:gruvbox_contrast_dark = "hard"
 else
     " custom default colors
     let g:onedark_color_overrides = {
