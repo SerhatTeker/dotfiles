@@ -3,15 +3,20 @@
 # https://github.com/robbyrussell/oh-my-zsh/blob/00ec11d3c0a2b2b7413ad84940ddec299aafbb04/themes/agnoster.zsh-theme#L63
 
 # prompt
-DEFAULT_USER=
+# DEFAULT_USER=$USER
 
 prompt_context() {
-	if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-		prompt_segment 235 10 "%(!.%{%F{yellow}%}.)$USER@%m"
-	elif [[ "$USER" == "root" ]]; then
+	if [[ "$USER" == "root" ]]; then
 		prompt_segment 235 9 "%(!.%{%F{yellow}%}.)$USER@%m"
-	else
-		prompt_segment 235 cyan "%(!.%{%F{yellow}%}.)$USER"
+	elif [[ "$USER" == "$DEFAULT_USER" ]]; then
+		# prompt_segment 235 10 "%(!.%{%F{yellow}%}.)$USER@%m"
+        # remove user@host infor for
+        :
+	elif [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+		prompt_segment 235 cyan "%(!.%{%F{yellow}%}.)$USER@%m"
+        # option 2
+		# prompt_segment 235 10 "%(!.%{%F{yellow}%}.)$USER@%m"
+        # option 3
         # prompt_segment $PRIMARY_FG default " %(!.%{%F{yellow}%}.)$user@%m "
 	fi
 }
@@ -28,4 +33,5 @@ prompt_dir() {
 # To disable background jobs next to vsc
 prompt_hg() {
     # blank
+    :
 }
