@@ -426,6 +426,7 @@ augroup END
 " Shortcut for qa
 command! Q :qa
 " }}}
+
 " buffers {{{
 
 " open buffers with FZF
@@ -554,6 +555,11 @@ map <F3> :set list! list? <CR>
 
 " Enter automatically into the files directory
 " autocmd BufEnter * silent! lcd %:p:h
+
+" Paste toggle
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
