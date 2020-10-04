@@ -523,20 +523,29 @@ map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 
 " fugitive {{{
 
-" Git diff
+" Git diff {{{
+
+" Diffsaved key map
+nnoremap <leader>D :DiffSaved<CR>
 
 " always open diffs vertical
 set diffopt+=vertical
+" }}}
 
 nnoremap <leader>d :Gvdiff<CR>
 " Git status
 nnoremap <silent>ss :20G<CR>
 " Git commit
 nnoremap <silent>cc :Gcommit<CR>
-" Git push
+
+" Git push{{{
+
 " nnoremap <leader>pp :Gpush<CR>
-" Diffsaved key map
-nnoremap <leader>D :DiffSaved<CR>
+" Custom GPush
+" don't like defaul silent :Gpush
+command! GP :!git push -v
+nnoremap <leader>pp :GP<CR>
+" }}}
 " }}}
 
 " show whitespaces as chars
