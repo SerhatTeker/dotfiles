@@ -556,10 +556,10 @@ map <F3> :set list! list? <CR>
 " Enter automatically into the files directory
 " autocmd BufEnter * silent! lcd %:p:h
 
-" Paste toggle
-nnoremap <F2> :set invpaste paste?<CR>
+" Paste toggle {{{
+
 set pastetoggle=<F2>
-set showmode
+" }}}
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
