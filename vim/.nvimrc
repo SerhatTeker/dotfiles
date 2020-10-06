@@ -528,13 +528,13 @@ map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 
 " Diffsaved key map
 nnoremap <leader>D :DiffSaved<CR>
+" Git diff current and previous version
+nmap <leader>d :Gvdiffsplit HEAD<CR>
 
 " always open diffs vertical
 set diffopt+=vertical
 " }}}
 
-" Git diff current and previous version
-nnoremap <leader>d :Gvdiffsplit HEAD<CR>
 " Git status
 nnoremap <silent>ss :20G<CR>
 " Git commit
@@ -1185,7 +1185,7 @@ let g:vimwiki_global_ext = 0
 " disable all mappings
 let g:vimwiki_key_mappings = { 'all_maps': 0, }
 
-nmap <Leader>d <Plug>VimwikiFollowLink
+nmap <leader>L <Plug>VimwikiFollowLink
 " }}}
 
 " goyo {{{
