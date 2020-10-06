@@ -533,7 +533,8 @@ nnoremap <leader>D :DiffSaved<CR>
 set diffopt+=vertical
 " }}}
 
-nnoremap <leader>d :Gvdiff<CR>
+" Git diff current and previous version
+nnoremap <leader>d :Gvdiffsplit HEAD<CR>
 " Git status
 nnoremap <silent>ss :20G<CR>
 " Git commit
