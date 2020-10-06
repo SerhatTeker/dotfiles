@@ -145,6 +145,22 @@ git_sync_fork() {
 		git rebase upstream/master
 }
 
+# Delete branch local and remote
+git_delete_total_branch() {
+    BRANCH=$1
+    REMOTE="origin"
+
+    if [ "$2" != "" ]; then
+        # Positional parameter $2 is not empty
+        REMOTE=$1
+        BRANCH=$2
+    fi
+
+    git branch -d $BRANCH
+    git push -d $REMOTE $BRANCH
+
+}
+
 # Download all files from a github gist url
 # Usage Example: $ ddl-gist 'https://gist.github.com/7fee6d84f2f3d16ef3628e9a4a7f57e7' ~/Downloads/gists
 ddl_gist(){
