@@ -245,7 +245,7 @@ unzip-it () {
     unzip -d "$zipdir" "$zipfile"
 }
 
-x() {
+extract-it() {
 	# With the above code in your .bashrc, typing an x followed by a filename will
 	# extract most archives you come across (assuming you have the packages needed to
 	# extract that type of archive).
