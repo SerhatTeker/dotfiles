@@ -1206,6 +1206,21 @@ let g:gutentags_file_list_command = {
  \ }
 " }}}
 " }}}
+
+" Airline {{{
+
+" Z Info{{{
+
+" Default Z Info
+" https://github.com/vim-airline/vim-airline/blob/a294f0cb7e847219f67c2a55d5fb400b7c93d4af/autoload/airline/init.vim#L217
+" let spc = g:airline_symbols.space
+" let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%p%%'.spc, 'linenr', 'maxlinenr', ':%v'])
+
+" Simple Z info
+" Line:Column
+let g:airline_section_z = airline#section#create(['%3L',  ':%v'])
+" }}}
+" }}}
 " ----------------------------------------------------------------------------"
 "	}}}
 " ----------------------------------------------------------------------------"
