@@ -539,6 +539,8 @@ set diffopt+=vertical
 nnoremap <silent>ss :20G<CR>
 " Git commit
 nnoremap <silent>cc :Gcommit<CR>
+" File History
+nnoremap <silent>HH :0Glog!<CR>
 
 " Git push{{{
 
@@ -828,7 +830,9 @@ let g:fzf_action = {
             \ 'ctrl-x': 'split',
             \ 'ctrl-v': 'vsplit' }
 
-map <C-B> :Buffers<CR>
+map B :Buffers<CR>
+" Cannot use below since it conflict with CamelCaseMotion
+" map <leader>b :Buffers<CR>
 map <leader>h :History<CR>
 map <leader>l :Lines<CR>
 
