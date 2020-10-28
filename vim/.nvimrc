@@ -310,8 +310,8 @@ au BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal! 
 " listchars {{{2
 
 " show special chars
-set listchars=eol:$,extends:»,precedes:«,nbsp:‡,space:␣
-" set listchars=eol:§,tab:¤›,extends:»,precedes:«,nbsp:‡,trail:-
+set listchars=eol:§,tab:¤›,extends:»,precedes:«,nbsp:‡,trail:-
+" set listchars=eol:$,extends:»,precedes:«,nbsp:‡,space:␣
 " set listchars=eol:¬,,tab:»/,extends:»,precedes:«,nbsp:‡
 " }}}2
 
