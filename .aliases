@@ -48,9 +48,9 @@ alias wifi-reboot='nmcli radio wifi off && nmcli radio wifi on'
 alias night-on='gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true'
 alias night-off='gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false'
 ## apt
-alias update-all='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y; apt autoremove -y; apt autoclean -y"'
-# alias updateAll='sudo bash -c "for i in update {,dist-}upgrade auto{remove,clean}; do apt $i -y; done"'
 alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purge'
+## maintenance
+alias update-all='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y"'
 
 # }}}
 # vim {{{
