@@ -149,3 +149,9 @@ alias tconf='vi ~/.tmux.conf'
 # config:source
 alias sz='source ~/.zshrc'
 # }}}
+
+# sudo {{{
+
+# https://askubuntu.com/a/22043
+alias sudo='sudo '
+# }}}
