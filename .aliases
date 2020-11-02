@@ -133,8 +133,8 @@ alias matrix='gnome-terminal --full-screen -- /bin/bash -c "unimatrix -a -f -b -
 alias unix='unix-print'
 alias ncal='ncal -w'
 # disk usage
-alias space='du -sh'
-alias room='space'
+alias space="du -hx --max-depth=1"
+# alias space='du -sh'
 ## symstem in ASCII art terminal
 ### take screenshot
 alias nfs='neofetch -S'
