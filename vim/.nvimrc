@@ -1222,7 +1222,7 @@ let g:gutentags_file_list_command = {
 
 " Simple Z info
 " Line:Column
-let g:airline_section_z = airline#section#create(['linenr',  ':%v'])
+let g:airline_section_z = airline#section#create(['%l', ':%c'])
 " }}}
 " }}}
 " ----------------------------------------------------------------------------"
