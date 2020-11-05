@@ -1220,10 +1220,18 @@ let g:gutentags_file_list_command = {
 " let spc = g:airline_symbols.space
 " let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%p%%'.spc, 'linenr', 'maxlinenr', ':%v'])
 
-" Simple Z info
-" Line:Column
+" Simple Z info : line:column
 let g:airline_section_z = airline#section#create(['%l', ':%c'])
+" Custom Y info : fileencoding|fileformat
+let g:airline_section_y = airline#section#create(['%{&fenc}', '|%{&ff}'])
 " }}}
+" }}}
+
+" vim-anzu {{{
+" Search mathcup counts and position
+
+" clear status
+nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
