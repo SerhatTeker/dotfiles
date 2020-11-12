@@ -423,8 +423,9 @@ augroup END
 
 " Commands {{{
 
-" Shortcut for qa
+" Shortcuts for qa
 command! Q :qa
+command! WQ :wqa
 " }}}
 
 " buffers {{{
