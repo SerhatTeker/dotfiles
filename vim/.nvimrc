@@ -70,25 +70,25 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'SerhatTeker/python-syntax'
 " folding
 Plug 'tmhedberg/SimpylFold'
-" Navigation
+" navigation
 Plug 'jeetsukumaran/vim-pythonsense'
+
+" Django
+Plug 'tweekmonster/django-plus.vim'
 
 " Golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" markdown {{{4
-"
+" Markdown {{{4
 " default plugin
 Plug 'plasticboy/vim-markdown'
 " Plug 'plasticboy/vim-markdown', { 'on': [], 'for': []  }
 " Plug 'serhatteker/vim-markdown-default'
-"
-" Preview Plug 'greyblake/vim-preview'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-" Bullets
+" bullets
 Plug 'dkarter/bullets.vim'
-" Rst
-Plug 'gu-fan/InstantRst'
+" rst
+" Plug 'gu-fan/InstantRst'
 " }}}4
 
 " }}}3
