@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# Start a workspace in a tmux session for a project
+
+# set -u
+# set -o nounset
+
+# Set Session Name
+PROJECT_PATH="$1"
+
+# Check Session arg given. Use it, otherwise use PROJECT_PATH basename
+if [ -z "$2" ];then
+	SESSION=$(basename $PROJECT_PATH)
+	# if dir consists ".", split and get first name
+	SESSION=$(echo $SESSION | awk '{split($SESSION, a, "."); print a[1]}')
+else
+	SESSION="$2"
+fi
+
+SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
+
+# Check Session {{{1
+# Alternative
+check_session (){
+	tmux has-session -t development
+	if [ $? != 0 ]
+	then
+		tmux new-session -s development
+	fi
+}
+# }}}
+
+# Main{{{1
+
+main (){
+	# If $PROJECT_PATH given use it otherwise use $PWD
+	if [ -z $PROJECT_PATH ];then
+		PROJECT_PATH="$PWD"
+	fi
+
+	# Only create tmux session if it doesn't already exist
+	if [ "$SESSIONEXISTS" = "" ]
+	then
+		# Start New Session with our name
+		tmux new-session -d -s $SESSION -c $PROJECT_PATH -n 'main'
+
+		# auto-vevn comes from functions: $HOME/.functions.
+		tmux send-keys -t $SESSION:0 "auto-venv" C-m "C-l"
+		tmux send-keys -t $SESSION:0 "nvim -S" C-m
+
+		# Setup an additional shell window
+		#{session_name}:#{window_index}.#{pane_index}
+		# sessionname:0.4
+		tmux new-window -t $SESSION:1 -n 'shell' -c $PROJECT_PATH
+		tmux send-keys -t $SESSION:1 "auto-venv" C-m "C-l"
+		tmux split-window -t $SESSION:1 -h -c $PROJECT_PATH
+		tmux send-keys -t $SESSION:1.1 "auto-venv" C-m "C-l"
+	fi
+
+	# Attach Session, on the main window
+	tmux attach-session -t $SESSION:0
+	# return to main vim window
+	tmux select-window -t $SESSION:0
+}
+
+# }}}1
+
+# Manaul Test {{{1
+
+test_manual (){
+	# echo $SESSION
+ 	# echo $SESSION | awk '{split($SESSION, a, "."); print a[1]}'
+
+	if [ -z "$2" ];then
+		SESSION=$(basename $PROJECT_PATH)
+		SESSION=$(echo $SESSION | awk '{split($SESSION, a, "."); print a[1]}')
+	else
+		SESSION="$2"
+	fi
+	echo $SESSION
+}
+# }}}1
+
+main
