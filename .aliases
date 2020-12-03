@@ -66,6 +66,9 @@ alias rm-shada='rm ~/.local/share/nvim/shada/main.shada.tmp.x'
 alias gac='git add . && git commit'
 alias glog-fav='glola'
 alias glog-lean-fav='gloga'
+alias git-commit-empty='git commit --allow-empty -m "Initial commit"'
+alias gce='git commit --allow-empty -m "Initial commit"'
+
 # }}}
 
 # tmux {{{
