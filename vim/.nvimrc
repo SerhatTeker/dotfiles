@@ -631,6 +631,16 @@ endif
 " close all buffers except current one
 command! BufCurOnly execute '%bdelete|edit#|bdelete#'
 " }}}2
+
+" Zettelkasten {{{2
+
+" NewZettel {{{3
+
+let g:zettelkasten = "$ZETTELKASTEN_DIR/"
+command! -nargs=1 NewZettel :execute ":e" zettelkasten . strftime("%Y%m%d%H%M") . "_<args>.md"
+nnoremap <leader>nz :NewZettel
+" }}}
+" }}}
 " ----------------------------------------------------------------------------"
 "	}}}
 " ----------------------------------------------------------------------------"
