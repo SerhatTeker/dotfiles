@@ -60,7 +60,6 @@ snippet fold "fold insert" b
 $0
 endsnippet
 
-
 ################
 # Common stuff #
 ################
@@ -119,4 +118,22 @@ endsnippet
 snippet hugo-relref-anchor "relref for #anchors" b
 [$1]({{< relref "#$2" >}})
 $0
+endsnippet
+
+#####################
+#   Zettelkasten    #
+#####################
+
+snippet front "Front Matter for Zettelkasten" b
++++
+date = "`date +%Y-%m-%d`T`date +%T`"
+title = $0
+tags = [
+"$1",
+]
+categories = [
+"$2",
+]
++++
+
 endsnippet
