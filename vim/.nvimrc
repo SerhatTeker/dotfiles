@@ -636,11 +636,60 @@ command! BufCurOnly execute '%bdelete|edit#|bdelete#'
 
 " NewZettel {{{3
 
+" Insert Zettel Note with filename after actual date prefix in ZETTELKASTEN_DIR
 let g:zettelkasten = "$ZETTELKASTEN_DIR/"
 command! -nargs=1 NewZettel :execute ":e" zettelkasten . strftime("%Y%m%d%H%M") . "_<args>.md"
-nnoremap <leader>nz :NewZettel
-" }}}
-" }}}
+nnoremap <leader>zn :NewZettel
+" 3}}}
+
+" Insert Zettel File Link{{{3
+
+function! HandleFZF(file)
+    "let filename = fnameescape(fnamemodify(a:file, ":t"))
+    "why only the tail ?  I believe the whole filename must be linked unless everything is flat ...
+    let filename = fnameescape(a:file)
+    let filename_wo_timestamp = fnameescape(fnamemodify(a:file, ":t:s/^[0-9]*-//"))
+     " Insert the markdown link to the file in the current buffer
+    let mdlink = "[[".filename_wo_timestamp."]]"
+    put=mdlink
+endfunction
+
+command! -nargs=1 HandleFZF :call HandleFZF(<f-args>)
+" inoremap <buffer> <leader>nh <esc>:call fzf#run({'sink': 'HandleFZF'})<CR>
+" nnoremap <leader>nh :call fzf#run({'sink': 'HandleFZF'})<CR>
+nnoremap <leader>zh :call fzf#run({'sink': 'HandleFZF'})<CR>
+inoremap <leader>zh <esc>:call fzf#run({'sink': 'HandleFZF'})<CR>
+" 3}}}
+"
+" Zettel Meta {{{3
+" Needed for Hugo meta's .Title|title
+function! InsertCurrentFileName()
+    let curfilename = fnameescape(expand("%:t"))
+    " let curfilename_wo_timestamp = fnameescape(fnamemodify(expand("%"), ":t:s/^[0-9]*-//"))
+    " let curfilename_upper = fnameescape(fnamemodify(expand("%"), ':t:s/(^.\|_\a\)'))
+    " :substitute(curfilename, '\(^.\|_\a\)', '\u&', 'g')
+    " let curfilename_upper = substitute(curfilename, '\(^.\|-\a\)', '\u&', 'g')
+    let filename = "\"".curfilename."\""
+    put=filename
+endfunction
+
+command! InsertCurrentFileName :call InsertCurrentFileName()
+
+" Replace filenames with titles
+function! ZettelMeta()
+    call InsertCurrentFileName()
+    " replace - with space
+    :s/-/ /ge
+    :s/_/ - /ge
+    :s/\.md//ge
+    " uppercase the line
+    :s/\<\(\w\)\(\w*\)\>/\u\1\L\2/g
+endfunction
+
+command! ZettelMeta :call ZettelMeta()
+nnoremap <leader>zm :NewZettel
+" 3}}}
+" 2}}}
 " ----------------------------------------------------------------------------"
 "	}}}
 " ----------------------------------------------------------------------------"
