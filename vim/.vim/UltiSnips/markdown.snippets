@@ -6,6 +6,10 @@ snippet sec "Section" b
 $0
 endsnippet
 
+snippet timestamp "Section" b
+`date +%F` `date +%T` `date +%z` | `date +%s` $0
+endsnippet
+
 ############
 # Journal  #
 ############
@@ -118,6 +122,10 @@ endsnippet
 snippet hugo-relref-anchor "relref for #anchors" b
 [$1]({{< relref "#$2" >}})
 $0
+endsnippet
+
+snippet hugo-date "Add date for Hugo Front Matter" b
+date = "`date +%Y-%m-%d`T`date +%T`" $0
 endsnippet
 
 #####################
