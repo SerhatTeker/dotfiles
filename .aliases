@@ -30,6 +30,7 @@ alias tree='tree -aI ".git|.venv"'
 # alias mkcd='makecd(){mkdir -p "$1"; cd "$1"}; makecd'
 
 # }}}
+
 # System {{{
 
 alias shutdown='sudo shutdown -h now'
@@ -52,15 +53,21 @@ alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purg
 ## maintenance
 alias update-all='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y"'
 
+## pid
+alias psvi='ps aux > pid.list && nvim pid.list'
+
 # }}}
+
 # vim {{{
 
 alias vi='nvim'
 alias vs='nvim -S'
+alias cdvs='cd $0 && nvim -S'
 # to remove error E138: ShaDa file exist, cannot write ShaDa file!
 alias rm-shada='rm ~/.local/share/nvim/shada/main.shada.tmp.x'
 
 # }}}
+
 # git {{{
 
 alias gac='git add . && git commit'
@@ -125,9 +132,6 @@ alias sv='source .venv/bin/activate'
 alias rv='deactivate && source .venv/bin/activate'
 # }}}
 
-# images
-alias webify="mogrify -resize 690\> *.png"
-
 # other {{{
 
 alias cmatrix='cmatrix -Baf'
@@ -141,6 +145,8 @@ alias space="du -hx --max-depth=1"
 ## symstem in ASCII art terminal
 ### take screenshot
 alias nfs='neofetch -S'
+# images
+alias webify="mogrify -resize 690\> *.png"
 # }}}
 
 # configs {{{
