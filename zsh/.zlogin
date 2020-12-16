@@ -1,11 +1,12 @@
 # run every zsh login
 
 # start hugo server for journal
-if [ -f $HOME/.functions ]; then
-	if ! pgrep -x "hugo" >/dev/null; then
-		hugo-start
-	fi
-fi
+# Moved to system.d
+# if [ -f $HOME/.functions ]; then
+# 	if ! pgrep -x "hugo" >/dev/null; then
+# 		hugo-start
+# 	fi
+# fi
 
 # NOT NEEDED for now. Commented out.
 # start docker compose for redis
