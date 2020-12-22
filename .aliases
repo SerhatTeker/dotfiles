@@ -52,9 +52,10 @@ alias night-off='gsettings set org.gnome.settings-daemon.plugins.color night-lig
 alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purge'
 ## maintenance
 alias update-all='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y"'
-
 ## pid
 alias psvi='ps aux > pid.list && nvim pid.list'
+## monitor
+alias monitor="bpytop"
 
 # }}}
 
@@ -151,10 +152,6 @@ alias webify="mogrify -resize 690\> *.png"
 
 # configs {{{
 
-alias vconf='vi ~/.vimrc'
-alias zconf='vi ~/.zshrc'
-alias bconf='vi ~/.bashrc'
-alias tconf='vi ~/.tmux.conf'
 # config:source
 alias sz='source ~/.zshrc'
 # }}}
