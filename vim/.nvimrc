@@ -5,7 +5,7 @@
 "                      (_)_| |_|\_/ |_|_| |_| |_|_|  \___|
 "
 " Author: Serhat Teker <serhat.teker@gmail.com>
-" Source: https://github.com/SerhatTeker/system-bak
+" Source: https://github.com/SerhatTeker/dotfiles
 " ----------------------------------------------------------------------------"
 "	Plugin Manager	{{{1
 " ----------------------------------------------------------------------------"

@@ -5,7 +5,7 @@
 " |___/\___/|_|\___/|_|\_\__,_|_(_)_/ |_|_| |_| |_|
 "
 " Author: Serhat Teker <serhat.teker@gmail.com>
-" Source: https://github.com/SerhatTeker/system-bak
+" Source: https://github.com/SerhatTeker/dotfiles
 "
 " Custom Colorscheme Based on molokai.vim
 
