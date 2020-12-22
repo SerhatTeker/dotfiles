@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#		     __			 _   _
+#		     __			         _   _
 #		    / _|_   _ _ __   ___| |_(_) ___  _ __  ___
 #		   | |_| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
 #		   |  _| |_| | | | | (__| |_| | (_) | | | \__ \
@@ -213,8 +213,26 @@ cdl() {
 }
 
 # make dir then cd
-mkcd() {
+mkcd () {
 	mkdir -p "$1" && cd "$1"
+}
+
+# shortcut : cd $DIR then run nvim -s
+cv () {
+    # takes first argument as $DIR
+    _ARG="$@"
+    _DIR="$HOME"
+
+    if [ "$_ARG" = "dot" ]; then
+        _DIR=$DOTFILES_DIR
+    elif [ "$_ARG" = "bak" ]; then
+        _DIR=$SYSTEM_BAK_DIR
+    else
+        _DIR=$_ARG
+    fi
+
+    builtin cd "$_DIR" && nvim -S
+    # builtin cd "$@" && nvim -S
 }
 
 # Zip Tar {{{2

@@ -63,7 +63,6 @@ alias monitor="bpytop"
 
 alias vi='nvim'
 alias vs='nvim -S'
-alias cdvs='cd $0 && nvim -S'
 # to remove error E138: ShaDa file exist, cannot write ShaDa file!
 alias rm-shada='rm ~/.local/share/nvim/shada/main.shada.tmp.x'
 
