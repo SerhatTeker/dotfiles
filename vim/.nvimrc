@@ -647,8 +647,10 @@ nnoremap <leader>zn :NewZettel
 function! HandleFZF(file)
     "let filename = fnameescape(fnamemodify(a:file, ":t"))
     "why only the tail ?  I believe the whole filename must be linked unless everything is flat ...
-    let filename = fnameescape(a:file)
-    let filename_wo_timestamp = fnameescape(fnamemodify(a:file, ":t:s/^[0-9]*-//"))
+    " let filename = fnameescape(a:file)
+    " let filename_wo_timestamp = fnameescape(fnamemodify(a:file, ":t:s/^[0-9]*-//"))
+    " Get filename w/0 extension
+    let filename_wo_timestamp = fnameescape(fnamemodify(a:file, ":t:r:s/^[0-9]*-//"))
      " Insert the markdown link to the file in the current buffer
     let mdlink = "[[".filename_wo_timestamp."]]"
     put=mdlink
@@ -687,7 +689,12 @@ function! ZettelMeta()
 endfunction
 
 command! ZettelMeta :call ZettelMeta()
-nnoremap <leader>zm :NewZettel
+nnoremap <leader>zm :ZettelMeta
+" 3}}}
+
+" Open or Create File {{{3
+
+map <leader>gf :e <cfile>.md<cr>
 " 3}}}
 " 2}}}
 " ----------------------------------------------------------------------------"
