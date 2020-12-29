@@ -143,6 +143,7 @@ Plug 'vimwiki/vimwiki'
 
 " Minimal Center
 Plug 'jmckiern/vim-venter'
+" Zen Mode
 Plug 'junegunn/goyo.vim'
 
 " ctags
