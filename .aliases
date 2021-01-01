@@ -160,3 +160,10 @@ alias sz='source ~/.zshrc'
 # https://askubuntu.com/a/22043
 alias sudo='sudo '
 # }}}
+
+# vpn {{{
+
+# wireguard vpn
+alias enable-vpn='sudo wg-quick up wg0'
+alias disable-vpn='sudo wg-quick down wg0'
+# }}}
