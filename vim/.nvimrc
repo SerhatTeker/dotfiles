@@ -102,9 +102,19 @@ Plug 'dense-analysis/ale'
 Plug 'sbdchd/neoformat'
 Plug 'editorconfig/editorconfig-vim'
 
-" Syntax
+" Syntax {{{3
+
+" vim-polyglot
+" https://github.com/sheerun/vim-polyglot#troubleshooting
+" Please declare this variable before polyglot is loaded (at the top of .vimrc)
+let g:polyglot_disabled = [
+            \'markdown',
+            \'python',
+            \]
+
 Plug 'sheerun/vim-polyglot'
 " Plug 'vim-syntastic/syntastic'
+" 3}}}
 
 " Git
 Plug 'itchyny/vim-gitbranch'
@@ -994,12 +1004,6 @@ let g:vim_markdown_folding_style_pythonic = 1
 let g:vim_markdown_toml_frontmatter = 1
 
 " }}}
-
-" vim-polyglot
-let g:polyglot_disabled = [
-            \'markdown',
-            \'python',
-            \]
 
 " gabrielelana/vim-markdown
 let g:markdown_enable_folding = 1
