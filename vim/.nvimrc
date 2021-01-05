@@ -95,7 +95,6 @@ Plug 'dkarter/bullets.vim'
 
 " code complete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
 
 " Linter
 Plug 'dense-analysis/ale'
