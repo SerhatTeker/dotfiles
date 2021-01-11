@@ -641,6 +641,10 @@ endif
 
 " close all buffers except current one
 command! BufCurOnly execute '%bdelete|edit#|bdelete#'
+
+" set current buffer syntax to sh
+" handy for new bash script file w/0 `sh` extension
+command! BashSyntax execute 'set syntax=sh'
 " }}}2
 
 " Zettelkasten {{{2
