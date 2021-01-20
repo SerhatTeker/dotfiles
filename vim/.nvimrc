@@ -291,6 +291,11 @@ set tags=tags
 
 " }}}2
 
+" filetype syntax {{{2
+
+au BufReadPost *.toml set syntax=toml
+" }}}2
+
 " status bar {{{2
 
 let g:airline_powerline_fonts = 1
