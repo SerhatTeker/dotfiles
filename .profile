@@ -44,6 +44,14 @@ export MYNVIMRC=$HOME/dotfiles/vim/.nvimrc
 # export MYNVIMRC=$HOME/.nvimrc
 # }}}2
 
+# npm node {{{2
+
+# Changing the location of global npm packages
+# $ mkdir ~/.node_modules
+# $ npm config set prefix=$HOME/.node_modules
+export PATH="$HOME/.node_modules/bin:$PATH"
+# }}}2
+
 # Colors {{{2
 
 export COLOR_BLACK="\e[0;30m"
