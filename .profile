@@ -49,6 +49,7 @@ export MYNVIMRC=$HOME/dotfiles/vim/.nvimrc
 # Changing the location of global npm packages
 # $ mkdir ~/.node_modules
 # $ npm config set prefix=$HOME/.node_modules
+# $ npm install npm@latest -g
 export PATH="$HOME/.node_modules/bin:$PATH"
 # }}}2
 
