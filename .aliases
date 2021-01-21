@@ -164,6 +164,8 @@ alias sudo='sudo '
 # vpn {{{
 
 # wireguard vpn
-alias enable-vpn='sudo wg-quick up wg0'
-alias disable-vpn='sudo wg-quick down wg0'
+alias vpn-enable='sudo wg-quick up wg0'
+alias wireguard-enable='sudo wg-quick up wg0'
+alias vpn-disable='sudo wg-quick down wg0'
+alias wireguard-disable='sudo wg-quick down wg0'
 # }}}
