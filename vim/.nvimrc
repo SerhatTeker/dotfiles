@@ -188,6 +188,7 @@ Plug 'junegunn/goyo.vim'
 
 " ctags {{{3
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'preservim/tagbar'
 " }}}3
 
 call plug#end()
@@ -1428,6 +1429,13 @@ endif
 
 " clear status
 nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+" }}}
+
+" Tagbar {{{
+" Vim plugin that displays tags in a window, ordered by scope
+
+" clear status
+nmap <F9> :TagbarToggle<CR>
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
