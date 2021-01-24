@@ -68,14 +68,14 @@ Plug 'gko/vim-coloresque'
 " TODO: make this `on-demand` with Plug's built-in feature
 
 " Airline
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline', { 'on': [] }
+Plug 'vim-airline/vim-airline-themes', { 'on': [] }
 " Search mathcup counts and position
-" Plug 'osyo-manga/vim-anzu'
+Plug 'osyo-manga/vim-anzu', { 'on': [] }
 
 " Lightline
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
+Plug 'itchyny/lightline.vim' , { 'on': [] }
+Plug 'mengelbrecht/lightline-bufferline', { 'on': [] }
 " Disabled since heavy.
 " TODO: Find alternative
 " Plug 'jmcantrell/vim-virtualenv'
@@ -293,7 +293,8 @@ endif
 " Use airline or lightline
 " Default lightline
 " same as: let g:status_bar = 'lightline'
-let g:status_bar = 'lightline'
+" let g:status_bar = 'lightline'
+let g:status_bar = 'airline'
 let g:status_bar_choice = get(g:, 'status_bar', "lightline")
 
 " }}}2
@@ -1326,6 +1327,14 @@ let g:gutentags_file_list_command = {
 
 if g:status_bar_choice == 'airline'
 
+augroup LoadAirline
+    autocmd!
+    autocmd BufEnter * call plug#load('vim-airline') | autocmd! LoadAirline
+    autocmd BufEnter * call plug#load('vim-airline-themes') | autocmd! LoadAirline
+    autocmd BufEnter * call plug#load('vim-anzu') | autocmd! LoadAirline
+    echom 'Airline Loaded'
+augroup END
+
 " status bar {{{
 
 " colorscheme
@@ -1352,15 +1361,21 @@ let g:airline#extensions#gutentags#enabled = 1
 
 " Z Info{{{
 
-" Default Z Info
-" https://github.com/vim-airline/vim-airline/blob/a294f0cb7e847219f67c2a55d5fb400b7c93d4af/autoload/airline/init.vim#L217
-" let spc = g:airline_symbols.space
-" let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%p%%'.spc, 'linenr', 'maxlinenr', ':%v'])
 
-" Simple Z info : line:column
-let g:airline_section_z = airline#section#create(['%l', ':%c'])
-" Custom Y info : fileencoding|fileformat
-let g:airline_section_y = airline#section#create(['%{&fenc}', '|%{&ff}'])
+function! AirlineInit()
+    " Default Z Info
+    " https://github.com/vim-airline/vim-airline/blob/a294f0cb7e847219f67c2a55d5fb400b7c93d4af/autoload/airline/init.vim#L217
+    " let spc = g:airline_symbols.space
+    " let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%p%%'.spc, 'linenr', 'maxlinenr', ':%v'])
+    "
+    " Simple Z info : line:column
+    let g:airline_section_z = airline#section#create(['%l', ':%c'])
+    " Custom Y info : fileencoding|fileformat
+    let g:airline_section_y = airline#section#create(['%{&fenc}', '|%{&ff}'])
+    :AirlineRefresh
+endfun
+
+autocmd VimEnter * call AirlineInit()
 " }}}
 endif
 " }}}
@@ -1369,6 +1384,12 @@ endif
 
 if g:status_bar_choice == 'lightline'
 
+augroup LoadLightline
+    autocmd!
+    autocmd BufEnter * call plug#load('lightline.vim') | autocmd! LoadLightline
+    autocmd BufEnter * call plug#load('lightline-bufferline') | autocmd! LoadLightline
+    echom 'Lightline Loaded'
+augroup END
 
 " Show bufferline
 " https://github.com/mengelbrecht/lightline-bufferline#faq
