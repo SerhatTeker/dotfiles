@@ -10,18 +10,20 @@
 "	Plugin Manager	{{{1
 " ----------------------------------------------------------------------------"
 
+" Auto Install {{{2
+
 " Automatic Plugin Manager and Plugins installation
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
     silent !curl -fLSso ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYNVIMRC
 endif
-
-" Plugins will be downloaded under the specified directory.
-call plug#begin('~/.local/share/nvim/plugged')
+" }}}2
 
 " PLUGINS {{{2
 " ----------------------------------------------------------------------------"
+" Plugins will be downloaded under the specified directory.
+call plug#begin('~/.local/share/nvim/plugged')
 
 " Snippets {{{3
 
@@ -60,14 +62,7 @@ Plug 'gko/vim-coloresque'
 
 " Statusbar {{{3
 
-" Airline
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-
-" Lightline
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-Plug 'jmcantrell/vim-virtualenv'
+" NOTE: Lightline OR Airline loaded below in Plugins settings
 
 " Search mathcup counts and position
 Plug 'osyo-manga/vim-anzu'
@@ -188,11 +183,13 @@ Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 " }}}2
 
+" Auto Install on Startup {{{2
 " Automatically install missing plugins on startup
 autocmd VimEnter *
             \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
             \|   PlugInstall --sync | q
             \| endif
+" }}}2
 " ----------------------------------------------------------------------------"
 "	}}}
 " ----------------------------------------------------------------------------"
@@ -243,20 +240,6 @@ set nofoldenable                " no fold when opening a file
 set foldmethod=marker           " manual fold with '{...}'
 " }}}2
 
-
-" enable to copy to clipboard for operations like yank, delete, change and put
-" http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
-if has('unnamedplus')
-    set clipboard^=unnamed
-    set clipboard^=unnamedplus
-endif
-
-" this enables us to undo files even if you exit vim.
-if has('persistent_undo')
-    set undofile
-    set undodir=~/.local/share/nvim/tmp/undo//
-endif
-
 " MYNVIMRC {{{2
 
 augroup nvimrc
@@ -271,6 +254,35 @@ augroup nvimrc
     autocmd! BufNewFile,BufRead .nvimrc set filetype=vim
 augroup END
 " }}}
+
+" Copy to Clipboard {{{2
+
+" enable to copy to clipboard for operations like yank, delete, change and put
+" http://stackoverflow.com/questions/20186975/vim-mac-how-to-copy-to-clipboard-without-pbcopy
+if has('unnamedplus')
+    set clipboard^=unnamed
+    set clipboard^=unnamedplus
+endif
+" }}}2
+
+" Persistent Undo {{{2
+
+" this enables us to undo files even if you exit vim.
+if has('persistent_undo')
+    set undofile
+    set undodir=~/.local/share/nvim/tmp/undo//
+endif
+" }}}2
+
+" Statusbar {{{2
+
+" Use airline or lightline
+" Default lightline
+" same as: let g:status_bar = 'lightline'
+let g:status_bar = 'lightline'
+let g:status_bar_choice = get(g:, 'status_bar', "lightline")
+
+" }}}2
 
 " Preview {{{2
 
@@ -323,7 +335,6 @@ set tags=tags
 au BufReadPost *.toml set syntax=toml
 " }}}2
 
-
 " save {{{2
 
 " restore last cursor position
@@ -374,8 +385,6 @@ if (has("termguicolors"))
 endif
 " endif
 
-" airline
-let g:airline_theme='onedark'
 " }}}2
 
 " colorscheme {{{2
@@ -835,9 +844,6 @@ let g:ale_lint_on_enter = 0
 " use quickfix for errors
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
-
-" Show errors or warnings in the statusline
-let g:airline#extensions#ale#enabled = 1
 
 " linters
 let g:ale_linters = {
@@ -1304,7 +1310,26 @@ let g:gutentags_file_list_command = {
 
 " Airline {{{
 
-" status bar {{{2
+if g:status_bar_choice == 'airline'
+
+" Load plugin on-demand {{{
+
+" Ugly fix
+" TODO: make this `on-demand` with Plug's built-in feature
+call plug#begin('~/.local/share/nvim/plugged')
+" Airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+" }}}
+
+" status bar {{{
+
+" colorscheme
+let g:airline_theme='onedark'
+
+" Show errors or warnings in the statusline
+let g:airline#extensions#ale#enabled = 1
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#branch#enabled = 1
@@ -1334,9 +1359,24 @@ let g:airline_section_z = airline#section#create(['%l', ':%c'])
 " Custom Y info : fileencoding|fileformat
 let g:airline_section_y = airline#section#create(['%{&fenc}', '|%{&ff}'])
 " }}}
+endif
 " }}}
 
 " Lightline {{{
+
+if g:status_bar_choice == 'lightline'
+
+" Load plugin on-demand {{{
+
+" Ugly fix
+" TODO: make this `on-demand` with Plug's built-in feature
+call plug#begin('~/.local/share/nvim/plugged')
+" Lightline
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+Plug 'jmcantrell/vim-virtualenv'
+call plug#end()
+" }}}
 
 " Show bufferline
 " https://github.com/mengelbrecht/lightline-bufferline#faq
@@ -1371,6 +1411,7 @@ let g:lightline.inactive = {
     \ 'left': [ [ 'filename' ] ],
     \ 'right': [ [ 'lineinfo' ] ] }
 " }}}
+endif
 " }}}
 
 " vim-anzu {{{
