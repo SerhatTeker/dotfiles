@@ -1342,29 +1342,23 @@ let g:airline_section_y = airline#section#create(['%{&fenc}', '|%{&ff}'])
 " https://github.com/mengelbrecht/lightline-bufferline#faq
 set showtabline=2
 
-" change colorscheme
-" add bufferline
-" add gitbranch
-let g:lightline = {
-      \ 'colorscheme': 'one',
-      \ 'tabline': {
-      \   'left': [ ['buffers'] ],
-      \   'right': [ ['close'] ]
-      \ },
-      \ 'component_expand': {
-      \   'buffers': 'lightline#bufferline#buffers'
-      \ },
-      \ 'component_type': {
-      \   'buffers': 'tabsel'
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead',
-      \   'venv': 'virtualenv#statusline',
-      \ },
-      \ }
+" Vars
+let g:lightline#bufferline#show_number  = 0
+let g:lightline#bufferline#shorten_path = 0
+let g:lightline#bufferline#unnamed      = '[No Name]'
+
+" Customizaton {{{
+
+let g:lightline                     = {}
+let g:lightline.colorscheme         = 'one'
+let g:lightline.tabline             = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand    = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type      = {'buffers': 'tabsel'}
+let g:lightline.component_function  = {'gitbranch': 'FugitiveHead', 'venv': 'virtualenv#statusline'}
 
 " remove parcent
 " add gitbranch
+" add python venv
 let g:lightline.active = {
     \ 'left': [ [ 'mode', 'paste' ],
     \           [ 'readonly', 'filename', 'modified' ],
@@ -1376,6 +1370,7 @@ let g:lightline.active = {
 let g:lightline.inactive = {
     \ 'left': [ [ 'filename' ] ],
     \ 'right': [ [ 'lineinfo' ] ] }
+" }}}
 " }}}
 
 " vim-anzu {{{
