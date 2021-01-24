@@ -62,10 +62,9 @@ Plug 'gko/vim-coloresque'
 
 " Statusbar {{{3
 
-" Load plugin on-demand {{{4
+Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 
-" Ugly fix
-" TODO: make this `on-demand` with Plug's built-in feature
+" Load plugin on-demand {{{4
 
 " Airline
 Plug 'vim-airline/vim-airline', { 'on': [] }
@@ -76,9 +75,6 @@ Plug 'osyo-manga/vim-anzu', { 'on': [] }
 " Lightline
 Plug 'itchyny/lightline.vim' , { 'on': [] }
 Plug 'mengelbrecht/lightline-bufferline', { 'on': [] }
-" Disabled since heavy.
-" TODO: Find alternative
-" Plug 'jmcantrell/vim-virtualenv'
 " }}}4
 " }}}3
 
@@ -291,11 +287,9 @@ endif
 " Statusbar {{{2
 
 " Use airline or lightline
-" Default lightline
-" same as: let g:status_bar = 'lightline'
+" Default airline
 " let g:status_bar = 'lightline'
-let g:status_bar = 'airline'
-let g:status_bar_choice = get(g:, 'status_bar', "lightline")
+let g:status_bar_choice = get(g:, 'status_bar', "airline")
 
 " }}}2
 
@@ -1332,19 +1326,20 @@ augroup LoadAirline
     autocmd BufEnter * call plug#load('vim-airline') | autocmd! LoadAirline
     autocmd BufEnter * call plug#load('vim-airline-themes') | autocmd! LoadAirline
     autocmd BufEnter * call plug#load('vim-anzu') | autocmd! LoadAirline
-    echom 'Airline Loaded'
 augroup END
-
-" status bar {{{
 
 " colorscheme
 let g:airline_theme='onedark'
+let g:airline_powerline_fonts = 1
+
+" extensions {{{
 
 " Show errors or warnings in the statusline
 let g:airline#extensions#ale#enabled = 1
-
-let g:airline_powerline_fonts = 1
 let g:airline#extensions#branch#enabled = 1
+
+" Python virtual env
+let g:airline#extensions#virtualenv#enabled = 1
 
 " obsession - continuously updated session
 let g:airline#extensions#obsession#enabled = 1
@@ -1359,10 +1354,11 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#gutentags#enabled = 1
 " }}}
 
-" Z Info{{{
-
+" AirlineInit {{{
 
 function! AirlineInit()
+    " Z Info{{{
+
     " Default Z Info
     " https://github.com/vim-airline/vim-airline/blob/a294f0cb7e847219f67c2a55d5fb400b7c93d4af/autoload/airline/init.vim#L217
     " let spc = g:airline_symbols.space
@@ -1372,6 +1368,7 @@ function! AirlineInit()
     let g:airline_section_z = airline#section#create(['%l', ':%c'])
     " Custom Y info : fileencoding|fileformat
     let g:airline_section_y = airline#section#create(['%{&fenc}', '|%{&ff}'])
+    " }}}
     :AirlineRefresh
 endfun
 
@@ -1388,7 +1385,6 @@ augroup LoadLightline
     autocmd!
     autocmd BufEnter * call plug#load('lightline.vim') | autocmd! LoadLightline
     autocmd BufEnter * call plug#load('lightline-bufferline') | autocmd! LoadLightline
-    echom 'Lightline Loaded'
 augroup END
 
 " Show bufferline
@@ -1397,7 +1393,7 @@ set showtabline=2
 
 " Vars
 let g:lightline#bufferline#show_number  = 0
-let g:lightline#bufferline#shorten_path = 0
+let g:lightline#bufferline#shorten_path = 1
 let g:lightline#bufferline#unnamed      = '[No Name]'
 
 " Customizaton {{{
