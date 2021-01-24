@@ -21,8 +21,8 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 " PLUGINS {{{2
-"
 " ----------------------------------------------------------------------------"
+
 " Snippets {{{3
 
 Plug 'SirVer/ultisnips'
@@ -56,9 +56,19 @@ Plug 'chuling/vim-equinusocio-material'
 Plug 'morhetz/gruvbox'
 " Colors
 Plug 'gko/vim-coloresque'
-" Statusbar
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" }}}3
+
+" Statusbar {{{3
+
+" Airline
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+
+" Lightline
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+Plug 'jmcantrell/vim-virtualenv'
+
 " Search mathcup counts and position
 Plug 'osyo-manga/vim-anzu'
 " }}}3
@@ -93,13 +103,17 @@ Plug 'dkarter/bullets.vim'
 
 " }}}3
 
-" code complete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" code complete {{{3
 
-" Linter
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" }}}3
+
+" Linter {{{3
+
 Plug 'dense-analysis/ale'
 Plug 'sbdchd/neoformat'
 Plug 'editorconfig/editorconfig-vim'
+" }}}
 
 " Syntax {{{3
 
@@ -115,15 +129,19 @@ Plug 'sheerun/vim-polyglot'
 " Plug 'vim-syntastic/syntastic'
 " 3}}}
 
-" Git
+" Git {{{3
+
 Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
 " Plug 'airblade/vim-gitgutter'	" status info in columns
+" }}}3
 
-" motions
+" motions {{{3
+
 Plug 'bkad/CamelCaseMotion'
+" }}}
 
-" Others
+" Others {{{3
 Plug 'godlygeek/tabular'
 "" Pair
 " Disabled.
@@ -138,25 +156,34 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'dbakker/vim-projectroot'
 " Auto close tags
 " Plug 'tpope/vim-endwise'
+" }}}3
 
-" Session
+" Session {{{3
+
 " continuously updated session files
 Plug 'tpope/vim-obsession'
+" }}}3
 
-" icons
+" icons {{{3
+
 " Has to be last according to docs
 " Plug 'ryanoasis/vim-devicons'
+" }}}3
 
-" Vim Wiki
+" Vim Wiki {{{3
 Plug 'vimwiki/vimwiki'
+" }}}3
 
-" Minimal Center
+" Minimal Center {{{3
+
 Plug 'jmckiern/vim-venter'
 " Zen Mode
 Plug 'junegunn/goyo.vim'
+" }}}3
 
-" ctags
+" ctags {{{3
 Plug 'ludovicchabant/vim-gutentags'
+" }}}3
 
 call plug#end()
 " }}}2
@@ -296,23 +323,6 @@ set tags=tags
 au BufReadPost *.toml set syntax=toml
 " }}}2
 
-" status bar {{{2
-
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#branch#enabled = 1
-
-" obsession - continuously updated session
-let g:airline#extensions#obsession#enabled = 1
-let g:airline#extensions#obsession#indicator_text = '$'
-
-" show buffers at top
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_min_count = 2
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-
-" gutentag airline
-let g:airline#extensions#gutentags#enabled = 1
-" }}}
 
 " save {{{2
 
@@ -1294,6 +1304,24 @@ let g:gutentags_file_list_command = {
 
 " Airline {{{
 
+" status bar {{{2
+
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#branch#enabled = 1
+
+" obsession - continuously updated session
+let g:airline#extensions#obsession#enabled = 1
+let g:airline#extensions#obsession#indicator_text = '$'
+
+" show buffers at top
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_min_count = 2
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" gutentag airline
+let g:airline#extensions#gutentags#enabled = 1
+" }}}
+
 " Z Info{{{
 
 " Default Z Info
@@ -1306,6 +1334,48 @@ let g:airline_section_z = airline#section#create(['%l', ':%c'])
 " Custom Y info : fileencoding|fileformat
 let g:airline_section_y = airline#section#create(['%{&fenc}', '|%{&ff}'])
 " }}}
+" }}}
+
+" Lightline {{{
+
+" Show bufferline
+" https://github.com/mengelbrecht/lightline-bufferline#faq
+set showtabline=2
+
+" change colorscheme
+" add bufferline
+" add gitbranch
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ 'tabline': {
+      \   'left': [ ['buffers'] ],
+      \   'right': [ ['close'] ]
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead',
+      \   'venv': 'virtualenv#statusline',
+      \ },
+      \ }
+
+" remove parcent
+" add gitbranch
+let g:lightline.active = {
+    \ 'left': [ [ 'mode', 'paste' ],
+    \           [ 'readonly', 'filename', 'modified' ],
+    \           [ 'gitbranch', 'venv', 'readonly' ] ],
+    \ 'right': [ [ 'lineinfo' ],
+    \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
+
+" default
+let g:lightline.inactive = {
+    \ 'left': [ [ 'filename' ] ],
+    \ 'right': [ [ 'lineinfo' ] ] }
 " }}}
 
 " vim-anzu {{{
