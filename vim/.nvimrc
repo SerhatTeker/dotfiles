@@ -62,10 +62,24 @@ Plug 'gko/vim-coloresque'
 
 " Statusbar {{{3
 
-" NOTE: Lightline OR Airline loaded below in Plugins settings
+" Load plugin on-demand {{{4
 
+" Ugly fix
+" TODO: make this `on-demand` with Plug's built-in feature
+
+" Airline
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 " Search mathcup counts and position
-Plug 'osyo-manga/vim-anzu'
+" Plug 'osyo-manga/vim-anzu'
+
+" Lightline
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+" Disabled since heavy.
+" TODO: Find alternative
+" Plug 'jmcantrell/vim-virtualenv'
+" }}}4
 " }}}3
 
 " Filetype {{{3
@@ -1312,17 +1326,6 @@ let g:gutentags_file_list_command = {
 
 if g:status_bar_choice == 'airline'
 
-" Load plugin on-demand {{{
-
-" Ugly fix
-" TODO: make this `on-demand` with Plug's built-in feature
-call plug#begin('~/.local/share/nvim/plugged')
-" Airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-call plug#end()
-" }}}
-
 " status bar {{{
 
 " colorscheme
@@ -1366,17 +1369,6 @@ endif
 
 if g:status_bar_choice == 'lightline'
 
-" Load plugin on-demand {{{
-
-" Ugly fix
-" TODO: make this `on-demand` with Plug's built-in feature
-call plug#begin('~/.local/share/nvim/plugged')
-" Lightline
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-Plug 'jmcantrell/vim-virtualenv'
-call plug#end()
-" }}}
 
 " Show bufferline
 " https://github.com/mengelbrecht/lightline-bufferline#faq
