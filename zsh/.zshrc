@@ -23,11 +23,17 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
-# alternatives
+
+# alternatives {{{
+
 # ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_THEME="avit"
 # ZSH_THEME="powerlevel9k/powerlevel9k"
+
+# simple - bash like
+# ZSH_THEME="gallois"
 # ZSH_THEME="simple"
+# }}}
 
 # Base16 Shell
 # Optional
