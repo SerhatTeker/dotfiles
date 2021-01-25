@@ -766,6 +766,9 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_generate_tags = 1
 
+" https://github.com/dense-analysis/ale/issues/609#issuecomment-305609209
+let g:go_fmt_fail_silently = 1
+
 " Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
 imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
@@ -860,6 +863,7 @@ let g:ale_linters = {
             \ 'python': ['flake8', 'mypy',],
             \ 'javascript': ['eslint'],
             \ 'html': ['prettier'],
+            \ 'go': ['gopls'],
             \}
 
 " fixers
