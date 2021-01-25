@@ -754,20 +754,32 @@ map <leader>gf :e <cfile>.md<cr>
 " ----------------------------------------------------------------------------"
 "	Pluggins	{{{1
 " ----------------------------------------------------------------------------"
-" vim-go {{{
+" vim-go {{{2
 let g:go_fmt_command = "goimports"
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
-
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_generate_tags = 1
-
+" Enable vim-go mappings - Consider performance
+let g:go_def_mapping_enabled = 1
+let g:go_auto_type_info = 1
+" Highlight other uses of same keyword/id - Consider performance
+" let g:go_auto_sameids = 1
 " https://github.com/dense-analysis/ale/issues/609#issuecomment-305609209
-let g:go_fmt_fail_silently = 1
+" let g:go_fmt_fail_silently = 1
+
+" Highlight {{{3
+
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+" }}}3
+
 
 " Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
@@ -822,7 +834,7 @@ function! s:build_go_files()
         call go#cmd#Build(0)
     endif
 endfunction
-" }}}
+" }}}2
 
 " Formatting {{{
 
