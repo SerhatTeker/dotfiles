@@ -407,6 +407,8 @@ if filereadable(expand("~/.vimrc_background"))
 elseif filereadable(expand("~/.vim/colors/neodark.vim"))
     " elseif !isdirectory($VIMRUNTIME . "/colors/neodark.vim")
     colorscheme neodark
+
+    " alternative
     " TODO: make opt possible
     " gruvbox
     " colorscheme gruvbox
