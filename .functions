@@ -113,10 +113,15 @@ dec-file() {
 
 
 # Network {{{1
+
 myip() {
-	curl http://ipecho.net/plain; echo
+	curl ifconfig.me
 }
 
+# alternative to myip
+myip-echo() {
+	curl http://ipecho.net/plain; echo
+}
 # }}}1
 
 
