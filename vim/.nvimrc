@@ -768,6 +768,12 @@ let g:go_auto_type_info = 1
 " https://github.com/dense-analysis/ale/issues/609#issuecomment-305609209
 " let g:go_fmt_fail_silently = 1
 
+" Folding {{{3
+
+" let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
+" let g:go_fmt_experimental = 1
+" }}}3
+
 " Highlight {{{3
 
 let g:go_highlight_build_constraints = 1
