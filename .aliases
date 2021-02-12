@@ -68,6 +68,12 @@ alias rm-shada='rm ~/.local/share/nvim/shada/main.shada.tmp.x'
 
 # }}}
 
+# VSCode {{{
+
+# use insiders as default
+alias code='code-insiders'
+# }}}
+
 # git {{{
 
 alias gac='git add . && git commit'
