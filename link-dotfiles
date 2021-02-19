@@ -27,6 +27,7 @@ ln -s $HOME/dotfiles/vim/.nvimrc $HOME
 
 ln -s $HOME/dotfiles/zsh/.zshrc $HOME/zsh/.zhsrc
 ln -s $HOME/dotfiles/zsh/.zlogin $HOME/.zlogin
+ln -s $HOME/dotfiles/zsh/.zlogout $HOME/.zlogout
 ln -s $HOME/dotfiles/zsh/.zsh_private $HOME/.zsh
 ln -s $HOME/dotfiles/zsh/.agnoster.zsh $HOME/.zsh
 ln -s $HOME/dotfiles/zsh/.fzf.zsh $HOME/.zsh
