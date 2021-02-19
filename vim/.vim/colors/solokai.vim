@@ -17,10 +17,10 @@
 " Create a color scheme based on another
 " https://vim.fandom.com/wiki/Create_a_color_scheme_based_on_another
 " these lines are suggested to be at the top of every colorscheme
-highlight clear
-if exists("syntax_on")
-  syntax reset
-endif
+" highlight clear
+" if exists("syntax_on")
+"   syntax reset
+" endif
 
 "Load the 'base' colorscheme - the one you want to alter
 runtime colors/molokai.vim
