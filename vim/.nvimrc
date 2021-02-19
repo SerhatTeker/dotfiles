@@ -289,7 +289,7 @@ endif
 " Use airline or lightline
 " Default airline
 " Uncomment below to use lightline
-let g:status_bar = 'lightline'
+" let g:status_bar = 'lightline'
 let g:status_bar_choice = get(g:, 'status_bar', "airline")
 
 " }}}2
