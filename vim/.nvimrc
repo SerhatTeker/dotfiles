@@ -288,7 +288,8 @@ endif
 
 " Use airline or lightline
 " Default airline
-" let g:status_bar = 'lightline'
+" Uncomment below to use lightline
+let g:status_bar = 'lightline'
 let g:status_bar_choice = get(g:, 'status_bar', "airline")
 
 " }}}2
@@ -1346,105 +1347,104 @@ let g:gutentags_file_list_command = {
 
 if g:status_bar_choice == 'airline'
 
-augroup LoadAirline
-    autocmd!
-    autocmd BufEnter * call plug#load('vim-airline') | autocmd! LoadAirline
-    autocmd BufEnter * call plug#load('vim-airline-themes') | autocmd! LoadAirline
-    autocmd BufEnter * call plug#load('vim-anzu') | autocmd! LoadAirline
-augroup END
+    augroup LoadAirline
+        autocmd!
+        autocmd BufEnter * call plug#load('vim-airline') | autocmd! LoadAirline
+        autocmd BufEnter * call plug#load('vim-airline-themes') | autocmd! LoadAirline
+        autocmd BufEnter * call plug#load('vim-anzu') | autocmd! LoadAirline
+    augroup END
 
-" colorscheme
-let g:airline_theme='onedark'
-let g:airline_powerline_fonts = 1
+    " colorscheme
+    let g:airline_theme='onedark'
+    let g:airline_powerline_fonts = 1
 
-" extensions {{{
+    " extensions {{{
 
-" Show errors or warnings in the statusline
-let g:airline#extensions#ale#enabled = 1
-let g:airline#extensions#branch#enabled = 1
+    " Show errors or warnings in the statusline
+    let g:airline#extensions#ale#enabled = 1
+    let g:airline#extensions#branch#enabled = 1
 
-" Python virtual env
-let g:airline#extensions#virtualenv#enabled = 1
+    " Python virtual env
+    let g:airline#extensions#virtualenv#enabled = 1
 
-" obsession - continuously updated session
-let g:airline#extensions#obsession#enabled = 1
-let g:airline#extensions#obsession#indicator_text = '$'
+    " obsession - continuously updated session
+    let g:airline#extensions#obsession#enabled = 1
+    let g:airline#extensions#obsession#indicator_text = '$'
 
-" show buffers at top
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_min_count = 2
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+    " show buffers at top
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#buffer_min_count = 2
+    let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-" gutentag airline
-let g:airline#extensions#gutentags#enabled = 1
-" }}}
-
-" AirlineInit {{{
-
-function! AirlineInit()
-    " Z Info{{{
-
-    " Default Z Info
-    " https://github.com/vim-airline/vim-airline/blob/a294f0cb7e847219f67c2a55d5fb400b7c93d4af/autoload/airline/init.vim#L217
-    " let spc = g:airline_symbols.space
-    " let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%p%%'.spc, 'linenr', 'maxlinenr', ':%v'])
-    "
-    " Simple Z info : line:column
-    let g:airline_section_z = airline#section#create(['%l', ':%c'])
-    " Custom Y info : fileencoding|fileformat
-    let g:airline_section_y = airline#section#create(['%{&fenc}', '|%{&ff}'])
+    " gutentag airline
+    let g:airline#extensions#gutentags#enabled = 1
     " }}}
-    :AirlineRefresh
-endfun
 
-autocmd VimEnter * call AirlineInit()
-" }}}
+    " AirlineInit {{{
+
+    function! AirlineInit()
+        " Z Info{{{
+
+        " Default Z Info
+        " https://github.com/vim-airline/vim-airline/blob/a294f0cb7e847219f67c2a55d5fb400b7c93d4af/autoload/airline/init.vim#L217
+        " let spc = g:airline_symbols.space
+        " let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%p%%'.spc, 'linenr', 'maxlinenr', ':%v'])
+        "
+        " Simple Z info : line:column
+        let g:airline_section_z = airline#section#create(['%l', ':%c'])
+        " Custom Y info : fileencoding|fileformat
+        let g:airline_section_y = airline#section#create(['%{&fenc}', '|%{&ff}'])
+        " }}}
+        :AirlineRefresh
+    endfun
+
+    autocmd VimEnter * call AirlineInit()
+    " }}}
 endif
 " }}}
 
 " Lightline {{{
 
 if g:status_bar_choice == 'lightline'
+    augroup LoadLightline
+        autocmd!
+        autocmd BufEnter * call plug#load('lightline.vim') | autocmd! LoadLightline
+        autocmd BufEnter * call plug#load('lightline-bufferline') | autocmd! LoadLightline
+    augroup END
 
-augroup LoadLightline
-    autocmd!
-    autocmd BufEnter * call plug#load('lightline.vim') | autocmd! LoadLightline
-    autocmd BufEnter * call plug#load('lightline-bufferline') | autocmd! LoadLightline
-augroup END
+    " Show bufferline
+    " https://github.com/mengelbrecht/lightline-bufferline#faq
+    set showtabline=2
 
-" Show bufferline
-" https://github.com/mengelbrecht/lightline-bufferline#faq
-set showtabline=2
+    " Vars
+    let g:lightline#bufferline#show_number  = 0
+    let g:lightline#bufferline#shorten_path = 1
+    let g:lightline#bufferline#unnamed      = '[No Name]'
 
-" Vars
-let g:lightline#bufferline#show_number  = 0
-let g:lightline#bufferline#shorten_path = 1
-let g:lightline#bufferline#unnamed      = '[No Name]'
+    " Customizaton {{{
 
-" Customizaton {{{
+    let g:lightline                     = {}
+    let g:lightline.colorscheme         = 'one'
+    let g:lightline.tabline             = {'left': [['buffers']], 'right': [['close']]}
+    let g:lightline.component_expand    = {'buffers': 'lightline#bufferline#buffers'}
+    let g:lightline.component_type      = {'buffers': 'tabsel'}
+    let g:lightline.component_function  = {'gitbranch': 'FugitiveHead', 'venv': 'virtualenv#statusline'}
 
-let g:lightline                     = {}
-let g:lightline.colorscheme         = 'one'
-let g:lightline.tabline             = {'left': [['buffers']], 'right': [['close']]}
-let g:lightline.component_expand    = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type      = {'buffers': 'tabsel'}
-let g:lightline.component_function  = {'gitbranch': 'FugitiveHead', 'venv': 'virtualenv#statusline'}
+    " remove parcent
+    " add gitbranch
+    " add python venv
+    let g:lightline.active = {
+        \ 'left': [ [ 'mode', 'paste' ],
+        \           [ 'readonly', 'filename', 'modified' ],
+        \           [ 'gitbranch', 'venv', 'readonly' ] ],
+        \ 'right': [ [ 'lineinfo' ],
+        \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
 
-" remove parcent
-" add gitbranch
-" add python venv
-let g:lightline.active = {
-    \ 'left': [ [ 'mode', 'paste' ],
-    \           [ 'readonly', 'filename', 'modified' ],
-    \           [ 'gitbranch', 'venv', 'readonly' ] ],
-    \ 'right': [ [ 'lineinfo' ],
-    \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
-
-" default
-let g:lightline.inactive = {
-    \ 'left': [ [ 'filename' ] ],
-    \ 'right': [ [ 'lineinfo' ] ] }
-" }}}
+    " default
+    let g:lightline.inactive = {
+        \ 'left': [ [ 'filename' ] ],
+        \ 'right': [ [ 'lineinfo' ] ] }
+    " }}}
 endif
 " }}}
 
