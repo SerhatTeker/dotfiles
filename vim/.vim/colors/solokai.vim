@@ -27,6 +27,15 @@ runtime colors/molokai.vim
 
 "Override the name of the base colorscheme with the name of this custom one
 let g:colors_name = "solokai"
+
+" to ensure that Vim uses 256 colors
+" https://stackoverflow.com/a/15376154/10802538
+setlocal t_Co=256
+" attempts to bring the 256 color version as close as possible to the
+" default (dark) GUI version.
+let rehash256 = 1
+" match the original monokai background color
+let molokai_original = 0
 " -----------------------------------------------------------------------------"
 " }}}1
 " -----------------------------------------------------------------------------"
@@ -35,11 +44,11 @@ let g:colors_name = "solokai"
 " Highlight	{{{1
 " -----------------------------------------------------------------------------"
 
-"Clear the colors for any items that you don't like
-highlight clear Normal
+" Clear the colors for any items that you don't like
+" highlight clear Normal
 
 " Set up your new & improved colors
-highlight Normal ctermfg=252 ctermbg=none guifg=#F8F8F2 guibg=none
+" highlight Normal ctermfg=252 ctermbg=none guifg=#F8F8F2 guibg=none
 " default hi Normal:
 " highlight Normal ctermfg=145 ctermbg=234 guifg=#ABB2BF guibg=#1c1c1c
 " -----------------------------------------------------------------------------"
