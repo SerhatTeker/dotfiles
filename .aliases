@@ -34,7 +34,7 @@ alias tree='tree -aI ".git|.venv"'
 # System {{{
 
 alias shutdown='push-journals && sudo shutdown -h now'
-alias reboot='push-journal && reboot'
+alias reboot='push-journals && reboot'
 alias sleep='systemctl suspend'
 ## thrash
 alias thrash-empty='rm -rf ~/.local/share/Trash/*'
