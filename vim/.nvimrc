@@ -1096,7 +1096,8 @@ let NERDTreeDirArrows = 1
 let NERDTreeIgnore = [
             \ '\.pyc$',
             \ '^__pycache__$',
-            \ '\.retry$'
+            \ '\.retry$',
+            \'^node_modules$',
             \]
 
 " show bookmarkds
