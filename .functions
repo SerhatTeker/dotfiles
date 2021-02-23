@@ -17,17 +17,32 @@
 # journal in vim
 journal(){
 	# check journal exist, if not exist create
+    # TODO: Fix WNUMBER
     journal-check
 
 	DATE=$(date '+%Y-%m-%d')
+    # TODO: Fix WNUMBER
 	WNUMBER=$(date +%U -d "$DATE + 1 week")
 	YNUMF=$(date +%Y -d $DATE)
 
-	vi $(find "$JOURNAL_DIR/content/journal/$YNUMF" -name "w$WNUMBER.md")
+	# vi $(find "$JOURNAL_DIR/content/journal/$YNUMF" -name "w$WNUMBER.md")
+    echo "WNUMBER: ${WNUMBER}"
 }
 
 tj(){
 	. $(find "$SCRIPTS_DIR/" -name "journalStartAll" 2>/dev/null)
+}
+
+# Push journals
+# Using with shutdown and reboot
+push-journals() {
+    if [[ ! -z "${JOURNAL_DIR}" ]]; then
+        cd ${JOURNAL_DIR} && git push -v
+    fi
+
+    if [[ ! -z "${LEBEN_DIR}" ]]; then
+        cd ${LEBEN_DIR} && git push -v
+    fi
 }
 # }}}1
 
