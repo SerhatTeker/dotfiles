@@ -58,23 +58,23 @@
 # %Z     alphabetic time zone abbreviation (e.g., EDT)
 # }}}
 
-DRAFT="$JOURNAL_DIR/content/journal/draft.md"
+# Variables {{{
 
+# TODO: Use FIRST_SUN as $DATE
 # Dates
 DATE=$(date '+%Y-%m-%d')
 ## nums
-WNUM=$(date +%U -d "$DATE + 1 week")
-DAY=$(date +%d -d $DATE)
-MNAME="$(date +%b -d $DATE)"
+WNUM=$(date +%U)
+DAY=$(date +%d)
+MNAME=$(date +%b)
 # MNAME_UPPER="$(echo $MNAME | tr [a-z] [A-Z])"
 MNAME_UPPER="$(echo $MNAME | tr a-z A-Z)"
-MNUM=$(date +%m -d $DATE)
+MNUM=$(date +%m)
 QNAME="Q$((($(date -d "-1 month" +%-m)-1)/3+1 ))"
-YNUM=$(date +%y -d $DATE)
-YNUMF=$(date +%Y -d $DATE)
+YNUM=$(date +%y)
+YNUMF=$(date +%Y)
 
-FILENAME="$JOURNAL_DIR/content/journal/$YNUMF/m$MNUM/w$WNUM.md"
-WFILE="$(find "$JOURNAL_DIR" -wholename $FILENAME)"
+# }}}
 
 # Manual Test {{{1
 
@@ -86,7 +86,7 @@ _test() {
 	echo "WFILE: $WFILE"
 }
 
-_mkdir() {
+_test-mkdir() {
 	echo "$JOURNAL_DIR/content/journal/$YNUMF/m$MNUM/"
 	echo "FILENAME: $FILENAME"
 	echo "WFILE: $WFILE"
@@ -94,7 +94,11 @@ _mkdir() {
 # }}}
 
 # Main {{{1
-main() {
+journal() {
+    DRAFT="$JOURNAL_DIR/content/journal/draft.md"
+    FILENAME="$JOURNAL_DIR/content/journal/$YNUMF/m$MNUM/w$WNUM.md"
+    WFILE="$(find "$JOURNAL_DIR" -wholename $FILENAME)"
+
 	if [ -e "$WFILE" ]; then
 		:
 	else
@@ -109,12 +113,12 @@ main() {
 	    # copy draft.md to $FILENAME
 	    cat "$DRAFT" > $FILENAME
 	    # replace with current date and times
-	    sed -i "s/2020-01-01/$YNUMF-$MNUM-$DAY/" $FILENAME
+	    sed -i "s/2021-01-01/$YNUMF-$MNUM-$DAY/" $FILENAME
 	    sed -i "s/w01/w$WNUM/" $FILENAME
 	    sed -i "s/JAN/$MNAME_UPPER/" $FILENAME
 	    sed -i "s/Q1/$QNAME/" $FILENAME
-	    sed -i "s/20/$YNUM/" $FILENAME
-	    sed -i 's/2020/'$YNUMF'/' $FILENAME
+	    sed -i "s/21/$YNUM/" $FILENAME
+	    sed -i 's/2021/'$YNUMF'/' $FILENAME
 	    sed -i "s/draft: true/draft: false/" $FILENAME
 
 	    FIRST_SUN=$(date +%y-%m-%d)
@@ -124,9 +128,9 @@ main() {
 		    FIRST_SUN=$(date +%y-%m-%d -d "$DATE -$(date -d $DATE +%u) days")
 	    fi
 
-	    # date change
+	    # date to change
 	    ## 11 Jan | Sun | 0
-	    CDATE=2020-01-11
+	    CDATE=2021-01-11
 
 	    for i in {0..6}
 	    do
@@ -135,6 +139,40 @@ main() {
 		    sed -i "s/$NEXT_CDATE/$NEXT_DATE/" $FILENAME
 	    done
     fi
+}
+
+journal-todo() {
+    DRAFT="$JOURNAL_DIR/content/journal/todo_draft.md"
+    FILENAME="${JOURNAL_DIR}/content/journal/${YNUMF}/m${MNUM}/w${WNUM}_todo.md"
+    WFILE="$(find "$JOURNAL_DIR" -wholename $FILENAME)"
+
+	if [ -e "$WFILE" ]; then
+		:
+	else
+		if [ ! -f $FILENAME ]; then
+			mkdir -p "$JOURNAL_DIR/content/journal/$YNUMF/m$MNUM/"
+			touch $FILENAME
+			echo "$FILENAME created"
+		else
+			:
+		fi
+
+	    # copy draft.md to $FILENAME
+	    cat "$DRAFT" > $FILENAME
+	    # replace with current date and times
+	    sed -i "s/2021-01-01/$YNUMF-$MNUM-$DAY/" $FILENAME
+	    sed -i "s/w01/w$WNUM/" $FILENAME
+	    sed -i "s/JAN/$MNAME_UPPER/" $FILENAME
+	    sed -i "s/Q1/$QNAME/" $FILENAME
+	    sed -i "s/21/$YNUM/" $FILENAME
+	    sed -i 's/2021/'$YNUMF'/' $FILENAME
+	    sed -i "s/draft: true/draft: false/" $FILENAME
+    fi
+}
+
+main() {
+    journal
+    journal-todo
 }
 # }}}
 

@@ -17,17 +17,13 @@
 
 # journal in vim
 journal(){
+    # Show current journal
+    WNUMBER=$(date +%U)
+    YNUM=$(date +%y)
+    echo "JOURNAL: y${YNUM}/w${WNUMBER}"
+
 	# check journal exist, if not exist create
-    # TODO: Fix WNUMBER
     journal-check
-
-	DATE=$(date '+%Y-%m-%d')
-    # TODO: Fix WNUMBER
-	WNUMBER=$(date +%U -d "$DATE + 1 week")
-	YNUMF=$(date +%Y -d $DATE)
-
-	# vi $(find "$JOURNAL_DIR/content/journal/$YNUMF" -name "w$WNUMBER.md")
-    echo "WNUMBER: ${WNUMBER}"
 }
 
 tj(){
