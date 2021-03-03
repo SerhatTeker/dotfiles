@@ -763,7 +763,7 @@ let g:go_list_type = "quickfix"
 " Enable vim-go mappings
 let g:go_def_mapping_enabled = 1
 " Consider performance
-let g:go_auto_type_info = 1
+" let g:go_auto_type_info = 1
 " Highlight other uses of same keyword/id - Consider performance
 " let g:go_auto_sameids = 1
 " https://github.com/dense-analysis/ale/issues/609#issuecomment-305609209
