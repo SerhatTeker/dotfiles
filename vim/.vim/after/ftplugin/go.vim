@@ -16,10 +16,10 @@ colorscheme solokai
 
 " status bar
 if g:status_bar_choice == 'airline'
-    " let g:airline_theme = 'molokai'
-    :AirlineTheme molokai
+    let g:airline_theme = 'molokai'
+    " :AirlineTheme molokai
     " Add Refresh since colors mixed after udpate global color:'one'
-    :AirlineRefresh
+    " :AirlineRefresh
 else
     let g:lightline.colorscheme = 'molokai'
 
