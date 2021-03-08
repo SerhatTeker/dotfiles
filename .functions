@@ -201,13 +201,14 @@ ddl_gist(){
 # ----------------------------------------------------------------------------#
 
 # Open DIR
+# run it in the background
 f() {
 	# if $1 empty open $HOME
 	# -w to open it in a new window
 	if [ -z "$1" ];then
 		nohup nautilus -w "$HOME" >/dev/null 2>&1 &
 	else
-		nohup nautilus -w "$HOME/$1" >/dev/null 2>&1 &
+		nohup nautilus -w "$1" >/dev/null 2>&1 &
 	fi
 }
 
