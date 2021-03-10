@@ -1,9 +1,19 @@
 # ls {{{
 
 # some more ls aliases
-alias ll='ls -ahlF'
-alias la='ls -A'
-alias l='ls -CF'
+# alias l='ls -CF'
+# alias la='ls -A'
+# alias ll='ls -ahlF'
+
+# lsd
+# https://github.com/Peltoche/lsd
+alias ls='lsd'
+alias l='lsd -l'
+alias la='lsd -lA'
+alias lla='lsd -la'
+alias lsa='lsd -a'
+alias lt='lsd --tree'
+
 # show all files
 alias lsf='ls -p | grep -v /'
 # show all symbolic links
