@@ -31,6 +31,10 @@ ln -s $HOME/dotfiles/zsh/.zlogout $HOME/.zlogout
 ln -s $HOME/dotfiles/zsh/.zsh_private $HOME/.zsh
 ln -s $HOME/dotfiles/zsh/.agnoster.zsh $HOME/.zsh
 ln -s $HOME/dotfiles/zsh/.fzf.zsh $HOME/.zsh
+
+# lsd
+mkdir -p $HOME/.config/lsd
+ln -sf $HOME/dotfiles/.config/lsd/config.yaml $HOME/.config/lsd/config.yaml
 # }}}
 
 # Ctags {{{
