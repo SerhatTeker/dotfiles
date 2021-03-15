@@ -46,6 +46,7 @@ alias tree='tree -aI ".git|.venv"'
 alias shutdown='push-journals && sudo shutdown -h now'
 alias reboot='push-journals && reboot'
 alias sleep='systemctl suspend'
+alias erase='shred –vfzu –n 5'
 ## thrash
 alias thrash-empty='rm -rf ~/.local/share/Trash/*'
 alias thrash-clean='thrash-empty'
