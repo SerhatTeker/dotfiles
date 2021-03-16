@@ -46,11 +46,14 @@ alias tree='tree -aI ".git|.venv"'
 alias shutdown='push-journals && sudo shutdown -h now'
 alias reboot='push-journals && reboot'
 alias sleep='systemctl suspend'
-alias erase='shred –vfzu –n 5'
+# Night Light
+alias night-on='gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true'
+alias night-off='gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false'
 ## thrash
 alias thrash-empty='rm -rf ~/.local/share/Trash/*'
 alias thrash-clean='thrash-empty'
 alias clean-thrash='thrash-empty'
+alias erase='shred –vfzu –n 5'
 ## screenshots
 alias screenshots-clear='rm -r $HOME/Pictures/Screenshot*'
 alias screenshots-clean='screenshots-clear'
