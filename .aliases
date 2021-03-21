@@ -68,7 +68,7 @@ alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purg
 ## maintenance
 alias update-all='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y"'
 ## pid
-alias psvi='ps aux > pid.list && nvim pid.list'
+alias list-pids='ps aux > pid.list && nvim pid.list'
 ## monitor
 alias monitor="bpytop"
 
