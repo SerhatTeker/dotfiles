@@ -131,6 +131,19 @@ snippet hugo-date "Add date for Hugo Front Matter" b
 date = "`date +%Y-%m-%d`T`date +%T`" $0
 endsnippet
 
+# Highlight Lines for Code Snippets
+# Example
+# ```go {linenos=table,hl_lines=[8,"15-17"],linenostart=199}
+# // ... code
+# ```
+snippet hugo-linenos "Highlight Line Numbers" b
+\`\`\`$1 {linenos=table,hl_lines=[$2]}
+$3
+\`\`\`
+$0
+
+endsnippet
+
 #####################
 #   Zettelkasten    #
 #####################
