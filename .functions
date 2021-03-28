@@ -384,3 +384,17 @@ _update_all() {
 			-u normal -t 7500 -i checkbox-checked-symbolic
 }
 # }}}1
+
+
+# Apps {{{1
+# ----------------------------------------------------------------------------#
+
+# Toggle Telegram On/Off
+telegram() {
+    if pgrep Telegram; then
+        pkill Telegram
+    else
+        nohup $APPS_DIR/Telegram/Telegram >/dev/null 2>&1 &
+    fi
+}
+# }}}1
