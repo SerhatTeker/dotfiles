@@ -87,6 +87,8 @@ Plug 'SerhatTeker/python-syntax'
 Plug 'tmhedberg/SimpylFold'
 " navigation
 Plug 'jeetsukumaran/vim-pythonsense'
+" Semantic Highliht
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 " Django
 Plug 'tweekmonster/django-plus.vim'
@@ -108,16 +110,13 @@ Plug 'dkarter/bullets.vim'
 
 " }}}3
 
-" code complete {{{3
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" }}}3
-
-" Linter {{{3
+" LSP/CodeComplete/Linter {{{3
 
 Plug 'dense-analysis/ale'
-Plug 'sbdchd/neoformat'
-Plug 'editorconfig/editorconfig-vim'
+" Code Completion
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " }}}
 
 " Syntax {{{3
@@ -148,6 +147,7 @@ Plug 'bkad/CamelCaseMotion'
 
 " Others {{{3
 Plug 'godlygeek/tabular'
+Plug 'editorconfig/editorconfig-vim'
 "" Pair
 " Disabled.
 " Plug 'SerhatTeker/auto-pairs'
@@ -855,7 +855,7 @@ endfunction
 " augroup END
 
 " run manually
-nnoremap <leader>f :Neoformat<CR>
+" nnoremap <leader>f :Neoformat<CR>
 " }}}
 
 " ALE {{{
@@ -936,6 +936,25 @@ nmap <silent> <C-c> <Plug>(ale_toggle_buffer)
 " Bind F8 to fixing problems with ALE
 nmap <F8> <Plug>(ale_fix)
 " }}}3
+" }}}
+
+
+" coc.vim {{{
+
+" Going To definition
+nmap <silent> gd <Plug>(coc-definition)
+
+" Displaying documentation (in the floating window)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+nmap <leader>rn <Plug>(coc-rename)
 " }}}
 
 " FZF {{{2
