@@ -938,6 +938,20 @@ nmap <F8> <Plug>(ale_fix)
 " }}}3
 " }}}
 
+" Semshi {{{
+
+" Custom Colors for OneDark Theme
+function SemshiCustomHighlights()
+    hi semshiSelf               guifg=#E5C07B
+    hi semshiBuiltin            guifg=#56B6C2
+    hi semshiParameter          guifg=#D19A66             " Default Parameter
+    hi semshiParameterUnused    guifg=#895829 gui=underline,italic
+    " Alternative
+    " hi semshiParameter          guifg=#E06C75               " Parameter Pylance style
+    " hi semshiParameterUnused    guifg=#7e1b23 gui=underline,italic
+endfunction
+autocmd FileType python call SemshiCustomHighlights()
+" }}}
 
 " coc.vim {{{
 
