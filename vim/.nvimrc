@@ -436,20 +436,32 @@ set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:block-Cursor2/lCursor2,
 
 
 " ----------------------------------------------------------------------------"
-"	Mappings	{{{
+"	Mappings	{{{1
 " ----------------------------------------------------------------------------"
 " Set leader shortcut to a comma ','. By default it's the backslash
 let mapleader = ","
 
-" Quickfix {{{
+" Quickfix {{{2
 
 " Jump to next error with Ctrl-n and previous error with Ctrl-b. Close the
 " quickfix window with <leader>a
 nnoremap <C-q> :copen<CR>
 nnoremap <C-q> :copen<CR>
-nnoremap <C-q>n :cnext<CR>
-nnoremap <C-q>m :cprevious<CR>
-" }}}
+
+
+" Toggle {{{3
+
+function! ToggleQuickFix()
+    if empty(filter(getwininfo(), 'v:val.quickfix'))
+        copen
+    else
+        cclose
+    endif
+endfunction
+
+nnoremap <leader>q :call ToggleQuickFix()<CR>
+" }}}3
+" }}}2
 
 " Run {{{
 
