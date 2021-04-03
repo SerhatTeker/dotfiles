@@ -955,8 +955,14 @@ autocmd FileType python call SemshiCustomHighlights()
 
 " coc.vim {{{
 
+" Extension
+let g:coc_global_extensions = ['coc-snippets', 'coc-jedi', 'coc-sh', 'coc-json']
+
 " Going To definition
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " Displaying documentation (in the floating window)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -968,6 +974,7 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Smart rename: renames the exports across all files
 nmap <leader>rn <Plug>(coc-rename)
 " }}}
 
