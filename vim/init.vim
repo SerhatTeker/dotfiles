@@ -26,5 +26,3 @@ elseif filereadable(expand("~/.nvimrc"))
 else
 	source ~/.vimrc
 endif
-
-:read !figlet -c init.vim
