@@ -1,6 +1,7 @@
 {
   "coc.preferences.useQuickfixForLocations": true,
   "coc.preferences.snippets.enable": true,
+  "diagnostic.displayByAle": true,
   "jedi.enable": true,
   "jedi.startupMessage": false,
   "jedi.markupKindPreferred": "plaintext",

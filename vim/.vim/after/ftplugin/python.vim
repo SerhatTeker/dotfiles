@@ -38,6 +38,12 @@ map <buffer> [c <Plug>(PythonsenseStartOfPythonClass)
 map <buffer> [C <Plug>(PythonsenseEndOfPreviousPythonClass)
 " }}}
 
+" Ale and coc.vim {{{
+
+" https://github.com/dense-analysis/ale#5iii-how-can-i-use-ale-and-cocnvim-together
+let b:ale_disable_lsp = 1
+" }}}
+
 " theme {{{
 " TODO: Del if no need
 " if (has("autocmd"))
