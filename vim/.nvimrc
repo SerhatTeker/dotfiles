@@ -494,8 +494,9 @@ command! WQ :wqa
 " map <C-B> :Buffers<CR>
 
 " buffer navigation
-map <C-n> :bn<CR>
-map <C-m> :bp<CR>
+map <S-n> :bn<CR>
+map <S-m> :bp<CR>
+
 " alternatives
 " nnoremap <C-B>n :bn<CR>
 " nnoremap <C-B>p :bp<CR>
@@ -555,7 +556,7 @@ imap kj <esc>
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
 nnoremap n nzzzv
-nnoremap N Nzzzv
+" nnoremap N Nzzzv
 
 " Act like D and C
 nnoremap Y y$
