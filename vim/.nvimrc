@@ -114,9 +114,12 @@ Plug 'dkarter/bullets.vim'
 " LSP/CodeComplete/Linter {{{3
 
 Plug 'dense-analysis/ale'
+
 " Code Completion
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Use deoplete for go, for the rest coc.vim
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+" vim-go needs deoplete for realtime omnifunc completion
+Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins', 'for': 'go' }
 " }}}
 
 " Syntax {{{3
@@ -773,7 +776,7 @@ map <leader>gf :e <cfile>.md<cr>
 let g:go_fmt_command = "goimports"
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
-" Enable vim-go mappings
+" Enable `go to definition/GoDef` mapping
 let g:go_def_mapping_enabled = 1
 " Consider performance
 " let g:go_auto_type_info = 1
@@ -810,8 +813,8 @@ imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
 augroup go
     autocmd!
 
-    " Show by default 4 spaces for a tab
-    autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+    " Show by default 8 spaces for a tab
+    " autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=8 shiftwidth=8 softtabstop=8
     autocmd BufNewFile,BufRead *.go setlocal foldmethod=syntax
 
     " :GoBuild and :GoTestCompile
@@ -977,31 +980,6 @@ function SemshiCustomHighlights()
     " hi semshiParameterUnused    guifg=#7e1b23 gui=underline,italic
 endfunction
 autocmd FileType python call SemshiCustomHighlights()
-" }}}
-
-" coc.vim {{{
-
-" Extension
-let g:coc_global_extensions = ['coc-snippets', 'coc-jedi', 'coc-sh', 'coc-json']
-
-" Going To definition
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Displaying documentation (in the floating window)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Smart rename: renames the exports across all files
-nmap <leader>rn <Plug>(coc-rename)
 " }}}
 
 " FZF {{{2
@@ -1211,12 +1189,55 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " }}}
 
-" Deoplete {{{
+" coc.vim {{{
 
-let g:python3_host_prog = '/usr/bin/python3'
+" Disable coc.vim for vim-go and deoplete.vim
+augroup CocDisableGroup
+  autocmd!
+  autocmd BufNew,BufRead *.go execute "CocDisable"
+augroup end
+
+" Extension
+let g:coc_global_extensions = ['coc-snippets', 'coc-jedi', 'coc-sh', 'coc-json']
+" Disable for go since vim-go
+" autocmd FileType go let b:coc_suggest_disable = 1
+
+" Going To definition
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Displaying documentation (in the floating window)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Smart rename: renames the exports across all files
+nmap <leader>rn <Plug>(coc-rename)
+
+" }}}
+
+" Deoplete.vim {{{
+" Using it for only go
+
+" let g:python3_host_prog = '/usr/bin/python3'
 let g:deoplete#enable_at_startup = 1
 " let g:deoplete#on_insert_enter = 1
 " let g:deoplete#file#enable_buffer_path=1
+" let g:deoplete#auto_complete = v:true
+" let g:deoplete#auto_complete_popup = "auto"
+
+augroup deopleteGo
+    autocmd!
+    autocmd FileType go call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+    autocmd FileType go call deoplete#custom#source('ale', 'rank', 999)
+augroup END
 
 " deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
