@@ -1248,27 +1248,6 @@ inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " }}}
 
-" Vim-Devicons {{{
-
-" let g:NERDTreeGitStatusNodeColorization = 1
-" " 
-" let g:webdevicons_enable_denite = 0
-" let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ''
-" let g:DevIconsEnableFoldersOpenClose = 1
-" let g:WebDevIconsOS = 'Darwin'
-" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-" let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = ''
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols = {} " needed
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['js'] = ''
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['vim'] = ''
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['tsx'] = ''
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['css'] = ''
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['html'] = ''
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['json'] = ''
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['md'] = ''
-" let g:WebDevIconsUnicodeDecorateFileNodesExtensionSymbols['sql'] = ''
-" }}}
-
 " camelCaseMotion {{{
 
 call camelcasemotion#CreateMotionMappings('<leader>')
