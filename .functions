@@ -34,11 +34,11 @@ tj(){
 # Using with shutdown and reboot
 push-journals() {
     if [[ ! -z "${JOURNAL_DIR}" ]]; then
-        cd ${JOURNAL_DIR} && git push -v
+        git -C ${JOURNAL_DIR} push -v
     fi
 
     if [[ ! -z "${LEBEN_DIR}" ]]; then
-        cd ${LEBEN_DIR} && git push -v
+        git -C ${LEBEN_DIR} push -v
     fi
 }
 # }}}1
