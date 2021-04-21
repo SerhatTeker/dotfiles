@@ -161,6 +161,13 @@ fi
 
 # }}}1
 
+# Environment Varibles {{{1
+
+# Python
+# Use ipdb instead of pdb
+export PYTHONBREAKPOINT=ipdb.set_trace
+# }}}1
+
 # PLUGINS {{{1
 
 # Enabled Plugins {{{2
