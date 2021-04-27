@@ -94,9 +94,11 @@ alias code='code-insiders'
 alias gac='git add . && git commit'
 alias glog-fav='glola'
 alias glog-lean-fav='gloga'
+# Initial empty commit for repos
 alias git-commit-empty='git commit --allow-empty -m "Initial commit"'
 alias gce='git commit --allow-empty -m "Initial commit"'
-
+# Visualize git branch tree
+alias glb='git log --graph --simplify-by-decoration --pretty=format:'%d' --all'
 # }}}
 
 # tmux {{{
