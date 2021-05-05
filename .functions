@@ -129,7 +129,7 @@ myip-echo() {
 # Usage example: git pull origin $(git_current_branch)
 # Using '--quiet' with 'symbolic-ref' will not cause a fatal error (128) if
 # it's not a symbolic ref, but in a Git repo
-git_current_branch() {
+git-current-branch() {
 	local ref
 	ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
 	local ret=$?
@@ -141,7 +141,7 @@ git_current_branch() {
 }
 
 # sync upstream fork with local
-git_sync_fork() {
+git-sync-fork() {
 	# Fetch all branches of remote upstream
 	# Rewrite master with upstream’s master using git rebase:
 	git fetch upstream && \
@@ -149,7 +149,7 @@ git_sync_fork() {
 }
 
 # Delete branch local and remote
-git_delete_total_branch() {
+git-delete-total-branch() {
     BRANCH=$1
     REMOTE="origin"
 
@@ -166,7 +166,7 @@ git_delete_total_branch() {
 
 # Download all files from a github gist url
 # Usage Example: $ ddl-gist 'https://gist.github.com/7fee6d84f2f3d16ef3628e9a4a7f57e7' ~/Downloads/gists
-ddl_gist(){
+ddl-gist(){
 	if [ $# -ne 2 ];
 	then
 		echo 'Failed. Syntax: $> ddl-gist GITHUB_GIST_URL DOWNLOAD_PATH'
@@ -331,11 +331,11 @@ replace-spaces() {
 	done
 }
 
-add_file_suffix_all() {
+add-file-suffix-all() {
 	find . -type f -not -name "*.$1" -exec mv "{}" "{}.$1" \;
 }
 
-delete_file_part() {
+delete-file-part() {
 	suffix=$1
 	delete_part="$2"
 
@@ -360,11 +360,11 @@ info-update-last () {
 	ls -lt --time-style="long-iso" /var/log/apt | grep -o '\([0-9]\{2,4\}[- ]\)\{3\}[0-9]\{2\}:[0-9]\{2\}' -m 1
 }
 
-ssh_joke() {
+ssh-joke() {
 	ssh -X user@192.168.0.112 DISPLAY=:0 notify-send 'HAHA I am In Your Computer!' 'Deleting all your stuff!' -u critical -i face-worried
 }
 
-history_statistic() {
+history-statistic() {
 	#A one-liner allows us to see our most used commands
 	history | \
 		awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | \
@@ -376,7 +376,7 @@ history_statistic() {
 # Update {{{1
 # ----------------------------------------------------------------------------#
 
-_update_all() {
+_update-all() {
 	sudo apt update && \
 		sudo apt -y upgrade && \
 		notify-send 'Updates Complete' \
