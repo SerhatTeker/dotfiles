@@ -408,14 +408,15 @@ if filereadable(expand("~/.vimrc_background"))
     source ~/.vimrc_background
     " default colorscheme
 elseif filereadable(expand("~/.vim/colors/neodark.vim"))
-    " elseif !isdirectory($VIMRUNTIME . "/colors/neodark.vim")
+    " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
     colorscheme neodark
 
-    " alternative
     " TODO: make opt possible
-    " gruvbox
+    " gruvbox {{{
+
     " colorscheme gruvbox
     " let g:gruvbox_contrast_dark = "hard"
+    " }}}
 else
     " custom default colors
     let g:onedark_color_overrides = {
@@ -424,6 +425,7 @@ else
     colorscheme onedark
 endif
 " }}}2
+
 
 " Cursor {{{2
 

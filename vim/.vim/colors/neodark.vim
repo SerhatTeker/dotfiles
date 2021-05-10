@@ -41,9 +41,29 @@ highlight clear Normal
 
 " Reset the background color in Normal mode so vim uses Terminal.app's
 " background color. Get bg from tmux bg
-highlight Normal ctermfg=145 ctermbg=none guifg=#ABB2BF guibg=none
+" highlight Normal ctermfg=145 ctermbg=none guifg=#ABB2BF guibg=none
+highlight Normal ctermfg=145 guifg=#ABB2BF guibg=none
 " default hi Normal:
 " highlight Normal ctermfg=145 ctermbg=234 guifg=#ABB2BF guibg=#1c1c1c
+
+" Active/Inactive Window Colors in NeoVim {{{
+
+if (has("nvim"))
+    " Background colors for active vs inactive windows
+    hi ActiveWindow guibg=#121212
+    hi InactiveWindow guibg=#303030
+    " Call method on window enter
+    augroup WindowManagement
+      autocmd!
+      autocmd WinEnter * call Handle_Win_Enter()
+    augroup END
+
+    " Change highlight group of active/inactive windows
+    function! Handle_Win_Enter()
+      setlocal winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+    endfunction
+endif
+" }}}
 
 " Custom Highlight for Python
 highlight CusConst ctermfg=215 guifg=#ffaf5f
