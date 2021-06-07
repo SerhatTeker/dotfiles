@@ -149,7 +149,7 @@ git-sync-fork() {
 }
 
 # Delete branch local and remote
-git-delete-total-branch() {
+git-prune-branch() {
     BRANCH=$1
     REMOTE="origin"
 
@@ -161,7 +161,6 @@ git-delete-total-branch() {
 
     git branch -d $BRANCH
     git push -d $REMOTE $BRANCH
-
 }
 
 # Download all files from a github gist url
