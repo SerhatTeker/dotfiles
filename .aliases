@@ -98,7 +98,7 @@ alias glog-lean-fav='gloga'
 alias git-commit-empty='git commit --allow-empty -m "Initial commit"'
 alias gce='git commit --allow-empty -m "Initial commit"'
 # Visualize git branch tree
-alias glb='git log --graph --simplify-by-decoration --pretty=format:'%d' --all'
+alias glvb='git log --graph --simplify-by-decoration --pretty=format:'%d' --all'
 # }}}
 
 # tmux {{{
