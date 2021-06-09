@@ -396,4 +396,15 @@ telegram() {
         nohup $APPS_DIR/Telegram/Telegram >/dev/null 2>&1 &
     fi
 }
+
+# night light mode
+night-toggle() {
+    CURRENT=$(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled)
+    if $CURRENT; then
+        gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false
+    else
+        gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
+    fi
+}
+
 # }}}1
