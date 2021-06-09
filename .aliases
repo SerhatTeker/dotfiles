@@ -172,6 +172,9 @@ alias umatrix='unimatrix -a -f -b -s 96 -l m'
 alias matrix='gnome-terminal --full-screen -- /bin/bash -c "unimatrix -a -f -b -s 96 -l m;read"'
 alias unix='unix-print'
 alias ncal='ncal -w'
+# disk usage
+alias space='du -hx --max-depth=1'
+alias space-sorted='f() {du -hx --max-depth=1 "$1" | sort -hr | head}; f'
 # symstem in ASCII art terminal
 ## take screenshot
 alias nfs='neofetch -S'

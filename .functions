@@ -291,20 +291,6 @@ extract-it() {
 	fi
 }
 # }}}2
-
-# Space {{{2
-
-# disk usage
-space() {
-    du -hx --max-depth=1 $1
-    # du -sh $1
-}
-
-# disk usage sorted
-space-sorted() {
-    du -hx --max-depth=1 $1 | sort -hr | head
-}
-# }}}2
 # }}}1
 
 
