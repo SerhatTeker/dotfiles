@@ -1,5 +1,9 @@
 export ZDOTDIR="$HOME/.zsh"
 
+# Unique path dirs
+typeset -U path
+path=(~/bin ~/progs/bin $path)
+
 # ENV {{{1
 
 # DOTNET
@@ -11,15 +15,6 @@ DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 export MYNVIMRC=$HOME/dotfiles/vim/.nvimrc
 # export MYNVIMRC=$HOME/.nvimrc
-# }}}2
-
-# npm node {{{2
-
-# Changing the location of global npm packages
-# $ mkdir ~/.node_modules
-# $ npm config set prefix=$HOME/.node_modules
-# $ npm install npm@latest -g
-export PATH="$HOME/.node_modules/bin:$PATH"
 # }}}2
 
 # Colors {{{2
