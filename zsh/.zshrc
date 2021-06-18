@@ -12,8 +12,15 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Main zsh directory path
+export ZMAIN="$HOME/.zsh"
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$HOME/.zsh/.oh-my-zsh"
+
+# https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_cache_dir
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
+# https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_compdump
+export ZSH_COMPDUMP="$ZSH_CACHE_DIR/.zcompdump"
 # }}}1
 
 # THEME {{{1
@@ -181,10 +188,14 @@ plugins=(
 	git
 	vi-mode
 	# dotenv
-	python
 	django
 	docker
 	docker-compose
+    httpie
+	python
+    ubuntu
+    zsh-autosuggestions
+    # Note that zsh-syntax-highlighting must be the last plugin sourced.
 	zsh-syntax-highlighting
 )
 
@@ -211,7 +222,8 @@ ZSH_DOTENV_PROMPT=false
 # }}}3
 
 # auto suggestion {{{3
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# now controlled buy oh-my-zsh
+# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # }}}3
 
 # zsh-highlight {{{3
@@ -281,13 +293,14 @@ fi
 
 # Senstive functions which are not pushed to Github
 # It containssome functions, aliases etc...
-[ -f $HOME/.zsh/.zsh_private ] && source $HOME/.zsh/.zsh_private
+[ -f $ZMAIN/.zsh_private ] && source $ZMAIN/.zsh_private
 # }}}2
 
 # History {{{2
 
 # !!! Warning !!!
 # History settings should be after `source $ZSH/oh-my-zsh.sh`
+HISTFILE=$ZMAIN/.zsh_history
 HISTSIZE=10000000
 SAVEHIST=$HISTSIZE
 
