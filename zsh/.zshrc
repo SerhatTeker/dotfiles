@@ -12,11 +12,10 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Main zsh directory path
-export ZMAIN="$HOME/.zsh"
+# Main zsh directory path export ZMAIN="$HOME/.zsh"
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.zsh/.oh-my-zsh"
-
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_cache_dir
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_compdump
@@ -71,7 +70,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 
 # TIP
 # Manual Update
-# $ upgrade_oh_my_zsh
+# $ omz update
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -222,7 +221,8 @@ ZSH_DOTENV_PROMPT=false
 # }}}3
 
 # auto suggestion {{{3
-# now controlled buy oh-my-zsh
+
+# now controlled by oh-my-zsh
 # source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # }}}3
 
@@ -264,12 +264,12 @@ ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
 
 # agnoster {{{3
 
-[ -f $HOME/.zsh/.agnoster.zsh ] && source $HOME/.zsh/.agnoster.zsh
+[ -f $ZMAIN/.agnoster.zsh ] && source $ZMAIN/.agnoster.zsh
 # }}}3
 
 # FZF {{{3
 
-[ -f $HOME/.zsh/.fzf.zsh ] && source $HOME/.zsh/.fzf.zsh
+[ -f $ZMAIN/.fzf.zsh ] && source $ZMAIN/.fzf.zsh
 # }}}3
 # }}}2
 # }}}1
@@ -293,7 +293,7 @@ fi
 
 # Senstive functions which are not pushed to Github
 # It containssome functions, aliases etc...
-[ -f $ZMAIN/.zsh_private ] && source $ZMAIN/.zsh_private
+# [ -f $ZMAIN/.zsh_private ] && source $ZMAIN/.zsh_private
 # }}}2
 
 # History {{{2
@@ -301,7 +301,7 @@ fi
 # !!! Warning !!!
 # History settings should be after `source $ZSH/oh-my-zsh.sh`
 HISTFILE=$ZMAIN/.zsh_history
-HISTSIZE=10000000
+HISTSIZE=1000000 # 1M
 SAVEHIST=$HISTSIZE
 
 setopt HIST_IGNORE_ALL_DUPS # ignore duplicated commands history list
