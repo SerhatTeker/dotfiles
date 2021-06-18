@@ -291,9 +291,11 @@ fi
 HISTSIZE=10000000
 SAVEHIST=$HISTSIZE
 
-# ignore duplicated commands history list
-setopt HIST_IGNORE_ALL_DUPS
-# share command history data
-setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS # ignore duplicated commands history list
+setopt HIST_SAVE_NO_DUPS  # do not save duplicated command
+setopt HIST_REDUCE_BLANKS  # remove unnecessary blanks
+setopt INC_APPEND_HISTORY_TIME  # append command to history file immediately after execution
+setopt EXTENDED_HISTORY  # record command start time
+setopt SHARE_HISTORY # share command history data
 # }}}2
 # }}}1
