@@ -55,9 +55,7 @@ echo "export ZDOTDIR=\"${HOME}/.zsh\"" | sudo tee -a /etc/zsh/zshenv
 ln -s $DOTFILES/zsh/.zshrc $ZMAIN/.zhsrc
 ln -s $DOTFILES/zsh/.zlogin $ZMAIN/.zlogin
 ln -s $DOTFILES/zsh/plugins $ZMAIN/plugins
-ln -s $DOTFILES/zsh/.agnoster.zsh $ZMAIN/.agnoster.zsh
 ln -s $DOTFILES/zsh/.fzf.zsh $ZMAIN/.fzf.zsh
-ln -s $DOTFILES/zsh/.p10k.zsh $ZMAIN/.p10k.zsh
 ln -s $SYSBAK/zsh/.zsh_private $ZMAIN/.zsh_private
 #   }}}2
 # ----------------------------------------------------------------------------#

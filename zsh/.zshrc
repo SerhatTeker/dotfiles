@@ -13,7 +13,9 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Main zsh directory path
+# ZMAIN = ZDOTDIR
 export ZMAIN="$HOME/.zsh"
+
 # Personal customization for plugins
 ZCUSTOMS="$ZMAIN/plugins/customs"
 
@@ -225,12 +227,6 @@ ZSH_DOTENV_PROMPT=false
 # zlong_ignore_cmds="vim nvim vi vs ssh libreoffice firefox chrome thunderbird 'python manage.py'"
 # }}}3
 
-# auto suggestion {{{3
-
-# now controlled by oh-my-zsh
-# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-# }}}3
-
 # zsh-highlight {{{3
 
 [ -f $ZCUSTOMS/.syntax-highlight.zsh ] && source $ZCUSTOMS/.syntax-highlight.zsh
@@ -238,7 +234,7 @@ ZSH_DOTENV_PROMPT=false
 
 # agnoster {{{3
 
-[ -f $ZMAIN/.agnoster.zsh ] && source $ZMAIN/.agnoster.zsh
+[ -f $ZCUSTOMS/.agnoster.zsh ] && source $ZCUSTOMS/.agnoster.zsh
 # }}}3
 
 # FZF {{{3
