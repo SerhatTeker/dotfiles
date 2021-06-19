@@ -2,7 +2,19 @@ export ZDOTDIR="$HOME/.zsh"
 
 # Unique path dirs
 typeset -U path
-path=(~/bin ~/progs/bin $path)
+
+# BIN {{{1
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    path+=("$HOME/bin")
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    path+=("$HOME/.local/bin")
+fi
+# }}}1
 
 # ENV {{{1
 
@@ -13,7 +25,7 @@ DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # NeoVim Resource {{{2
 
-export MYNVIMRC=$HOME/dotfiles/vim/.nvimrc
+export MYNVIMRC="$HOME/dotfiles/vim/.nvimrc"
 # export MYNVIMRC=$HOME/.nvimrc
 # }}}2
 

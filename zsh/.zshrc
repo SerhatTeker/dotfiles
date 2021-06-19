@@ -263,7 +263,7 @@ fi
 
 # Senstive functions which are not pushed to Github
 # It containssome functions, aliases etc...
-[ -f $ZMAIN/.zsh_private ] && source $ZMAIN/.zsh_private
+[ -f $ZMAIN/.private.zsh ] && source $ZMAIN/.private.zsh
 # }}}2
 
 # History {{{2
