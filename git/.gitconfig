@@ -8,3 +8,5 @@
 	helper = cache --timeout=3600
 [push]
     followTags = true
+[merge]
+    ff = false
