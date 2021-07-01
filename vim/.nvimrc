@@ -1542,7 +1542,10 @@ let g:gitgutter_enabled = 0
 " toggle line highlighting :GitGutterLineHighlightsToggle
 " With Neovim 0.3.2 or higher, toggle highlight line nr :GitGutterLineNrHighlightsToggle.
 
+" Disable mappings, only use my customs
+let g:gitgutter_map_keys = 0
 nnoremap <leader>tg :GitGutterToggle<CR>
+nmap <leader>hp <Plug>(GitGutterPreviewHunk)
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
