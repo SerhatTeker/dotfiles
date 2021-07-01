@@ -140,7 +140,7 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
-" Plug 'airblade/vim-gitgutter'	" status info in columns
+Plug 'airblade/vim-gitgutter'	" status info in columns
 " }}}3
 
 " motions {{{3
@@ -1530,6 +1530,19 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 
 " clear status
 nmap <F9> :TagbarToggle<CR>
+" }}}
+
+" gitgutter {{{
+" A Vim plugin which shows git diff markers in the sign column
+" and stages/previews/undoes hunks and partial hunks.
+
+" disabled by default
+let g:gitgutter_enabled = 0
+" toggle with :GitGutterToggle
+" toggle line highlighting :GitGutterLineHighlightsToggle
+" With Neovim 0.3.2 or higher, toggle highlight line nr :GitGutterLineNrHighlightsToggle.
+
+nnoremap <leader>tg :GitGutterToggle<CR>
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
