@@ -641,11 +641,12 @@ set pastetoggle=<F2>
 
 " Diff {{{2
 
-" :DiffSaved
-com! DiffSaved call s:DiffWithSaved()
+" :DiffPreSave
+com! DiffPreSave call s:DiffPreSaved()
 
-" see changes in current buffer. like Code git diff
-function! s:DiffWithSaved()
+" see changes in the current buffer before save.
+" NOTE: use gitgutter instead.
+function! s:DiffPreSaved()
     let filetype=&ft
     diffthis
     vnew | r # | normal! 1Gdd
