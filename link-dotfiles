@@ -45,3 +45,8 @@ ln -s $HOME/dotfiles/etc/.sqliterc $HOME
 
 ln -s $DOTFILES/bin/utils/genpasswd $HOME/.local/bin
 # }}}
+
+# node {{{
+
+ln -s $DOTFILES/node/.npmrc $HOME/.npmrc
+# }}}
