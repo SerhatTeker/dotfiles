@@ -64,7 +64,7 @@ alias update-all='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y
 ## pid
 alias list-pids='ps aux > pid.list && nvim pid.list'
 ## monitor
-alias monitor="bpytop"
+alias monitor="python3.9 -m bpytop"
 
 # }}}
 
