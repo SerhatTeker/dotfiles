@@ -179,7 +179,7 @@ alias webify="mogrify -resize 690\> *.png"
 # configs {{{
 
 # config:source
-alias sz='source ~/.zshrc'
+alias sz='source $ZDOTDIR/.zshrc'
 # }}}
 
 # sudo {{{
