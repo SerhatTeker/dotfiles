@@ -610,10 +610,16 @@ set diffopt+=vertical
 
 " Git push{{{
 
-" nnoremap <leader>pp :Gpush<CR>
+" Push set upstream
+command! GPSUP :!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+" Not using
+function! s:GitCurrentBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null")
+endfunction
+
 " Custom GPush
-" don't like defaul silent :Gpush
-command! GP :!git push -v
+" don't like default silent :Gpush
+command! GP :Git push -v
 nnoremap <leader>pp :GP<CR>
 " }}}
 " }}}
