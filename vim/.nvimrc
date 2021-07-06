@@ -590,23 +590,23 @@ map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 
 " fugitive {{{
 
-" Git diff {{{
-
-" Diffsaved key map
-nnoremap <leader>D :DiffSaved<CR>
-" Git diff current and previous version
-nmap <leader>d :Gvdiffsplit HEAD<CR>
-
-" always open diffs vertical
-set diffopt+=vertical
-" }}}
-
 " Git status
 nnoremap <silent>ss :20G<CR>
 " Git commit
 nnoremap <silent>cc :Gcommit<CR>
 " File History
 nnoremap <silent>HH :0Glog!<CR>
+" Amend aliases
+command! GCN :Gcommit -v --no-edit --amend
+command! GCAN :Gcommit -v -a --no-edit --amend
+
+" Git diff {{{
+
+" Git diff current and previous version
+nmap <leader>d :Gvdiffsplit HEAD<CR>
+" always open diffs vertical
+set diffopt+=vertical
+" }}}
 
 " Git push{{{
 
