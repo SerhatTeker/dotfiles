@@ -60,7 +60,8 @@ alias wifi-reboot='nmcli radio wifi off && nmcli radio wifi on'
 ## apt
 alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purge'
 ## maintenance
-alias update-all='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y"'
+alias update='sudo -- sh -c "apt update -y; apt list --upgradable"'
+alias update-and-upgrade='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y"'
 ## pid
 alias list-pids='ps aux > pid.list && nvim pid.list'
 ## monitor
