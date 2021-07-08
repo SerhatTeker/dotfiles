@@ -1150,6 +1150,9 @@ let NERDTreeDirArrows = 1
 let NERDTreeIgnore = [
             \ '\.pyc$',
             \ '^__pycache__$',
+            \ '^.mypy_cache$',
+            \ '^.pytest_cache$',
+            \ '^.hypothesis$',
             \ '\.retry$',
             \'^node_modules$',
             \]
