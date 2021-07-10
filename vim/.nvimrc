@@ -1580,6 +1580,7 @@ let g:autoflake_disable_show_diff=0
 
 let g:pydocstring_doq_path = '~/.local/bin/doq'
 let g:pydocstring_formatter = 'google'
+nmap <silent> <C-_> <Plug>(pydocstring)
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
