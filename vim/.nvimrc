@@ -89,6 +89,8 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'jeetsukumaran/vim-pythonsense'
 " Semantic Highliht
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+" autoflake: remove unused imports and variables
+Plug 'tell-k/vim-autoflake'
 
 " Django
 Plug 'tweekmonster/django-plus.vim'
@@ -1556,6 +1558,20 @@ let g:gitgutter_enabled = 0
 let g:gitgutter_map_keys = 0
 nnoremap <leader>tg :GitGutterToggle<CR>
 nmap <leader>hp <Plug>(GitGutterPreviewHunk)
+" }}}
+
+" autoflake {{{
+" Removes unused imports and unused variables as reported by pyflakes
+" https://github.com/myint/autoflake
+" https://github.com/tell-k/vim-autoflake
+
+" Default <F9>
+autocmd FileType python map <buffer> <F3> :call Autoflake()<CR>
+
+" Remove all unused imports, whether or not they are from the standard library
+let g:autoflake_remove_all_unused_imports=1
+let g:autoflake_remove_unused_variables=0
+let g:autoflake_disable_show_diff=0
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
