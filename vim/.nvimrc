@@ -91,6 +91,8 @@ Plug 'jeetsukumaran/vim-pythonsense'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " autoflake: remove unused imports and variables
 Plug 'tell-k/vim-autoflake'
+" docstring
+Plug 'serhatteker/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 
 " Django
 Plug 'tweekmonster/django-plus.vim'
@@ -1572,6 +1574,12 @@ autocmd FileType python map <buffer> <F3> :call Autoflake()<CR>
 let g:autoflake_remove_all_unused_imports=1
 let g:autoflake_remove_unused_variables=0
 let g:autoflake_disable_show_diff=0
+" }}}
+
+" vim-pydocstring {{{
+
+let g:pydocstring_doq_path = '~/.local/bin/doq'
+let g:pydocstring_formatter = 'google'
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
