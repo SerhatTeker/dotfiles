@@ -322,12 +322,21 @@ bu-tmux-resurrect() {
 	ls -lt $TMUX_RESURRECT/tmux_*.txt | awk '{if(NR!=1) print $9}' | xargs -i rm {}
 }
 
-# replace spaces with underscores in filenames
+# replace whitespaces with underscores in filenames
 replace-spaces() {
-	for file in $1/*
-	do
-		mv $file ${file// /_}
-	done
+    ARG=$1
+
+    if [[ -d $ARG ]]; then
+        for file in ${ARG}/*
+        do
+            mv $file ${file// /_}
+        done
+    elif [[ -f $ARG ]]; then
+        mv ${ARG} ${ARG// /_}
+    else
+        echo "Provided ${ARG} is not valid"
+        exit 1
+    fi
 }
 
 add-file-suffix-all() {
