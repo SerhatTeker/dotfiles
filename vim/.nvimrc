@@ -80,7 +80,8 @@ Plug 'mengelbrecht/lightline-bufferline', { 'on': [] }
 
 " Filetype {{{3
 
-" Python
+" Python {{{4
+
 " syntax
 Plug 'SerhatTeker/python-syntax'
 " folding
@@ -96,11 +97,17 @@ Plug 'serhatteker/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
 
 " Django
 Plug 'tweekmonster/django-plus.vim'
+" }}}4
 
 " Golang
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+" Yaml
+Plug 'pedrohdz/vim-yaml-folds'
+Plug 'andrewstuart/vim-kubernetes'
+
 " Markdown {{{4
+
 " default plugin
 Plug 'plasticboy/vim-markdown'
 " Plug 'plasticboy/vim-markdown', { 'on': [], 'for': []  }
@@ -108,12 +115,11 @@ Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 " bullets
 Plug 'dkarter/bullets.vim'
-" rst
-" Plug 'gu-fan/InstantRst'
 " }}}4
 
+" rst
+" Plug 'gu-fan/InstantRst'
 " }}}3
-
 
 " LSP/CodeComplete/Linter {{{3
 
@@ -168,6 +174,8 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'dbakker/vim-projectroot'
 " Auto close tags
 " Plug 'tpope/vim-endwise'
+" Indentline
+Plug 'Yggdroot/indentLine'
 " }}}3
 
 " Session {{{3
@@ -349,7 +357,12 @@ set tags=tags
 
 " filetype syntax {{{2
 
+" toml
 au BufReadPost *.toml set syntax=toml
+
+" yaml
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
+au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " }}}2
 
 " save {{{2
@@ -1598,6 +1611,16 @@ let g:autoflake_disable_show_diff=0
 let g:pydocstring_doq_path = '~/.local/bin/doq'
 let g:pydocstring_formatter = 'google'
 nmap <silent> <C-_> <Plug>(pydocstring)
+" }}}
+
+" indentline {{{
+
+let g:indentLine_enabled = 1
+let g:indentLine_fileTypeExclude = ['python', 'markdown', 'nerdtree']
+
+" indent char
+" let g:indentLine_char = '┊'     " Sublime-like
+" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
