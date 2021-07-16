@@ -934,6 +934,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
             \ 'javascript': ['eslint'],
             \ 'html': ['tidy'],
+            \ 'sh': ['shfmt'],
             \ 'python': [
                 \ 'black',
                 \ 'isort',
