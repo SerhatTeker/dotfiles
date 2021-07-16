@@ -1302,10 +1302,16 @@ call camelcasemotion#CreateMotionMappings('<leader>')
 
 " indentLine {{{
 let g:indentLine_enabled = 0
-" let g:indentLine_setColors = 0
+" Indent Char
 let g:indentLine_char = '|'
 " each indent level has a distinct character.
 " let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+" first level
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_first_char = '|'
+
+" let g:indentLine_setColors = 0
 " }}}
 
 " Bullets.vim {{{
