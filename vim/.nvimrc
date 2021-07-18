@@ -617,8 +617,8 @@ nnoremap <silent>cc :Gcommit<CR>
 " File History
 nnoremap <silent>HH :0Glog!<CR>
 " Amend aliases
-command! GCN :Gcommit -v --no-edit --amend
-command! GCAN :Gcommit -v -a --no-edit --amend
+command! GCN :Git commit -v --no-edit --amend
+command! GCAN :Git commit -v -a --no-edit --amend
 
 " Git diff {{{
 
