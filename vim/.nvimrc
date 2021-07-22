@@ -1188,6 +1188,7 @@ let NERDTreeIgnore = [
             \ '^.mypy_cache$',
             \ '^.pytest_cache$',
             \ '^.hypothesis$',
+            \ '^htmlcov$',
             \ '\.retry$',
             \'^node_modules$',
             \]
