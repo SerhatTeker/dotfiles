@@ -133,7 +133,6 @@ _fix_cursor() {
 	# alternative: xterm 214 or 220
 }
 precmd_functions+=(_fix_cursor)
-
 # }}}
 
 # Editor {{{2
@@ -155,6 +154,12 @@ fi
 # fi
 # }}}2
 
+# terraform auto complete {{{
+
+# autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+# complete -C /home/serhat/.local/bin/terraform terraform
+# }}}
 
 # python venv {{{2
 
@@ -197,6 +202,7 @@ plugins=(
 	django
 	docker
 	docker-compose
+    kubectl
     httpie
 	python
     ubuntu
@@ -265,6 +271,11 @@ fi
 # It containssome functions, aliases etc...
 [ -f $ZMAIN/.private.zsh ] && source $ZMAIN/.private.zsh
 # }}}2
+
+# kubectl {{{
+
+source <(kubectl completion zsh)
+# }}}
 
 # History {{{2
 
