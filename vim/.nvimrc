@@ -118,7 +118,12 @@ Plug 'dkarter/bullets.vim'
 " }}}4
 
 " rst
+" Plug 'gu-fan/riv.vim'
 " Plug 'gu-fan/InstantRst'
+" Plug 'gu-fan/rhythm.css'
+
+Plug 'Rykka/riv.vim'
+Plug 'Rykka/InstantRst'
 " }}}3
 
 " LSP/CodeComplete/Linter {{{3
