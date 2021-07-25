@@ -7,6 +7,9 @@
 [credential]
 	helper = cache --timeout=3600
 [push]
-    followTags = true
+	; It pushes both commits and only tags that are both:
+	; annotated and reachable (an ancestor) from the pushed commits
+	followTags = true
+	; verbose = true
 [merge]
-    ff = false
+	ff = false
