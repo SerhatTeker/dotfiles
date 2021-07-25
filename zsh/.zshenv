@@ -22,6 +22,9 @@ fi
 # Turning off Telemetry Data in .NET Core
 DOTNET_CLI_TELEMETRY_OPTOUT=1
 
+# Docker
+# Enabling BuildKit in builds
+export DOCKER_BUILDKIT=1
 
 # NeoVim Resource {{{2
 
