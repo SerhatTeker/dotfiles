@@ -13,3 +13,6 @@
 	; verbose = true
 [merge]
 	ff = false
+[diff]
+	tool = nvimdiff
+	guitool = nvimdiff
