@@ -1307,11 +1307,14 @@ call camelcasemotion#CreateMotionMappings('<leader>')
 " }}}
 
 " indentLine {{{
-let g:indentLine_enabled = 0
+let g:indentLine_enabled = 1
+let g:indentLine_fileTypeExclude = ['python', 'markdown', 'nerdtree']
+
 " Indent Char
 let g:indentLine_char = '|'
 " each indent level has a distinct character.
 " let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+" let g:indentLine_char = '┊'     " Sublime-like
 
 " first level
 let g:indentLine_showFirstIndentLevel = 1
@@ -1627,16 +1630,6 @@ let g:autoflake_disable_show_diff=0
 let g:pydocstring_doq_path = '~/.local/bin/doq'
 let g:pydocstring_formatter = 'google'
 nmap <silent> <C-_> <Plug>(pydocstring)
-" }}}
-
-" indentline {{{
-
-let g:indentLine_enabled = 1
-let g:indentLine_fileTypeExclude = ['python', 'markdown', 'nerdtree']
-
-" indent char
-" let g:indentLine_char = '┊'     " Sublime-like
-" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
