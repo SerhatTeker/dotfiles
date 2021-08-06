@@ -986,23 +986,21 @@ let g:ale_echo_msg_format = '[%linter%] %severity% | %code% - %s'
 nmap <silent> <C-c> <Plug>(ale_toggle_buffer)
 
 " Bind F8 to fixing problems with ALE
-" nmap <F8> <Plug>(ale_fix)
+nmap <F8> <Plug>(ale_fix)
 
 " Use ALEFix with Autoflake
-nmap <silent> <F8> :call AleFixCustom()<CR>
-function! AleFixCustom()
-    if &filetype == "python"
-        if exists("*Autoflake()")
-            noremap <buffer> <leader><F9> :call Autoflake()<CR>
-            silent! call Autoflake()
-        endif
-    endif
-    execute 'ALEFix'
-endfunction
-
-
+" nmap <silent> <F8> :call AleFixCustom()<CR>
+" function! eleFixCustom()
+"     if &filetype == "python"
+"         if exists("*Autoflake()")
+"             noremap <buffer> <leader><F9> :call Autoflake()<CR>
+"             silent! call Autoflake()
+"         endif
+"     endif
+"     execute 'ALEFix'
+" endfunction
 " }}}3
-" }}}
+" }}}2
 
 " Semshi {{{
 
@@ -1615,10 +1613,10 @@ nmap <leader>hp <Plug>(GitGutterPreviewHunk)
 
 " Default <F9>
 " no need: using in AleFixCustom()
-" autocmd FileType python map <buffer> <leader><F3> :call Autoflake()<CR>
+autocmd FileType python map <buffer> <leader><F3> :call Autoflake()<CR>
 
 " Remove mapping
-let g:no_autoflake_maps=1
+" let g:no_autoflake_maps=1
 
 " Remove all unused imports, whether or not they are from the standard library
 let g:autoflake_remove_all_unused_imports=1
