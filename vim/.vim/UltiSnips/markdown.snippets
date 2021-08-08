@@ -36,7 +36,7 @@ snippet meta "Metadata for Subjects" b
 
 - link : $3
 - tags : $2
-- rate : #$1/10
+- rate : #${1:6}/10
 
 $0
 endsnippet
@@ -156,7 +156,7 @@ tags = [
 "$1",
 ]
 categories = [
-"$2",
+"${2:resources}",
 ]
 +++
 
