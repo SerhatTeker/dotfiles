@@ -11,38 +11,29 @@
 #
 # to handle more complex tasks than alias
 
-
-# Journal {{{1
+# Apps {{{1
 # ----------------------------------------------------------------------------#
 
-# journal in vim
-journal(){
-    # Show current journal
-    WNUMBER=$(date +%U)
-    YNUM=$(date +%y)
-    echo "JOURNAL: y${YNUM}/w${WNUMBER}"
-
-	# check journal exist, if not exist create
-    journal-check
-}
-
-tj(){
-	. $(find "$SCRIPTS_DIR/" -name "journalStartAll" 2>/dev/null)
-}
-
-# Push journals
-# Using with shutdown and reboot
-push-journals() {
-    if [[ ! -z "${JOURNAL_DIR}" ]]; then
-        git -C ${JOURNAL_DIR} push -v
-    fi
-
-    if [[ ! -z "${LEBEN_DIR}" ]]; then
-        git -C ${LEBEN_DIR} push -v
+# Toggle Telegram On/Off
+telegram() {
+    if pgrep Telegram; then
+        pkill Telegram
+    else
+        nohup $APPS_DIR/Telegram/Telegram >/dev/null 2>&1 &
     fi
 }
+
+# night light mode
+night-toggle() {
+    CURRENT=$(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled)
+    if $CURRENT; then
+        gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false
+    else
+        gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
+    fi
+}
+
 # }}}1
-
 
 # Back Up {{{1
 # ----------------------------------------------------------------------------#
@@ -87,114 +78,6 @@ ecmp() {
 }
 # }}}2
 # }}}1
-
-
-# Security {{{1
-# ----------------------------------------------------------------------------#
-
-# encrypt given file
-# must cd into dir first
-# TODO: dir agnostic
-enc-file() {
-	cat "$1" | gpg --armor --output "$1.gpg" --symmetric --cipher-algo AES256
-}
-
-# decrypt given file
-# must cd into dir first
-# TODO: dir agnostic
-dec-file() {
-	gpg --output "$(echo $1 | cut -d '.' -f1).$(echo $1 | cut -d '.' -f2)" --decrypt "$1"
-}
-# }}}1
-
-
-# Network {{{1
-# ----------------------------------------------------------------------------#
-
-myip() {
-	curl ifconfig.me
-}
-
-# alternative to myip
-myip-echo() {
-	curl http://ipecho.net/plain; echo
-}
-# }}}1
-
-
-# Git {{{1
-# ----------------------------------------------------------------------------#
-
-# Outputs the name of the current branch
-# Usage example: git pull origin $(git_current_branch)
-# Using '--quiet' with 'symbolic-ref' will not cause a fatal error (128) if
-# it's not a symbolic ref, but in a Git repo
-git-current-branch() {
-	local ref
-	ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
-	local ret=$?
-	if [[ $ret != 0 ]]; then
-		[[ $ret == 128 ]] && return  # no git repo.
-		ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
-	fi
-	echo ${ref#refs/heads/}
-}
-
-# sync upstream fork with local
-git-sync-fork() {
-	# Fetch all branches of remote upstream
-	# Rewrite master with upstream’s master using git rebase:
-	git fetch upstream && \
-		git rebase upstream/master
-}
-
-# Delete branch local and remote
-git-prune-branch() {
-    BRANCH=$1
-    REMOTE="origin"
-
-    if [ "$2" != "" ]; then
-        # Positional parameter $2 is not empty
-        REMOTE=$1
-        BRANCH=$2
-    fi
-
-    git branch -d $BRANCH
-    git push -d $REMOTE $BRANCH
-}
-
-# Download all files from a github gist url
-# Usage Example: $ ddl-gist 'https://gist.github.com/7fee6d84f2f3d16ef3628e9a4a7f57e7' ~/Downloads/gists
-ddl-gist(){
-	if [ $# -ne 2 ];
-	then
-		echo 'Failed. Syntax: $> ddl-gist GITHUB_GIST_URL DOWNLOAD_PATH'
-		return
-	fi
-
-	gist_url=$1
-	download_path=$2
-
-	echo '[*] Getting all GIST File URLs from '$gist_url
-
-	gists=`curl -ksL -H 'User-Agent: Mozilla/5.0' $gist_url  | grep '<a\ .*href=".*/raw/' | sed 's/.*a\ .*href="//' | sed 's/".*//'`
-	echo '[*] Downloading all files'
-
-	for lines in `echo $gists | xargs -L1`;
-	do
-		if [ ! -z $lines ];
-		then
-			echo $lines
-			gistfile=`echo $lines | sed 's/.*\///'`
-			save_as=$download_path"/"$gistfile
-			echo "Downloading URL: https://gist.github.com"$lines
-			echo "to "$save_as"....."
-			wget -c -O $save_as "https://gist.github.com"$lines
-		fi
-	done
-}
-# }}}
-
 
 # Dirs {{{1
 # ----------------------------------------------------------------------------#
@@ -293,7 +176,6 @@ extract-it() {
 # }}}2
 # }}}1
 
-
 # Environment {{{1
 # ----------------------------------------------------------------------------#
 
@@ -315,7 +197,6 @@ auto-venv() {
 }
 # }}}2
 # }}}1
-
 
 # Files {{{1
 # ----------------------------------------------------------------------------#
@@ -360,6 +241,137 @@ delete-file-part() {
 }
 # }}}1
 
+# Git {{{1
+# ----------------------------------------------------------------------------#
+
+# Outputs the name of the current branch
+# Usage example: git pull origin $(git_current_branch)
+# Using '--quiet' with 'symbolic-ref' will not cause a fatal error (128) if
+# it's not a symbolic ref, but in a Git repo
+git-current-branch() {
+	local ref
+	ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
+	local ret=$?
+	if [[ $ret != 0 ]]; then
+		[[ $ret == 128 ]] && return  # no git repo.
+		ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
+	fi
+	echo ${ref#refs/heads/}
+}
+
+# sync upstream fork with local
+git-sync-fork() {
+	# Fetch all branches of remote upstream
+	# Rewrite master with upstream’s master using git rebase:
+	git fetch upstream && \
+		git rebase upstream/master
+}
+
+# Delete branch local and remote
+git-prune-branch() {
+    BRANCH=$1
+    REMOTE="origin"
+
+    if [ "$2" != "" ]; then
+        # Positional parameter $2 is not empty
+        REMOTE=$1
+        BRANCH=$2
+    fi
+
+    git branch -d $BRANCH
+    git push -d $REMOTE $BRANCH
+}
+
+# Download all files from a github gist url
+# Usage Example: $ ddl-gist 'https://gist.github.com/7fee6d84f2f3d16ef3628e9a4a7f57e7' ~/Downloads/gists
+ddl-gist(){
+	if [ $# -ne 2 ];
+	then
+		echo 'Failed. Syntax: $> ddl-gist GITHUB_GIST_URL DOWNLOAD_PATH'
+		return
+	fi
+
+	gist_url=$1
+	download_path=$2
+
+	echo '[*] Getting all GIST File URLs from '$gist_url
+
+	gists=`curl -ksL -H 'User-Agent: Mozilla/5.0' $gist_url  | grep '<a\ .*href=".*/raw/' | sed 's/.*a\ .*href="//' | sed 's/".*//'`
+	echo '[*] Downloading all files'
+
+	for lines in `echo $gists | xargs -L1`;
+	do
+		if [ ! -z $lines ];
+		then
+			echo $lines
+			gistfile=`echo $lines | sed 's/.*\///'`
+			save_as=$download_path"/"$gistfile
+			echo "Downloading URL: https://gist.github.com"$lines
+			echo "to "$save_as"....."
+			wget -c -O $save_as "https://gist.github.com"$lines
+		fi
+	done
+}
+# }}}
+
+# Journal {{{1
+# ----------------------------------------------------------------------------#
+
+# journal in vim
+journal(){
+    # Show current journal
+    WNUMBER=$(date +%U)
+    YNUM=$(date +%y)
+    echo "JOURNAL: y${YNUM}/w${WNUMBER}"
+
+	# check journal exist, if not exist create
+    journal-check
+}
+
+tj(){
+	. $(find "$SCRIPTS_DIR/" -name "journalStartAll" 2>/dev/null)
+}
+
+# Push journals
+# Using with shutdown and reboot
+push-journals() {
+    if [[ ! -z "${JOURNAL_DIR}" ]]; then
+        git -C ${JOURNAL_DIR} push -v
+    fi
+
+    if [[ ! -z "${LEBEN_DIR}" ]]; then
+        git -C ${LEBEN_DIR} push -v
+    fi
+}
+# }}}1
+
+# Languages {{{
+
+# Python
+
+# Create and activate a virtual environment with global packages
+cvenv() {
+    VERSION=${PYTHON_VERSION:-3.8}
+    PYTHON="python${VERSION}"
+    VENV=.venv
+
+    ${PYTHON} -m venv ${VENV} --system-site-packages \
+        && source ${VENV}/bin/activate
+}
+# }}}
+
+# Network {{{1
+# ----------------------------------------------------------------------------#
+
+myip() {
+	curl ifconfig.me
+}
+
+# alternative to myip
+myip-echo() {
+	curl http://ipecho.net/plain; echo
+}
+# }}}1
 
 # Other {{{1
 # ----------------------------------------------------------------------------#
@@ -386,6 +398,23 @@ history-statistic() {
 }
 # }}}1
 
+# Security {{{1
+# ----------------------------------------------------------------------------#
+
+# encrypt given file
+# must cd into dir first
+# TODO: dir agnostic
+enc-file() {
+	cat "$1" | gpg --armor --output "$1.gpg" --symmetric --cipher-algo AES256
+}
+
+# decrypt given file
+# must cd into dir first
+# TODO: dir agnostic
+dec-file() {
+	gpg --output "$(echo $1 | cut -d '.' -f1).$(echo $1 | cut -d '.' -f2)" --decrypt "$1"
+}
+# }}}1
 
 # Update {{{1
 # ----------------------------------------------------------------------------#
@@ -397,29 +426,4 @@ _update-all() {
 			'Your system updated successfully!' \
 			-u normal -t 7500 -i checkbox-checked-symbolic
 }
-# }}}1
-
-
-# Apps {{{1
-# ----------------------------------------------------------------------------#
-
-# Toggle Telegram On/Off
-telegram() {
-    if pgrep Telegram; then
-        pkill Telegram
-    else
-        nohup $APPS_DIR/Telegram/Telegram >/dev/null 2>&1 &
-    fi
-}
-
-# night light mode
-night-toggle() {
-    CURRENT=$(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled)
-    if $CURRENT; then
-        gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false
-    else
-        gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
-    fi
-}
-
 # }}}1
