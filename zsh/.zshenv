@@ -3,6 +3,7 @@ export ZDOTDIR="$HOME/.zsh"
 # Unique path dirs
 typeset -U path
 
+
 # BIN {{{1
 
 # set PATH so it includes user's private bin if it exists
@@ -18,13 +19,23 @@ fi
 
 # ENV {{{1
 
-# DOTNET
-# Turning off Telemetry Data in .NET Core
-DOTNET_CLI_TELEMETRY_OPTOUT=1
+# Python {{{
 
-# Docker
+export PYTHON_VERSION=3.8
+export PYTHON="python${PYTHON_VERSION}"
+
+# Install libs in virtualenv
+export PIP_REQUIRE_VIRTUALENV=true
+
+# Use ipdb instead of pdb
+export PYTHONBREAKPOINT=ipdb.set_trace
+# }}}
+
+# Docker {{{
+
 # Enabling BuildKit in builds
 export DOCKER_BUILDKIT=1
+# }}}
 
 # NeoVim Resource {{{2
 
