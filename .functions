@@ -297,6 +297,12 @@ extract-it() {
 # Environment {{{1
 # ----------------------------------------------------------------------------#
 
+# Install python package globally
+# Use 3.8 if $PYTHON_VERSION not set
+pipg() {
+    VERSION=${PYTHON_VERSION:-3.8}
+    PIP_REQUIRE_VIRTUALENV=false python${VERSION} -m pip "$@"
+}
 # Python venv auto-load {{{2
 
 # If a virtualenv with name of .venv, load it.
