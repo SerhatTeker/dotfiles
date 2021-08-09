@@ -40,8 +40,9 @@ if [ "${SESSIONEXISTS}" = "" ];then
     do
       tmux new-window -t ${SESSION}:${WINDOW} -n 'shell' -c $PROJECT_PATH
       tmux send-keys -t ${SESSION}:${WINDOW} "auto-venv" C-m "C-l"
-      tmux split-window -t ${SESSION}:${WINDOW} -h -c $PROJECT_PATH
-      tmux send-keys -t ${SESSION}:${WINDOW}.1 "auto-venv" C-m "C-l"
+      # New Pane
+      # tmux split-window -t ${SESSION}:${WINDOW} -h -c $PROJECT_PATH
+      # tmux send-keys -t ${SESSION}:${WINDOW}.1 "auto-venv" C-m "C-l"
     done
 fi
 
