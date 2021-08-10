@@ -197,6 +197,7 @@ plugins=(
     kubectl
     httpie
 	python
+    pass
     ubuntu
     zsh-autosuggestions
     # Note that zsh-syntax-highlighting must be the last plugin sourced.
