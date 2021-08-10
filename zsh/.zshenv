@@ -19,6 +19,10 @@ fi
 
 # ENV {{{1
 
+# pass - password-store
+# https://git.zx2c4.com/password-store/about/
+PASSWORD_STORE_ENABLE_EXTENSIONS=true
+
 # Python {{{
 
 export PYTHON_VERSION=3.8
