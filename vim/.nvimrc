@@ -397,6 +397,14 @@ if !has('nvim')
     set ttyscroll=3                 " speedup scrolling
 endif
 " }}}2
+
+" gopass {{{2
+
+" https://github.com/gopasspw/gopass/blob/master/docs/setup.md#securing-your-editor
+" Diable temporary files outside of the secure working directory when editing
+" secrets.
+au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+" }}}
 " ----------------------------------------------------------------------------"
 "	}}}1
 " ----------------------------------------------------------------------------"
