@@ -427,3 +427,11 @@ _update-all() {
 			-u normal -t 7500 -i checkbox-checked-symbolic
 }
 # }}}1
+
+# Logout {{{
+
+logout-sync() {
+    gopass sync
+    push-journals
+}
+# }}}1
