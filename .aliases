@@ -139,6 +139,11 @@ alias postgres-start='docker-compose -f $SCRIPTS_DIR/docker/postgres.yml start'
 alias postgres-stop='docker-compose -f $SCRIPTS_DIR/docker/postgres.yml stop'
 # }}}
 
+# kubernetes - k8s {{{
+
+alias karf='kubectl apply -R -f'
+# }}}
+
 # python {{{
 
 alias p='python3.8'
