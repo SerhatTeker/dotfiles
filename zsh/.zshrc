@@ -194,12 +194,13 @@ plugins=(
 	django
 	docker
 	docker-compose
-    kubectl
     httpie
+    kubectl
 	python
     pass
     ubuntu
     zsh-autosuggestions
+    zsh-completions
     # Note that zsh-syntax-highlighting must be the last plugin sourced.
 	zsh-syntax-highlighting
 )
