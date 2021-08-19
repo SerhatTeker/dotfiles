@@ -91,6 +91,7 @@ alias glog-fav='glola'
 alias glog-lean-fav='gloga'
 # Initial empty commit for repos
 alias gcae='git commit --allow-empty -m "Initial commit"'
+alias gaec='git commit --allow-empty -m "Initial commit"'
 # Visualize git branch tree
 alias glvb='git log --graph --simplify-by-decoration --pretty=format:'%d' --all'
 # }}}
