@@ -1315,7 +1315,7 @@ call camelcasemotion#CreateMotionMappings('<leader>')
 
 " indentLine {{{
 let g:indentLine_enabled = 1
-let g:indentLine_fileTypeExclude = ['python', 'markdown', 'nerdtree']
+let g:indentLine_fileTypeExclude = ['python', 'markdown', 'help']
 
 " Indent Char
 let g:indentLine_char = '|'
