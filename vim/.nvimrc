@@ -1619,12 +1619,12 @@ nmap <leader>hp <Plug>(GitGutterPreviewHunk)
 " https://github.com/myint/autoflake
 " https://github.com/tell-k/vim-autoflake
 
+" Remove mapping
+let g:no_autoflake_maps=1
+
 " Default <F9>
 " no need: using in AleFixCustom()
 autocmd FileType python map <buffer> <leader><F3> :call Autoflake()<CR>
-
-" Remove mapping
-" let g:no_autoflake_maps=1
 
 " Remove all unused imports, whether or not they are from the standard library
 let g:autoflake_remove_all_unused_imports=1
