@@ -41,6 +41,11 @@ export PYTHONBREAKPOINT=ipdb.set_trace
 export DOCKER_BUILDKIT=1
 # }}}
 
+# kind {{{
+
+KINDCONFIG=$HOME/.kube/kind.yaml
+# }}}
+
 # NeoVim Resource {{{2
 
 export MYNVIMRC="$HOME/dotfiles/vim/.nvimrc"

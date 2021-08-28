@@ -1,0 +1,12 @@
+# https://github.com/kubernetes-sigs/kind/blob/main/site/content/docs/user/kind-example-config.yaml
+# https://kind.sigs.k8s.io/docs/user/configuration/#nodes
+_kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+# 1 control plane node and 3 workers
+nodes:
+# the control plane node config
+- role: control-plane
+# the three workers
+- role: worker
+- role: worker
+- role: worker

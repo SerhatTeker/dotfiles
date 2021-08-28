@@ -41,6 +41,11 @@ ln -s $HOME/dotfiles/ctags/.ctags $HOME
 ln -s $HOME/dotfiles/etc/.sqliterc $HOME
 # }}}
 
+# kubernetes {{{
+
+ln -s ${DOTFILES}/kube/kind.yaml ${HOME}/.kube
+# }}}
+
 # bins {{{
 
 ln -s $DOTFILES/bin/utils/genpasswd $HOME/.local/bin
