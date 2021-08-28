@@ -815,18 +815,30 @@ map <leader>gf :e <cfile>.md<cr>
 " ----------------------------------------------------------------------------"
 "	Pluggins	{{{1
 " ----------------------------------------------------------------------------"
+
 " vim-go {{{2
+
+
+" core settings {{{3
+
 let g:go_fmt_command = "goimports"
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
 " Enable `go to definition/GoDef` mapping
 let g:go_def_mapping_enabled = 1
+
 " Consider performance
 " let g:go_auto_type_info = 1
+
 " Highlight other uses of same keyword/id - Consider performance
 " let g:go_auto_sameids = 1
+
 " https://github.com/dense-analysis/ale/issues/609#issuecomment-305609209
 " let g:go_fmt_fail_silently = 1
+
+" Doc window instead of preview bottom
+let g:go_doc_popup_window = 1
+" }}}3
 
 " Folding {{{3
 
@@ -848,10 +860,14 @@ let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 " }}}3
 
+" mapping extra {{{3
 
 " Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
 imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
+" }}}3
+
+" augroup {{{3
 
 augroup go
     autocmd!
@@ -892,6 +908,9 @@ augroup go
     autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
     autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 augroup END
+" }}}3
+
+" build function {{{3
 
 " build_go_files is a custom function that builds or compiles the test file.
 " It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
@@ -903,6 +922,7 @@ function! s:build_go_files()
         call go#cmd#Build(0)
     endif
 endfunction
+" }}}3
 " }}}2
 
 " Formatting {{{
