@@ -131,11 +131,15 @@ Plug 'Rykka/InstantRst'
 
 Plug 'dense-analysis/ale'
 
-" Code Completion
+" Code Completion {{{
+
 " Use deoplete for go, for the rest coc.vim
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+
 " vim-go needs deoplete for realtime omnifunc completion
 Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins', 'for': 'go' }
+" NOTE: PlugUpdate may not work, in a *.go file call <UpdateRemotePlugins> manually after
+" }}}
 " }}}
 
 " Syntax {{{3
