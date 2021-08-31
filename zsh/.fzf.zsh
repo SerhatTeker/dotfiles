@@ -124,7 +124,6 @@ bind-git-helper() {
     for c in $@; do
         eval "fzf-g$c-widget() { local result=\$(_g$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
         eval "zle -N fzf-g$c-widget"
-        echo "zle -N fzf-g$c-widget"
         eval "bindkey '^g^$c' fzf-g$c-widget"
     done
 }
