@@ -37,7 +37,6 @@ alias pri-lock='. $(find "$SCRIPTS_DIR" -name lock-pri 2>/dev/null)'
 alias pri-unlock='. $(find "$SCRIPTS_DIR" -name unlock-pri 2>/dev/null)'
 # print all and ignore .git and .venv dir
 alias tree='tree -aI ".git|.venv"'
-# alias mkcd='makecd(){mkdir -p "$1"; cd "$1"}; makecd'
 
 # }}}
 
@@ -70,6 +69,10 @@ alias monitor="python3.9 -m bpytop"
 # timestamp - date
 alias _ts="date +%Y-%m-%d_%H:%M:%S"
 alias _ts_unix="date +%s"
+
+# dirs
+# alias mkcd='makecd(){mkdir -p "$1"; cd "$1"}; makecd'
+alias cdg='cd-gitroot'
 # }}}
 
 # vim {{{
