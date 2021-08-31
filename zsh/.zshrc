@@ -189,6 +189,7 @@ plugins=(
 	git
 	vi-mode
 	# dotenv
+    cd-gitroot
     copydir
     copyfile
 	django
