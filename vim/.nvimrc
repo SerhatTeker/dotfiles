@@ -125,6 +125,9 @@ Plug 'dkarter/bullets.vim'
 
 Plug 'Rykka/riv.vim'
 Plug 'Rykka/InstantRst'
+
+" Terraform
+Plug 'hashivim/vim-terraform'
 " }}}3
 
 " LSP/CodeComplete/Linter {{{3
