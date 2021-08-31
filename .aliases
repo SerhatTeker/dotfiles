@@ -67,6 +67,9 @@ alias list-pids='ps aux > pid.list && nvim pid.list'
 ## monitor
 alias monitor="python3.9 -m bpytop"
 
+# timestamp - date
+alias _ts="date +%Y-%m-%d_%H:%M:%S"
+alias _ts_unix="date +%s"
 # }}}
 
 # vim {{{
