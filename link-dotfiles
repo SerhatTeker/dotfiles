@@ -8,6 +8,11 @@ ln -s $HOME/dotfiles/bash/.bashrc $HOME
 ln -s $HOME/dotfiles/bash/.bash_logout $HOME
 # }}}
 
+# bat {{{
+
+ln -s $DOTFILES/bat/bat.conf $HOME/.config
+# }}}
+
 # Git {{{
 
 ln -s $HOME/dotfiles/.gitconfig $HOME

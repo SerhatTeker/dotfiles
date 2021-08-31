@@ -23,6 +23,8 @@ fi
 # https://git.zx2c4.com/password-store/about/
 PASSWORD_STORE_ENABLE_EXTENSIONS=true
 
+export BAT_CONFIG_PATH="${HOME}/.config/bat.conf"
+
 # Python {{{
 
 export PYTHON_VERSION=3.8
