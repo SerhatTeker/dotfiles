@@ -1069,6 +1069,15 @@ autocmd FileType python call SemshiCustomHighlights()
 
 " settings {{{3
 
+" don't show filenames in Rg
+" https://sidneyliebrand.io/blog/how-fzf-and-ripgrep-improved-my-workflow#finding-content-in-specific-files
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+  \   <bang>0)
+
 " " Default fzf layout
 " " - down / up / left / right
 " let g:fzf_layout = { 'down': '~40%' }
