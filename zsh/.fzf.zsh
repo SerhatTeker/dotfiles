@@ -17,13 +17,47 @@ source "/home/serhat/.fzf/shell/key-bindings.zsh"
 
 # CUSTOM SETTINGS {{{1
 
-# fzf + ag configuration
-# Setting ag as the default source for fzf
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore-dir={__pycache__,undo,} -g ""'
-# ripgrep alternative
-# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+# Opts {{{
+
+export FZF_DEFAULT_OPTS="--ansi
+    --preview-window 'right:60%'
+    --bind='?:toggle-preview'
+    --bind='ctrl-y:preview-page-up'
+    --bind='ctrl-e:preview-page-down'"
+
+export FZF_CTRL_T_OPTS="--preview '(bat {} || cat {} || tree -C {}) 2> /dev/null | head -300'"
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+# }}}
+
+# Commands {{{
+
+# use rg
+RG_PREFIX="rg
+    --files
+    --column
+    --line-number
+    --hidden
+    --follow
+    --glob '!.git'
+    --glob '!node_modules'"
+
+export FZF_DEFAULT_COMMAND="$RG_PREFIX"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_R_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# ripgrep
+# INITIAL_QUERY=""
+# RG_PREFIX="rg --column --line-number --hidden --follow --color=always --glob '!.git/*' --smart-case "
+# export FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
+#     fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+#       --ansi --disabled --query "$INITIAL_QUERY" \
+#       --height=50% --layout=reverse
+
+# use ag
+# Setting ag as the default source for fzf
+# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore-dir={__pycache__,undo,} -g ""'
+# }}}
 
 # Preview {{{2
 
@@ -34,7 +68,7 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
 ### seq 100 | fzf
 ### history | fzf
 # https://github.com/sharkdp/bat/issues/357#issuecomment-429649196
-export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+# export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 
 # alternative
 # https://github.com/sharkdp/bat/issues/357#issuecomment-555971886
@@ -42,7 +76,7 @@ export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --preview 'bat --co
 # export FZF_CTRL_T_OPTS="--min-height 30 --preview-window down:60% --preview-window noborder --preview '($FZF_PREVIEW_COMMAND) 2> /dev/null'"
 # }}}2
 # }}}1
-#
+
 # Git with fzf {{{1
 #
 # Key bindings for git with fzf
