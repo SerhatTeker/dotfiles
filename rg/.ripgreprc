@@ -5,7 +5,7 @@ web:*.{html,css,js}*
 # allow ripgrep to respect gitignores anywhere
 --no-require-git
 
---color=always
+#--color=always
 
 --hidden
 
