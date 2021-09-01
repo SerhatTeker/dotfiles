@@ -4,6 +4,9 @@
 	signingkey = E4E824E75934CABA11ED9686F037930082E016E1
 [core]
 	editor = nvim
+    # default
+    # http://git-scm.com/docs/gitignore#_description
+    # core.excludesFile = $HOME/.config/git/ignore
 [credential]
 	helper = cache --timeout=3600
 [push]
