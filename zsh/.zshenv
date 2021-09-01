@@ -22,8 +22,8 @@ fi
 # pass - password-store
 # https://git.zx2c4.com/password-store/about/
 PASSWORD_STORE_ENABLE_EXTENSIONS=true
-
 export BAT_CONFIG_PATH="${HOME}/.config/bat.conf"
+export RIPGREP_CONFIG_PATH=${HOME}/.config/.ripgreprc
 
 # Python {{{
 

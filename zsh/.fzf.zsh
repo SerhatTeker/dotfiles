@@ -32,17 +32,11 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 # Commands {{{
 
-# use rg
-RG_PREFIX="rg
-    --files
-    --column
-    --line-number
-    --hidden
-    --follow
-    --glob '!.git'
-    --glob '!node_modules'"
+# rg {{{
 
-export FZF_DEFAULT_COMMAND="$RG_PREFIX"
+# other default configs are in ~/.config/.ripgreprc
+export FZF_DEFAULT_COMMAND="rg --files"
+
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_R_COMMAND="$FZF_DEFAULT_COMMAND"
 
@@ -53,10 +47,13 @@ export FZF_CTRL_R_COMMAND="$FZF_DEFAULT_COMMAND"
 #     fzf --bind "change:reload:$RG_PREFIX {q} || true" \
 #       --ansi --disabled --query "$INITIAL_QUERY" \
 #       --height=50% --layout=reverse
+# }}}
 
-# use ag
+# ag {{{
+
 # Setting ag as the default source for fzf
 # export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore-dir={__pycache__,undo,} -g ""'
+# }}}
 # }}}
 
 # Preview {{{2
