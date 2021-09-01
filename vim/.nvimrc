@@ -184,7 +184,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'dbakker/vim-projectroot'
 " Auto close tags
 " Plug 'tpope/vim-endwise'
 " Indentline
@@ -1084,15 +1083,6 @@ command! -bang -nargs=* Rg
 " let g:fzf_layout = { 'window': '10new' }
 " }}}3
 
-" run :Files on the $PROJECT_ROOT {{{3
-" function! s:find_git_root()
-"   return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-" endfunction
-
-" command! ProjectFiles execute 'Files' s:find_git_root()
-" map <C-p> :ProjectFiles<CR>
-" }}}3
-
 " key bindings {{{3
 
 " This is the default extra key bindings
@@ -1108,11 +1098,7 @@ map <leader>h :History<CR>
 map <leader>l :Lines<CR>
 
 map <C-p> :<C-u>GFiles!<CR>
-" Files for git project root
-" map <C-p> :<C-u>ProjectRootExe Files<CR>
 
-" ag for git project root
-" nnoremap <Leader>ag :<C-u>ProjectRootExe Ag<CR>
 nnoremap <Leader>ag :Ag<CR>
 " }}}3
 
