@@ -1096,10 +1096,8 @@ map B :Buffers<CR>
 " map <leader>b :Buffers<CR>
 map <leader>h :History<CR>
 map <leader>l :Lines<CR>
-
 map <C-p> :<C-u>GFiles!<CR>
-
-nnoremap <Leader>ag :Ag<CR>
+map <C-f> :<C-u>Rg!<CR>
 " }}}3
 
 " History {{{3
