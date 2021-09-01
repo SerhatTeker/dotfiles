@@ -1,0 +1,16 @@
+# Add my 'web' type.
+--type-add
+web:*.{html,css,js}*
+#
+# allow ripgrep to respect gitignores anywhere
+--no-require-git
+
+--color=always
+
+--hidden
+
+# Searches case insensitively if the pattern is all lowercase. Search case
+# sensitively otherwise.
+--smart-case
+
+--glob=!.git/*
