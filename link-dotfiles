@@ -10,12 +10,13 @@ ln -s $HOME/dotfiles/bash/.bash_logout $HOME
 
 # bat {{{
 
-ln -s $DOTFILES/bat/bat.conf $HOME/.config
+ln -s $DOTFILES/bat/.npmrc $HOME/.config
 # }}}
 
 # Git {{{
 
-ln -s $HOME/dotfiles/.gitconfig $HOME
+ln -s $DOTFILES/.gitconfig $HOME
+ln -s $DOTFILES/.config/git $HOME/.config
 # }}}
 
 # Tmux {{{
@@ -59,4 +60,9 @@ ln -s $DOTFILES/bin/utils/genpasswd $HOME/.local/bin
 # node {{{
 
 ln -s $DOTFILES/node/.npmrc $HOME/.npmrc
+# }}}
+
+# rg {{{
+
+ln -s $DOTFILES/rg/.ripgreprc $HOME/.config
 # }}}
