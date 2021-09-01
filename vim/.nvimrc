@@ -535,10 +535,6 @@ command! WQ :wqa
 
 " buffers {{{
 
-" open buffers with FZF
-" already in FZF section
-" map <C-B> :Buffers<CR>
-
 " buffer navigation
 map <S-n> :bn<CR>
 map <S-m> :bp<CR>
@@ -1072,11 +1068,11 @@ autocmd FileType python call SemshiCustomHighlights()
 " don't show filenames in Rg
 " https://sidneyliebrand.io/blog/how-fzf-and-ripgrep-improved-my-workflow#finding-content-in-specific-files
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-  \   <bang>0)
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --hidden --follow --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+    \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+    \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+    \   <bang>0)
 
 " " Default fzf layout
 " " - down / up / left / right
@@ -1111,8 +1107,8 @@ map B :Buffers<CR>
 map <leader>h :History<CR>
 map <leader>l :Lines<CR>
 
+map <C-p> :<C-u>GFiles!<CR>
 " Files for git project root
-map <C-p> :<C-u>FZF!<CR>
 " map <C-p> :<C-u>ProjectRootExe Files<CR>
 
 " ag for git project root
