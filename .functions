@@ -59,13 +59,13 @@ bu-unlock-pri(){
 # compare files {{{2
 
 # hash two files and compare their hashes
-hsum() {
+check-hsum() {
 	echo "$(shasum -a 256 $1)"
     echo "$(shasum -a 256 $2)"
 	if [[ "$(shasum -a 256 $1 | awk '{print $1}')" == "$(shasum -a 256 $2 | awk '{print $1}')" ]]; then
-		echo "equal"
+		echo "Equal"
 	else
-		echo "not equal"
+		echo "NOT equal"
 	fi
 }
 
