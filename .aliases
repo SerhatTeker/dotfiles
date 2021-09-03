@@ -66,10 +66,6 @@ alias list-pids='ps aux > pid.list && nvim pid.list'
 ## monitor
 alias monitor="python3.9 -m bpytop"
 
-# timestamp - date
-alias utc='date -u +"%Y-%m-%dT%H:%M:%SZ"'
-alias tunix="date +%s"
-
 # dirs
 # alias mkcd='makecd(){mkdir -p "$1"; cd "$1"}; makecd'
 alias cdg='cd-gitroot'
