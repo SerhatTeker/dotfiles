@@ -1,17 +1,10 @@
-# Temporary
+# logs
 *.log
-tmp/
 
 # Archive
 archive/
 
-# Private
-.pri/
-*-pri
-*_private
-
-
-# Editors
+# Editors{{{
 
 ## Vim template
 Session.vim
@@ -23,9 +16,6 @@ Session.vim
 [._]sw[a-p]
 
 
-### Temporary
-.netrwhist
-
 ## VisualStudioCode template
 .vscode/*
 !.vscode/settings.json
@@ -36,13 +26,36 @@ Session.vim
 ## Sublime-github package stores a github token in this file
 # https://packagecontrol.io/packages/sublime-github
 GitHub.sublime-settings
+# }}}
 
+# Language spesific {{{
 
-# Auto-generated tag files
-tags
+# python cache
+__pycache__/*
 
-# Dump file
-*.stackdump
+# node
+node_modules/*
+# }}}
+
+# OS X {{{
+
+.history
+.DS_Store
+*.DS_Store
+.AppleDouble
+.LSOverride
+# }}}
+#
+# Private {{{
+.pri/
+*-pri
+*_private
+# }}}
+#
+# Temporary {{{
+
+tmp/
+.netrwhist
 
 # Folder config file
 Desktop.ini
@@ -50,14 +63,23 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
-# macOS template
-## General
-*.DS_Store
-.AppleDouble
-.LSOverride
+# Auto-generated tag files
+tags
 
-# python cache
-__pycache__/*
+# Dump file
+*.stackdump
+# }}}
 
-# node
-node_modules/*
+# Terraform  {{{
+
+.terraform
+terraform.tfstate
+terraform.tfvars
+*.tfstate*
+# Ignore Terraform lock files, as we want to test the Terraform code in these repos with the latest provider
+# versions.
+.terraform.lock.hcl
+
+# Folder used to store temporary test data by Terratest
+.test-data
+# }}}
