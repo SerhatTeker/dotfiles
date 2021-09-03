@@ -422,11 +422,11 @@ dec-file() {
 # timestamp - date {{{
 
 utc() {
-    date %Y-%m-%dT%H:%M:%SZ
+    date -u +'%Y-%m-%dT%H:%M:%SZ'
 }
 
 tunix() {
-    date +%s
+    date "+%s"
 }
 # }}}
 # }}}
