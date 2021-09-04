@@ -22,9 +22,11 @@ fi
 # pass - password-store
 # https://git.zx2c4.com/password-store/about/
 PASSWORD_STORE_ENABLE_EXTENSIONS=true
-export BAT_CONFIG_PATH="${HOME}/.config/bat.conf"
-export RIPGREP_CONFIG_PATH=${HOME}/.config/.ripgreprc
+export BAT_CONFIG_PATH="${HOME}/.config/bat/bat.conf"
+export RIPGREP_CONFIG_PATH=${HOME}/.config/rg/.ripgreprc
 
+# Ansible
+export ANSIBLE_CONFIG=${HOME}/.config/ansible/ansible.cfg
 # Python {{{
 
 export PYTHON_VERSION=3.8
