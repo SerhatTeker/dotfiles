@@ -2,67 +2,47 @@
 
 DOTFILES=$HOME/dotfiles/
 ZMAIN="$HOME/.zsh"
-# Bash {{{
 
+
+# Essantials {{{
+
+# Bash
 ln -s $HOME/dotfiles/bash/.bashrc $HOME
 ln -s $HOME/dotfiles/bash/.bash_logout $HOME
-# }}}
-
-# bat {{{
-
-ln -s $DOTFILES/bat/.npmrc $HOME/.config
-# }}}
-
-# Git {{{
-
+# Ctags
+ln -s $HOME/dotfiles/ctags/.ctags $HOME
+# Git
 ln -s $DOTFILES/.gitconfig $HOME
-ln -s $DOTFILES/.config/git $HOME/.config
-# }}}
-
-# Tmux {{{
-
+# Tmux
 ln -s $HOME/dotfiles/tmux/.tmux.conf $HOME
-# }}}
-
-# Vim {{{
-
+# Vim
 ln -s $HOME/dotfiles/vim/.vim $HOME
 ln -s $HOME/dotfiles/vim/.nvimrc $HOME
 # }}}
 
-# Zsh {{{
+# .config {{{
 
-# lsd
-mkdir -p $HOME/.config/lsd
-ln -sf $HOME/dotfiles/.config/lsd/config.yaml $HOME/.config/lsd/config.yaml
+ln -s $DOTFILES/.config/ansible/ $HOME/.config
+ln -s $DOTFILES/.config/bat/ $HOME/.config
+ln -s $DOTFILES/.config/git/ $HOME/.config
+ln -s $DOTFILES/.config/lsd/ $HOME/.config
+ln -s $DOTFILES/.config/rg/ $HOME/.config
+ln -s $DOTFILES/.config/flake8 $HOME/.config
 # }}}
 
-# Ctags {{{
+# Languages {{{
 
-ln -s $HOME/dotfiles/ctags/.ctags $HOME
+# node
+ln -s $DOTFILES/node/.npmrc $HOME/.npmrc
 # }}}
 
-# sqliterc {{{
-
-ln -s $HOME/dotfiles/etc/.sqliterc $HOME
-# }}}
-
-# kubernetes {{{
+# Kubernetes {{{
 
 ln -s ${DOTFILES}/kube/kind.yaml ${HOME}/.kube
 # }}}
 
-# bins {{{
+# Others {{{
 
-ln -s $DOTFILES/bin/utils/genpasswd $HOME/.local/bin
-# }}}
-
-# node {{{
-
-ln -s $DOTFILES/node/.npmrc $HOME/.npmrc
-# }}}
-
-# rg {{{
-
-ln -s $DOTFILES/rg/.ripgreprc $HOME/.config
+# sqliterc
+ln -s $HOME/dotfiles/etc/.sqliterc $HOME
 # }}}
