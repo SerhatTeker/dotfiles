@@ -240,6 +240,11 @@ delete-file-part() {
 		mv "$filename" "${filename//$delete_part/}"
 	done
 }
+
+# move only files
+mvf() {
+    find $1 -maxdepth 1 -type f -exec mv {} $2 \;
+}
 # }}}1
 
 # Git {{{1
