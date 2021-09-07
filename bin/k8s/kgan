@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Show all resources in a namespace
+
+set -eu
+
+RESOURCES=$(kubectl api-resources \
+    --verbs=list \
+    --namespaced \
+    -o name | \
+    grep -v "events.events.k8s.io" | \
+    grep -v "events" | \
+    sort | uniq)
+NAMESPACE={1:-default}
+
+for resource in ${RESOURCES}; do
+    echo "----------------- ${resource} ----------------"
+    kubectl -n ${NAMESPACE} get --show-kind --ignore-not-found ${resource}
+done
