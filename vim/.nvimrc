@@ -54,9 +54,13 @@ Plug 'tpope/vim-unimpaired'
 
 Plug 'fatih/molokai'
 Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-one'
 Plug 'chriskempson/base16-vim'
 Plug 'chuling/vim-equinusocio-material'
 Plug 'morhetz/gruvbox'
+Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'dracula/vim'
 " Colors
 Plug 'gko/vim-coloresque'
 " }}}3
@@ -422,22 +426,22 @@ au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 
 " colors settings {{{2
 
-" Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-" If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-" (see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+" https://github.com/morhetz/gruvbox/wiki/Terminal-specific#0-recommended-neovimvim-true-color-support
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
 " if (empty($TMUX))
 if (has("nvim"))
     "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
-" For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-" Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
 " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
 if (has("termguicolors"))
     set termguicolors
 endif
 " endif
-
 " }}}2
 
 " colorscheme {{{2
@@ -450,32 +454,10 @@ if filereadable(expand("~/.vimrc_background"))
 " TODO: make opt possible
 elseif filereadable(expand("~/.vim/colors/neodark.vim"))
     " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
-    colorscheme neodark
-
     " gruvbox {{{
 
-    " https://github.com/morhetz/gruvbox/wiki/Terminal-specific#0-recommended-neovimvim-true-color-support
-    "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-    "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-    "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-    if (empty($TMUX))
-        if (has("nvim"))
-            "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-            let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-        endif
-        "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-        "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-        " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-        if (has("termguicolors"))
-            set termguicolors
-        endif
-    endif
-
     let g:gruvbox_contrast_dark = "hard"
-    let g:gruvbox_contrast_light = "medium"
-    set background=dark
-    " colorscheme gruvbox
-
+    let g:gruvbox_contrast_light = "hard"
     " }}}
 else
     " custom default colors
@@ -484,8 +466,32 @@ else
                 \}
     colorscheme onedark
 endif
-" }}}2
 
+colorscheme neodark
+" colorscheme gruvbox
+" colorscheme one
+set background=dark
+
+" TODO: Add toggle {{{
+" Must be after color args
+" WIP
+" let g:color_theme = get(g:, 'colors_name', 'neodark')
+
+" if color_theme ==# "neodark"
+"     colorscheme neodark
+" elseif color_theme ==# "gruvbox"
+"     colorscheme gruvbox
+" endif
+
+" function! ShowColourSchemeName()
+"     try
+"         echo g:colors_name
+"     catch /^Vim:E121/
+"         echo "default"
+"     endtry
+" endfunction
+" }}}
+" }}}2
 
 " Cursor {{{2
 
@@ -1530,10 +1536,17 @@ if g:status_bar_choice == 'airline'
         autocmd BufEnter * call plug#load('vim-anzu') | autocmd! LoadAirline
     augroup END
 
-    " colorscheme
-    let g:airline_theme='onedark'
-    " let g:airline_theme='gruvbox'
     let g:airline_powerline_fonts = 1
+
+    " colorscheme {{{
+
+    " TODO: Not working, fix it
+    if colors_name ==# "neodark"
+        let g:airline_theme="onedark"
+    else
+        let g:airline_theme=g:colors_name
+    endif
+    " }}}
 
     " extensions {{{
 
@@ -1601,27 +1614,36 @@ if g:status_bar_choice == 'lightline'
     " Customizaton {{{
 
     let g:lightline                     = {}
-    let g:lightline.colorscheme         = 'one'
     let g:lightline.tabline             = {'left': [['buffers']], 'right': [['close']]}
     let g:lightline.component_expand    = {'buffers': 'lightline#bufferline#buffers'}
     let g:lightline.component_type      = {'buffers': 'tabsel'}
     let g:lightline.component_function  = {'gitbranch': 'FugitiveHead', 'venv': 'virtualenv#statusline'}
 
-    " remove parcent
-    " add gitbranch
-    " add python venv
-    let g:lightline.active = {
-        \ 'left': [ [ 'mode', 'paste' ],
-        \           [ 'readonly', 'filename', 'modified' ],
-        \           [ 'gitbranch', 'venv', 'readonly' ] ],
-        \ 'right': [ [ 'lineinfo' ],
-        \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
+    " Colorscheme {{{
 
-    " default
-    let g:lightline.inactive = {
-        \ 'left': [ [ 'filename' ] ],
-        \ 'right': [ [ 'lineinfo' ] ] }
-    " }}}
+    if colors_name ==# "gruvbox"
+        let g:lightline.colorscheme='gruvbox'
+    else
+        " let g:lightline.colorscheme=g:color_theme
+        let g:lightline.colorscheme='one'
+    endif
+" }}}
+
+" remove parcent
+" add gitbranch
+" add python venv
+let g:lightline.active = {
+    \ 'left': [ [ 'mode', 'paste' ],
+    \           [ 'readonly', 'filename', 'modified' ],
+    \           [ 'gitbranch', 'venv', 'readonly' ] ],
+    \ 'right': [ [ 'lineinfo' ],
+    \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
+
+" default
+let g:lightline.inactive = {
+    \ 'left': [ [ 'filename' ] ],
+    \ 'right': [ [ 'lineinfo' ] ] }
+" }}}
 endif
 " }}}
 
