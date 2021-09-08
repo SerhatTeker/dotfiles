@@ -2,6 +2,7 @@
 
 DOTFILES=$HOME/dotfiles/
 ZMAIN="$HOME/.zsh"
+CONFIG=${HOME}/.config
 
 
 # Essantials {{{
@@ -14,7 +15,9 @@ ln -s $HOME/dotfiles/ctags/.ctags $HOME
 # Git
 ln -s $DOTFILES/.gitconfig $HOME
 # Tmux
-ln -s $HOME/dotfiles/tmux/.tmux.conf $HOME
+ln -s ${DOTFILES}/tmux ${CONFIG}
+# tmux version < 3.1
+# ln -s ${DOTFILES}/tmux/tmux.conf ${HOME}/.tmux.conf
 # Vim
 ln -s $HOME/dotfiles/vim/.vim $HOME
 ln -s $HOME/dotfiles/vim/.nvimrc $HOME

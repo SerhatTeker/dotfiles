@@ -19,6 +19,11 @@ fi
 
 # ENV {{{1
 
+# tmux
+# no need for tmux >= 3.1
+# export TMUX_DIR=${HOME}/.config/tmux
+# export TMUX_CONFIG=${HOME}/.config/tmux/tmux.conf
+
 # pass - password-store
 # https://git.zx2c4.com/password-store/about/
 PASSWORD_STORE_ENABLE_EXTENSIONS=true
