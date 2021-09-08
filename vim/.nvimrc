@@ -450,15 +450,23 @@ endif
 if filereadable(expand("~/.vimrc_background"))
     let base16colorspace=256
     source ~/.vimrc_background
-    " default colorscheme
 " TODO: make opt possible
 elseif filereadable(expand("~/.vim/colors/neodark.vim"))
     " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
+
     " gruvbox {{{
 
     let g:gruvbox_contrast_dark = "hard"
     let g:gruvbox_contrast_light = "hard"
     " }}}
+
+    colorscheme neodark
+    set background=dark
+    "
+    " colorscheme one
+    "
+    " colorscheme gruvbox
+    " set background=light
 else
     " custom default colors
     let g:onedark_color_overrides = {
@@ -467,10 +475,6 @@ else
     colorscheme onedark
 endif
 
-colorscheme neodark
-" colorscheme gruvbox
-" colorscheme one
-set background=dark
 
 " TODO: Add toggle {{{
 " Must be after color args
@@ -1543,8 +1547,11 @@ if g:status_bar_choice == 'airline'
     " TODO: Not working, fix it
     if colors_name ==# "neodark"
         let g:airline_theme="onedark"
+    elseif colors_name ==# "gruvbox"
+        let g:airline_theme="gruvbox"
     else
-        let g:airline_theme=g:colors_name
+        " let g:airline_theme=g:colors_name
+        let g:airline_theme="onedark"
     endif
     " }}}
 
