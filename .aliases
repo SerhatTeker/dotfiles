@@ -55,7 +55,9 @@ alias screenshots-clear='rm -r $HOME/Pictures/Screenshot*'
 alias screenshots-clean='screenshots-clear'
 alias clean-screenshots='screenshots-clear'
 alias fan='mono /opt/nbfc/nbfc.exe status -a'
-alias wifi-reboot='nmcli radio wifi off && nmcli radio wifi on'
+# Network
+alias wifi-restart='nmcli radio wifi off && nmcli radio wifi on'
+alias wired-restart='service network-manager restart'
 ## apt
 alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purge'
 ## maintenance
