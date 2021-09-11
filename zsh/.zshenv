@@ -3,8 +3,9 @@ export ZDOTDIR="$HOME/.zsh"
 # Unique path dirs
 typeset -U path
 
-
+" ----------------------------------------------------------------------------"
 # BIN {{{1
+" ----------------------------------------------------------------------------"
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
@@ -15,24 +16,45 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     path+=("$HOME/.local/bin")
 fi
+" ----------------------------------------------------------------------------"
 # }}}1
+" ----------------------------------------------------------------------------"
 
+" ----------------------------------------------------------------------------"
 # ENV {{{1
+" ----------------------------------------------------------------------------"
+
+# Dotfiles {{{
+
+# NeoVim
+export MYNVIMRC="$HOME/dotfiles/vim/.nvimrc"
+# export MYNVIMRC=$HOME/.nvimrc
+
+# Bat
+export BAT_CONFIG_PATH="${HOME}/.config/bat/bat.conf"
+
+# Ripgrep
+export RIPGREP_CONFIG_PATH=${HOME}/.config/rg/.ripgreprc
 
 # tmux
 # no need for tmux >= 3.1
 # export TMUX_DIR=${HOME}/.config/tmux
 # export TMUX_CONFIG=${HOME}/.config/tmux/tmux.conf
+# }}}
 
-# pass - password-store
+# pass - password-store {{{
+
 # https://git.zx2c4.com/password-store/about/
 PASSWORD_STORE_ENABLE_EXTENSIONS=true
-export BAT_CONFIG_PATH="${HOME}/.config/bat/bat.conf"
-export RIPGREP_CONFIG_PATH=${HOME}/.config/rg/.ripgreprc
+# }}}
+
+# IaC {{{
 
 # Ansible
 export ANSIBLE_CONFIG=${HOME}/.config/ansible/ansible.cfg
-# Python {{{
+# }}}
+
+# Python {{{2
 
 export PYTHON_VERSION=3.8
 export PYTHON="python${PYTHON_VERSION}"
@@ -42,23 +64,16 @@ export PIP_REQUIRE_VIRTUALENV=true
 
 # Use ipdb instead of pdb
 export PYTHONBREAKPOINT=ipdb.set_trace
-# }}}
+# }}}2
 
-# Docker {{{
+# Containers {{{2
 
+# Docker
 # Enabling BuildKit in builds
 export DOCKER_BUILDKIT=1
-# }}}
 
-# kind {{{
-
+# kind
 KINDCONFIG=$HOME/.kube/kind.yaml
-# }}}
-
-# NeoVim Resource {{{2
-
-export MYNVIMRC="$HOME/dotfiles/vim/.nvimrc"
-# export MYNVIMRC=$HOME/.nvimrc
 # }}}2
 
 # Colors {{{2
@@ -82,4 +97,6 @@ export COLOR_YELLOW="\e[1;33m"
 export COLOR_WHITE="\e[1;37m"
 export COLOR_NONE="\e[0m"
 # }}}2
+" ----------------------------------------------------------------------------"
 # }}}1
+" ----------------------------------------------------------------------------"
