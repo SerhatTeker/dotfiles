@@ -148,6 +148,7 @@ alias postgres-stop='docker-compose -f $SCRIPTS_DIR/docker/postgres.yml stop'
 
 alias karf='kubectl apply -R -f'
 alias kak='kubectl apply -k'
+alias kgao='kubectl get all -A > /tmp/output.log ; nvim /tmp/output.log'
 # }}}
 
 # python {{{
