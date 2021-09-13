@@ -199,6 +199,7 @@ plugins=(
     kubectl
 	python
     pass
+    terraform
     ubuntu
     zsh-autosuggestions
     zsh-completions
