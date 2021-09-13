@@ -76,6 +76,11 @@ export DOCKER_BUILDKIT=1
 KINDCONFIG=$HOME/.kube/kind.yaml
 # }}}2
 
+# Log {{{
+
+LOG_FILE=/tmp/output.log
+# }}}
+
 # Colors {{{2
 
 export COLOR_BLACK="\e[0;30m"
