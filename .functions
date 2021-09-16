@@ -437,8 +437,6 @@ _update-all() {
 # Logout {{{
 
 logout-sync() {
-    gopass sync
-    push-journals
     logout-sync-private
 }
 # }}}1
