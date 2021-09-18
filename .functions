@@ -337,18 +337,6 @@ journal(){
 tj(){
 	. $(find "$SCRIPTS_DIR/" -name "journalStartAll" 2>/dev/null)
 }
-
-# Push journals
-# Using with shutdown and reboot
-push-journals() {
-    if [[ ! -z "${JOURNAL_DIR}" ]]; then
-        git -C ${JOURNAL_DIR} push -v
-    fi
-
-    if [[ ! -z "${LEBEN_DIR}" ]]; then
-        git -C ${LEBEN_DIR} push -v
-    fi
-}
 # }}}1
 
 # Languages {{{
