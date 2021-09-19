@@ -6,8 +6,8 @@ snippet sec "Section" b
 $0
 endsnippet
 
-snippet timestamp "Section" b
-`date +%F` `date +%T` `date +%z` | `date +%s` $0
+snippet timestamp "timestamp in ISO8601 and unix" b
+`date -Iseconds` | `date +%s` $0
 endsnippet
 
 ############
