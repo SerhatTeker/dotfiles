@@ -182,6 +182,9 @@ function! g:BookMarkHi()
 		let g:book_mark_hi = "on"
 	endif
 endfunction
+
+" Default one links to Comment
+highlight link mkdBlockquote PreProc
 " }}}
 
 " Toggle spelling {{{
