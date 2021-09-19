@@ -839,6 +839,18 @@ nnoremap <leader>zm :ZettelMeta
 map <leader>gf :e <cfile>.md<cr>
 " 3}}}
 " 2}}}
+
+" Debug {{{
+
+" Debug highlight group on cursor
+" https://stackoverflow.com/a/9464929
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+" }}}
 " ----------------------------------------------------------------------------"
 "	}}}
 " ----------------------------------------------------------------------------"
@@ -1710,3 +1722,10 @@ nmap <silent> <C-_> <Plug>(pydocstring)
 " ----------------------------------------------------------------------------"
 "	}}}
 " ----------------------------------------------------------------------------"
+
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
