@@ -660,8 +660,10 @@ map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 nnoremap <silent>ss :20G<CR>
 " Git commit
 nnoremap <silent>cc :Gcommit<CR>
+" History
+nnoremap <silent>HH :Gclog<CR>
 " File History
-nnoremap <silent>HH :0Glog!<CR>
+nnoremap <silent>HF :0Gclog!<CR>
 " Amend aliases
 command! GCN :Git commit -v --no-edit --amend
 command! GCAN :Git commit -v -a --no-edit --amend
