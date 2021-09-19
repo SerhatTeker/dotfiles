@@ -195,11 +195,3 @@ fun! ToggleSpell()
 	endif
 endfun
 " }}}
-
-" Macros {{{
-
-" ToDo completed
-let @c='0wwci[xkj0'
-" ToDo not-completed
-let @n='0wwi~~kjA~~kj0j'
-" }}}
