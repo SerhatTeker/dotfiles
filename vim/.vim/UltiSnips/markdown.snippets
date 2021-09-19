@@ -32,11 +32,12 @@ $0
 
 endsnippet
 
-snippet meta "Metadata for Subjects" b
+snippet meta "Metadata for Subtitles/Subjects" b
 
-- link : $3
-- tags : $2
+- time : `date -Iseconds` | `date +%s`
 - rate : #${1:6}/10
+- tags : $2
+- link : $3
 
 $0
 endsnippet
