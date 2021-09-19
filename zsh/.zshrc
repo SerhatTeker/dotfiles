@@ -133,6 +133,10 @@ _fix_cursor() {
 	# alternative: xterm 214 or 220
 }
 precmd_functions+=(_fix_cursor)
+
+# don't append "not found command" to history
+# https://www.zsh.org/mla/users//2014/msg00715.html
+zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 # }}}
 
 # Editor {{{2
