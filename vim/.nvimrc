@@ -645,13 +645,6 @@ map <C-l> <C-w><Right>
 map <C-h> <C-w><Left>
 " }}}
 
-" Debug Highlight {{{
-
-map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-            \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-            \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-" }}}
-
 " Others {{{
 
 " fugitive {{{
@@ -852,6 +845,10 @@ function! SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+            \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+            \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
@@ -1724,10 +1721,3 @@ nmap <silent> <C-_> <Plug>(pydocstring)
 " ----------------------------------------------------------------------------"
 "	}}}
 " ----------------------------------------------------------------------------"
-
-function! SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
