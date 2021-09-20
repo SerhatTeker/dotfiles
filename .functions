@@ -274,6 +274,7 @@ git-sync-fork() {
 }
 
 # Delete branch local and remote
+# TODO: Add prompt to ensure
 git-prune-branch() {
     BRANCH=$1
     REMOTE="origin"
@@ -284,7 +285,7 @@ git-prune-branch() {
         BRANCH=$2
     fi
 
-    git branch -d $BRANCH
+    git branch -D $BRANCH
     git push -d $REMOTE $BRANCH
 }
 
