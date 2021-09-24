@@ -196,7 +196,6 @@ plugins=(
     cd-gitroot
     copydir
     copyfile
-	django
 	docker
 	docker-compose
     httpie
