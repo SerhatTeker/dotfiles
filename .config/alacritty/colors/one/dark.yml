@@ -1,8 +1,10 @@
 # Colors (One Dark - https://github.com/atom/atom/tree/master/packages/one-dark-syntax)
 colors:
   primary:
-    background: '#282c34'
-    foreground: '#abb2bf'
+    # background: '#282c34'
+    background: '#1c1c1c'
+    # foreground: '#abb2bf'
+    foreground: '#d0d0d0'
   cursor:
     text:       CellBackground
     cursor:     '#528bff' # syntax-cursor-color
@@ -10,11 +12,13 @@ colors:
     text:       CellForeground
     background: '#3e4451' # syntax-selection-color
   normal:
-    black:      '#5c6370' # mono-3
+    # black:      '#5c6370' # mono-3
+    black:      '#1c1c1c'
     red:        '#e06c75' # red 1
     green:      '#98c379'
     yellow:     '#e5c07b' # orange 2
     blue:       '#61afef'
     magenta:    '#c678dd'
     cyan:       '#56b6c2'
+    # white:      '#828997' # mono-2
     white:      '#828997' # mono-2
