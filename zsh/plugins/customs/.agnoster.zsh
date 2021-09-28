@@ -27,7 +27,8 @@ prompt_dir() {
     # if too long show parent and itself dir
 	# prompt_segment blue white '%2~'
     # if too long show parent's parent, parent and itself dir
-	prompt_segment blue white '%3~'
+	# prompt_segment blue white '%3~'
+	prompt_segment blue 231 '%3~'
 }
 
 # To disable background jobs next to vsc
