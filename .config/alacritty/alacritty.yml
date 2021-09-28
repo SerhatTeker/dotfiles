@@ -9,7 +9,7 @@
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
 import:
-  - ~/.config/alacritty/colors/dracula.yml
+  - ~/.config/alacritty/colors/one/dark.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -405,7 +405,7 @@ cursor:
   #vi_mode_style: None
 
   # Cursor blinking interval in milliseconds.
-  #blink_interval: 750
+  blink_interval: 500
 
   # If this is `true`, the cursor will be rendered as a hollow box when the
   # window is not focused.
