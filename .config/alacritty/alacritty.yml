@@ -8,8 +8,8 @@
 #
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
-#import:
-#  - /path/to/alacritty.yml
+import:
+  - ~/.config/alacritty/colors/dracula.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -377,7 +377,7 @@ colors:
 
 cursor:
   # Cursor style
-  #style:
+  style:
     # Cursor shape
     #
     # Values for `shape`:
@@ -394,7 +394,7 @@ cursor:
     #   - On: Enable blinking by default
     #   - Always: Force the cursor to always blink
     #blinking: Off
-  blinking: On
+    blinking: Always
 
   # Vi mode cursor style
   #
