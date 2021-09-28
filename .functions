@@ -24,7 +24,7 @@ telegram() {
 }
 
 # night light mode
-night-toggle() {
+toggle-night() {
     CURRENT=$(gsettings get org.gnome.settings-daemon.plugins.color night-light-enabled)
     if $CURRENT; then
         gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled false
