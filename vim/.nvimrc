@@ -460,13 +460,21 @@ elseif filereadable(expand("~/.vim/colors/neodark.vim"))
     let g:gruvbox_contrast_light = "hard"
     " }}}
 
+    " Default
     colorscheme neodark
     set background=dark
-    "
+
+    " One
     " colorscheme one
-    "
+    " set background=dark
+
+    " Onedark
+    " colorscheme onedark
+    " set background=dark
+
+    " Gruvbox
     " colorscheme gruvbox
-    " set background=light
+    " set background=dark
 else
     " custom default colors
     let g:onedark_color_overrides = {
