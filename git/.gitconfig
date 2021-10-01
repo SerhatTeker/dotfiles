@@ -14,8 +14,8 @@
 	; annotated and reachable (an ancestor) from the pushed commits
 	followTags = true
 	; verbose = true
-[merge]
-	ff = false
+; [merge]
+; 	ff = false
 [diff]
 	tool = nvimdiff
 	guitool = nvimdiff
