@@ -134,6 +134,7 @@ alias hk='hugo-kill'
 # docker {{{
 
 alias dps='docker ps'
+alias dpsa='docker ps -a'
 ## redis
 alias redis-start='docker-compose -f $SCRIPTS_DIR/docker/redis-commander.yml start'
 alias redis-stop='docker-compose -f $SCRIPTS_DIR/docker/redis-commander.yml stop'
