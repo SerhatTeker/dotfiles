@@ -135,14 +135,6 @@ alias hk='hugo-kill'
 
 alias dps='docker ps'
 alias dpsa='docker ps -a'
-## redis
-alias redis-start='docker-compose -f $SCRIPTS_DIR/docker/redis-commander.yml start'
-alias redis-stop='docker-compose -f $SCRIPTS_DIR/docker/redis-commander.yml stop'
-alias redis-bash='docker exec -ti localredis bash'
-alias redis-cli='docker exec -ti localredis redis-cli'
-## postgres
-alias postgres-start='docker-compose -f $SCRIPTS_DIR/docker/postgres.yml start'
-alias postgres-stop='docker-compose -f $SCRIPTS_DIR/docker/postgres.yml stop'
 # }}}
 
 # kubernetes - k8s {{{
