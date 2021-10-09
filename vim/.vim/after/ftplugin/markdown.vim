@@ -107,17 +107,19 @@ setlocal t_Co=256
 let rehash256 = 1
 let molokai_original = 1
 
-" Colorscheme
+" Colorscheme {{{
+
 " Use default one for now: neodark
 " colorscheme solokai
 
 " Airline
 " check if the plugin is loaded
-if exists(':AirlineTheme')
-	:AirlineTheme molokai
-else
-	let airline_theme = 'molokai'
-endif
+" if exists(':AirlineTheme')
+" 	:AirlineTheme molokai
+" else
+" 	let airline_theme = 'molokai'
+" endif
+" }}}
 
 " Custom syntax colorscheme {{{2
 " journal

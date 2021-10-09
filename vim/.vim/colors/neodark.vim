@@ -41,7 +41,6 @@ highlight clear Normal
 
 " Reset the background color in Normal mode so vim uses Terminal.app's
 " background color. Get bg from tmux bg
-" highlight Normal ctermfg=145 ctermbg=none guifg=#ABB2BF guibg=none
 highlight Normal ctermfg=145 guifg=#ABB2BF guibg=none
 " default hi Normal:
 " highlight Normal ctermfg=145 ctermbg=234 guifg=#ABB2BF guibg=#1c1c1c
@@ -50,7 +49,9 @@ highlight Normal ctermfg=145 guifg=#ABB2BF guibg=none
 
 if (has("nvim"))
     " Background colors for active vs inactive windows
-    hi ActiveWindow guibg=#121212
+    " hi ActiveWindow guibg=#282c34     " soft contrast
+    " hi ActiveWindow guibg=#1c1c1c     " medium contrast
+    hi ActiveWindow guibg=#121212     " hard contrast
     hi InactiveWindow guibg=#303030
     " Call method on window enter
     augroup WindowManagement

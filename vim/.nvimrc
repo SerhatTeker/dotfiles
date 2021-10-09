@@ -63,6 +63,8 @@ Plug 'flazz/vim-colorschemes'
 Plug 'dracula/vim'
 " Colors
 Plug 'gko/vim-coloresque'
+" Tmux
+Plug 'edkolev/tmuxline.vim'
 " }}}3
 
 " Statusbar {{{3
@@ -318,9 +320,10 @@ endif
 " Statusbar {{{2
 
 " Use airline or lightline
-" Default airline
+" Default one is airline
 " Uncomment below to use lightline
 " let g:status_bar = 'lightline'
+"
 let g:status_bar_choice = get(g:, 'status_bar', "airline")
 
 " }}}2
@@ -446,43 +449,74 @@ endif
 
 " colorscheme {{{2
 
-" check base16 theme
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-" TODO: make opt possible
-elseif filereadable(expand("~/.vim/colors/neodark.vim"))
-    " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
+" Manual {{{
+function! InitiateColorscheme()
+    " check base16 theme
+    if filereadable(expand("~/.vimrc_background"))
+        let base16colorspace=256
+        source ~/.vimrc_background
+    " TODO: make opt possible
+    elseif filereadable(expand("~/.vim/colors/neodark.vim"))
+        " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
 
-    " gruvbox {{{
+        " gruvbox {{{
 
-    let g:gruvbox_contrast_dark = "hard"
-    let g:gruvbox_contrast_light = "hard"
-    " }}}
+        let g:gruvbox_contrast_dark = "hard"
+        let g:gruvbox_contrast_light = "hard"
+        " }}}
 
-    " Default
-    colorscheme neodark
-    set background=dark
+        " Default
+        " colorscheme neodark
+        " set background=dark
 
-    " One
-    " colorscheme one
-    " set background=dark
+        " One
+        colorscheme one
+        set background=light
 
-    " Onedark
-    " colorscheme onedark
-    " set background=dark
+        " Onedark
+        " colorscheme onedark
+        " set background=dark
 
-    " Gruvbox
-    " colorscheme gruvbox
-    " set background=dark
-else
-    " custom default colors
-    let g:onedark_color_overrides = {
-                \ "black": {"gui": "#1b1b1b", "cterm": "233", "cterm16": "0" },
-                \}
-    colorscheme onedark
-endif
+        " Gruvbox
+        " colorscheme gruvbox
+        " set background=light
+    else
+        " custom default colors
+        let g:onedark_color_overrides = {
+                    \ "black": {"gui": "#1b1b1b", "cterm": "233", "cterm16": "0" },
+                    \}
+        colorscheme onedark
+    endif
+endfunction
+" }}}
 
+" ChangeBackground {{{
+
+" ChangeBackground changes the background mode based on macOS's `Appearance`
+" setting. We also refresh the statusline colors to reflect the new mode.
+function! ChangeBackground()
+    if system("gsettings get org.gnome.desktop.interface gtk-theme") =~ 'Yaru-dark'
+        set background=dark
+        colorscheme neodark
+    else
+        set background=light
+        colorscheme one
+    endif
+
+    if g:status_bar_choice == 'airline'
+        " check if the plugin exists and loaded
+        if exists(':AirlineTheme')
+            :AirlineRefresh
+        endif
+    endif
+endfunction
+
+" initialize the colorscheme for the first run
+call ChangeBackground()
+
+" change the color scheme if we receive a SigUSR1
+autocmd Signal SIGUSR1 * call ChangeBackground()
+" }}}
 
 " TODO: Add toggle {{{
 " Must be after color args
@@ -504,6 +538,19 @@ endif
 " endfunction
 " }}}
 " }}}2
+
+" Tmuxline {{{
+
+let g:tmuxline_preset = {
+      \'a'    : '#S',
+      \'b'    : '#(whoami)',
+      \'c'    : '#W',
+      \'win'  : '#I #W',
+      \'cwin' : '#I #W',
+      \'x'    : '%a',
+      \'y'    : ['%R', '%D'],
+      \'z'    : '#H'}
+" }}}
 
 " Cursor {{{2
 
@@ -1568,6 +1615,8 @@ if g:status_bar_choice == 'airline'
         let g:airline_theme="onedark"
     elseif colors_name ==# "gruvbox"
         let g:airline_theme="gruvbox"
+    elseif colors_name ==# "one"
+        let g:airline_theme="one"
     else
         " let g:airline_theme=g:colors_name
         let g:airline_theme="onedark"
