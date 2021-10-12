@@ -348,7 +348,7 @@ tj(){
 cvenv() {
     VERSION=${PYTHON_VERSION:-3.8}
     PYTHON="python${VERSION}"
-    VENV=.venv
+    VENV={VENV:-.venv}
 
     ${PYTHON} -m venv ${VENV} --system-site-packages \
         && source ${VENV}/bin/activate
