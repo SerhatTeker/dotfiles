@@ -276,7 +276,7 @@ set nocursorcolumn              " do not highlight column (speeds up highlightin
 " set nocursorline              " do not highlight cursor (speeds up highlighting)
 set cursorline
 set lazyredraw                  " wait to redraw
-set rnu				            " set relative numbers
+" set rnu				            " set relative numbers
 set ttimeoutlen=100		        " esc delay time
 " folding
 set nofoldenable                " no fold when opening a file
