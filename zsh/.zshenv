@@ -41,6 +41,9 @@ export BAT_CONFIG_PATH="${HOME}/.config/bat/bat.conf"
 # Ripgrep
 export RIPGREP_CONFIG_PATH=${HOME}/.config/rg/.ripgreprc
 
+# httpie
+export HTTPIE_CONFIG_DIR=${HOME}/.config/httpie
+
 # tmux
 # no need for tmux >= 3.1
 # export TMUX_DIR=${HOME}/.config/tmux
