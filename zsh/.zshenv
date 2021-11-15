@@ -17,6 +17,11 @@ if [ -d "$HOME/.local/bin" ] ; then
     path+=("$HOME/.local/bin")
 fi
 
+# Node modules global
+if [ -d "$HOME/.local/bin" ] ; then
+    path+=("$HOME/.node_modules/bin")
+fi
+
 # Rust
 if [ -f "$HOME/.cargo/env" ] ; then
     . "$HOME/.cargo/env"
