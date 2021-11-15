@@ -158,12 +158,6 @@ fi
 # fi
 # }}}2
 
-# terraform auto complete {{{
-
-# autoload -U +X bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
-# complete -C /home/serhat/.local/bin/terraform terraform
-# }}}
 
 # python venv {{{2
 
@@ -292,3 +286,16 @@ setopt EXTENDED_HISTORY  # record command start time
 setopt SHARE_HISTORY # share command history data
 # }}}2
 # }}}1
+
+# Auto complete {{{2
+
+autoload bashcompinit && bashcompinit
+# autoload -U +X bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+
+# aws
+complete -C $(which aws_completer) aws
+
+# terraform
+# complete -C /home/serhat/.local/bin/terraform terraform
+# }}}2
