@@ -3,3 +3,4 @@ bpytop==1.0.63
 flake8==3.9.0
 ipdb==0.13.7
 jedi==0.18.0
+pretty-errors==1.12.4
