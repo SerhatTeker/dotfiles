@@ -740,16 +740,28 @@ nnoremap <leader>pp :GP<CR>
 " }}}
 " }}}
 
-" show whitespaces as chars
+" show whitespaces as chars {{{
+
 " whitespaces trimmed after save
 map <F3> :set list! list? <CR>
 
 " Enter automatically into the files directory
 " autocmd BufEnter * silent! lcd %:p:h
+" }}}
 
 " Paste toggle {{{
 
 set pastetoggle=<F2>
+" }}}
+
+" Move lines {{{
+
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 " }}}
 " }}}
 " ----------------------------------------------------------------------------"
