@@ -13,8 +13,8 @@ risk!
 
 ## MACOS
 
-- Install *SF Mono* font
 - Run `./install.sh`
+- Install *SF Mono* font
 
 ## LINUX
 
