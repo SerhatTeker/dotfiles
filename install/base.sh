@@ -9,8 +9,6 @@
 # Author: Serhat Teker <serhat.teker@gmail.com>
 # Source: https://github.com/SerhatTeker/dotfiles
 #
-# Install and customize zsh
-# Warning : WIP
 # ----------------------------------------------------------------------------#
 #
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors

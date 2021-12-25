@@ -26,6 +26,7 @@ bash "${ROOT}/install/sysbak.sh"
 
 main() {
     idotfiles
+    bash "${ROOT}/install/link-dotfiles.sh"
 }
 
 main

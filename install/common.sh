@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # ----------------------------------------------------------------------------#
 #                      _           _        _ _       _
 #                     (_)_ __  ___| |_ __ _| | |  ___| |__
@@ -9,8 +10,6 @@
 # Author: Serhat Teker <serhat.teker@gmail.com>
 # Source: https://github.com/SerhatTeker/dotfiles
 #
-# Install and customize zsh
-# Warning : WIP
 # ----------------------------------------------------------------------------#
 #
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
