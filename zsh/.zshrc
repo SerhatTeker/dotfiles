@@ -1,3 +1,5 @@
+# ----------------------------------------------------------------------------#
+#
 #                                       _
 #                               _______| |__  _ __ ___
 #                              |_  / __| '_ \| '__/ __|
@@ -6,9 +8,10 @@
 #
 # Author: Serhat Teker <serhat.teker@gmail.com>
 # Source: https://github.com/SerhatTeker/dotfiles
-
+# ----------------------------------------------------------------------------#
 
 # SETUP {{{1
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -117,13 +120,13 @@ DISABLE_AUTO_TITLE="true"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+export SSH_KEY_PATH="~/.ssh/rsa_id"
 # }}}
 
 # prompt settings {{{
@@ -262,13 +265,16 @@ if [ -f $HOME/.functions ]; then
 fi
 
 # Senstive functions which are not pushed to Github
-# It containssome functions, aliases etc...
+# It contains some functions, aliases etc...
 [ -f $ZMAIN/.private.zsh ] && source $ZMAIN/.private.zsh
 # }}}2
 
 # kubectl {{{
 
-source <(kubectl completion zsh)
+# Check kubectl installed
+if hash kubectl 2>/dev/null; then
+    source <(kubectl completion zsh)
+fi
 # }}}
 
 # History {{{2
