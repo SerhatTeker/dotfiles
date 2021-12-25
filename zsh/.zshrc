@@ -194,6 +194,7 @@ plugins=(
 	docker-compose
     httpie
     kubectl
+    macos
 	python
     pass
     terraform
