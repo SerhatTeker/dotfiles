@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 #                      _           _        _ _       _
 #                     (_)_ __  ___| |_ __ _| | |  ___| |__
@@ -10,29 +11,32 @@
 #
 # Main script to install dotfiles
 # Warning : WIP
+#
+#
 # ----------------------------------------------------------------------------#
 #	ZSH	{{{1
 # ----------------------------------------------------------------------------#
 
-DOTFILES="$HOME/dotfiles"
-SYSBAK="$HOME/system-bak"
+DOTFILES="${HOME}/dotfiles"
+SYSBAK="${HOME}/system-bak"
 
 # Craete ZDOTDIR
 mkdir "$HOME/.zsh"
 # Export main environment variables for ZSH
-export ZMAIN="$HOME/.zsh"
-export ZDOTDIR=$ZMAIN
+export ZMAIN="${HOME}/.zsh"
+export ZDOTDIR=${ZMAIN}
 
 # oh-my-zsh {{{2
 
-# install ohmyzsh
+# install oh-my-zsh
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-export ZSH="$HOME/.oh-my-zsh"
-ZSH="$HOME/.oh-my-zsh" sh install.sh
+export ZSH="${HOME}/.zsh/.oh-my-zsh"
+ZSH="$HOME/.zsh/.oh-my-zsh" sh install.sh
 rm install.sh
 
 # plugins {{{3
 
+ZSH_CUSTOM="${ZSH}/custom"
 # zsh-syntax-highlighting custom plugin
 # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
@@ -52,11 +56,11 @@ echo "export ZDOTDIR=\"${HOME}/.zsh\"" | sudo tee -a /etc/zsh/zshenv
 # link configs {{{2
 
 # create soft links
-ln -s $DOTFILES/zsh/.zshrc $ZMAIN/.zhsrc
-ln -s $DOTFILES/zsh/.zlogin $ZMAIN/.zlogin
-ln -s $DOTFILES/zsh/plugins $ZMAIN/plugins
-ln -s $DOTFILES/zsh/.fzf.zsh $ZMAIN/.fzf.zsh
-ln -s $SYSBAK/zsh/.private.zsh $ZMAIN/.zsh.private
+ln -s ${DOTFILES}/zsh/.zshrc ${ZMAIN}/.zhsrc
+ln -s ${DOTFILES}/zsh/.zlogin ${ZMAIN}/.zlogin
+ln -s ${DOTFILES}/zsh/plugins ${ZMAIN}/plugins
+ln -s ${DOTFILES}/zsh/.fzf.zsh ${ZMAIN}/.fzf.zsh
+ln -s ${SYSBAK}/zsh/.private.zsh ${ZMAIN}/.zsh.private
 #   }}}2
 # ----------------------------------------------------------------------------#
 #   }}}1
