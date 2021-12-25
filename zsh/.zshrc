@@ -8,6 +8,7 @@
 #
 # Author: Serhat Teker <serhat.teker@gmail.com>
 # Source: https://github.com/SerhatTeker/dotfiles
+#
 # ----------------------------------------------------------------------------#
 
 # SETUP {{{1
@@ -161,10 +162,9 @@ fi
 # fi
 # }}}2
 
-
 # python venv {{{2
 
-# chpwd is a zsh hook, wich is executed after change directory
+# chpwd is a zsh hook, which is executed after change directory
 # More info: http://zsh.sourceforge.net/Doc/Release/Functions.html
 # function chpwd() {
 #   if [ -z "$VIRTUAL_ENV" ]; then
@@ -189,7 +189,7 @@ fi
 plugins=(
 	git
 	vi-mode
-	# dotenv
+	# dotenv    # Disabled
     cd-gitroot
     copydir
     copyfile
@@ -231,13 +231,16 @@ ZSH_DOTENV_PROMPT=false
 # }}}3
 
 # zsh-highlight {{{3
-
-[ -f $ZCUSTOMS/.syntax-highlight.zsh ] && source $ZCUSTOMS/.syntax-highlight.zsh
+if [[ "$ZSH_CUSTOM_HIGHLIGHT" == "TRUE" ]]; then
+    [ -f $ZCUSTOMS/.syntax-highlight.zsh ] && source $ZCUSTOMS/.syntax-highlight.zsh
+fi
 # }}}3
 
 # agnoster {{{3
 
-[ -f $ZCUSTOMS/.agnoster.zsh ] && source $ZCUSTOMS/.agnoster.zsh
+if [[ "$ZSH_THEME" == "agnoster" ]]; then
+    [ -f $ZCUSTOMS/.agnoster.zsh ] && source $ZCUSTOMS/.agnoster.zsh
+fi
 # }}}3
 
 # FZF {{{3
@@ -269,13 +272,6 @@ fi
 [ -f $ZMAIN/.private.zsh ] && source $ZMAIN/.private.zsh
 # }}}2
 
-# kubectl {{{
-
-# Check kubectl installed
-if hash kubectl 2>/dev/null; then
-    source <(kubectl completion zsh)
-fi
-# }}}
 
 # History {{{2
 
@@ -299,6 +295,12 @@ setopt SHARE_HISTORY # share command history data
 autoload bashcompinit && bashcompinit
 # autoload -U +X bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
+
+# kubectl
+# Check kubectl installed
+if hash kubectl 2>/dev/null; then
+    source <(kubectl completion zsh)
+fi
 
 # aws
 complete -C $(which aws_completer) aws
