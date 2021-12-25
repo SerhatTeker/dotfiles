@@ -10,7 +10,6 @@
 # Source: https://github.com/SerhatTeker/dotfiles
 #
 # Install and customize zsh
-# Warning : WIP
 # ----------------------------------------------------------------------------#
 #
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
@@ -24,9 +23,6 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
-DOTFILES="${HOME}/dotfiles"
-SYSBAK="${HOME}/system-bak"
-
 # Create ZDOTDIR
 mkdir ${HOME}/.zsh
 # Export main environment variables for ZSH
@@ -34,8 +30,11 @@ export ZMAIN="${HOME}/.zsh"
 export ZDOTDIR=${ZMAIN}
 export ZSH="${HOME}/.zsh/.oh-my-zsh"
 
+
 default-shell() {
-    sudo sh -c "echo $(which zsh) >> /etc/shells" && chsh -s $(which zsh)
+    # make zsh default shell
+    sudo sh -c "echo $(which zsh) >> /etc/shells"
+    chsh -s $(which zsh)
 }
 
 oh-my-zsh() {

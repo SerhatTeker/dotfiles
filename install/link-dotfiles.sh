@@ -12,17 +12,15 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 source "${ROOT}/install/common.sh"
 
 
-DOTFILES=${HOME}/dotfiles/
 ZMAIN="${HOME}/.zsh"
-CONFIG=${HOME}/.config
 
 
 essantials() {
     # Bash
-    ln -s ${HOME}/dotfiles/bash/.bashrc ${HOME}
-    ln -s ${HOME}/dotfiles/bash/.bash_logout ${HOME}
+    ln -s ${DOTFILES}/bash/.bashrc ${HOME}
+    ln -s ${DOTFILES}/bash/.bash_logout ${HOME}
     # Ctags
-    ln -s ${HOME}/dotfiles/ctags/.ctags ${HOME}
+    ln -s ${DOTFILES}/ctags/.ctags ${HOME}
     # Git
     ln -s ${DOTFILES}/.gitconfig ${HOME}
     # Tmux
@@ -30,8 +28,8 @@ essantials() {
     # tmux version < 3.1
     # ln -s ${DOTFILES}/tmux/tmux.conf ${HOME}/.tmux.conf
     # Vim
-    ln -s ${HOME}/dotfiles/vim/.vim ${HOME}
-    ln -s ${HOME}/dotfiles/vim/.nvimrc ${HOME}
+    ln -s ${DOTFILES}/vim/.vim ${HOME}
+    ln -s ${DOTFILES}/vim/.nvimrc ${HOME}
 }
 
 local-config() {
@@ -54,7 +52,7 @@ containers() {
 
 others() {
     # sqliterc
-    ln -s ${HOME}/dotfiles/etc/.sqliterc ${HOME}
+    ln -s ${DOTFILES}/etc/.sqliterc ${HOME}
 }
 
 main() {
@@ -65,5 +63,16 @@ main() {
     containers
     others
 }
+
+if [ "$1" == "--force" -o "$1" == "-f" ]; then
+	main
+else
+	read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
+	echo ""
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+		main
+	fi
+fi
+unset main
 
 exit 0

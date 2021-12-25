@@ -22,9 +22,10 @@ set -o pipefail
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    bash "${ROOT}/install/base/linux.sh"
+    bash "${ROOT}/install/linux/base.sh"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    bash "${ROOT}/install/base/macos.sh"
+    bash "${ROOT}/install/macos/base.sh"
 else
+    echo "No install configuration for ${OSTYPE}"
     exit 1
 fi

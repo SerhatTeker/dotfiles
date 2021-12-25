@@ -9,59 +9,25 @@
 # Author: Serhat Teker <serhat.teker@gmail.com>
 # Source: https://github.com/SerhatTeker/dotfiles
 #
-# Main script to install dotfiles
-# Warning : WIP
-#
-#
-# ----------------------------------------------------------------------------#
-#	ZSH	{{{1
-# ----------------------------------------------------------------------------#
+# Main script to install dotfiles and sys-bak
 
-DOTFILES="${HOME}/dotfiles"
-SYSBAK="${HOME}/system-bak"
 
-# Craete ZDOTDIR
-mkdir "$HOME/.zsh"
-# Export main environment variables for ZSH
-export ZMAIN="${HOME}/.zsh"
-export ZDOTDIR=${ZMAIN}
+BASE_URL="git@github.com:SerhatTeker"
+DOTFILES_URL="${BASE_URL}/dotfiles.git"
 
-# oh-my-zsh {{{2
 
-# install oh-my-zsh
-wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-export ZSH="${HOME}/.zsh/.oh-my-zsh"
-ZSH="$HOME/.zsh/.oh-my-zsh" sh install.sh
-rm install.sh
+idotfiles() {
+    git clone ${DOTFILES_URL} ${HOME}/dotfiles
+}
 
-# plugins {{{3
+# TODO: put conditional formatting
+bash "${ROOT}/install/sysbak.sh"
 
-ZSH_CUSTOM="${ZSH}/custom"
-# zsh-syntax-highlighting custom plugin
-# https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-    ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-# zsh-autosuggestions
-# https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh
-git clone https://github.com/zsh-users/zsh-autosuggestions \
-    ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-# }}}#
+main() {
+    idotfiles
+}
 
-# Set global ZDOTDIR
-# Hacky ugly way to fix tmux behavior
-echo "export ZDOTDIR=\"${HOME}/.zsh\"" | sudo tee -a /etc/zsh/zshenv
-# }}}2
+main
 
-# link configs {{{2
-
-# create soft links
-ln -s ${DOTFILES}/zsh/.zshrc ${ZMAIN}/.zhsrc
-ln -s ${DOTFILES}/zsh/.zlogin ${ZMAIN}/.zlogin
-ln -s ${DOTFILES}/zsh/plugins ${ZMAIN}/plugins
-ln -s ${DOTFILES}/zsh/.fzf.zsh ${ZMAIN}/.fzf.zsh
-ln -s ${SYSBAK}/zsh/.private.zsh ${ZMAIN}/.zsh.private
-#   }}}2
-# ----------------------------------------------------------------------------#
-#   }}}1
-# ----------------------------------------------------------------------------#
+exit 0

@@ -21,4 +21,27 @@ set -o pipefail
 # Locate the root directory
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
+ibrew() {
+    # Install Homebrew to $HOME/.homebrew instead of /usr/local:
+    git clone https://github.com/Homebrew/brew.git ${HOME}/.homebrew
+    # check brew installed
+    which brew
+    # close analytics
+    brew analytics off
+}
 
+brew-bundle() {
+    # TODO: create Brewfile
+    brew bundle --file=${ROOT}/Brewfile
+}
+
+
+main() {
+    echo "Started Installation"
+    ibrew
+    echo "Finished Installation"
+}
+
+main
+
+exit 0
