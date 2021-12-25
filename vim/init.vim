@@ -1,3 +1,4 @@
+" ----------------------------------------------------------------------------"
 "
 "                        _       _ _         _
 "                       (_)_ __ (_) |___   _(_)_ __ ___
@@ -8,7 +9,10 @@
 "
 " Author: Serhat Teker <serhat.teker@gmail.com>
 " Source: https://github.com/SerhatTeker/dotfiles
+" License: https://github.com/SerhatTeker/dotfiles
 "
+" ----------------------------------------------------------------------------"
+
 " http://vimcasts.org/episodes/meet-neovim/
 " All runtime files and packages in ~/.vim will be loaded by Neovim. Any
 " customisations you make in your $MYNVIMRC will now apply to Neovim as well

@@ -8,6 +8,7 @@
 #
 # Author: Serhat Teker <serhat.teker@gmail.com>
 # Source: https://github.com/SerhatTeker/dotfiles
+# License: https://github.com/SerhatTeker/dotfiles/LICENSE
 #
 # Main script to install dotfiles and sys-bak
 

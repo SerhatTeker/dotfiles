@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 #		     __			         _   _
 #		    / _|_   _ _ __   ___| |_(_) ___  _ __  ___
@@ -8,6 +8,7 @@
 #
 # Author: Serhat Teker <serhat.teker@gmail.com>
 # Source: https://github.com/SerhatTeker/dotfiles
+# License: https://github.com/SerhatTeker/dotfiles/LICENSE
 #
 # to handle more complex tasks than alias
 

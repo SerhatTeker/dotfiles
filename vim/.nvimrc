@@ -6,6 +6,8 @@
 "
 " Author: Serhat Teker <serhat.teker@gmail.com>
 " Source: https://github.com/SerhatTeker/dotfiles
+" License: https://github.com/SerhatTeker/dotfiles/LICENSE
+"
 " ----------------------------------------------------------------------------"
 "	Plugin Manager	{{{1
 " ----------------------------------------------------------------------------"
