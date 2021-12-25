@@ -17,3 +17,6 @@ web:*.{html,css,js}*
 --smart-case
 
 --glob=!.git/*
+
+# all ignore-related filtering with the --no-ignore flag
+# --no-ignore
