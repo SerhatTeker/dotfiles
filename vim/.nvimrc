@@ -526,6 +526,14 @@ function! ChangeBackground()
         if exists(":AirlineTheme")
             :AirlineRefresh
         endif
+    elseif g:status_bar_choice == "lightline"
+        " TODO: Work with:
+        " https://github.com/itchyny/lightline.vim/issues/241
+        " https://github.com/itchyny/lightline.vim/issues/424
+
+        " if exists(":Tmuxline")
+        "     :Tmuxline lightline
+        " endif
     endif
 endfunction
 
