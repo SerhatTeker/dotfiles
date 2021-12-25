@@ -12,7 +12,8 @@
 # Main script to install dotfiles and sys-bak
 
 
-BASE_URL="git@github.com:SerhatTeker"
+# BASE_URL="git@github.com:SerhatTeker"
+BASE_URL="https://github.com/SerhatTeker"
 DOTFILES_URL="${BASE_URL}/dotfiles.git"
 
 
