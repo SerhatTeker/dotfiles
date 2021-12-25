@@ -52,12 +52,30 @@ containers() {
     ln -s ${DOTFILES}/kube/kind.yaml ${HOME}/.kube
 }
 
+gnu() {
+    # TODO: Decide install whether from dotfiles or sysbak
+    # gnupg
+    if [ -f "${HOME}/.gnupg" ] && [ ! -L "${HOME}/.gnupg" ];then
+        echo "${HOME}/.gnupg is not a symlink. Delete it manually."
+        exit 1
+    else
+        [ -L "${HOME}/.gnupg" ] && unlink "${HOME}/.gnupg"
+        ln -sf "${SYSBAK}/.gnupg" "${HOME}/.gnupg"
+        # make directory unreadable by others
+        chmod -R o-rx "${SCRIPT_DIR}/.gnupg"
+        # make symlink available only to current user
+        chmod 700 "${HOME}/.gnupg"
+    fi
+}
+
+
 main() {
     echo "Making soft links"
     home
     local-config
     languages
     containers
+    gnu
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then

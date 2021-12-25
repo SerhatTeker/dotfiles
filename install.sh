@@ -17,12 +17,9 @@ DOTFILES_URL="${BASE_URL}/dotfiles.git"
 
 
 idotfiles() {
+    # install dotfiles repo
     git clone ${DOTFILES_URL} ${HOME}/dotfiles
 }
-
-# TODO: put conditional formatting
-bash "${ROOT}/install/sysbak.sh"
-
 
 main() {
     idotfiles
