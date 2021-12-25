@@ -21,6 +21,10 @@ set -o pipefail
 # Locate the root directory
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
+# shellcheck source=scripts/common.sh
+source "${ROOT}/install/common.sh"
+
+
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     bash "${ROOT}/install/linux/base.sh"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -29,3 +33,5 @@ else
     echo "No install configuration for ${OSTYPE}"
     exit 1
 fi
+
+bash ${ROOT}/python/python.sh

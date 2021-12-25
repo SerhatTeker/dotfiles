@@ -15,30 +15,31 @@ source "${ROOT}/install/common.sh"
 ZMAIN="${HOME}/.zsh"
 
 
-essantials() {
-    # Bash
-    ln -s ${DOTFILES}/bash/.bashrc ${HOME}
-    ln -s ${DOTFILES}/bash/.bash_logout ${HOME}
-    # Ctags
-    ln -s ${DOTFILES}/ctags/.ctags ${HOME}
-    # Git
-    ln -s ${DOTFILES}/.gitconfig ${HOME}
-    # Tmux
-    ln -s ${DOTFILES}/tmux ${CONFIG}
-    # tmux version < 3.1
-    # ln -s ${DOTFILES}/tmux/tmux.conf ${HOME}/.tmux.conf
-    # Vim
-    ln -s ${DOTFILES}/vim/.vim ${HOME}
-    ln -s ${DOTFILES}/vim/.nvimrc ${HOME}
+home() {
+    for files in \
+        bash/.bashrc \
+        bash/.bash_logout \
+        ctags/.ctags \
+        git/.gitconfig \
+        vim/.vim/ \
+        vim/.nvimrc \
+        etc/.sqliterc; do
+
+        ln -sf "${DOTFILES}/${files}" ${HOME}/.config
+    done
 }
 
 local-config() {
-    ln -s ${DOTFILES}/.config/ansible/ ${HOME}/.config
-    ln -s ${DOTFILES}/.config/bat/ ${HOME}/.config
-    ln -s ${DOTFILES}/.config/git/ ${HOME}/.config
-    ln -s ${DOTFILES}/.config/lsd/ ${HOME}/.config
-    ln -s ${DOTFILES}/.config/rg/ ${HOME}/.config
-    ln -s ${DOTFILES}/.config/flake8 ${HOME}/.config
+    for files in \
+        ansible/ \
+        bat/ \
+        git/ \
+        lsd/ \
+        rg/ \
+        flake8; do
+
+        ln -sf "${DOTFILES}/.config/${files}" ${HOME}/.config
+    done
 }
 
 languages() {
@@ -47,21 +48,16 @@ languages() {
 }
 
 containers() {
+    mkdir -p ${HOME}/.kube
     ln -s ${DOTFILES}/kube/kind.yaml ${HOME}/.kube
-}
-
-others() {
-    # sqliterc
-    ln -s ${DOTFILES}/etc/.sqliterc ${HOME}
 }
 
 main() {
     echo "Making soft links"
-    essantials
+    home
     local-config
     languages
     containers
-    others
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then

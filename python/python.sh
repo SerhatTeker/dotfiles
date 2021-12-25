@@ -5,7 +5,13 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-DOTFILES=${HOME}/dotfiles
+# Locate the root directory
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+# shellcheck source=scripts/common.sh
+source "${ROOT}/install/common.sh"
+
+
 VERSION=${PYTHON_VERSION:-3.8}
 
 
@@ -24,3 +30,5 @@ main() {
 }
 
 main
+
+exit 0
