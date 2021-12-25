@@ -9,8 +9,6 @@
 # Author: Serhat Teker <serhat.teker@gmail.com>
 # Source: https://github.com/SerhatTeker/dotfiles
 #
-# Install and customize zsh
-# Warning : WIP
 # ----------------------------------------------------------------------------#
 #
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
@@ -20,6 +18,7 @@ set -o pipefail
 
 # Locate the root directory
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
 
 ibrew() {
     # Install Homebrew to $HOME/.homebrew instead of /usr/local:
@@ -35,11 +34,19 @@ brew-bundle() {
     brew bundle --file=${ROOT}/Brewfile
 }
 
+tweak-tmux() {
+    # TODO: tweak tmux color with xterm color
+    # use sed
+    echo ""
+}
+
 
 main() {
-    echo "Started Installation"
+    echo "Started Installation for ${OSTYPE}"
     ibrew
-    echo "Finished Installation"
+    brew-bundle
+    tweak-tmux
+    echo "Finished Installation ${OSTYPE}"
 }
 
 main
