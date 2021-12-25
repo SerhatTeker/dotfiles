@@ -466,12 +466,12 @@ function! InitiateColorscheme()
         " }}}
 
         " Default
-        " colorscheme neodark
-        " set background=dark
+        colorscheme neodark
+        set background=dark
 
         " One
-        colorscheme one
-        set background=light
+        " colorscheme one
+        " set background=light
 
         " Onedark
         " colorscheme onedark
@@ -495,17 +495,20 @@ endfunction
 " ChangeBackground changes the background mode based on macOS's `Appearance`
 " setting. We also refresh the statusline colors to reflect the new mode.
 function! ChangeBackground()
-    if system("gsettings get org.gnome.desktop.interface gtk-theme") =~ 'Yaru-dark'
+    " Linux
+    if system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-dark"
         set background=dark
         colorscheme neodark
-    else
+    elseif system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-light"
         set background=light
         colorscheme one
+    " Macos
+    " TODO: Implement Fatih's method
     endif
 
-    if g:status_bar_choice == 'airline'
+    if g:status_bar_choice == "airline"
         " check if the plugin exists and loaded
-        if exists(':AirlineTheme')
+        if exists(":AirlineTheme")
             :AirlineRefresh
         endif
     endif
@@ -1155,7 +1158,7 @@ let g:semshi#error_sign_delay = 1.5
 let g:semshi#update_delay_facto = 0.0
 
 " Custom Colors for OneDark Theme
-function SemshiCustomHighlights()
+function! SemshiCustomHighlights()
     hi semshiSelf               guifg=#E5C07B
     hi semshiBuiltin            guifg=#56B6C2
     hi semshiSelected           guifg=#1b1b1b guibg=#ABB2BF
@@ -1693,6 +1696,9 @@ if g:status_bar_choice == 'lightline'
     " https://github.com/mengelbrecht/lightline-bufferline#faq
     set showtabline=2
 
+    " Tmuxline
+    let g:tmuxline_powerline_separators = 0
+
     " Vars
     let g:lightline#bufferline#show_number  = 0
     let g:lightline#bufferline#shorten_path = 1
@@ -1716,21 +1722,21 @@ if g:status_bar_choice == 'lightline'
     endif
 " }}}
 
-" remove parcent
-" add gitbranch
-" add python venv
-let g:lightline.active = {
-    \ 'left': [ [ 'mode', 'paste' ],
-    \           [ 'readonly', 'filename', 'modified' ],
-    \           [ 'gitbranch', 'venv', 'readonly' ] ],
-    \ 'right': [ [ 'lineinfo' ],
-    \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
+    " remove parcent
+    " add gitbranch
+    " add python venv
+    let g:lightline.active = {
+        \ 'left': [ [ 'mode', 'paste' ],
+        \           [ 'readonly', 'filename', 'modified' ],
+        \           [ 'gitbranch', 'venv', 'readonly' ] ],
+        \ 'right': [ [ 'lineinfo' ],
+        \            [ 'fileformat', 'fileencoding', 'filetype' ] ] }
 
-" default
-let g:lightline.inactive = {
-    \ 'left': [ [ 'filename' ] ],
-    \ 'right': [ [ 'lineinfo' ] ] }
-" }}}
+    " default
+    let g:lightline.inactive = {
+        \ 'left': [ [ 'filename' ] ],
+        \ 'right': [ [ 'lineinfo' ] ] }
+    " }}}
 endif
 " }}}
 
