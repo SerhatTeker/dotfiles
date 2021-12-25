@@ -34,6 +34,14 @@ brew-bundle() {
     brew bundle --file=${ROOT}/Brewfile
 }
 
+# Install universal-ctags
+# https://gist.github.com/nazgob/1570678
+# https://docs.ctags.io/en/latest/osx.html#building-with-homebrew
+ictags() {
+    brew tap universal-ctags/universal-ctags
+    brew install --HEAD universal-ctags
+}
+
 tweak-tmux() {
     # TODO: tweak tmux color with xterm color
     # use sed
@@ -45,6 +53,7 @@ main() {
     echo "Started Installation for ${OSTYPE}"
     ibrew
     brew-bundle
+    ictags
     tweak-tmux
     echo "Finished Installation ${OSTYPE}"
 }
