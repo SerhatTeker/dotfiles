@@ -324,8 +324,8 @@ endif
 " Use airline or lightline
 " Default one is airline
 " Uncomment below to use lightline
-" let g:status_bar = 'lightline'
-"
+let g:status_bar = "lightline"
+
 let g:status_bar_choice = get(g:, 'status_bar', "airline")
 
 " }}}2
@@ -452,6 +452,7 @@ endif
 " colorscheme {{{2
 
 " Manual {{{
+
 function! InitiateColorscheme()
     " check base16 theme
     if filereadable(expand("~/.vimrc_background"))
@@ -494,7 +495,7 @@ endfunction
 
 " ChangeBackground {{{
 
-" ChangeBackground changes the background mode based on macOS's `Appearance`
+" ChangeBackground changes the background mode based on macOS's and Linux's `Appearance`
 " setting. We also refresh the statusline colors to reflect the new mode.
 function! ChangeBackground()
     " Linux
@@ -506,6 +507,18 @@ function! ChangeBackground()
         colorscheme one
     " Macos
     " TODO: Implement Fatih's method
+    " https://arslan.io/2021/02/15/automatic-dark-mode-for-terminal-applications/
+    " if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
+    "     set background=dark   " for the dark version of the theme
+    " else
+    "     set background=light  " for the light version of the theme
+    " endif
+
+    " Default one
+    else
+        " TODO: Use InitiateColorscheme function
+        set background=dark
+        colorscheme neodark
     endif
 
     if g:status_bar_choice == "airline"
@@ -1614,13 +1627,12 @@ let g:gutentags_file_list_command = {
 
 " Airline {{{
 
-if g:status_bar_choice == 'airline'
-
+if g:status_bar_choice == "airline"
     augroup LoadAirline
         autocmd!
-        autocmd BufEnter * call plug#load('vim-airline') | autocmd! LoadAirline
-        autocmd BufEnter * call plug#load('vim-airline-themes') | autocmd! LoadAirline
-        autocmd BufEnter * call plug#load('vim-anzu') | autocmd! LoadAirline
+        autocmd BufEnter * call plug#load("vim-airline") | autocmd! LoadAirline
+        autocmd BufEnter * call plug#load("vim-airline-themes") | autocmd! LoadAirline
+        autocmd BufEnter * call plug#load("vim-anzu") | autocmd! LoadAirline
     augroup END
 
     let g:airline_powerline_fonts = 1
@@ -1687,7 +1699,7 @@ endif
 
 " Lightline {{{
 
-if g:status_bar_choice == 'lightline'
+if g:status_bar_choice == "lightline"
     augroup LoadLightline
         autocmd!
         autocmd BufEnter * call plug#load('lightline.vim') | autocmd! LoadLightline
@@ -1717,10 +1729,10 @@ if g:status_bar_choice == 'lightline'
     " Colorscheme {{{
 
     if colors_name ==# "gruvbox"
-        let g:lightline.colorscheme='gruvbox'
+        let g:lightline.colorscheme="gruvbox"
     else
         " let g:lightline.colorscheme=g:color_theme
-        let g:lightline.colorscheme='one'
+        let g:lightline.colorscheme="one"
     endif
 " }}}
 
