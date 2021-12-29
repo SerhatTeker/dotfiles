@@ -1621,8 +1621,6 @@ let g:goyo_width = 120
 
 " vim-gutentags {{{
 
-" markers {{{
-
 " How To Generate Ctags Include Python site-packages
 " https://github.com/ludovicchabant/vim-gutentags/issues/179
 let g:gutentags_file_list_command = {
@@ -1669,7 +1667,6 @@ let g:gutentags_ctags_exclude = [
     \  '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx', '*.xls',
     \  '*.md',
 \]
-" }}}
 " }}}
 
 " Airline {{{
