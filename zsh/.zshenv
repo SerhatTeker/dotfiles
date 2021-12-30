@@ -26,6 +26,15 @@ fi
 if [ -f "$HOME/.cargo/env" ] ; then
     . "$HOME/.cargo/env"
 fi
+
+# Homebrew
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    # TODO: Implement
+    :
+fi
+HOMEBREW_NO_ENV_HINTS=1
 # ----------------------------------------------------------------------------#
 # }}}1
 # ----------------------------------------------------------------------------#
