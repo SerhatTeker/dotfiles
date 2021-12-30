@@ -7,7 +7,7 @@ $0
 endsnippet
 
 snippet timestamp "timestamp in ISO8601 and unix" b
-`date -Iseconds` | `date +%s` $0
+`date +%Y-%m-%dT%H:%M:%S%z` | `date +%s` $0
 endsnippet
 
 ############
@@ -34,7 +34,7 @@ endsnippet
 
 snippet meta "Metadata for Subtitles/Subjects" b
 
-- time : `date -Iseconds` | `date +%s`
+- time : `date +%Y-%m-%dT%H:%M:%S%z` | `date +%s`
 - rate : #${1:6}/10
 - tags : $2
 - link : $3
