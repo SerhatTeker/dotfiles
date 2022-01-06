@@ -1328,13 +1328,6 @@ let g:autoflake_remove_all_unused_imports=1
 let g:autoflake_remove_unused_variables=0
 let g:autoflake_disable_show_diff=0
 " }}}
-
-" vim-pydocstring {{{
-
-let g:pydocstring_doq_path = '~/.local/bin/doq'
-let g:pydocstring_formatter = 'google'
-nmap <silent> <C-_> <Plug>(pydocstring)
-" }}}
 " ----------------------------------------------------------------------------"
 "	}}}
 " ----------------------------------------------------------------------------"
