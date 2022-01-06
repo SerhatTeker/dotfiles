@@ -18,14 +18,10 @@ command! -bang -nargs=? -complete=dir AllFiles
     \ fzf#vim#with_preview({ 'dir': <q-args>, 'sink': 'e', 'source': 'rg --files --hidden --no-ignore' }),
     \ <bang>0))
 
-" " Default fzf layout
-" " - down / up / left / right
-" let g:fzf_layout = { 'down': '~40%' }
-
-" " In Neovim, you can set up fzf window using a Vim command
-" let g:fzf_layout = { 'window': 'enew' }
-" let g:fzf_layout = { 'window': '-tabnew' }
-" let g:fzf_layout = { 'window': '10new' }
+" https://github.com/junegunn/fzf/blob/master/README-VIM.md#examples
+" Default fzf layout
+" - Popup window (center of the screen)
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 " }}}3
 
 " key bindings {{{3
