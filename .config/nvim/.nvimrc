@@ -635,22 +635,6 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 "	Functions	{{{1
 " ----------------------------------------------------------------------------"
 
-" Diff {{{2
-
-" :DiffPreSave
-com! DiffPreSave call s:DiffPreSaved()
-
-" see changes in the current buffer before save.
-" NOTE: use gitgutter instead.
-function! s:DiffPreSaved()
-    let filetype=&ft
-    diffthis
-    vnew | r # | normal! 1Gdd
-    diffthis
-    exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-endfunction
-" }}}2
-
 " Renumber {{{2
 " let i=1 | '<,'> g/\d. /s//\=i.'. '/ | let i=i+1
 " vnoremap <f10> :<c-u>exe join(getline("'<","'>"),'<bar>')<cr>
