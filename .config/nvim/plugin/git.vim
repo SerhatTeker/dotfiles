@@ -10,6 +10,6 @@ let g:gitgutter_enabled = 0
 
 " Disable mappings, only use my customs
 let g:gitgutter_map_keys = 0
-nnoremap <leader>tg :GitGutterToggle<CR>
-nmap <leader>hp <Plug>(GitGutterPreviewHunk)
+nnoremap <leader>gg :GitGutterToggle<CR>
+nmap <leader>gh <Plug>(GitGutterPreviewHunk)
 " }}}
