@@ -291,8 +291,9 @@ set foldmethod=marker           " manual fold with '{...}'
 augroup nvimrc
     " auto source .vimrc after save
     " autocmd! bufwritepost $MYNVIMRC source $MYNVIMRC
+    autocmd! BufWritePost ~/dotfiles/.config/nvim/init.vim source % | echom "Reloaded $NVIMRC"
     " FIXME: use $MYNVIMRC instead of hardcoded path
-    autocmd! BufWritePost ~/dotfiles/vim/.nvimrc source % | echom "Reloaded $NVIMRC"
+    autocmd! BufWritePost ~/dotfiles/.config/nvim/.nvimrc source % | echom "Reloaded $NVIMRC"
     autocmd! BufWritePost ~/.nvimrc source % | echom "Reloaded $NVIMRC"
     " autocmd! BufWritePost ~/dotfiles/vim/.nvimrc source % | echom "Reloaded $NVIMRC" | redraw
 
@@ -454,6 +455,8 @@ endif
 
 " Manual {{{
 
+" NOT USED
+" Using ChangeBackground
 function! InitiateColorscheme()
     " check base16 theme
     if filereadable(expand("~/.vimrc_background"))
@@ -470,8 +473,8 @@ function! InitiateColorscheme()
         " }}}
 
         " Default
-        " colorscheme neodark
-        " set background=dark
+        colorscheme neodark
+        set background=dark
 
         " One
         " colorscheme one
@@ -482,8 +485,8 @@ function! InitiateColorscheme()
         " set background=dark
 
         " Gruvbox
-        colorscheme gruvbox
-        set background=dark
+        " colorscheme gruvbox
+        " set background=dark
     else
         " custom default colors
         let g:onedark_color_overrides = {
@@ -502,7 +505,7 @@ function! ChangeBackground()
     " Linux
     if system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-dark"
         set background=dark
-        colorscheme gruvbox
+        colorscheme neodark
     elseif system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-light"
         set background=light
         colorscheme one

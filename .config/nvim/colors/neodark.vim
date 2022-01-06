@@ -23,7 +23,7 @@ endif
 
 " https://neovim.io/doc/user/syntax.html#:colorscheme
 "Load the 'base' colorscheme - the one you want to alter
-" runtime colors/onedark.vim
+runtime colors/onedark.vim
 
 "Override the name of the base colorscheme with the name of this custom one
 let g:colors_name = "neodark"
@@ -36,13 +36,13 @@ let g:colors_name = "neodark"
 " -----------------------------------------------------------------------------"
 
 "Clear the colors for any items that you don't like
-" highlight clear Normal
+highlight clear Normal
 
 " Set up your new & improved colors
 
 " Reset the background color in Normal mode so vim uses Terminal.app's
 " background color. Get bg from tmux bg
-" highlight Normal ctermfg=145 guifg=#ABB2BF guibg=none
+highlight Normal ctermfg=145 guifg=#ABB2BF guibg=none
 " default hi Normal:
 " highlight Normal ctermfg=145 ctermbg=234 guifg=#ABB2BF guibg=#1c1c1c
 
@@ -52,13 +52,14 @@ if (has("nvim"))
     " Background colors for active vs inactive windows
     " hi ActiveWindow guibg=#282c34     " soft contrast
     " hi ActiveWindow guibg=#1c1c1c     " medium contrast
-    " hi ActiveWindow guibg=#121212     " hard contrast
-    " hi InactiveWindow guibg=#303030
+    hi ActiveWindow guibg=#121212     " hard contrast
+    hi InactiveWindow guibg=#303030
+
     " Call method on window enter
-    " augroup WindowManagement
-    "   autocmd!
-    "   autocmd WinEnter * call Handle_Win_Enter()
-    " augroup END
+    augroup WindowManagement
+      autocmd!
+      autocmd WinEnter * call Handle_Win_Enter()
+    augroup END
 
     " Change highlight group of active/inactive windows
     function! Handle_Win_Enter()
@@ -68,7 +69,7 @@ endif
 " }}}
 
 " Custom Highlight for Python
-" highlight CusConst ctermfg=215 guifg=#ffaf5f
+highlight CusConst ctermfg=215 guifg=#ffaf5f
 " Vscode constant
 " highlight CusConst ctermfg=214 guifg=#d19a66
 " -----------------------------------------------------------------------------"

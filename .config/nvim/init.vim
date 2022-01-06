@@ -15,13 +15,11 @@
 
 " set guicursor =
 
-source ~/.nvimrc
-
-" if filereadable(expand("$MYNVIMRC"))
-" 	source $MYNVIMRC
-" " fallbacks
-" elseif filereadable(expand("~/.nvimrc"))
-" 	source ~/.nvimrc
-" else
-" 	source ~/.vimrc
-" endif
+if filereadable(expand("$MYNVIMRC"))
+	source $MYNVIMRC
+" fallbacks
+elseif filereadable(expand("~/.nvimrc"))
+	source ~/.nvimrc
+else
+	source ~/.vimrc
+endif
