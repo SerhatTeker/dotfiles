@@ -7,7 +7,24 @@ augroup CocDisableGroup
 augroup end
 
 " Extension
-let g:coc_global_extensions = ['coc-snippets', 'coc-jedi', 'coc-sh', 'coc-json']
+let g:coc_global_extensions = [
+    \ 'coc-css',
+    \ 'coc-diagnostic',
+    \ 'coc-emmet',
+    \ 'coc-eslint',
+    \ 'coc-html',
+    \ 'coc-jedi',
+    \ 'coc-json',
+    \ 'coc-pairs',
+    \ 'coc-sh',
+    \ 'coc-sql',
+    \ 'coc-snippets',
+    \ 'coc-tsserver',
+\ ]
+
+" Enable?
+" 'coc-git'
+
 " Disable for go since vim-go
 " autocmd FileType go let b:coc_suggest_disable = 1
 
