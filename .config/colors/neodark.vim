@@ -54,10 +54,10 @@ if (has("nvim"))
     hi ActiveWindow guibg=#121212     " hard contrast
     hi InactiveWindow guibg=#303030
     " Call method on window enter
-    augroup WindowManagement
-      autocmd!
-      autocmd WinEnter * call Handle_Win_Enter()
-    augroup END
+    " augroup WindowManagement
+    "   autocmd!
+    "   autocmd WinEnter * call Handle_Win_Enter()
+    " augroup END
 
     " Change highlight group of active/inactive windows
     function! Handle_Win_Enter()

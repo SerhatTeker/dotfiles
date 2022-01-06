@@ -146,6 +146,7 @@ Plug 'dense-analysis/ale'
 
 " Use deoplete for go, for the rest coc.vim
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'antoinemadec/coc-fzf'
 
 " vim-go needs deoplete for realtime omnifunc completion
 Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins', 'for': 'go' }
@@ -324,7 +325,7 @@ endif
 " Use airline or lightline
 " Default one is airline
 " Uncomment below to use lightline
-let g:status_bar = "lightline"
+" let g:status_bar = "lightline"
 
 let g:status_bar_choice = get(g:, 'status_bar', "airline")
 
@@ -459,7 +460,7 @@ function! InitiateColorscheme()
         let base16colorspace=256
         source ~/.vimrc_background
     " TODO: make opt possible
-    elseif filereadable(expand("~/.vim/colors/neodark.vim"))
+    elseif filereadable(expand("~/.config/nvim/after/colors/neodark.vim"))
         " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
 
         " gruvbox {{{
@@ -469,8 +470,8 @@ function! InitiateColorscheme()
         " }}}
 
         " Default
-        colorscheme neodark
-        set background=dark
+        " colorscheme neodark
+        " set background=dark
 
         " One
         " colorscheme one
@@ -481,8 +482,8 @@ function! InitiateColorscheme()
         " set background=dark
 
         " Gruvbox
-        " colorscheme gruvbox
-        " set background=light
+        colorscheme gruvbox
+        set background=dark
     else
         " custom default colors
         let g:onedark_color_overrides = {
@@ -501,7 +502,7 @@ function! ChangeBackground()
     " Linux
     if system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-dark"
         set background=dark
-        colorscheme neodark
+        colorscheme gruvbox
     elseif system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-light"
         set background=light
         colorscheme one
@@ -1207,6 +1208,13 @@ command! -bang -nargs=* Rg
     \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
     \   <bang>0)
 
+" Add an AllFiles variation that ignores .gitignore files
+command! -bang -nargs=? -complete=dir AllFiles
+    \ call fzf#run(fzf#wrap(
+    \ 'allfiles',
+    \ fzf#vim#with_preview({ 'dir': <q-args>, 'sink': 'e', 'source': 'rg --files --hidden --no-ignore' }),
+    \ <bang>0))
+
 " " Default fzf layout
 " " - down / up / left / right
 " let g:fzf_layout = { 'down': '~40%' }
@@ -1228,9 +1236,10 @@ let g:fzf_action = {
 map B :Buffers<CR>
 " Cannot use below since it conflict with CamelCaseMotion
 " map <leader>b :Buffers<CR>
-map <leader>h :History<CR>
 map <leader>l :Lines<CR>
 map <C-p> :<C-u>Files!<CR>
+" Find related map
+" map <C-a> :<C-u>AllFiles!<CR>
 map <C-f> :<C-u>Rg!<CR>
 " }}}3
 
@@ -1381,7 +1390,6 @@ nnoremap <F5> :UndotreeToggle<cr>
 " let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsEditSplit = "vertical"
 " custom Snippets
-set runtimepath+=~/.vim/UltiSnips/
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 " mapping <Control-Space>
 let g:UltiSnipsExpandTrigger="<C-space>"
@@ -1389,12 +1397,9 @@ let g:UltiSnipsJumpForwardTrigger="<C-space>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " alternative settings
-" let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips']
 " let g:UltiSnipsExpandTrigger = "<c-space>"
 " let g:UltiSnipsJumpForwardTrigger = "<c-space>"
 " let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
-" let g:UltiSnipsSnippetsDir = $HOME."/.vim/UltiSnips"
-" let g:UltiSnipsSnippetDirectories = ['UltiSnips', $HOME.'/.vim/UltiSnips']
 " let g:UltiSnipsEnableSnipMate = 0
 
 " }}}
