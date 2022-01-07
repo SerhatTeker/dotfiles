@@ -26,10 +26,14 @@ source "${ROOT}/install/common.sh"
 # Ask for the administrator password upfront
 sudo -v
 
-# TODO: give error if not a sysmlink
-# or remove dir after informing in advance
-# rm ${XDG_CONFIG_HOME}/zsh
-# mkdir -p ${XDG_CONFIG_HOME}/zsh
+if [ -f "${XDG_CONFIG_HOME}/zsh" ] || [ ! -L "${XDG_CONFIG_HOME}/zsh" ];then
+    # or remove dir after informing in advance?
+    echo "${XDG_CONFIG_HOME}/zsh is not a symlink. Delete it manually."
+    exit 1
+else
+    unlink "${XDG_CONFIG_HOME}/zsh"
+    ln -sf "${DOTFILES}/.config/zsh" "${XDG_CONFIG_HOME}/zsh"
+fi
 
 # Export main environment variables for ZSH
 export ZMAIN=${XDG_CONFIG_HOME}/zsh
@@ -79,7 +83,7 @@ iplugins() {
 set-zdotdir() {
     # Set global ZDOTDIR
     # Hacky ugly way to fix tmux behavior
-    echo "export ZDOTDIR=\"${XDG_CONFIG_HOME}/zsh\"" | \
+    echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" | \
         sudo tee -a /etc/zsh/zshenv
 }
 
@@ -95,9 +99,9 @@ main() {
     link-configs
     ioh-my-zsh
     iplugins
-    # set-zdotdir
+    set-zdotdir
 }
 
-main
+# main
 
 exit 0
