@@ -1,4 +1,24 @@
-export ZDOTDIR="$HOME/.zsh"
+# ----------------------------------------------------------------------------#
+#                                   _
+#                           _______| |__   ___ _ ____   __
+#                          |_  / __| '_ \ / _ \ '_ \ \ / /
+#                         _ / /\__ \ | | |  __/ | | \ V /
+#                        (_)___|___/_| |_|\___|_| |_|\_/
+#
+# Author: Serhat Teker <serhat.teker@gmail.com>
+# Source: https://github.com/SerhatTeker/dotfiles
+# License: https://github.com/SerhatTeker/dotfiles/LICENSE
+#
+# ----------------------------------------------------------------------------#
+
+# https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
+# User directories
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
+# $XDG_CONFIG_HOME/zsh
+export ZDOTDIR=${HOME}/.config/zsh
 
 # Unique path dirs
 typeset -U path
@@ -34,7 +54,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     # TODO: Implement
     :
 fi
-HOMEBREW_NO_ENV_HINTS=1
+export HOMEBREW_NO_ENV_HINTS=1
 # ----------------------------------------------------------------------------#
 # }}}1
 # ----------------------------------------------------------------------------#
@@ -46,20 +66,15 @@ HOMEBREW_NO_ENV_HINTS=1
 # Dotfiles {{{
 
 # NeoVim
-export MYNVIMRC="$HOME/dotfiles/vim/.nvimrc"
-# export MYNVIMRC=$HOME/.nvimrc
-
+export MYNVIMRC=$HOME/dotfiles/.config/vim/.nvimrc
 # Bat
-export BAT_CONFIG_PATH="${HOME}/.config/bat/bat.conf"
-
+export BAT_CONFIG_PATH=${XDG_CONFIG_HOME}/bat/bat.conf
 # Ripgrep
-export RIPGREP_CONFIG_PATH=${HOME}/.config/rg/.ripgreprc
-
+export RIPGREP_CONFIG_PATH=${XDG_CONFIG_HOME}/rg/.ripgreprc
 # httpie
-export HTTPIE_CONFIG_DIR=${HOME}/.config/httpie
-
+export HTTPIE_CONFIG_DIR=${XDG_CONFIG_HOME}/httpie
 # zsh
-ZSH_CUSTOM_HIGHLIGHT="TRUE"
+export ZSH_CUSTOM_HIGHLIGHT="TRUE"
 
 # tmux
 # no need for tmux >= 3.1
@@ -70,13 +85,13 @@ ZSH_CUSTOM_HIGHLIGHT="TRUE"
 # pass - password-store {{{
 
 # https://git.zx2c4.com/password-store/about/
-PASSWORD_STORE_ENABLE_EXTENSIONS=true
+export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 # }}}
 
 # IaC {{{
 
 # Ansible
-export ANSIBLE_CONFIG=${HOME}/.config/ansible/ansible.cfg
+export ANSIBLE_CONFIG=${XDG_CONFIG_HOME}/ansible/ansible.cfg
 # }}}
 
 # Python {{{2
@@ -98,12 +113,12 @@ export PYTHONBREAKPOINT=ipdb.set_trace
 export DOCKER_BUILDKIT=1
 
 # kind
-KINDCONFIG=$HOME/.kube/kind.yaml
+export KINDCONFIG=$HOME/.kube/kind.yaml
 # }}}2
 
 # Log {{{
 
-LOG_FILE=/tmp/output.log
+export LOG_FILE=/tmp/output.log
 # }}}
 
 # Colors {{{2
