@@ -45,18 +45,20 @@ HOMEBREW_NO_ENV_HINTS=1
 
 # Dotfiles {{{
 
+export XDG_CONFIG_HOME=${HOME}/.config
+
 # NeoVim
-export MYNVIMRC="$HOME/dotfiles/vim/.nvimrc"
+export MYNVIMRC=$HOME/dotfiles/vim/.nvimrc
 # export MYNVIMRC=$HOME/.nvimrc
 
 # Bat
-export BAT_CONFIG_PATH="${HOME}/.config/bat/bat.conf"
+export BAT_CONFIG_PATH=${XDG_CONFIG_HOME}/bat/bat.conf
 
 # Ripgrep
-export RIPGREP_CONFIG_PATH=${HOME}/.config/rg/.ripgreprc
+export RIPGREP_CONFIG_PATH=${XDG_CONFIG_HOME}/rg/.ripgreprc
 
 # httpie
-export HTTPIE_CONFIG_DIR=${HOME}/.config/httpie
+export HTTPIE_CONFIG_DIR=${XDG_CONFIG_HOME}/httpie
 
 # zsh
 ZSH_CUSTOM_HIGHLIGHT="TRUE"
@@ -76,7 +78,7 @@ PASSWORD_STORE_ENABLE_EXTENSIONS=true
 # IaC {{{
 
 # Ansible
-export ANSIBLE_CONFIG=${HOME}/.config/ansible/ansible.cfg
+export ANSIBLE_CONFIG=${XDG_CONFIG_HOME}/ansible/ansible.cfg
 # }}}
 
 # Python {{{2
