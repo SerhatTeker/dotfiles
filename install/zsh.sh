@@ -79,11 +79,13 @@ iplugins() {
 set-zdotdir() {
     # Set global ZDOTDIR
     # Hacky ugly way to fix tmux behavior
-    echo "export ZDOTDIR=\"${XDG_CONFIG_HOME}/zsh\"" | sudo tee -a /etc/zsh/zshenv
+    echo "export ZDOTDIR=\"${XDG_CONFIG_HOME}/zsh\"" | \
+        sudo tee -a /etc/zsh/zshenv
 }
 
 # create soft links
 link-configs() {
+    ln -s ${DOTFILES}/.zshenv ${HOME}/.zshenv
     ln -s ${DOTFILES}/.config/zsh/ ${XDG_CONFIG_HOME}
     ln -sf ${SYSBAK}/zsh/.private.zsh ${ZMAIN}/.private.zsh
     ln -sf ${PRIVATE}/zsh/.private.zsh ${ZMAIN}/.zsh_history
@@ -93,7 +95,7 @@ main() {
     link-configs
     ioh-my-zsh
     iplugins
-    set-zdotdir
+    # set-zdotdir
 }
 
 main
