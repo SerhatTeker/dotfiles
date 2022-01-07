@@ -173,6 +173,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'	" status info in columns
+Plug 'stsewd/fzf-checkout.vim'
 " }}}3
 
 " motions {{{3
@@ -435,14 +436,6 @@ let mapleader = ","
 
 " Quickfix {{{2
 
-" Jump to next error with Ctrl-n and previous error with Ctrl-b. Close the
-" quickfix window with <leader>a
-nnoremap <C-q> :copen<CR>
-nnoremap <C-q> :copen<CR>
-
-
-" Toggle {{{3
-
 function! ToggleQuickFix()
     if empty(filter(getwininfo(), 'v:val.quickfix'))
         copen
@@ -452,7 +445,6 @@ function! ToggleQuickFix()
 endfunction
 
 nnoremap <leader>q :call ToggleQuickFix()<CR>
-" }}}3
 " }}}2
 
 " Run {{{
@@ -563,44 +555,6 @@ map <C-h> <C-w><Left>
 " }}}
 
 " Others {{{
-
-" fugitive {{{
-
-" Git status
-nnoremap <silent>ss :20G<CR>
-" Git commit
-nnoremap <silent>cc :Gcommit<CR>
-" History
-nnoremap <silent>HH :Gclog<CR>
-" File History
-nnoremap <silent>HF :0Gclog!<CR>
-" Amend aliases
-command! GCN :Git commit -v --no-edit --amend
-command! GCAN :Git commit -v -a --no-edit --amend
-
-" Git diff {{{
-
-" Git diff current and previous version
-nmap <leader>d :Gvdiffsplit HEAD<CR>
-" always open diffs vertical
-set diffopt+=vertical
-" }}}
-
-" Git push{{{
-
-" Push set upstream
-command! GPSUP :!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-" Not using
-function! s:GitCurrentBranch()
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null")
-endfunction
-
-" Custom GPush
-" don't like default silent :Gpush
-command! GP :Git push -v
-nnoremap <leader>pp :GP<CR>
-" }}}
-" }}}
 
 " show whitespaces as chars {{{
 

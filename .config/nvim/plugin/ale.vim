@@ -16,9 +16,10 @@ let g:ale_lint_on_save = 1
 " if you don't want linters to run on opening a file
 let g:ale_lint_on_enter = 0
 
+" Disabled, conflicting with 0Gclog from vim-fugitive
 " use quickfix for errors
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
 
 " linters
 let g:ale_linters = {
@@ -71,7 +72,7 @@ let g:ale_echo_msg_format = '[%linter%] %severity% | %code% - %s'
 " nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " toggle buffers for
-nmap <silent> <C-c> <Plug>(ale_toggle_buffer)
+nmap <silent> <leader><C-c> <Plug>(ale_toggle_buffer)
 
 " Bind F8 to fixing problems with ALE
 nmap <F8> <Plug>(ale_fix)

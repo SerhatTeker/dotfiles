@@ -81,3 +81,49 @@ let g:gutentags_ctags_exclude = [
 " Expanded Exclude
 " https://www.reddit.com/r/vim/comments/d77t6j/guide_how_to_setup_ctags_with_gutentags_properly/
 " }}}
+
+" fugitive {{{
+
+" Git status
+nnoremap <silent>ss :20G<CR>
+" Git commit
+nnoremap <silent>cc :Gcommit<CR>
+" History
+nnoremap <silent>HH :Gclog<CR>
+" File History
+nnoremap <silent>HF :0Gclog!<CR>
+" Buffer Commits
+nnoremap <leader>gc :BCommits<CR>
+
+" Amend aliases
+command! GCN :Git commit -v --no-edit --amend
+command! GCAN :Git commit -v -a --no-edit --amend
+
+" Git diff {{{
+
+" Git diff current and previous version
+nmap <leader>d :Gvdiffsplit HEAD<CR>
+" always open diffs vertical
+set diffopt+=vertical
+" }}}
+
+" Git push{{{
+
+" Push set upstream
+command! GPSUP :!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+" Not using
+function! s:GitCurrentBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null")
+endfunction
+
+" Custom GPush
+" don't like default silent :Gpush
+command! GP :Git push -v
+nnoremap <leader>pp :GP<CR>
+" }}}
+" }}}
+
+" fzf-checkout{{{
+
+nnoremap <leader>gb :GBranches<CR>
+" }}}
