@@ -37,6 +37,7 @@ map B :Buffers<CR>
 " map <leader>b :Buffers<CR>
 map <leader>l :Lines<CR>
 map <C-p> :<C-u>Files!<CR>
+map <leader><C-p> :<C-u>AllFiles<CR>
 " Find related map
 " map <C-a> :<C-u>AllFiles!<CR>
 map <C-f> :<C-u>Rg!<CR>
