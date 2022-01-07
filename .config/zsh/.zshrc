@@ -24,12 +24,34 @@ export ZMAIN="$HOME/.config/zsh"
 # Personal customization for plugins
 ZCUSTOMS="$ZMAIN/plugins/customs"
 
+# oh-my-zsh {{{2
+
 # Path to your oh-my-zsh installation.
 export ZSH="$ZMAIN/.oh-my-zsh"
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_cache_dir
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
+
+# ZSH_COMPDUMP {{{3
+
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_compdump
-export ZSH_COMPDUMP="$ZSH_CACHE_DIR/.zcompdump"
+# export ZSH_COMPDUMP="$ZSH_CACHE_DIR/.zcompdump"
+#
+# ZSH_COMPDUMP not working corretyly, see related issue and MR:
+# https://github.com/ohmyzsh/ohmyzsh/issues/7332
+# https://github.com/ohmyzsh/ohmyzsh/pull/9090
+
+# Workaround #1
+# https://github.com/ohmyzsh/ohmyzsh/issues/7332#issuecomment-624630253
+if [ ! -d "$HOME/.cache/zsh" ]; then
+    mkdir -p $HOME/.cache/zsh
+fi
+export ZSH_COMPDUMP="$HOME/.cache/zsh/zcompdump-$HOST-$ZSH_VERSION"
+
+# Workaround #2
+# https://github.com/ohmyzsh/ohmyzsh/issues/7332#issuecomment-624221366
+# export ZSH_COMPDUMP="${ZSH_CACHE_DIR}/.zcompdump-${HOST}-${ZSH_VERSION}"
+# }}}3
+# }}}2
 # }}}1
 
 # THEME {{{1
@@ -272,7 +294,6 @@ fi
 # It contains some functions, aliases etc...
 [ -f $ZMAIN/.private.zsh ] && source $ZMAIN/.private.zsh
 # }}}2
-
 
 # History {{{2
 
