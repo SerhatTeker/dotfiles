@@ -21,6 +21,7 @@ if exists("syntax_on")
   syntax reset
 endif
 
+" https://neovim.io/doc/user/syntax.html#:colorscheme
 "Load the 'base' colorscheme - the one you want to alter
 runtime colors/onedark.vim
 
@@ -53,6 +54,7 @@ if (has("nvim"))
     " hi ActiveWindow guibg=#1c1c1c     " medium contrast
     hi ActiveWindow guibg=#121212     " hard contrast
     hi InactiveWindow guibg=#303030
+
     " Call method on window enter
     augroup WindowManagement
       autocmd!

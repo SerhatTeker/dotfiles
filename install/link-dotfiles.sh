@@ -21,8 +21,7 @@ home() {
         bash/.bash_logout \
         ctags/.ctags \
         git/.gitconfig \
-        vim/.vim/ \
-        vim/.nvimrc \
+        .config/vim/.nvimrc \
         etc/.sqliterc; do
 
         ln -sf "${DOTFILES}/${files}" ${HOME}/.config
@@ -35,6 +34,7 @@ local-config() {
         bat/ \
         git/ \
         lsd/ \
+        nvim/ \
         rg/ \
         flake8; do
 
@@ -54,6 +54,7 @@ containers() {
 
 gnu() {
     # TODO: Decide install whether from dotfiles or sysbak
+    # Seems broken, use similiar one in install/zsh.sh
     # gnupg
     if [ -f "${HOME}/.gnupg" ] && [ ! -L "${HOME}/.gnupg" ];then
         echo "${HOME}/.gnupg is not a symlink. Delete it manually."

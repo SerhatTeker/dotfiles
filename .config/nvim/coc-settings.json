@@ -1,5 +1,5 @@
 {
-  "coc.preferences.useQuickfixForLocations": true,
+  "coc.preferences.useQuickfixForLocations": false,
   "coc.preferences.snippets.enable": true,
   "diagnostic.displayByAle": true,
   "jedi.enable": true,

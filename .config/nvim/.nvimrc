@@ -146,6 +146,7 @@ Plug 'dense-analysis/ale'
 
 " Use deoplete for go, for the rest coc.vim
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'antoinemadec/coc-fzf'
 
 " vim-go needs deoplete for realtime omnifunc completion
 Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins', 'for': 'go' }
@@ -290,8 +291,9 @@ set foldmethod=marker           " manual fold with '{...}'
 augroup nvimrc
     " auto source .vimrc after save
     " autocmd! bufwritepost $MYNVIMRC source $MYNVIMRC
+    autocmd! BufWritePost ~/dotfiles/.config/nvim/init.vim source % | echom "Reloaded $NVIMRC"
     " FIXME: use $MYNVIMRC instead of hardcoded path
-    autocmd! BufWritePost ~/dotfiles/vim/.nvimrc source % | echom "Reloaded $NVIMRC"
+    autocmd! BufWritePost ~/dotfiles/.config/nvim/.nvimrc source % | echom "Reloaded $NVIMRC"
     autocmd! BufWritePost ~/.nvimrc source % | echom "Reloaded $NVIMRC"
     " autocmd! BufWritePost ~/dotfiles/vim/.nvimrc source % | echom "Reloaded $NVIMRC" | redraw
 
@@ -324,7 +326,7 @@ endif
 " Use airline or lightline
 " Default one is airline
 " Uncomment below to use lightline
-let g:status_bar = "lightline"
+" let g:status_bar = "lightline"
 
 let g:status_bar_choice = get(g:, 'status_bar', "airline")
 
@@ -420,172 +422,6 @@ endif
 " secrets.
 au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
 " }}}
-" ----------------------------------------------------------------------------"
-"	}}}1
-" ----------------------------------------------------------------------------"
-
-
-" ----------------------------------------------------------------------------"
-"	Colors		{{{1
-" ----------------------------------------------------------------------------"
-
-" colors settings {{{2
-
-" https://github.com/morhetz/gruvbox/wiki/Terminal-specific#0-recommended-neovimvim-true-color-support
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-" if (empty($TMUX))
-if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-if (has("termguicolors"))
-    set termguicolors
-endif
-" endif
-" }}}2
-
-" colorscheme {{{2
-
-" Manual {{{
-
-function! InitiateColorscheme()
-    " check base16 theme
-    if filereadable(expand("~/.vimrc_background"))
-        let base16colorspace=256
-        source ~/.vimrc_background
-    " TODO: make opt possible
-    elseif filereadable(expand("~/.vim/colors/neodark.vim"))
-        " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
-
-        " gruvbox {{{
-
-        let g:gruvbox_contrast_dark = "hard"
-        let g:gruvbox_contrast_light = "hard"
-        " }}}
-
-        " Default
-        colorscheme neodark
-        set background=dark
-
-        " One
-        " colorscheme one
-        " set background=light
-
-        " Onedark
-        " colorscheme onedark
-        " set background=dark
-
-        " Gruvbox
-        " colorscheme gruvbox
-        " set background=light
-    else
-        " custom default colors
-        let g:onedark_color_overrides = {
-                    \ "black": {"gui": "#1b1b1b", "cterm": "233", "cterm16": "0" },
-                    \}
-        colorscheme onedark
-    endif
-endfunction
-" }}}
-
-" ChangeBackground {{{
-
-" ChangeBackground changes the background mode based on macOS's and Linux's `Appearance`
-" setting. We also refresh the statusline colors to reflect the new mode.
-function! ChangeBackground()
-    " Linux
-    if system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-dark"
-        set background=dark
-        colorscheme neodark
-    elseif system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-light"
-        set background=light
-        colorscheme one
-    " Macos
-    " TODO: Implement Fatih's method
-    " https://arslan.io/2021/02/15/automatic-dark-mode-for-terminal-applications/
-    " if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-    "     set background=dark   " for the dark version of the theme
-    " else
-    "     set background=light  " for the light version of the theme
-    " endif
-
-    " Default one
-    else
-        " TODO: Use InitiateColorscheme function
-        set background=dark
-        colorscheme neodark
-    endif
-
-    if g:status_bar_choice == "airline"
-        " check if the plugin exists and loaded
-        if exists(":AirlineTheme")
-            :AirlineRefresh
-        endif
-    elseif g:status_bar_choice == "lightline"
-        " TODO: Work with:
-        " https://github.com/itchyny/lightline.vim/issues/241
-        " https://github.com/itchyny/lightline.vim/issues/424
-
-        " if exists(":Tmuxline")
-        "     :Tmuxline lightline
-        " endif
-    endif
-endfunction
-
-" initialize the colorscheme for the first run
-call ChangeBackground()
-
-" change the color scheme if we receive a SigUSR1
-autocmd Signal SIGUSR1 * call ChangeBackground()
-" }}}
-
-" TODO: Add toggle {{{
-" Must be after color args
-" WIP
-" let g:color_theme = get(g:, 'colors_name', 'neodark')
-
-" if color_theme ==# "neodark"
-"     colorscheme neodark
-" elseif color_theme ==# "gruvbox"
-"     colorscheme gruvbox
-" endif
-
-" function! ShowColourSchemeName()
-"     try
-"         echo g:colors_name
-"     catch /^Vim:E121/
-"         echo "default"
-"     endtry
-" endfunction
-" }}}
-" }}}2
-
-" Tmuxline {{{
-
-let g:tmuxline_preset = {
-      \'a'    : '#S',
-      \'b'    : '#(whoami)',
-      \'c'    : '#W',
-      \'win'  : '#I #W',
-      \'cwin' : '#I #W',
-      \'x'    : '%a',
-      \'y'    : ['%R', '%D'],
-      \'z'    : '#H'}
-" }}}
-
-" Cursor {{{2
-
-" define cursor for `Normal` mode
-hi Cursor guibg=yellow
-" define cursor for `Insert` mode
-hi Cursor2 guibg=yellow
-set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:block-Cursor2/lCursor2,
-" }}}2
 " ----------------------------------------------------------------------------"
 "	}}}1
 " ----------------------------------------------------------------------------"
@@ -799,22 +635,6 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 "	Functions	{{{1
 " ----------------------------------------------------------------------------"
 
-" Diff {{{2
-
-" :DiffPreSave
-com! DiffPreSave call s:DiffPreSaved()
-
-" see changes in the current buffer before save.
-" NOTE: use gitgutter instead.
-function! s:DiffPreSaved()
-    let filetype=&ft
-    diffthis
-    vnew | r # | normal! 1Gdd
-    diffthis
-    exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-endfunction
-" }}}2
-
 " Renumber {{{2
 " let i=1 | '<,'> g/\d. /s//\=i.'. '/ | let i=i+1
 " vnoremap <f10> :<c-u>exe join(getline("'<","'>"),'<bar>')<cr>
@@ -952,115 +772,6 @@ map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 "	Pluggins	{{{1
 " ----------------------------------------------------------------------------"
 
-" vim-go {{{2
-
-
-" core settings {{{3
-
-let g:go_fmt_command = "goimports"
-let g:go_autodetect_gopath = 1
-let g:go_list_type = "quickfix"
-" Enable `go to definition/GoDef` mapping
-let g:go_def_mapping_enabled = 1
-
-" Consider performance
-" let g:go_auto_type_info = 1
-
-" Highlight other uses of same keyword/id - Consider performance
-" let g:go_auto_sameids = 1
-
-" https://github.com/dense-analysis/ale/issues/609#issuecomment-305609209
-" let g:go_fmt_fail_silently = 1
-
-" Doc window instead of preview bottom
-let g:go_doc_popup_window = 1
-" }}}3
-
-" Folding {{{3
-
-" let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
-" let g:go_fmt_experimental = 1
-" }}}3
-
-" Highlight {{{3
-
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-" }}}3
-
-" mapping extra {{{3
-
-" Open :GoDeclsDir with ctrl-g
-nmap <C-g> :GoDeclsDir<cr>
-imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
-" }}}3
-
-" augroup {{{3
-
-augroup go
-    autocmd!
-
-    " Show by default 8 spaces for a tab
-    " autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=8 shiftwidth=8 softtabstop=8
-    autocmd BufNewFile,BufRead *.go setlocal foldmethod=syntax
-
-    " :GoBuild and :GoTestCompile
-    autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-
-    " :GoTest
-    autocmd FileType go nmap <leader>t  <Plug>(go-test)
-
-    " :GoRun
-    autocmd FileType go nmap <leader>r  <Plug>(go-run)
-
-    " :GoDoc
-    autocmd FileType go nmap <Leader>d <Plug>(go-doc)
-
-    " :GoCoverageToggle
-    autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-
-    " :GoInfo
-    autocmd FileType go nmap <Leader>i <Plug>(go-info)
-
-    " :GoMetaLinter
-    autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
-
-    " :GoDef but opens in a vertical split
-    autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
-    " :GoDef but opens in a horizontal split
-    autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
-
-    " :GoAlternate  commands :A, :AV, :AS and :AT
-    autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-    autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-    autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-    autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-augroup END
-" }}}3
-
-" build function {{{3
-
-" build_go_files is a custom function that builds or compiles the test file.
-" It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
-function! s:build_go_files()
-    let l:file = expand('%')
-    if l:file =~# '^\f\+_test\.go$'
-        call go#test#Test(0, 1)
-    elseif l:file =~# '^\f\+\.go$'
-        call go#cmd#Build(0)
-    endif
-endfunction
-" }}}3
-" }}}2
-
 " Formatting {{{
 
 " format on save
@@ -1072,186 +783,6 @@ endfunction
 " run manually
 " nnoremap <leader>f :Neoformat<CR>
 " }}}
-
-" ALE {{{
-
-" Settings {{{
-
-" autofix on save
-" let g:ale_fix_on_save = 1
-
-" run linters only when saved file
-""check your files as you make changes.
-let g:ale_lint_on_text_changed = 0
-"" run linters when you leave insert mode.
-let g:ale_lint_on_insert_leave = 0
-"" Check files when saved
-let g:ale_lint_on_save = 1
-
-" if you don't want linters to run on opening a file
-let g:ale_lint_on_enter = 0
-
-" use quickfix for errors
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-
-" linters
-let g:ale_linters = {
-            \ 'python': ['flake8', 'mypy',],
-            \ 'javascript': ['eslint'],
-            \ 'html': ['prettier'],
-            \ 'go': ['gopls'],
-            \}
-
-" fixers
-let g:ale_fixers = {
-            \ 'javascript': ['eslint'],
-            \ 'html': ['tidy'],
-            \ 'sh': ['shfmt'],
-            \ 'python': [
-                \ 'black',
-                \ 'isort',
-            \],
-            \}
-" }}}
-
-" signs {{{
-
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
-" defaults
-" let g:ale_sign_error = '>>'
-" let g:ale_sign_warning = '--'
-
-highlight link ALEErrorSign SpellBad
-highlight link ALEWarningSign WarningMsg
-" }}}
-
-" msg {{{
-
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_info_str = 'I'
-let g:ale_echo_msg_warning_str = 'W'
-
-highlight link ALEError SpellBad
-highlight link ALEWarning WarningMsg
-
-let g:ale_echo_msg_format = '[%linter%] %severity% | %code% - %s'
-" }}}
-
-
-" mappings {{{3
-
-" navigate errors
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-" toggle buffers for
-nmap <silent> <C-c> <Plug>(ale_toggle_buffer)
-
-" Bind F8 to fixing problems with ALE
-nmap <F8> <Plug>(ale_fix)
-
-" Use ALEFix with Autoflake
-" nmap <silent> <F8> :call AleFixCustom()<CR>
-" function! eleFixCustom()
-"     if &filetype == "python"
-"         if exists("*Autoflake()")
-"             noremap <buffer> <leader><F9> :call Autoflake()<CR>
-"             silent! call Autoflake()
-"         endif
-"     endif
-"     execute 'ALEFix'
-" endfunction
-" }}}3
-" }}}2
-
-" Semshi {{{
-
-"Mark selected nodes (those with the same name and scope as the one under the
-"cursor). Set to 2 to highlight the node currently under the cursor, too.
-let g:semshi#mark_selected_nodes = 1
-" Show a sign in the sign column if a syntax error occurred.
-let g:semshi#error_sign = v:true
-" Delay in seconds until the syntax error sign is displayed. (A low delay time
-" may distract while typing.)
-let g:semshi#error_sign_delay = 1.5
-" Factor to delay updating of highlights. Updates will be delayed by factor *
-" number of lines second
-let g:semshi#update_delay_facto = 0.0
-
-" Custom Colors for OneDark Theme
-function! SemshiCustomHighlights()
-    hi semshiSelf               guifg=#E5C07B
-    hi semshiBuiltin            guifg=#56B6C2
-    hi semshiSelected           guifg=#1b1b1b guibg=#ABB2BF
-    hi semshiParameter          guifg=#D19A66                       " Default Parameter
-    hi semshiParameterUnused    guifg=#895829 gui=underline,italic
-    " Alternative
-    " hi semshiParameter          guifg=#E06C75                     " Parameter Pylance style
-    " hi semshiParameterUnused    guifg=#7e1b23 gui=underline,italic
-endfunction
-autocmd FileType python call SemshiCustomHighlights()
-" }}}
-
-" FZF {{{2
-
-" settings {{{3
-
-" don't show filenames in Rg
-" https://sidneyliebrand.io/blog/how-fzf-and-ripgrep-improved-my-workflow#finding-content-in-specific-files
-command! -bang -nargs=* Rg
-    \ call fzf#vim#grep(
-    \   'rg --column --line-number --hidden --follow --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-    \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:60%')
-    \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-    \   <bang>0)
-
-" " Default fzf layout
-" " - down / up / left / right
-" let g:fzf_layout = { 'down': '~40%' }
-
-" " In Neovim, you can set up fzf window using a Vim command
-" let g:fzf_layout = { 'window': 'enew' }
-" let g:fzf_layout = { 'window': '-tabnew' }
-" let g:fzf_layout = { 'window': '10new' }
-" }}}3
-
-" key bindings {{{3
-
-" This is the default extra key bindings
-let g:fzf_action = {
-            \ 'ctrl-t': 'tab split',
-            \ 'ctrl-x': 'split',
-            \ 'ctrl-v': 'vsplit' }
-
-map B :Buffers<CR>
-" Cannot use below since it conflict with CamelCaseMotion
-" map <leader>b :Buffers<CR>
-map <leader>h :History<CR>
-map <leader>l :Lines<CR>
-map <C-p> :<C-u>Files!<CR>
-map <C-f> :<C-u>Rg!<CR>
-" }}}3
-
-" History {{{3
-
-" Enable per-command history.
-" CTRL-N and CTRL-P will be automatically bound to next-history and
-" previous-history instead of down and up. If you don't like the change,
-" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-" }}}3
-
-" Defaults {{{3
-
-" includes hidden files
-" configured already globally in ~/.zshrc
-" if executable('ag')
-" 	let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-" endif
-" }}}3
-" }}}2
 
 " ftpplugin {{{
 " conf files
@@ -1381,7 +912,6 @@ nnoremap <F5> :UndotreeToggle<cr>
 " let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsEditSplit = "vertical"
 " custom Snippets
-set runtimepath+=~/.vim/UltiSnips/
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 " mapping <Control-Space>
 let g:UltiSnipsExpandTrigger="<C-space>"
@@ -1389,47 +919,10 @@ let g:UltiSnipsJumpForwardTrigger="<C-space>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " alternative settings
-" let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/UltiSnips']
 " let g:UltiSnipsExpandTrigger = "<c-space>"
 " let g:UltiSnipsJumpForwardTrigger = "<c-space>"
 " let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
-" let g:UltiSnipsSnippetsDir = $HOME."/.vim/UltiSnips"
-" let g:UltiSnipsSnippetDirectories = ['UltiSnips', $HOME.'/.vim/UltiSnips']
 " let g:UltiSnipsEnableSnipMate = 0
-
-" }}}
-
-" coc.vim {{{
-
-" Disable coc.vim for vim-go and deoplete.vim
-augroup CocDisableGroup
-  autocmd!
-  autocmd BufNew,BufRead *.go execute "CocDisable"
-augroup end
-
-" Extension
-let g:coc_global_extensions = ['coc-snippets', 'coc-jedi', 'coc-sh', 'coc-json']
-" Disable for go since vim-go
-" autocmd FileType go let b:coc_suggest_disable = 1
-
-" Going To definition
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Displaying documentation (in the floating window)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Smart rename: renames the exports across all files
-nmap <leader>rn <Plug>(coc-rename)
 
 " }}}
 
@@ -1619,56 +1112,6 @@ nmap <leader>L <Plug>VimwikiFollowLink
 let g:goyo_width = 120
 " }}}
 
-" vim-gutentags {{{
-
-" How To Generate Ctags Include Python site-packages
-" https://github.com/ludovicchabant/vim-gutentags/issues/179
-let g:gutentags_file_list_command = {
- \ 'markers': {
-     \ '.pythontags': '~/dotfiles/ctags/python_file_lister.py',
-     \ },
- \ }
-
-" Below script/solution comes from:
-" https://github.com/ludovicchabant/vim-gutentags/issues/178#issuecomment-575693926
-" Other related issues:
-" https://github.com/ludovicchabant/vim-gutentags/issues/167
-" https://github.com/ludovicchabant/vim-gutentags/issues/168
-let g:gutentags_add_default_project_roots = 0
-let g:gutentags_project_root  = ['package.json', '.git', '.hg', '.svn']
-let g:gutentags_cache_dir = expand('~/.gutentags_cache')
-let g:gutentags_exclude_filetypes = ['gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail', 'git']
-let g:gutentags_generate_on_new = 1
-let g:gutentags_generate_on_missing = 1
-let g:gutentags_generate_on_write = 1
-let g:gutentags_generate_on_empty_buffer = 0
-let g:gutentags_ctags_extra_args = ['--tag-relative=yes', '--fields=+ailmnS']
-let g:gutentags_ctags_exclude = [
-    \  '*.git', '*.svn', '*.hg',
-    \  'cache', 'build', 'dist', 'bin', 'node_modules', 'bower_components',
-    \  '*-lock.json',  '*.lock',
-    \  '*.min.*',
-    \  '*.bak',
-    \  '*.zip',
-    \  '*.pyc',
-    \  '*.class',
-    \  '*.sln',
-    \  '*.csproj', '*.csproj.user',
-    \  '*.tmp',
-    \  '*.cache',
-    \  '*.vscode', 'Session.vim',
-    \  '*.pdb',
-    \  '*.exe', '*.dll', '*.bin',
-    \  '*.mp3', '*.ogg', '*.flac',
-    \  '*.swp', '*.swo',
-    \  '.DS_Store', '*.plist',
-    \  '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png', '*.svg',
-    \  '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
-    \  '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx', '*.xls',
-    \  '*.md',
-\]
-" }}}
-
 " Airline {{{
 
 if g:status_bar_choice == "airline"
@@ -1680,21 +1123,6 @@ if g:status_bar_choice == "airline"
     augroup END
 
     let g:airline_powerline_fonts = 1
-
-    " colorscheme {{{
-
-    " TODO: Not working, fix it
-    if colors_name ==# "neodark"
-        let g:airline_theme="onedark"
-    elseif colors_name ==# "gruvbox"
-        let g:airline_theme="gruvbox"
-    elseif colors_name ==# "one"
-        let g:airline_theme="one"
-    else
-        " let g:airline_theme=g:colors_name
-        let g:airline_theme="onedark"
-    endif
-    " }}}
 
     " extensions {{{
 
@@ -1770,16 +1198,6 @@ if g:status_bar_choice == "lightline"
     let g:lightline.component_type      = {'buffers': 'tabsel'}
     let g:lightline.component_function  = {'gitbranch': 'FugitiveHead', 'venv': 'virtualenv#statusline'}
 
-    " Colorscheme {{{
-
-    if colors_name ==# "gruvbox"
-        let g:lightline.colorscheme="gruvbox"
-    else
-        " let g:lightline.colorscheme=g:color_theme
-        let g:lightline.colorscheme="one"
-    endif
-" }}}
-
     " remove parcent
     " add gitbranch
     " add python venv
@@ -1811,22 +1229,6 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 nmap <F9> :TagbarToggle<CR>
 " }}}
 
-" gitgutter {{{
-" A Vim plugin which shows git diff markers in the sign column
-" and stages/previews/undoes hunks and partial hunks.
-
-" disabled by default
-let g:gitgutter_enabled = 0
-" toggle with :GitGutterToggle
-" toggle line highlighting :GitGutterLineHighlightsToggle
-" With Neovim 0.3.2 or higher, toggle highlight line nr :GitGutterLineNrHighlightsToggle.
-
-" Disable mappings, only use my customs
-let g:gitgutter_map_keys = 0
-nnoremap <leader>tg :GitGutterToggle<CR>
-nmap <leader>hp <Plug>(GitGutterPreviewHunk)
-" }}}
-
 " autoflake {{{
 " Removes unused imports and unused variables as reported by pyflakes
 " https://github.com/myint/autoflake
@@ -1843,13 +1245,6 @@ autocmd FileType python map <buffer> <leader><F3> :call Autoflake()<CR>
 let g:autoflake_remove_all_unused_imports=1
 let g:autoflake_remove_unused_variables=0
 let g:autoflake_disable_show_diff=0
-" }}}
-
-" vim-pydocstring {{{
-
-let g:pydocstring_doq_path = '~/.local/bin/doq'
-let g:pydocstring_formatter = 'google'
-nmap <silent> <C-_> <Plug>(pydocstring)
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}
