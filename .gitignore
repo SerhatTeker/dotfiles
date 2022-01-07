@@ -56,4 +56,5 @@ $RECYCLE.BIN/
 .AppleDouble
 .LSOverride
 
-tmux/plugins/*
+*/tmux/plugins/*
+*/tmux/resurrect
