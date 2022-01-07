@@ -19,13 +19,13 @@
 
 # Main zsh directory path
 # ZMAIN = ZDOTDIR
-export ZMAIN="$HOME/.zsh"
+export ZMAIN="$HOME/.config/zsh"
 
 # Personal customization for plugins
 ZCUSTOMS="$ZMAIN/plugins/customs"
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.zsh/.oh-my-zsh"
+export ZSH="$ZMAIN/.oh-my-zsh"
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_cache_dir
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_compdump

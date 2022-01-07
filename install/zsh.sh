@@ -23,12 +23,18 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
-# Create ZDOTDIR
-mkdir ${HOME}/.zsh
+# Ask for the administrator password upfront
+sudo -v
+
+# TODO: give error if not a sysmlink
+# or remove dir after informing in advance
+# rm ${XDG_CONFIG_HOME}/zsh
+# mkdir -p ${XDG_CONFIG_HOME}/zsh
+
 # Export main environment variables for ZSH
-export ZMAIN="${HOME}/.zsh"
+export ZMAIN=${XDG_CONFIG_HOME}/zsh
 export ZDOTDIR=${ZMAIN}
-export ZSH="${HOME}/.zsh/.oh-my-zsh"
+export ZSH=${ZMAIN}/.oh-my-zsh
 
 
 default-shell() {
@@ -37,15 +43,18 @@ default-shell() {
     chsh -s $(which zsh)
 }
 
-oh-my-zsh() {
+ioh-my-zsh() {
+    rm -rf ${DOTFILES}/.config/zsh/.oh-my-zsh
+
     wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    ZSH="$HOME/.zsh/.oh-my-zsh" sh install.sh
+    ZSH="${ZMAIN}/.oh-my-zsh" sh install.sh
     rm install.sh
 }
 
-# install missing plugins
-plugins() {
+# install custom plugins
+iplugins() {
     ZSH_CUSTOM="${ZSH}/custom"
+
     # zsh-syntax-highlighting custom plugin
     # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
@@ -55,28 +64,36 @@ plugins() {
     # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh
     git clone https://github.com/zsh-users/zsh-autosuggestions \
         ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+    # cd-gitroot
+    # https://github.com/mollifier/cd-gitroot
+    git clone https://github.com/mollifier/cd-gitroot.git \
+        ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/cd-gitroot
+
+    # zsh-completions
+    # https://github.com/zsh-users/zsh-completions
+    git clone https://github.com/zsh-users/zsh-completions
+        ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 }
 
 set-zdotdir() {
     # Set global ZDOTDIR
     # Hacky ugly way to fix tmux behavior
-    echo "export ZDOTDIR=\"${HOME}/.zsh\"" | sudo tee -a /etc/zsh/zshenv
+    echo "export ZDOTDIR=\"${XDG_CONFIG_HOME}/zsh\"" | sudo tee -a /etc/zsh/zshenv
 }
 
 # create soft links
 link-configs() {
-    ln -s ${DOTFILES}/zsh/.zshrc ${ZMAIN}/.zhsrc
-    ln -s ${DOTFILES}/zsh/.zlogin ${ZMAIN}/.zlogin
-    ln -s ${DOTFILES}/zsh/plugins ${ZMAIN}/plugins
-    ln -s ${DOTFILES}/zsh/.fzf.zsh ${ZMAIN}/.fzf.zsh
-    ln -s ${SYSBAK}/zsh/.private.zsh ${ZMAIN}/.zsh.private
+    ln -s ${DOTFILES}/.config/zsh/ ${XDG_CONFIG_HOME}
+    ln -sf ${SYSBAK}/zsh/.private.zsh ${ZMAIN}/.private.zsh
+    ln -sf ${PRIVATE}/zsh/.private.zsh ${ZMAIN}/.zsh_history
 }
 
 main() {
-    oh-my-zsh
-    plugins
-    set-zdotdir
     link-configs
+    ioh-my-zsh
+    iplugins
+    set-zdotdir
 }
 
 main

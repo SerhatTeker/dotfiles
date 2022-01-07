@@ -37,7 +37,6 @@ Session.vim
 # https://packagecontrol.io/packages/sublime-github
 GitHub.sublime-settings
 
-
 # Auto-generated tag files
 tags
 
@@ -56,5 +55,12 @@ $RECYCLE.BIN/
 .AppleDouble
 .LSOverride
 
+# Tmux
 */tmux/plugins/*
 */tmux/resurrect
+
+# Zsh
+*/zsh/.oh-my-zsh
+*/zsh/.private.zsh
+*/zsh/.zsh_history
+# */zsh/.zcompdump

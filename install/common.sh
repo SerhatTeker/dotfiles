@@ -20,7 +20,9 @@ set -o pipefail
 # Locate the root directory
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
+export XDG_CONFIG_HOME=${HOME}/.config
 
-DOTFILES=${HOME}/dotfiles
-SYSBAK=${HOME}/system-bak
-CONFIG=${HOME}/.config
+export DOTFILES=${HOME}/dotfiles
+export SYSBAK=${HOME}/system-bak
+export CONFIG=${HOME}/.config
+export PRIVATE=${HOME}/Private

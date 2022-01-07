@@ -1,4 +1,7 @@
-export ZDOTDIR="$HOME/.zsh"
+
+export XDG_CONFIG_HOME=${HOME}/.config
+
+export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
 
 # Unique path dirs
 typeset -U path
@@ -45,7 +48,6 @@ HOMEBREW_NO_ENV_HINTS=1
 
 # Dotfiles {{{
 
-export XDG_CONFIG_HOME=${HOME}/.config
 
 # NeoVim
 export MYNVIMRC=$HOME/dotfiles/vim/.nvimrc
