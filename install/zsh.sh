@@ -55,6 +55,14 @@ ioh-my-zsh() {
     rm install.sh
 }
 
+# TODO: replace/sed ZDOTDIR with XDG_CACHE_HOME in oh-my-zsh.sh
+modify-oh-my-zsh() {
+    # https://github.com/ohmyzsh/ohmyzsh/blob/4e2f4cdf686fe560cec3ec7072628c4d0f723929/oh-my-zsh.sh#L108
+    # ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
+    # ZSH_COMPDUMP="${XDG_CACHE_HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
+    echo ""
+}
+
 # install custom plugins
 iplugins() {
     ZSH_CUSTOM="${ZSH}/custom"

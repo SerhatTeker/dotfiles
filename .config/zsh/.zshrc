@@ -33,19 +33,24 @@ export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
 
 # ZSH_COMPDUMP {{{3
 
-# https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_compdump
-# export ZSH_COMPDUMP="$ZSH_CACHE_DIR/.zcompdump"
+# look modify-oh-my-zsh() in zsh.sh
 #
 # ZSH_COMPDUMP not working corretyly, see related issue and MR:
 # https://github.com/ohmyzsh/ohmyzsh/issues/7332
 # https://github.com/ohmyzsh/ohmyzsh/pull/9090
-
+#
+# https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_compdump
+# export ZSH_COMPDUMP="$ZSH_CACHE_DIR/.zcompdump"
+#
+#
+# Belows are not working either
+#
 # Workaround #1
 # https://github.com/ohmyzsh/ohmyzsh/issues/7332#issuecomment-624630253
-if [ ! -d "$HOME/.cache/zsh" ]; then
-    mkdir -p $HOME/.cache/zsh
-fi
-export ZSH_COMPDUMP="$HOME/.cache/zsh/zcompdump-$HOST-$ZSH_VERSION"
+# if [ ! -d "$HOME/.cache/zsh" ]; then
+#     mkdir -p $HOME/.cache/zsh
+# fi
+# export ZSH_COMPDUMP="$HOME/.cache/zsh/zcompdump-$HOST-$ZSH_VERSION"
 
 # Workaround #2
 # https://github.com/ohmyzsh/ohmyzsh/issues/7332#issuecomment-624221366
