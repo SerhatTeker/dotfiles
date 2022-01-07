@@ -63,4 +63,4 @@ $RECYCLE.BIN/
 */zsh/.oh-my-zsh
 */zsh/.private.zsh
 */zsh/.zsh_history
-# */zsh/.zcompdump
+*/zsh/.zcompdump
