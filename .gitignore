@@ -22,6 +22,8 @@ archive/
 
 ### Session
 Session.vim
+Session*.vim
+session*.vim
 
 ### Temporary
 .netrwhist
@@ -64,4 +66,4 @@ $RECYCLE.BIN/
 */zsh/.private.zsh
 */zsh/.zsh_history
 */zsh/.zcompdump
-*/zsh/.zcompdump.*
+*/zsh/.zcompdump*

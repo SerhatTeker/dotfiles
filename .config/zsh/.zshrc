@@ -65,25 +65,24 @@ export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="simple"
-
-# alternative themes {{{
-
-# ZSH_THEME="robbyrussell"      # Default
+ZSH_THEME="gallois-custom"
+# ZSH_THEME="simple-custom"
 # ZSH_THEME="agnoster"          # Powerline
+#
+# ZSH_THEME="robbyrussell"      # Default
+# ZSH_THEME="gallois"
+# ZSH_THEME="simple"
 # ZSH_THEME="powerlevel10k/powerlevel10k"
 # ZSH_THEME="avit"
 # ZSH_THEME="powerlevel9k/powerlevel9k"
-# simple - bash like
-# ZSH_THEME="gallois"
-# }}}
 
-# Base16 Shell
+# Base16 Shell Themes {{{
 # Optional
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
 	[ -s "$BASE16_SHELL/profile_helper.sh" ] && \
 		eval "$("$BASE16_SHELL/profile_helper.sh")"
+# }}}
 # }}}1
 
 # SETTINGS-1 {{{1

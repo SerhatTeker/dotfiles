@@ -22,11 +22,19 @@ endif
 " endif
 " }}}2
 
+" Cursor {{{2
+
+" define cursor for `Normal` mode
+hi Cursor guibg=yellow
+" define cursor for `Insert` mode
+hi Cursor2 guibg=yellow
+set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:block-Cursor2/lCursor2,
+" }}}2
+
 " colorscheme {{{2
 
 " Manual {{{
 
-" NOT USED
 " Using ChangeBackground
 function! InitiateColorscheme()
     " check base16 theme
@@ -34,8 +42,8 @@ function! InitiateColorscheme()
         let base16colorspace=256
         source ~/.vimrc_background
     " TODO: make opt possible
-    elseif filereadable(expand("~/.config/nvim/after/colors/neodark.vim"))
-        " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
+    elseif filereadable(expand("~/.config/nvim/colors/neodark.vim"))
+    " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
 
         " gruvbox {{{
 
@@ -66,109 +74,9 @@ function! InitiateColorscheme()
         colorscheme onedark
     endif
 endfunction
+
+call InitiateColorscheme()
 " }}}
-
-" ChangeBackground {{{
-
-" ChangeBackground changes the background mode based on macOS's and Linux's `Appearance`
-" setting. We also refresh the statusline colors to reflect the new mode.
-function! ChangeBackground()
-    " Linux
-    if system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-dark"
-        set background=dark
-        colorscheme neodark
-    elseif system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-light"
-        set background=light
-        colorscheme one
-    " Macos
-    " TODO: Implement Fatih's method
-    " https://arslan.io/2021/02/15/automatic-dark-mode-for-terminal-applications/
-    " if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-    "     set background=dark   " for the dark version of the theme
-    " else
-    "     set background=light  " for the light version of the theme
-    " endif
-
-    " Default one
-    else
-        " TODO: Use InitiateColorscheme function
-        set background=dark
-        colorscheme neodark
-    endif
-
-    if g:status_bar_choice == "airline"
-        " check if the plugin exists and loaded
-        if exists(":AirlineTheme")
-            :AirlineRefresh
-        endif
-    elseif g:status_bar_choice == "lightline"
-        " TODO: Work with:
-        " https://github.com/itchyny/lightline.vim/issues/241
-        " https://github.com/itchyny/lightline.vim/issues/424
-
-        " if exists(":Tmuxline")
-        "     :Tmuxline lightline
-        " endif
-    endif
-endfunction
-
-" initialize the colorscheme for the first run
-call ChangeBackground()
-
-" change the color scheme if we receive a SigUSR1
-autocmd Signal SIGUSR1 * call ChangeBackground()
-" }}}
-
-if g:status_bar_choice == "airline"
-    if colors_name ==# "neodark"
-        let g:airline_theme="onedark"
-    elseif colors_name ==# "gruvbox"
-        let g:airline_theme="gruvbox"
-    elseif colors_name ==# "one"
-        let g:airline_theme="one"
-    else
-        " let g:airline_theme=g:colors_name
-        let g:airline_theme="onedark"
-    endif
-endif
-
-if g:status_bar_choice == "lightline"
-    if colors_name ==# "gruvbox"
-        let g:lightline.colorscheme="gruvbox"
-    else
-        " let g:lightline.colorscheme=g:color_theme
-        let g:lightline.colorscheme="one"
-    endif
-endif
-
-" TODO: Add toggle {{{
-" Must be after color args
-" WIP
-" let g:color_theme = get(g:, 'colors_name', 'neodark')
-
-" if color_theme ==# "neodark"
-"     colorscheme neodark
-" elseif color_theme ==# "gruvbox"
-"     colorscheme gruvbox
-" endif
-
-" function! ShowColourSchemeName()
-"     try
-"         echo g:colors_name
-"     catch /^Vim:E121/
-"         echo "default"
-"     endtry
-" endfunction
-" }}}
-" }}}2
-
-" Cursor {{{2
-
-" define cursor for `Normal` mode
-hi Cursor guibg=yellow
-" define cursor for `Insert` mode
-hi Cursor2 guibg=yellow
-set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:block-Cursor2/lCursor2,
 " }}}2
 " ----------------------------------------------------------------------------"
 "	}}}1
