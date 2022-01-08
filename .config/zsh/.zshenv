@@ -51,9 +51,9 @@ fi
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    # TODO: Implement
-    :
+    eval "$(${HOME}/.homebrew/bin/brew shellenv)"
 fi
+
 export HOMEBREW_NO_ENV_HINTS=1
 # ----------------------------------------------------------------------------#
 # }}}1
