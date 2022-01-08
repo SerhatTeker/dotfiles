@@ -87,7 +87,7 @@ let g:gutentags_ctags_exclude = [
 " Git status
 nnoremap <silent>ss :20G<CR>
 " Git commit
-nnoremap <silent>cc :Gcommit<CR>
+nnoremap <silent>cc :G commit<CR>
 " History
 nnoremap <silent>HH :Gclog<CR>
 " File History
