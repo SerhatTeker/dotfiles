@@ -26,5 +26,12 @@ if g:status_bar_choice == "lightline"
         " let g:lightline.colorscheme=g:color_theme
         let g:lightline.colorscheme="one"
     endif
+
+    if exists(":Tmuxline")
+        echom "Tmuxline exists"
+        :Tmuxline lightline
+    else
+        echom "Tmuxline not exists"
+    endif
 endif
 " }}}2

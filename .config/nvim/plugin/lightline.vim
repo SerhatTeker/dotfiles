@@ -81,5 +81,9 @@ let g:lightline.active = {
 let g:lightline.inactive = {
     \ 'left': [ [ 'filename' ] ],
     \ 'right': [ [ 'lineinfo' ] ] }
+
+if exists(":Tmuxline")
+    :Tmuxline lightline
+endif
 " }}}
 " }}}
