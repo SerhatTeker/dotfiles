@@ -31,15 +31,6 @@ alias wad='watch -d ls -lAh'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 # }}}
 
-# Manual alias {{{
-
-alias pri-lock='. $(find "$SCRIPTS_DIR" -name lock-pri 2>/dev/null)'
-alias pri-unlock='. $(find "$SCRIPTS_DIR" -name unlock-pri 2>/dev/null)'
-# print all and ignore .git and .venv dir
-alias tree='tree -aI ".git|.venv"'
-
-# }}}
-
 # System {{{
 
 alias shutdown='logout-sync && sudo shutdown -h now'
@@ -71,6 +62,9 @@ alias monitor="python3.9 -m bpytop"
 # dirs
 # alias mkcd='makecd(){mkdir -p "$1"; cd "$1"}; makecd'
 alias cdg='cd-gitroot'
+
+# print all and ignore .git and .venv dir
+alias tree='tree -aI ".git|.venv"'
 # }}}
 
 # vim {{{
@@ -82,17 +76,17 @@ alias rm-shada='rm ~/.local/share/nvim/shada/main.shada.tmp.x'
 
 # }}}
 
-# VSCode {{{
+# Apps {{{
 
 # use insiders as default
-alias code='code-insiders'
+# alias code='code-insiders'
+
+alias postman='~/apps/postman/Postman\ Agent/Postman\ Agent > /dev/null 2>&1 &'
 # }}}
 
 # git {{{
 
 alias gac='git add . && git commit'
-alias glog-fav='glola'
-alias glog-lean-fav='gloga'
 # Initial empty commit for repos
 alias gcae='git commit --allow-empty -m "Initial commit"'
 alias gaec='git commit --allow-empty -m "Initial commit"'
@@ -115,21 +109,6 @@ alias mux='pgrep -vx tmux > /dev/null && \
 # alias tmux='tmux -2'
 alias sw='start-workspace'
 alias lmux='nvim -c ":Tmuxline lightline" -c ":q"'
-# }}}
-
-# journal {{{
-
-alias j='tmux a -t journal'
-alias t='tmux a -t tmp'
-# }}}
-
-# hugo {{{
-
-# get initial hugo git initial template
-alias hugo-gist='ddl_gist "https://gist.github.com/SerhatTeker/7fee6d84f2f3d16ef3628e9a4a7f57e7" .'
-alias hg='hugo-grep'
-alias hs='hugo-start'
-alias hk='hugo-kill'
 # }}}
 
 # docker {{{
@@ -209,5 +188,6 @@ alias wireguard-disable='sudo wg-quick down wg0'
 
 # Utilities {{{
 
-alias postman='~/apps/postman/Postman\ Agent/Postman\ Agent > /dev/null 2>&1 &'
+# display $paths line by line
+alias sedpath='sed "s/ /\n/g" <<< "$path"'
 # }}}
