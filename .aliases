@@ -88,8 +88,8 @@ alias postman='~/apps/postman/Postman\ Agent/Postman\ Agent > /dev/null 2>&1 &'
 
 alias gac='git add . && git commit'
 # Initial empty commit for repos
-alias gcae='git commit --allow-empty -m "Initial commit"'
-alias gaec='git commit --allow-empty -m "Initial commit"'
+alias gcae='git init && git commit --allow-empty -m "Initial commit"'
+alias gaec='git init && git commit --allow-empty -m "Initial commit"'
 # Visualize git branch tree
 alias glvb='git log --graph --simplify-by-decoration --pretty=format:'%d' --all'
 # }}}
