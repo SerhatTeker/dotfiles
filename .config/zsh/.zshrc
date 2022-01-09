@@ -17,17 +17,13 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Main zsh directory path
-# ZMAIN = ZDOTDIR
-export ZMAIN="$HOME/.config/zsh"
-
 # Personal customization for plugins
-ZCUSTOMS="$ZMAIN/plugins/customs"
+ZCUSTOMS="$ZDOTDIR/plugins/customs"
 
 # oh-my-zsh {{{2
 
 # Path to your oh-my-zsh installation.
-export ZSH="$ZMAIN/.oh-my-zsh"
+export ZSH="$ZDOTDIR/.oh-my-zsh"
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_cache_dir
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
 
@@ -272,14 +268,14 @@ fi
 
 # FZF {{{3
 
-[ -f $ZMAIN/.fzf.zsh ] && source $ZMAIN/.fzf.zsh
+[ -f $ZDOTDIR/.fzf.zsh ] && source $ZDOTDIR/.fzf.zsh
 # }}}3
 # }}}2
 # }}}1
 
 # SETTINGS-2 {{{1
 
-# Aliases and Functions {{{2
+# Aliases, functions and others {{{2
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -296,14 +292,17 @@ fi
 
 # Senstive functions which are not pushed to Github
 # It contains some functions, aliases etc...
-[ -f $ZMAIN/.private.zsh ] && source $ZMAIN/.private.zsh
+[ -f $ZDOTDIR/.private.zsh ] && source $ZDOTDIR/.private.zsh
+
+# Personal specific extras
+[ -f $ZDOTDIR/.local.zsh ] && source $ZDOTDIR/.local.zsh
 # }}}2
 
 # History {{{2
 
 # !!! Warning !!!
 # History settings should be after `source $ZSH/oh-my-zsh.sh`
-HISTFILE=$ZMAIN/.zsh_history
+HISTFILE=$ZDOTDIR/.zsh_history
 HISTSIZE=1000000 # 1M
 SAVEHIST=$HISTSIZE
 
