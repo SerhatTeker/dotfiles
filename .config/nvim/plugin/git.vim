@@ -95,19 +95,16 @@ nnoremap <silent>HF :0Gclog!<CR>
 " Buffer Commits
 nnoremap <leader>gc :BCommits<CR>
 
-" Amend aliases
-command! GCN :Git commit -v --no-edit --amend
-command! GCAN :Git commit -v -a --no-edit --amend
-
-" Git diff {{{
-
 " Git diff current and previous version
 nmap <leader>d :Gvdiffsplit HEAD<CR>
 " always open diffs vertical
 set diffopt+=vertical
-" }}}
 
-" Git push{{{
+" Custom{{{
+
+" Amend aliases
+command! GCN :Git commit -v --no-edit --amend
+command! GCAN :Git commit -v -a --no-edit --amend
 
 " Push set upstream
 command! GPSUP :!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD 2>/dev/null)
