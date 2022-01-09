@@ -24,7 +24,7 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 source "${ROOT}/install/common.sh"
 
 # Ask for the administrator password upfront
-# sudo -v
+sudo -v
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [ -f "${XDG_CONFIG_HOME}/zsh" ] || [ ! -L "${XDG_CONFIG_HOME}/zsh" ];then
