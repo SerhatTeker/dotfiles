@@ -32,13 +32,13 @@ python-requirements() {
 }
 
 
-sf-mono-powerline() {
-    bash ${ROOT}/install/sf-fonts.sh
+fonts-powerline() {
+    bash ${ROOT}/install/fonts.sh
 }
 
 main() {
     python-requirements
-    sf-mono-powerline
+    fonts-powerline
 }
 
 main

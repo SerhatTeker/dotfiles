@@ -6,16 +6,15 @@ set -o nounset
 set -o pipefail
 
 
-cd /tmp && \
-	git clone git@github.com:Twixes/SF-Mono-Powerline.git
+# SF Mono {{{
 
+cd /tmp && \
+	git clone https://github.com/Twixes/SF-Mono-Powerline.git --depth=1
 
 cd /tmp/SF-Mono-Powerline
 
 # Set source and target directories
 powerline_fonts_dir="$( cd "$( dirname "$0" )" && pwd )"
-
-echo $powerline_fonts_dir
 
 # if an argument is given it is used to select which fonts to install
 prefix=""
@@ -39,4 +38,15 @@ if which fc-cache >/dev/null 2>&1 ; then
     fc-cache -f "$font_dir"
 fi
 
-echo "Powerline fonts installed to $font_dir"
+echo "SF-Mono-Powerline fonts installed to $font_dir"
+# }}}
+
+
+# Powerline Patched {{{
+
+cd /tmp && \
+    git clone https://github.com/powerline/fonts.git --depth=1
+
+cd /tmp/fonts && \
+    ./install.sh
+# }}}
