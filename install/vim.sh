@@ -31,8 +31,14 @@ python-requirements() {
         -r ${DOTFILES}/python/requirements/base.txt
 }
 
+
+sf-mono-powerline() {
+    bash ${ROOT}/install/sf-fonts.sh
+}
+
 main() {
     python-requirements
+    sf-mono-powerline
 }
 
 main
