@@ -49,10 +49,7 @@ highlight Normal ctermfg=145 guifg=#ABB2BF guibg=none
 " Active/Inactive Window Colors in NeoVim {{{
 
 if (has("nvim"))
-    " Background colors for active vs inactive windows
-    " hi ActiveWindow guibg=#282c34     " soft contrast
-    " hi ActiveWindow guibg=#1c1c1c     " medium contrast
-    hi ActiveWindow guibg=#121212     " hard contrast
+    hi ActiveWindow guibg=none
     hi InactiveWindow guibg=#303030
 
     " Call method on window enter
