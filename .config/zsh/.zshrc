@@ -61,8 +61,8 @@ export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="gallois-custom"
-# ZSH_THEME="simple-custom"
+ZSH_THEME="simple-custom"
+# ZSH_THEME="gallois-custom"
 # ZSH_THEME="agnoster"          # Powerline
 #
 # ZSH_THEME="robbyrussell"      # Default
