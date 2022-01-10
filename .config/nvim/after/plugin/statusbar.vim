@@ -17,9 +17,7 @@ if g:status_bar_choice == "airline"
         " let g:airline_theme=g:colors_name
         let g:airline_theme="onedark"
     endif
-endif
-
-if g:status_bar_choice == "lightline"
+elseif g:status_bar_choice == "lightline"
     if colors_name ==# "gruvbox"
         let g:lightline.colorscheme="gruvbox"
     else
