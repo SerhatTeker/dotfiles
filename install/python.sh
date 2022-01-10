@@ -25,19 +25,20 @@ source "${ROOT}/install/common.sh"
 
 VERSION=${PYTHON_VERSION:-3.8}
 
-
-link-files() {
-    # pretty-errors
-    ln -sf ${DOTFILES}/python/usercustomize.py "${HOME}/.local/lib/python${VERSION}/site-packages"
+install-reqirements() {
+    PIP_REQUIRE_VIRTUALENV=false \
+        python${VERSION} -m pip install --user \
+        ${ROOT}/python/requirements/base.txt
 }
 
-install-reqirements() {
-    PIP_REQUIRE_VIRTUALENV=false python${VERSION} -m pip install ${DOTFILES}/python/requirements/base.txt
+pretty-errors() {
+    ln -sf ${ROOT}/python/usercustomize.py \
+        "${HOME}/.local/lib/python${VERSION}/site-packages"
 }
 
 main() {
-    link-files
     install-reqirements
+    pretty-errors
 }
 
 main
