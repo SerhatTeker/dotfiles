@@ -40,7 +40,7 @@ function! AirlineInit()
     " Simple Z info : line:column
     let g:airline_section_z = airline#section#create(['%l', ':%c'])
     " Custom Y info : fileencoding|fileformat
-    let g:airline_section_y = airline#section#create(['%{&fenc}', '|%{&ff}'])
+    let g:airline_section_y = airline#section#create(['%{&ff}', ' | %{&fenc}'])
     " }}}
     :AirlineRefresh
 endfun
