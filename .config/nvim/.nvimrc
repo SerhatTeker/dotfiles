@@ -54,15 +54,14 @@ Plug 'tpope/vim-unimpaired'
 
 " Theme {{{3
 
-Plug 'fatih/molokai'
 Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
-Plug 'chriskempson/base16-vim'
-Plug 'chuling/vim-equinusocio-material'
+Plug 'fatih/molokai'
 Plug 'morhetz/gruvbox'
-Plug 'shinchu/lightline-gruvbox.vim'
-Plug 'flazz/vim-colorschemes'
-Plug 'dracula/vim'
+" Plug 'chriskempson/base16-vim'
+" Plug 'chuling/vim-equinusocio-material'
+" Plug 'flazz/vim-colorschemes'
+" Plug 'dracula/vim'
 " Colors
 Plug 'gko/vim-coloresque'
 " Tmux
@@ -71,10 +70,11 @@ Plug 'edkolev/tmuxline.vim'
 
 " Statusbar {{{3
 
+" Airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'osyo-manga/vim-anzu'                              " Search matchup counts and position
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
-" Lightline
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
 " }}}3
 
 " Filetype {{{3
