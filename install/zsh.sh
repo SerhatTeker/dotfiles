@@ -74,6 +74,14 @@ modify-oh-my-zsh() {
     echo ""
 }
 
+custom-themes() {
+    for theme in "simple" "gallois"
+    do
+        ln -s ${DOTFILES}/.config/zsh/oh-my-zsh/custom/themes/${theme}-custom.zsh-theme \
+            ${ZSH}/custom/themes
+    done
+}
+
 # TODO: Fix: not working together with ioh-my-zsh
 # Modify install.sh script
 # install custom plugins
@@ -123,6 +131,7 @@ main() {
     link-configs
     ioh-my-zsh
     iplugins
+    custom-themes
 }
 
 main
