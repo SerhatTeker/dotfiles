@@ -84,18 +84,12 @@ let g:gutentags_ctags_exclude = [
 
 " fugitive {{{
 
-" Git status
-nnoremap <silent>ss :20G<CR>
-" Git commit
-nnoremap <silent>cc :G commit<CR>
-" History
-nnoremap <silent>HH :Gclog<CR>
-" File History
-nnoremap <silent>HF :0Gclog!<CR>
-" Commits
-nnoremap <leader>gc :Commits!<CR>
-" Buffer Commits
-nnoremap <leader>gcb :BCommits!<CR>
+nnoremap <silent>ss :20G<CR>            " Status
+nnoremap <silent>cc :G commit<CR>       " Commit
+nnoremap <leader>gc :Commits!<CR>       " Commits
+nnoremap <leader>gbc :BCommits!<CR>     " Buffer Commits
+nnoremap <silent>HH :Gclog<CR>          " History
+nnoremap <silent>HF :0Gclog!<CR>        " File History
 
 " Git diff current and previous version
 nmap <leader>d :Gvdiffsplit HEAD<CR>
