@@ -92,8 +92,10 @@ nnoremap <silent>cc :G commit<CR>
 nnoremap <silent>HH :Gclog<CR>
 " File History
 nnoremap <silent>HF :0Gclog!<CR>
+" Commits
+nnoremap <leader>gc :Commits!<CR>
 " Buffer Commits
-nnoremap <leader>gc :BCommits<CR>
+nnoremap <leader>gcb :BCommits!<CR>
 
 " Git diff current and previous version
 nmap <leader>d :Gvdiffsplit HEAD<CR>
