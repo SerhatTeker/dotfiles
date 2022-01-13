@@ -704,7 +704,6 @@ map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 " ----------------------------------------------------------------------------"
 "	Pluggins	{{{1
 " ----------------------------------------------------------------------------"
-
 " Formatting {{{
 
 " format on save
@@ -1056,24 +1055,6 @@ nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
 " Vim plugin that displays tags in a window, ordered by scope
 
 nmap <F9> :TagbarToggle<CR>
-" }}}
-
-" autoflake {{{
-" Removes unused imports and unused variables as reported by pyflakes
-" https://github.com/myint/autoflake
-" https://github.com/tell-k/vim-autoflake
-
-" Remove mapping
-let g:no_autoflake_maps=1
-
-" Default <F9>
-" no need: using in AleFixCustom()
-autocmd FileType python map <buffer> <leader><F3> :call Autoflake()<CR>
-
-" Remove all unused imports, whether or not they are from the standard library
-let g:autoflake_remove_all_unused_imports=1
-let g:autoflake_remove_unused_variables=0
-let g:autoflake_disable_show_diff=0
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}

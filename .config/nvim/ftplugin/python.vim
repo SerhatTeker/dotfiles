@@ -1,3 +1,21 @@
+" autoflake {{{
+" Removes unused imports and unused variables as reported by pyflakes
+" https://github.com/myint/autoflake
+" https://github.com/tell-k/vim-autoflake
+
+" Remove mapping
+let g:no_autoflake_maps=1
+
+" Default <F9>
+" no need: using in AleFixCustom()
+autocmd FileType python map <buffer> <leader><F3> :call Autoflake()<CR>
+
+" Remove all unused imports, whether or not they are from the standard library
+let g:autoflake_remove_all_unused_imports=1
+let g:autoflake_remove_unused_variables=0
+let g:autoflake_disable_show_diff=0
+" }}}
+
 " Semshi {{{
 
 "Mark selected nodes (those with the same name and scope as the one under the
@@ -17,11 +35,15 @@ function! SemshiCustomHighlights()
     hi semshiSelf               guifg=#E5C07B
     hi semshiBuiltin            guifg=#56B6C2
     hi semshiSelected           guifg=#1b1b1b guibg=#ABB2BF
+
     hi semshiParameter          guifg=#D19A66                       " Default Parameter
     hi semshiParameterUnused    guifg=#895829 gui=underline,italic
     " Alternative
     " hi semshiParameter          guifg=#E06C75                     " Parameter Pylance style
     " hi semshiParameterUnused    guifg=#7e1b23 gui=underline,italic
+
+    " Somehow Semshi messing with serhatteker/python-syntax
+    hi link pythonDunderMethod  Constant
 endfunction
 autocmd FileType python call SemshiCustomHighlights()
 " }}}
