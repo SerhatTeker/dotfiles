@@ -202,10 +202,6 @@ Plug 'tpope/vim-obsession'
 " Plug 'ryanoasis/vim-devicons'
 " }}}3
 
-" Vim Wiki {{{3
-Plug 'vimwiki/vimwiki'
-" }}}3
-
 " Minimal Center {{{3
 
 Plug 'jmckiern/vim-venter'
@@ -1024,19 +1020,6 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 " both the stock Vim 8.0+ motions and vim-pythonsense
 let g:is_pythonsense_alternate_motion_keymaps = 1
-" }}}
-
-" Vim Wiki {{{
-
-let g:vimwiki_list = [{'path': '~/wisdom/',
-                  \ 'syntax': 'markdown', 'ext': '.md'}]
-
-let g:vimwiki_global_ext = 0
-
-" disable all mappings
-let g:vimwiki_key_mappings = { 'all_maps': 0, }
-
-nmap <leader>L <Plug>VimwikiFollowLink
 " }}}
 
 " goyo {{{
