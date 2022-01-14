@@ -92,6 +92,8 @@ alias gcae='git init && git commit --allow-empty -m "Initial commit"'
 alias gaec='git init && git commit --allow-empty -m "Initial commit"'
 # Visualize git branch tree
 alias glvb='git log --graph --simplify-by-decoration --pretty=format:'%d' --all'
+# List tracked files by git
+alias gtf='git ls-tree -r $(git_current_branch) --name-only'
 # }}}
 
 # tmux {{{
