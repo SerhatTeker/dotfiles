@@ -1025,6 +1025,8 @@ let g:is_pythonsense_alternate_motion_keymaps = 1
 " goyo {{{
 
 let g:goyo_width = 120
+
+nnoremap <leader>fs :Goyo<CR>
 " }}}
 
 " vim-anzu {{{
