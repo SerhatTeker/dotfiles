@@ -424,9 +424,9 @@ nnoremap <leader>q :call ToggleQuickFix()<CR>
 
 " Run {{{
 
-" Execute the line in VISUAL MODE
-vnoremap <F10> :<c-u>exe join(getline("'<","'>"),'<bar>')<cr>
 nnoremap <F10> :execute getline(".")<CR>
+" Execute the line in VISUAL MODE
+vnoremap <F10> :<c-u>exe join(getline("'<","'>"),'<bar>')<CR>
 
 " Save and run File according to it's filetype
 augroup RunFile
