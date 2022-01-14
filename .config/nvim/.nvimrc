@@ -424,9 +424,9 @@ nnoremap <leader>q :call ToggleQuickFix()<CR>
 
 " Run {{{
 
-" Execute the line in VISUAL MODE
-vnoremap <F10> :<c-u>exe join(getline("'<","'>"),'<bar>')<cr>
 nnoremap <F10> :execute getline(".")<CR>
+" Execute the line in VISUAL MODE
+vnoremap <F10> :<c-u>exe join(getline("'<","'>"),'<bar>')<CR>
 
 " Save and run File according to it's filetype
 augroup RunFile
@@ -1025,6 +1025,8 @@ let g:is_pythonsense_alternate_motion_keymaps = 1
 " goyo {{{
 
 let g:goyo_width = 120
+
+nnoremap <leader>fs :Goyo<CR>
 " }}}
 
 " vim-anzu {{{
