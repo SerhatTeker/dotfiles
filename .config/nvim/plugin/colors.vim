@@ -33,8 +33,6 @@ set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:block-Cursor2/lCursor2,
 
 " colorscheme {{{2
 
-" Manual {{{
-
 " Using ChangeBackground
 function! InitiateColorscheme()
     " check base16 theme
@@ -74,9 +72,6 @@ function! InitiateColorscheme()
         colorscheme onedark
     endif
 endfunction
-
-call InitiateColorscheme()
-" }}}
 " }}}2
 " ----------------------------------------------------------------------------"
 "	}}}1
