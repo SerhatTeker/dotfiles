@@ -110,7 +110,6 @@ alias mux='pgrep -vx tmux > /dev/null && \
 		tmux attach || tmux attach'
 # alias tmux='tmux -2'
 alias sw='start-workspace'
-alias lmux='nvim -c ":Tmuxline lightline" -c ":q"'
 # }}}
 
 # docker {{{
