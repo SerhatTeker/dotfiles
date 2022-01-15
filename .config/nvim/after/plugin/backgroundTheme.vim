@@ -4,17 +4,13 @@
 " ChangeBackground changes the background mode based on macOS's and Linux's `Appearance`
 " setting. We also refresh the statusline colors to reflect the new mode.
 function! ChangeBackground()
-    " Linux
+    " --- Linux ---
     if system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-light"
         set background=light
         colorscheme one
-    " default is neodark dark
-    " elseif system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-dark"
-    "     set background=dark
-    "     colorscheme neodark
     endif
 
-    " Macos
+    " --- MacOS ---
     " TODO: Implement Fatih's method
     " https://arslan.io/2021/02/15/automatic-dark-mode-for-terminal-applications/
     " if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
