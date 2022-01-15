@@ -43,13 +43,7 @@ function! InitiateColorscheme()
     elseif filereadable(expand("~/.config/nvim/colors/neodark.vim"))
     " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
 
-        " gruvbox {{{
-
-        let g:gruvbox_contrast_dark = "hard"
-        let g:gruvbox_contrast_light = "hard"
-        " }}}
-
-        " Default
+        " Onedark
         colorscheme neodark
         set background=dark
 
@@ -57,18 +51,21 @@ function! InitiateColorscheme()
         " colorscheme one
         " set background=light
 
-        " Onedark
-        " colorscheme onedark
-        " set background=dark
+        " gruvbox {{{
 
-        " Gruvbox
+        let g:gruvbox_contrast_dark = "hard"
+        let g:gruvbox_contrast_light = "hard"
+
         " colorscheme gruvbox
         " set background=dark
+        " }}}
     else
         " custom default colors
         let g:onedark_color_overrides = {
                     \ "black": {"gui": "#1b1b1b", "cterm": "233", "cterm16": "0" },
                     \}
+
+        set background=dark
         colorscheme onedark
     endif
 endfunction
