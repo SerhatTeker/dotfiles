@@ -1,6 +1,6 @@
 " powerline {{{
 
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 " Handle powerline fallback if powerline can't be installed on host
 " https://vi.stackexchange.com/a/3363/38903
 " }}}
