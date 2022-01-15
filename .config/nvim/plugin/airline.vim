@@ -20,7 +20,7 @@ let g:airline#extensions#obsession#indicator_text = '$'
 
 " show buffers at top
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_min_count = 2
+let g:airline#extensions#tabline#buffer_min_count = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " gutentag airline
