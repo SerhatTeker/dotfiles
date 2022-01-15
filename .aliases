@@ -94,6 +94,7 @@ alias gaec='git init && git commit --allow-empty -m "Initial commit"'
 alias glvb='git log --graph --simplify-by-decoration --pretty=format:'%d' --all'
 # List tracked files by git
 alias gtf='git ls-tree -r $(git_current_branch) --name-only'
+alias gstu='git stash -u'
 # }}}
 
 # tmux {{{
