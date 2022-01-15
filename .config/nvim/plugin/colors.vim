@@ -30,6 +30,52 @@ hi Cursor guibg=yellow
 hi Cursor2 guibg=yellow
 set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:block-Cursor2/lCursor2,
 " }}}2
+
+" InitiateColorscheme {{{2
+
+" Using ChangeBackground
+function! InitiateColorscheme()
+    " check base16 theme
+    if filereadable(expand("~/.vimrc_background"))
+        let base16colorspace=256
+        source ~/.vimrc_background
+    " TODO: make opt possible
+    elseif filereadable(expand("~/.config/nvim/colors/neodark.vim"))
+    " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
+
+        " gruvbox {{{
+
+        let g:gruvbox_contrast_dark = "hard"
+        let g:gruvbox_contrast_light = "hard"
+        " }}}
+
+        " Default
+        colorscheme neodark
+        set background=dark
+
+        " One
+        " colorscheme one
+        " set background=light
+
+        " Onedark
+        " colorscheme onedark
+        " set background=dark
+
+        " Gruvbox
+        " colorscheme gruvbox
+        " set background=dark
+    else
+        " custom default colors
+        let g:onedark_color_overrides = {
+                    \ "black": {"gui": "#1b1b1b", "cterm": "233", "cterm16": "0" },
+                    \}
+        colorscheme onedark
+    endif
+endfunction
+
+call InitiateColorscheme()
+" autocmd VimEnter * call InitiateColorscheme()
+" }}}2
 " ----------------------------------------------------------------------------"
 "	}}}1
 " ----------------------------------------------------------------------------"
