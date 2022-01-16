@@ -31,6 +31,8 @@ let g:go_doc_popup_window = 1
 
 " Folding {{{3
 
+setlocal foldmethod=syntax
+
 " let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
 " let g:go_fmt_experimental = 1
 " }}}3
@@ -54,49 +56,30 @@ let g:go_highlight_types = 1
 " Open :GoDeclsDir with ctrl-g
 nmap <C-g> :GoDeclsDir<cr>
 imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
-" }}}3
+" :GoBuild and :GoTestCompile
+nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+" :GoTest
+nmap <leader>t  <Plug>(go-test)
+" :GoRun
+nmap <leader>r  <Plug>(go-run)
+" :GoDoc
+nmap <Leader>d <Plug>(go-doc)
+" :GoCoverageToggle
+nmap <Leader>c <Plug>(go-coverage-toggle)
+" :GoInfo
+nmap <Leader>i <Plug>(go-info)
+" :GoMetaLinter
+nmap <Leader>l <Plug>(go-metalinter)
+" :GoDef but opens in a vertical split
+nmap <Leader>v <Plug>(go-def-vertical)
+" :GoDef but opens in a horizontal split
+nmap <Leader>s <Plug>(go-def-split)
 
-" augroup {{{3
-
-augroup go
-    autocmd!
-
-    " Show by default 8 spaces for a tab
-    " autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=8 shiftwidth=8 softtabstop=8
-    autocmd BufNewFile,BufRead *.go setlocal foldmethod=syntax
-
-    " :GoBuild and :GoTestCompile
-    autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-
-    " :GoTest
-    autocmd FileType go nmap <leader>t  <Plug>(go-test)
-
-    " :GoRun
-    autocmd FileType go nmap <leader>r  <Plug>(go-run)
-
-    " :GoDoc
-    autocmd FileType go nmap <Leader>d <Plug>(go-doc)
-
-    " :GoCoverageToggle
-    autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-
-    " :GoInfo
-    autocmd FileType go nmap <Leader>i <Plug>(go-info)
-
-    " :GoMetaLinter
-    autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
-
-    " :GoDef but opens in a vertical split
-    autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
-    " :GoDef but opens in a horizontal split
-    autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
-
-    " :GoAlternate  commands :A, :AV, :AS and :AT
-    autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-    autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-    autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-    autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-augroup END
+" :GoAlternate  commands :A, :AV, :AS and :AT
+command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
 " }}}3
 
 " build function {{{3
