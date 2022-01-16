@@ -52,6 +52,21 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     path+=("$HOME/Library/Python/3.8/bin")
 fi
 
+# Homebrew {{{
+
+# Warning: /usr/bin occurs before $HOME/.homebrew/bin in your PATH.This
+# means that system-provided programs will be used instead of thoseprov
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    if [ -d "$HOME/.homebrew/bin" ] ; then
+        eval "$(${HOME}/.homebrew/bin/brew shellenv)"
+    fi
+fi
+
+export HOMEBREW_NO_ENV_HINTS=1
+# }}}
+
 # ----------------------------------------------------------------------------#
 # }}}1
 # ----------------------------------------------------------------------------#
