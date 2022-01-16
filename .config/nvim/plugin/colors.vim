@@ -1,8 +1,8 @@
 " ----------------------------------------------------------------------------"
-"	Colors		{{{1
+"	Colors		{{{
 " ----------------------------------------------------------------------------"
 
-" colors settings {{{2
+" colors settings {{{
 
 " https://github.com/morhetz/gruvbox/wiki/Terminal-specific#0-recommended-neovimvim-true-color-support
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
@@ -20,18 +20,16 @@ if (has("termguicolors"))
     set termguicolors
 endif
 " endif
-" }}}2
+" }}}
 
-" Cursor {{{2
+" Cursor {{{
+set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor50
 
-" define cursor for `Normal` mode
-hi Cursor guibg=yellow
-" define cursor for `Insert` mode
-hi Cursor2 guibg=yellow
-set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:block-Cursor2/lCursor2,
-" }}}2
+" https://github.com/neovim/neovim/issues/6005
+" augroup Shape autocmd! autocmd VimLeave * set guicursor=a:block augroup END
+" }}}
 
-" InitiateColorscheme {{{2
+" InitiateColorscheme {{{
 
 " Using ChangeBackground
 function! InitiateColorscheme()
@@ -39,40 +37,46 @@ function! InitiateColorscheme()
     if filereadable(expand("~/.vimrc_background"))
         let base16colorspace=256
         source ~/.vimrc_background
-    " TODO: make opt possible
     elseif filereadable(expand("~/.config/nvim/colors/neodark.vim"))
     " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
-
         " Onedark
         colorscheme neodark
         set background=dark
 
-        " One
-        " colorscheme one
-        " set background=light
+        " " Cursor {{{
 
+        " " define cursor for `Normal` mode
+        " hi Cursor guibg=yellow
+        " " define cursor for `Insert` mode
+        " hi Cursor2 guibg=yellow
+        " setlocal guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:block-Cursor2/lCursor2,r-cr-o:hor50
+        " " }}}
+    else
         " gruvbox {{{
 
         let g:gruvbox_contrast_dark = "hard"
         let g:gruvbox_contrast_light = "hard"
 
-        " colorscheme gruvbox
-        " set background=dark
-        " }}}
-    else
-        " custom default colors
-        let g:onedark_color_overrides = {
-                    \ "black": {"gui": "#1b1b1b", "cterm": "233", "cterm16": "0" },
-                    \}
-
+        colorscheme gruvbox
         set background=dark
-        colorscheme onedark
+        " }}}
+
+        " Onedark
+        " set background=dark
+        " colorscheme onedark
+        " let g:onedark_color_overrides = {
+        "             \ "black": {"gui": "#1b1b1b", "cterm": "233", "cterm16": "0" },
+        "             \}
+
+        " One
+        " colorscheme one
+        " set background=light
     endif
 endfunction
 
 call InitiateColorscheme()
 " autocmd VimEnter * call InitiateColorscheme()
-" }}}2
+" }}}
 " ----------------------------------------------------------------------------"
-"	}}}1
+"	}}}
 " ----------------------------------------------------------------------------"
