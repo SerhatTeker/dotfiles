@@ -1,11 +1,3 @@
-" indentation {{{
-
-setlocal	expandtab
-setlocal	tabstop=4
-setlocal	shiftwidth=4
-setlocal	softtabstop=4
-" }}}
-
 " autoflake {{{
 " Removes unused imports and unused variables as reported by pyflakes
 " https://github.com/myint/autoflake
