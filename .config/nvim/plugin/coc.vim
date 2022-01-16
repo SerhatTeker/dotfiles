@@ -20,7 +20,7 @@ let g:coc_global_extensions = [
     \ 'coc-sql',
     \ 'coc-snippets',
     \ 'coc-tsserver',
-\ ]
+    \ ]
 
 " Enable?
 " 'coc-git'
@@ -46,5 +46,4 @@ endfunction
 
 " Smart rename: renames the exports across all files
 nmap <leader>rn <Plug>(coc-rename)
-
 " }}}
