@@ -723,12 +723,6 @@ map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 let g:markdown_enable_spell_checking = 0
 let g:markdown_enable_mappings = 0
 let g:markdown_enable_conceal = 0
-
-augroup MarkdownFiles
-    autocmd!
-    " define markdown file extensions
-    autocmd BufNewFile,BufRead *.{markdown,mdown,mkd,mkdn,mdwn,md}  setf markdown
-augroup END
 " }}}
 
 " FOLDING {{{
