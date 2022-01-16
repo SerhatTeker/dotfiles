@@ -14,7 +14,11 @@ risk!
 ## MACOS
 
 - Run `./install.sh`
+
+### Post Install Script
+
 - Install *SF Mono* font
+- Install [yubikey-authenticator](https://www.yubico.com/products/yubico-authenticator/#h-download-yubico-authenticator)
 
 ## LINUX
 
