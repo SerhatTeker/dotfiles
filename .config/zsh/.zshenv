@@ -20,12 +20,12 @@ export XDG_DATA_HOME="$HOME/.local/share"
 # $XDG_CONFIG_HOME/zsh
 export ZDOTDIR=${HOME}/.config/zsh
 
-# Unique path dirs
-typeset -U path
-
 # ----------------------------------------------------------------------------#
 # BIN {{{1
 # ----------------------------------------------------------------------------#
+
+# Unique path dirs
+typeset -U path
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
@@ -44,22 +44,14 @@ fi
 
 # Rust
 if [ -f "$HOME/.cargo/env" ] ; then
-    . "$HOME/.cargo/env"
+    source "$HOME/.cargo/env"
 fi
-
-# Homebrew
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    eval "$(${HOME}/.homebrew/bin/brew shellenv)"
-fi
-
-export HOMEBREW_NO_ENV_HINTS=1
 
 # Python
 if [[ "$OSTYPE" == "darwin"* ]]; then
     path+=("$HOME/Library/Python/3.8/bin")
 fi
+
 # ----------------------------------------------------------------------------#
 # }}}1
 # ----------------------------------------------------------------------------#

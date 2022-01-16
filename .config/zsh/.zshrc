@@ -275,6 +275,22 @@ fi
 
 # SETTINGS-2 {{{1
 
+# Homebrew {{{
+
+# Need to be in .zshrc to prevent warning message:
+# Warning: /usr/bin occurs before $HOME/.homebrew/bin in your PATH.This
+# means that system-provided programs will be used instead of thoseprov
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    if [ -d "$HOME/.homebrew/bin" ] ; then
+        eval "$(${HOME}/.homebrew/bin/brew shellenv)"
+    fi
+fi
+
+export HOMEBREW_NO_ENV_HINTS=1
+# }}}
+
 # Aliases, functions and others {{{2
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -282,12 +298,12 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 if [ -f $HOME/.aliases ]; then
-	. $HOME/.aliases
+	source $HOME/.aliases
 fi
 
 # Functions definitions
 if [ -f $HOME/.functions ]; then
-	. $HOME/.functions
+	source $HOME/.functions
 fi
 
 # Senstive functions which are not pushed to Github
