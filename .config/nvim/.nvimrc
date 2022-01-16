@@ -139,8 +139,8 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'antoinemadec/coc-fzf'
 
 " vim-go needs deoplete for realtime omnifunc completion
-Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins', 'for': 'go' }
 " NOTE: PlugUpdate may not work, in a *.go file call <UpdateRemotePlugins> manually after
+Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins', 'for': 'go' }
 " }}}
 " }}}
 
