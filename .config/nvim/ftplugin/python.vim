@@ -1,3 +1,11 @@
+" indentation {{{
+
+setlocal	expandtab
+setlocal	tabstop=4
+setlocal	shiftwidth=4
+setlocal	softtabstop=4
+" }}}
+
 " autoflake {{{
 " Removes unused imports and unused variables as reported by pyflakes
 " https://github.com/myint/autoflake
@@ -53,4 +61,42 @@ autocmd FileType python call SemshiCustomHighlights()
 let g:pydocstring_doq_path = '~/.local/bin/doq'
 let g:pydocstring_formatter = 'google'
 nmap <silent> <C-_> <Plug>(pydocstring)
+" }}}
+
+" fold {{{
+
+" setlocal	foldmethod=indent
+" setlocal	foldignore=
+" setlocal	autoindent
+
+" simply-fold {{{
+
+" ACHTUNG!!!
+" If you have the above options set to different values anywhere (e.g. setting
+" foldmethod=syntax in .vimrc, SimpylFold won't work properly.
+
+" options
+" let g:SimpylFold_docstring_preview = 1
+" }}}
+" }}}
+
+" python-syntax {{{
+
+let g:python_highlight_all = 1
+" let python_highlight_all = "on"
+" }}}
+
+" vim-pythonsense {{{
+
+" override default mappings
+map <buffer> ]c <Plug>(PythonsenseStartOfNextPythonClass)
+map <buffer> ]C <Plug>(PythonsenseEndOfPythonClass)
+map <buffer> [c <Plug>(PythonsenseStartOfPythonClass)
+map <buffer> [C <Plug>(PythonsenseEndOfPreviousPythonClass)
+" }}}
+
+" Ale and coc.vim {{{
+
+" https://github.com/dense-analysis/ale#5iii-how-can-i-use-ale-and-cocnvim-together
+let b:ale_disable_lsp = 1
 " }}}
