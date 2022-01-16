@@ -6,15 +6,21 @@ setlocal	shiftwidth=8
 setlocal	softtabstop=8
 " }}}
 
-" vim-go {{{2
+" vim-go {{{
 
-" core settings {{{3
+" core settings {{{
+
+let g:go_test_show_name = 1
+let g:go_list_type = "quickfix"
 
 let g:go_fmt_command = "goimports"
 let g:go_autodetect_gopath = 1
-let g:go_list_type = "quickfix"
 " Enable `go to definition/GoDef` mapping
 let g:go_def_mapping_enabled = 1
+
+let g:go_imports_autosave=1
+
+let g:go_gopls_complete_unimported = 1
 
 " Consider performance
 " let g:go_auto_type_info = 1
@@ -27,17 +33,17 @@ let g:go_def_mapping_enabled = 1
 
 " Doc window instead of preview bottom
 let g:go_doc_popup_window = 1
-" }}}3
+" }}}
 
-" Folding {{{3
+" Folding {{{
 
 setlocal foldmethod=syntax
 
 " let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
 " let g:go_fmt_experimental = 1
-" }}}3
+" }}}
 
-" Highlight {{{3
+" Highlight {{{
 
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
@@ -49,40 +55,9 @@ let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
-" }}}3
+" }}}
 
-" mapping extra {{{3
-
-" Open :GoDeclsDir with ctrl-g
-nmap <C-g> :GoDeclsDir<cr>
-imap <C-g> <esc>:<C-u>GoDeclsDir<cr>
-" :GoBuild and :GoTestCompile
-nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-" :GoTest
-nmap <leader>t  <Plug>(go-test)
-" :GoRun
-nmap <leader>r  <Plug>(go-run)
-" :GoDoc
-nmap <Leader>d <Plug>(go-doc)
-" :GoCoverageToggle
-nmap <Leader>c <Plug>(go-coverage-toggle)
-" :GoInfo
-nmap <Leader>i <Plug>(go-info)
-" :GoMetaLinter
-nmap <Leader>l <Plug>(go-metalinter)
-" :GoDef but opens in a vertical split
-nmap <Leader>v <Plug>(go-def-vertical)
-" :GoDef but opens in a horizontal split
-nmap <Leader>s <Plug>(go-def-split)
-
-" :GoAlternate  commands :A, :AV, :AS and :AT
-command! -bang A call go#alternate#Switch(<bang>0, 'edit')
-command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
-command! -bang AS call go#alternate#Switch(<bang>0, 'split')
-command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-" }}}3
-
-" build function {{{3
+" build function {{{
 
 " build_go_files is a custom function that builds or compiles the test file.
 " It calls :GoBuild if its a Go file, or :GoTestCompile if it's a test file
@@ -94,5 +69,30 @@ function! s:build_go_files()
         call go#cmd#Build(0)
     endif
 endfunction
-" }}}3
-" }}}2
+" }}}
+
+" mapping extra {{{
+
+nmap <silent> <Leader>v <Plug>(go-def-vertical)
+nmap <silent> <Leader>s <Plug>(go-def-split)
+nmap <silent> <Leader>d <Plug>(go-def-tab)
+
+nmap <silent> <Leader>x <Plug>(go-doc-vertical)
+
+nmap <silent> <Leader>i <Plug>(go-info)
+nmap <silent> <Leader>l <Plug>(go-metalinter)
+
+nmap <silent> <leader>b :<C-u>call <SID>build_go_files()<CR>
+nmap <silent> <leader>t  <Plug>(go-test)
+nmap <silent> <leader>r  <Plug>(go-run)
+nmap <silent> <leader>e  <Plug>(go-install)
+
+nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
+
+" :GoAlternate  commands :A, :AV, :AS and :AT
+command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+" }}}
+" }}}
