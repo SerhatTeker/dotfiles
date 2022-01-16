@@ -1,3 +1,11 @@
+" indentation {{{
+
+setlocal	noexpandtab
+setlocal	tabstop=8
+setlocal	shiftwidth=8
+setlocal	softtabstop=8
+" }}}
+
 " vim-go {{{2
 
 " core settings {{{3
