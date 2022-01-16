@@ -295,7 +295,7 @@ fi
 [ -f $ZDOTDIR/.private.zsh ] && source $ZDOTDIR/.private.zsh
 
 # Personal specific extras
-[ -f $ZDOTDIR/.local.zsh ] && source $ZDOTDIR/.local.zsh
+[ -f $ZDOTDIR/.zsh.local ] && source $ZDOTDIR/.zsh.local
 # }}}2
 
 # History {{{2
