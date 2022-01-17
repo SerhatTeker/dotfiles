@@ -1,6 +1,8 @@
 black==21.12b0
 bpytop==1.0.68
-flake8==4.0.1
+# Last supported global config : ~/.config/flake8
+# https://flake8.pycqa.org/en/latest/release-notes/4.0.0.html#backwards-incompatible-changes
+flake8==3.9.2
 ipdb==0.13.9
 jedi==0.18.1
 jedi-language-server==0.35.1
