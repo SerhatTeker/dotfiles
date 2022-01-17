@@ -44,6 +44,9 @@ set diffopt+=vertical
 command! GCN :Git commit -v --no-edit --amend
 command! GCAN :Git commit -v -a --no-edit --amend
 
+" Alias for old habit
+command! GP :Git push
+
 " Push set upstream
 command! GPSUP :!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 " }}}
