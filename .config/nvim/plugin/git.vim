@@ -19,11 +19,15 @@ nmap <leader>gh <Plug>(GitGutterPreviewHunk)
 " Status
 nnoremap <silent>ss :20G<CR>
 " Do commit
-nnoremap <silent>cc :G commit<CR>
+nnoremap <silent>cc :Git commit<CR>
+" Do push
+nnoremap <leader>pp :Git push<CR>
+
 " Show Commits
 nnoremap <leader>gc :Commits!<CR>
 " Show Buffer Commits
 nnoremap <leader>gbc :BCommits!<CR>
+
 " Show History
 nnoremap <silent>HH :Gclog<CR>
 " Show File History
@@ -42,15 +46,6 @@ command! GCAN :Git commit -v -a --no-edit --amend
 
 " Push set upstream
 command! GPSUP :!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-" Not using
-function! s:GitCurrentBranch()
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null")
-endfunction
-
-" Custom GPush
-" don't like default silent :Gpush
-command! GP :Git push -v
-nnoremap <leader>pp :GP<CR>
 " }}}
 " }}}
 

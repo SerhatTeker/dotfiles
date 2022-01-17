@@ -15,8 +15,8 @@
 [pull]
 	rebase = true
 [push]
-	; It pushes both commits and only tags that are both:
-	; annotated and reachable (an ancestor) from the pushed commits
+	# It pushes both commits and only tags that are both:
+	# annotated and reachable (an ancestor) from the pushed commits
 	followTags = true
 	verbose = true
 [diff]
