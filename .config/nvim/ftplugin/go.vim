@@ -29,9 +29,13 @@ let g:go_doc_popup_window = 1
 
 " Folding {{{
 
-setlocal foldmethod=syntax
+" Enable
+" setlocal foldmethod=syntax
+" let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment'] " Default
 
-" let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
+" Disable
+let g:go_fold_enable = []
+
 " let g:go_fmt_experimental = 1
 " }}}
 
