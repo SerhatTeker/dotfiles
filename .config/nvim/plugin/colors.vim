@@ -23,10 +23,26 @@ endif
 " }}}
 
 " Cursor {{{
-set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor50
 
+" Default Cursor
+set guicursor=
+    \n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor50
+
+" Cursor w/ blink
+" set guicursor=
+"     \n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor50
+"     \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+"     \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+" Reset shape while exiting to terminal
 " https://github.com/neovim/neovim/issues/6005
-" augroup Shape autocmd! autocmd VimLeave * set guicursor=a:block augroup END
+augroup Shape
+    autocmd!
+    autocmd VimLeave * set guicursor=
+        \n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor50
+        \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+        \,sm:block-blinkwait175-blinkoff150-blinkon175
+augroup END
 " }}}
 
 " InitiateColorscheme {{{
@@ -43,14 +59,15 @@ function! InitiateColorscheme()
         colorscheme neodark
         set background=dark
 
-        " " Cursor {{{
+        " Custom Cursor {{{
 
-        " " define cursor for `Normal` mode
-        " hi Cursor guibg=yellow
-        " " define cursor for `Insert` mode
-        " hi Cursor2 guibg=yellow
-        " setlocal guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:block-Cursor2/lCursor2,r-cr-o:hor50
-        " " }}}
+        " define custom cursor highlight
+        hi Cursor guibg=yellow
+        setlocal guicursor=
+                    \n-v-c:block-Cursor/lCursor
+                    \,i-ci-ve:block-Cursor/lCursor
+                    \,r-cr-o:hor50-Cursor/lCursor
+        " }}}
     else
         " gruvbox {{{
 

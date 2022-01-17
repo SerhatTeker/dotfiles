@@ -156,7 +156,7 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # prompt settings {{{
 _fix_cursor() {
 	# change cursor color
-	echo -ne '\e]12;orange\a'
+	echo -ne '\e]12;yellow\a'
 	# alternative: xterm 214 or 220
 }
 precmd_functions+=(_fix_cursor)
