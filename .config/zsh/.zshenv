@@ -110,6 +110,7 @@ export ANSIBLE_CONFIG=${XDG_CONFIG_HOME}/ansible/ansible.cfg
 
 # Python {{{2
 
+# TODO: Add sysmlink python3 -> ~/.local/bin/python3.8 on MacOS
 export PYTHON_VERSION=3.8
 export PYTHON="python${PYTHON_VERSION}"
 
