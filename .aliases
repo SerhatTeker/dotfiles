@@ -1,8 +1,8 @@
 # ls {{{
 
-# some more ls aliases
+# Defaults
 # alias l='ls -CF'
-# alias la='ls -A'
+# alias la='ls -lA'
 # alias ll='ls -ahlF'
 
 # lsd
@@ -36,26 +36,33 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias shutdown='logout-sync && sudo shutdown -h now'
 alias reboot='logout-sync && reboot'
 alias sleep='systemctl suspend'
+
 ## thrash
 alias thrash-empty='rm -rf ~/.local/share/Trash/*'
 alias thrash-clean='thrash-empty'
 alias clean-thrash='thrash-empty'
 alias erase='shred –vfzu –n 5'
+
 ## screenshots
 alias screenshots-clear='rm -r $HOME/Pictures/Screenshot*'
 alias screenshots-clean='screenshots-clear'
 alias clean-screenshots='screenshots-clear'
 alias fan='mono /opt/nbfc/nbfc.exe status -a'
+
 # Network
 alias wifi-restart='nmcli radio wifi off && nmcli radio wifi on'
 alias wired-restart='service network-manager restart'
+
 ## apt
 alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purge'
+
 ## maintenance
 alias update='sudo -- sh -c "apt update -y; apt list --upgradable"'
 alias update-and-upgrade='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y"'
+
 ## pid
 alias list-pids='ps aux > pid.list && nvim pid.list'
+
 ## monitor
 alias monitor="python3.9 -m bpytop"
 
@@ -65,9 +72,15 @@ alias cdg='cd-gitroot'
 
 # print all and ignore .git and .venv dir
 alias tree='tree -aI ".git|.venv"'
+
+# config:source
+alias sz='source $ZDOTDIR/.zshrc'
+
+# https://askubuntu.com/a/22043
+alias sudo='sudo '
 # }}}
 
-# vim {{{
+# Vim {{{
 
 alias vi='nvim'
 alias vs='nvim -S'
@@ -148,8 +161,15 @@ alias sv='source .venv/bin/activate'
 ## reactivate virtual environment
 alias rv='deactivate && source .venv/bin/activate'
 # }}}
+# }}}
 
-# other {{{
+# Utilities {{{
+
+# display $paths line by line
+alias sedpath='sed "s/ /\n/g" <<< "$path"'
+# }}}
+
+# Others {{{
 
 alias cmatrix='cmatrix -Baf'
 alias umatrix='unimatrix -a -f -b -s 96 -l m'
@@ -164,32 +184,4 @@ alias space-sorted='f() {du -hx --max-depth=1 "$1" | sort -hr | head}; f'
 alias nfs='neofetch -S'
 # images
 alias webify="mogrify -resize 690\> *.png"
-# }}}
-
-# configs {{{
-
-# config:source
-alias sz='source $ZDOTDIR/.zshrc'
-# }}}
-
-# sudo {{{
-
-# https://askubuntu.com/a/22043
-alias sudo='sudo '
-# }}}
-
-# vpn {{{
-
-# wireguard vpn
-alias vpn-enable='sudo wg-quick up wg0'
-alias wireguard-enable='sudo wg-quick up wg0'
-alias vpn-disable='sudo wg-quick down wg0'
-alias wireguard-disable='sudo wg-quick down wg0'
-# }}}
-# }}}
-
-# Utilities {{{
-
-# display $paths line by line
-alias sedpath='sed "s/ /\n/g" <<< "$path"'
 # }}}
