@@ -219,10 +219,11 @@ call plug#end()
 
 " Auto Install on Startup {{{2
 " Automatically install missing plugins on startup
-autocmd VimEnter *
-            \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-            \|   PlugInstall --sync | q
-            \| endif
+
+" autocmd VimEnter *
+"             \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+"             \|   PlugInstall --sync | q
+"             \| endif
 " }}}2
 " ----------------------------------------------------------------------------"
 "	}}}
