@@ -34,7 +34,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # System {{{
 
 alias shutdown='logout-sync && sudo shutdown -h now'
-alias reboot='logout-sync && reboot'
 alias sleep='systemctl suspend'
 
 ## thrash
