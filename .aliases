@@ -33,6 +33,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # System {{{
 
+# TODO: check logout-sync cmd exists
 alias shutdown='logout-sync && sudo shutdown -h now'
 alias sleep='systemctl suspend'
 
