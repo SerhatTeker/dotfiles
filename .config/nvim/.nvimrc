@@ -274,16 +274,18 @@ set nofoldenable                " no fold when opening a file
 set foldmethod=marker           " manual fold with '{...}'
 " }}}2
 
+" custom vars {{{
+
+let g:localShare='$HOME/.local/share/nvim'
+let g:dotFiles='$HOME/dotfiles/.config/nvim'
+" }}}
+
 " MYNVIMRC {{{2
 
 augroup nvimrc
-    " auto source .vimrc after save
-    " autocmd! bufwritepost $MYNVIMRC source $MYNVIMRC
-    autocmd! BufWritePost ~/dotfiles/.config/nvim/init.vim source % | echom "Reloaded $NVIMRC"
-    " FIXME: use $MYNVIMRC instead of hardcoded path
-    autocmd! BufWritePost ~/dotfiles/.config/nvim/.nvimrc source % | echom "Reloaded $NVIMRC"
+    " auto source .vimrc after save in files in nvim dot dir
+    autocmd! BufWritePost ~/dotfiles/.config/nvim/* source % | echom "Reloaded $NVIMRC"
     autocmd! BufWritePost ~/.nvimrc source % | echom "Reloaded $NVIMRC"
-    " autocmd! BufWritePost ~/dotfiles/vim/.nvimrc source % | echom "Reloaded $NVIMRC" | redraw
 
     " $MYNVIMRC filetype
     autocmd! BufNewFile,BufRead .nvimrc set filetype=vim
@@ -771,58 +773,6 @@ let g:vim_markdown_toml_frontmatter = 1
 
 " gabrielelana/vim-markdown
 let g:markdown_enable_folding = 1
-" }}}
-
-" NERDtree {{{
-
-" some usefull commands to remember {{{
-
-" r Refresh NERDTREE
-" m modify in TREE
-" B Bookmarks
-" }}}
-
-" NERDTree Settings {{{
-
-" show hiddens
-let NERDTreeShowHidden=1
-
-" Automatically close NerdTree when you open a file
-" let NERDTreeQuitOnOpen = 1
-
-" Automatically delete the buffer of the file you just deleted with NerdTree
-let NERDTreeAutoDeleteBuffer = 1
-
-" Disable that old “Press ? for help”.
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-
-" Ignore
-let NERDTreeIgnore = [
-            \ '\.pyc$',
-            \ '^__pycache__$',
-            \ '^.mypy_cache$',
-            \ '^.pytest_cache$',
-            \ '^.hypothesis$',
-            \ '^htmlcov$',
-            \ '\.retry$',
-            \'^node_modules$',
-            \]
-
-" show bookmarkds
-" let NERDTreeShowBookmarks=1
-
-" To make sure vim does not open files and other buffers on NerdTree window
-" If more than one window and previous buffer was NERDTree, go back to it.
-autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
-" }}}
-
-" NERDTree Mappings {{{
-nmap <C-t> :NERDTreeToggle<CR>
-
-" Directly open NerdTree on the file you’re editing
-nnoremap <silent> <Leader>v :NERDTreeFind<CR>
-" }}}
 " }}}
 
 " Undo Tree {{{
