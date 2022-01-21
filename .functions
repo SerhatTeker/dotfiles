@@ -160,28 +160,6 @@ extract-it() {
 # }}}2
 # }}}1
 
-# Environment {{{1
-# ----------------------------------------------------------------------------#
-
-# Install python package globally
-# Use 3.8 if $PYTHON_VERSION not set
-pipg() {
-    VERSION=${PYTHON_VERSION:-3.8}
-    PIP_REQUIRE_VIRTUALENV=false python${VERSION} -m pip --user "$@"
-}
-# Python venv auto-load {{{2
-
-# If a virtualenv with name of .venv, load it.
-auto-venv() {
-	if [ -z "$VIRTUAL_ENV" ]; then
-		if [ -d .venv/ ]; then
-			source .venv/bin/activate
-		fi
-	fi
-}
-# }}}2
-# }}}1
-
 # Files {{{1
 # ----------------------------------------------------------------------------#
 bu-tmux-resurrect() {
@@ -324,21 +302,52 @@ journal(){
 
 # Python
 
-# Use ve() instead
-# Create and activate a virtual environment with global packages
-cvenv() {
-    VERSION=${PYTHON_VERSION:-3.8}
-    PYTHON="python${VERSION}"
-    VENV=${VENV:-./.venv}
-
-    ${PYTHON} -m venv ${VENV} --system-site-packages \
-        && source ${VENV}/bin/activate
+# Install python package globally
+# Use 3.8 if $PYTHON_VERSION not set
+pipg() {
+    local py=${PYTHON:-python3} # ${PYTHON} comes from .zshenv
+    PIP_REQUIRE_VIRTUALENV=false ${py} -m pip --user "$@"
 }
 
+# If a virtualenv with name of .venv, load it.
+auto-venv() {
+    local venv="./.venv"
+
+	if [ -z "$VIRTUAL_ENV" ]; then
+		if [ -d ${venv} ]; then
+			source ${venv}/bin/activate
+		fi
+	fi
+}
+
+
+# If virtualenv already exists activate it,
+# If not create it with global packages, update pip then activate it
+ve() {
+    local py=${PYTHON:-python3} # ${PYTHON} comes from .zshenv
+    local venv="${1:-./.venv}"
+
+    if [ ! -d ${venv} ]; then
+        ${PYTHON} \
+            -m venv ${venv} \
+            --system-site-packages
+        source ${venv}/bin/activate
+        # Using old cached version from ensurepip
+        # >>> import ensurepip
+        # >>> ensurepip.version()
+        ${py} -m pip install --upgrade pip
+    else
+        echo "Virtual environment  ${venv} already exists, activating..."
+        source ${venv}/bin/activate
+    fi
+}
+
+# TODO: Don't work with PIP_REQUIRE_VIRTUALENV even inside venv
+#
 # Create venv with latest pip
 # https://stackoverflow.com/a/61553959/10802538
 # https://stackoverflow.com/a/60217751/10802538
-ve() {
+veo() {
     local py=${PYTHON:-python3} # ${PYTHON} comes from .zshenv
     local venv="./.venv"
 
@@ -346,7 +355,6 @@ ve() {
         echo "Creating venv..."
 
         if ! $py -m venv ${venv} \
-            # --prompt=$(basename $PWD) \
             --without-pip \
             --system-site-packages
         then
