@@ -324,6 +324,7 @@ journal(){
 
 # Python
 
+# Use ve() instead
 # Create and activate a virtual environment with global packages
 cvenv() {
     VERSION=${PYTHON_VERSION:-3.8}
@@ -332,6 +333,35 @@ cvenv() {
 
     ${PYTHON} -m venv ${VENV} --system-site-packages \
         && source ${VENV}/bin/activate
+}
+
+# Create venv with latest pip
+# https://stackoverflow.com/a/61553959/10802538
+# https://stackoverflow.com/a/60217751/10802538
+ve() {
+    local py=${PYTHON:-python3} # ${PYTHON} comes from .zshenv
+    local venv="./.venv"
+
+    if [ ! -d ${venv} ]; then
+        echo "Creating venv..."
+
+        if ! $py -m venv ${venv} \
+            # --prompt=$(basename $PWD) \
+            --without-pip \
+            --system-site-packages
+        then
+            echo "ERROR: Problem creating venv" >&2
+            return 1
+        else
+            local whl=$($py -c "import pathlib, ensurepip; whl = list(pathlib.Path(ensurepip.__path__[0]).glob('_bundled/pip*.whl'))[0]; print(whl)")
+            echo "Boostrapping pip using $whl"
+            ${venv}/bin/python $whl/pip install --upgrade pip setuptools wheel
+            source ${venv}/bin/activate
+        fi
+    else
+        echo "venv already exists, activating..."
+        source ${venv}/bin/activate
+    fi
 }
 # }}}
 
