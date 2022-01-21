@@ -17,7 +17,7 @@ nmap <leader>gh <Plug>(GitGutterPreviewHunk)
 " fugitive {{{
 
 " Status
-nnoremap <silent>ss :20G<CR>
+nnoremap <silent>ss :G<CR>
 " Do commit
 nnoremap <silent>cc :Git commit<CR>
 " Do push
