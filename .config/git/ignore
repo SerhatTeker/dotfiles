@@ -22,6 +22,14 @@ Session.vim
 GitHub.sublime-settings
 # }}}
 
+# Frameworks {{{
+
+# Hugo {{{
+
+.hugo_build.lock
+# }}}
+# }}}
+
 # Language spesific {{{
 
 # Python {{{
