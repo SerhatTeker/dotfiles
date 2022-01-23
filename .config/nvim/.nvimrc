@@ -172,20 +172,18 @@ Plug 'bkad/CamelCaseMotion'
 " }}}
 
 " Others {{{3
+
 Plug 'godlygeek/tabular'
 Plug 'editorconfig/editorconfig-vim'
-"" Pair
-" Disabled.
-" Plug 'SerhatTeker/auto-pairs'
-Plug 'jiangmiao/auto-pairs'     " insert mode auto-completion for quotes, parens, brackets, etc
 Plug 'tpope/vim-commentary'
+
+" Pair
+Plug 'jiangmiao/auto-pairs'         " insert mode auto-completion for quotes, parens, brackets, etc
 Plug 'tpope/vim-surround'
-" Needed for 'vim-surround'
-Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-repeat'             " Needed for 'vim-surround'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/rainbow_parentheses.vim'
-" Auto close tags
-" Plug 'tpope/vim-endwise'
+
 " Indentline
 Plug 'Yggdroot/indentLine'
 " }}}3
@@ -196,22 +194,23 @@ Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-obsession'
 " }}}3
 
+" Minimal {{{3
+
+" Zen Mode
+Plug 'junegunn/goyo.vim'
+" Plug 'jmckiern/vim-venter'      " Similar to goyo but keeps statusbar, tabline etc.
+" }}}3
+
+" ctags {{{3
+
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'preservim/tagbar'
+" }}}3
+
 " icons {{{3
 
 " Has to be last according to docs
 " Plug 'ryanoasis/vim-devicons'
-" }}}3
-
-" Minimal Center {{{3
-
-Plug 'jmckiern/vim-venter'
-" Zen Mode
-Plug 'junegunn/goyo.vim'
-" }}}3
-
-" ctags {{{3
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'preservim/tagbar'
 " }}}3
 
 call plug#end()
@@ -828,33 +827,6 @@ let g:indentLine_first_char = '|'
 let g:bullets_enabled_file_types = [
             \ 'markdown',
             \]
-" }}}
-
-" auto-pair {{{
-
-" Change defaults {{{
-
-" Defaults
-" au Filetype * let b:AutoPairs={'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
-" Change defaults
-au Filetype * let b:AutoPairs={'(':')', '[':']', '{':'}'}
-" }}}
-
-" Define Custom AutoPairs {{{
-
-" Markdown
-" No Need. Using snippet
-" au Filetype markdown let b:AutoPairs = AutoPairsDefine({'{{<' : ' >}}'})
-" }}}
-
-" Toggle Autopairs disabled due to conflict {{{
-
-let g:AutoPairsShortcutToggle = ''
-let g:AutoPairsUseInsertedCount = 1
-let g:AutoPairsDelRepeatedPairs = 1
-" Map <space> to insert a space after the opening character and before the closing one
-let g:AutoPairsMapSpace = 0
-" }}}
 " }}}
 
 " editorconfig {{{
