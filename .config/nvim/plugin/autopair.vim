@@ -8,8 +8,21 @@
 " Change defaults
 " au Filetype * let b:AutoPairs={'(':')', '[':']', '{':'}'}
 
-" Add Python f,b,r strings
-au Filetype * let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '```':'```', '"""':'"""', "'''":"'''", "`":"`", "b'":"'", "f'":"'", "r'":"'"}
+" 0. Add Python f,b,r strings
+au Filetype * let g:AutoPairs = {
+            \ '(':')',
+            \ '[':']',
+            \ '{':'}',
+            \ "'":"'",
+            \ '"':'"',
+            \ "`":"`",
+            \ '```':'```',
+            \ '"""':'"""',
+            \ "'''":"'''",
+            \ "b'":"'",
+            \ "f'":"'",
+            \ "r'":"'"
+            \ }
 " }}}
 
 " Toggle Autopairs disabled due to conflict {{{
