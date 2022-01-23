@@ -18,7 +18,8 @@ risk!
 ### Post Install Script
 
 - Install *SF Mono* font
-- Install [yubikey-authenticator](https://www.yubico.com/products/yubico-authenticator/#h-download-yubico-authenticator)
+- Install **Yubico** from appstore (TODO: include in script)
+  https://www.yubico.com/products/yubico-authenticator/#h-download-yubico-authenticator
 
 ## LINUX
 
