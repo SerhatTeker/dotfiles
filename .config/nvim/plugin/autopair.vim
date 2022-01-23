@@ -2,20 +2,14 @@
 
 " Change defaults {{{
 
-" Defaults
-" au Filetype * let b:AutoPairs={'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
-
-" Change defaults
-" au Filetype * let b:AutoPairs={'(':')', '[':']', '{':'}'}
-
 " 0. Add Python f,b,r strings
+" 1. Delete single ", ', `
 au Filetype * let g:AutoPairs = {
             \ '(':')',
             \ '[':']',
             \ '{':'}',
             \ "'":"'",
             \ '"':'"',
-            \ "`":"`",
             \ '```':'```',
             \ '"""':'"""',
             \ "'''":"'''",
