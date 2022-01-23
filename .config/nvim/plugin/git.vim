@@ -22,6 +22,8 @@ nnoremap <silent>ss :G<CR>
 nnoremap <silent>cc :Git commit<CR>
 " Do push
 nnoremap <leader>pp :Git push<CR>
+" Do pull
+nnoremap <leader>ll :Git push<CR>
 
 " Show Commits
 nnoremap <leader>gc :Commits!<CR>
@@ -38,6 +40,8 @@ nmap <leader>d :Gvdiffsplit HEAD<CR>
 " always open diffs vertical
 set diffopt+=vertical
 
+" Show file from master branch when on another branch
+nmap <leader>gbm :Gedit master:%<CR>
 " Custom{{{
 
 " Amend aliases
