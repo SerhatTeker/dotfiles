@@ -439,11 +439,16 @@ dec-file() {
 # Update {{{1
 # ----------------------------------------------------------------------------#
 
+# TODO: Add macos
 _update-all() {
-	sudo apt update && \
-        sudo apt -y upgrade && \
-		notify-send 'Updates Complete' \
+	sudo apt update
+    sudo apt upgrade -y
+
+    notify-send \
+        'Updates Completed' \
         'Your system updated successfully!' \
-        -u normal -t 7500 -i checkbox-checked-symbolic
+        -u normal \
+        -t 7500 \
+        -i checkbox-checked-symbolic
 }
 # }}}1
