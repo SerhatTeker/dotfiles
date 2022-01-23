@@ -250,6 +250,22 @@ git-prune-branch() {
     git push -d $REMOTE $BRANCH
 }
 
+# Git checkout a pull request locally
+# Usage: `$ ghpr 8` where 8 is the number of pull request
+ghpr(){
+    local pr=$1
+    local remote=${2:-origin}
+
+    echo "Fetching the pull request${pr}"
+    git fetch ${remote} refs/pull/${pr}/head:pr/${pr}
+
+    echo "PR fetched, creating a branch"
+    echo "Checking out to a new PR branch"
+    git checkout pr/${pr}
+
+    echo "PR Branch Created"
+}
+
 # Download all files from a github gist url
 # Usage Example: $ ddl-gist 'https://gist.github.com/7fee6d84f2f3d16ef3628e9a4a7f57e7' ~/Downloads/gists
 ddl-gist(){
