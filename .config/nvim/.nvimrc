@@ -31,7 +31,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-" Plug 'ervandew/supertab'
 " }}}3
 
 " Finders {{{3
@@ -58,10 +57,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
 Plug 'fatih/molokai'
 Plug 'morhetz/gruvbox'
-" Plug 'chriskempson/base16-vim'
-" Plug 'chuling/vim-equinusocio-material'
-" Plug 'flazz/vim-colorschemes'
-" Plug 'dracula/vim'
 " Colors
 Plug 'gko/vim-coloresque'
 " Tmux
@@ -109,17 +104,10 @@ Plug 'andrewstuart/vim-kubernetes'
 
 " default plugin
 Plug 'plasticboy/vim-markdown'
-" Plug 'plasticboy/vim-markdown', { 'on': [], 'for': []  }
-" Plug 'serhatteker/vim-markdown-default'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 " bullets
 Plug 'dkarter/bullets.vim'
 " }}}4
-
-" rst
-" Plug 'gu-fan/riv.vim'
-" Plug 'gu-fan/InstantRst'
-" Plug 'gu-fan/rhythm.css'
 
 Plug 'Rykka/riv.vim'
 Plug 'Rykka/InstantRst'
@@ -155,7 +143,6 @@ let g:polyglot_disabled = [
             \]
 
 Plug 'sheerun/vim-polyglot'
-" Plug 'vim-syntastic/syntastic'
 " 3}}}
 
 " Git {{{3
