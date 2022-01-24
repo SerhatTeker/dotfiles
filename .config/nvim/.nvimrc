@@ -409,18 +409,20 @@ nnoremap <leader>q :call ToggleQuickFix()<CR>
 
 " Run {{{
 
-nnoremap <F10> :execute getline(".")<CR>
+nnoremap <leader><F10> :execute getline(".")<CR>
 " Execute the line in VISUAL MODE
-vnoremap <F10> :<c-u>exe join(getline("'<","'>"),'<bar>')<CR>
+vnoremap <leader><F10> :<c-u>exe join(getline("'<","'>"),'<bar>')<CR>
 
 " Save and run File according to it's filetype
 augroup RunFile
     autocmd!
-    autocmd FileType python nnoremap <buffer><silent><C-S-F10> :w<CR> :! python3 %<CR>
-    autocmd FileType sh nnoremap <buffer><silent><C-S-F10> :w<CR> :! "%:p"<CR>
-    autocmd FileType c nnoremap <buffer><silent><C-S-F10> :w<CR> :!clear; gcc %; ./a.out<CR>
-    autocmd FileType cpp  nnoremap <buffer><silent><C-S-F10> :w<CR> :!clear; g++ %; ./a.out<CR>
-    autocmd FileType ruby nnoremap <buffer><silent><C-S-F10> :w<CR> :!clear; ruby %<CR>
+    autocmd FileType python nnoremap <buffer><silent><F10> :w<CR> :! python3 %<CR>
+    autocmd FileType sh nnoremap <buffer><silent><F10> :w<CR> :! bash %<CR>
+    " Needs chdmod
+    " autocmd FileType sh nnoremap <buffer><silent><F10> :w<CR> :!%:p<CR>
+    autocmd FileType c nnoremap <buffer><silent><F10> :w<CR> :!clear; gcc %; ./a.out<CR>
+    autocmd FileType cpp  nnoremap <buffer><silent><F10> :w<CR> :!clear; g++ %; ./a.out<CR>
+    autocmd FileType ruby nnoremap <buffer><silent><F10> :w<CR> :!clear; ruby %<CR>
 augroup END
 " }}}
 
