@@ -209,12 +209,6 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'preservim/tagbar'
 " }}}3
 
-" icons {{{3
-
-" Has to be last according to docs
-" Plug 'ryanoasis/vim-devicons'
-" }}}3
-
 call plug#end()
 " }}}2
 
