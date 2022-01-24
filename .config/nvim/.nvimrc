@@ -173,16 +173,19 @@ Plug 'bkad/CamelCaseMotion'
 
 " Others {{{3
 
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular'            " Aligb text with :/=/, etc.
 Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'         " comment stuff out
+Plug 'AndrewRadev/splitjoin.vim'    " Switch between single-line and multiline forms of code
+Plug 'junegunn/rainbow_parentheses.vim'
 
 " Pair
 Plug 'jiangmiao/auto-pairs'         " insert mode auto-completion for quotes, parens, brackets, etc
+" Plug 'Raimondi/delimitMate'         " insert mode auto-completion for quotes, parens, brackets, etc
+
+" Surround
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'             " Needed for 'vim-surround'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'junegunn/rainbow_parentheses.vim'
 
 " Indentline
 Plug 'Yggdroot/indentLine'
