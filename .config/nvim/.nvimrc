@@ -58,7 +58,7 @@ Plug 'rakr/vim-one'
 Plug 'fatih/molokai'
 Plug 'morhetz/gruvbox'
 " Colors
-Plug 'gko/vim-coloresque'
+Plug 'gko/vim-coloresque'                               " css/less/sass/html color preview for vim
 " Tmux
 Plug 'edkolev/tmuxline.vim'
 " }}}3
