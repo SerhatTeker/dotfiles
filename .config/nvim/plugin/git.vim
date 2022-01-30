@@ -47,6 +47,7 @@ nmap <leader>gbm :Gedit master:%<CR>
 " Amend aliases
 command! GCN :Git commit -v --no-edit --amend
 command! GCAN :Git commit -v -a --no-edit --amend
+command! GCE :Git commit --amend --edit
 
 " Alias for old habit
 command! GP :Git push
