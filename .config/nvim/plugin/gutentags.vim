@@ -1,5 +1,14 @@
 " vim-gutentags {{{
 
+let g:gutentags_modules = [
+            \ 'ctags',
+            \ ]
+
+" use universal-ctags
+if system('uname')=~'Darwin'
+    let g:gutentags_ctags_executable='~/.homebrew/bin/ctags'
+endif
+
 " How To Generate Ctags Include Python site-packages
 " https://github.com/ludovicchabant/vim-gutentags/issues/179
 let g:gutentags_file_list_command = {
@@ -45,6 +54,7 @@ let g:gutentags_ctags_exclude = [
     \  '*.bak',
     \  '*.zip',
     \  '*.pyc',
+    \  '*.py0',
     \  '*.class',
     \  '*.sln',
     \  '*.csproj', '*.csproj.user',
