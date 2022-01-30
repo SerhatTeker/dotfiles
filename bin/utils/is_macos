@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Check whether OS is macOS or not
+
+main() {
+    local uname="$(uname -a)"
+
+    if [[ "$uname" =~ Darwin ]]; then
+        return
+    fi
+
+    false
+}
+
+main
