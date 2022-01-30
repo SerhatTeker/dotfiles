@@ -5,8 +5,10 @@ let g:gutentags_modules = [
             \ ]
 
 " use universal-ctags
-if system('uname')=~'Darwin'
-    let g:gutentags_ctags_executable='~/.homebrew/bin/ctags'
+if has('mac')
+    if filereadable(expand("~/.homebrew/bin/ctags"))
+        let g:gutentags_ctags_executable='~/.homebrew/bin/ctags'
+    endif
 endif
 
 " How To Generate Ctags Include Python site-packages
@@ -45,16 +47,14 @@ let g:gutentags_ctags_extra_args = [
       \ '--tag-relative=yes',
       \ '--fields=+ailmnS',
       \ ]
-
 let g:gutentags_ctags_exclude = [
     \  '*.git', '*.svn', '*.hg',
     \  'cache', 'build', 'dist', 'bin', 'node_modules', 'bower_components',
     \  '*-lock.json',  '*.lock',
     \  '*.min.*',
     \  '*.bak',
-    \  '*.zip',
     \  '*.pyc',
-    \  '*.py0',
+    \  '*.pyo',
     \  '*.class',
     \  '*.sln',
     \  '*.csproj', '*.csproj.user',
@@ -67,6 +67,7 @@ let g:gutentags_ctags_exclude = [
     \  '*.swp', '*.swo',
     \  '.DS_Store', '*.plist',
     \  '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png', '*.svg',
+    \  '*.zip',
     \  '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
     \  '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx', '*.xls',
     \  '*.md',
