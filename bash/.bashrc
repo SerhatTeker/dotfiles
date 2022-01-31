@@ -108,8 +108,8 @@ fi
 
 # Mappings
 stty werase undef
-bind '"\C-w": backward-kill-word'
-bind '"\C-b": shell-backward-kill-word'
+bind '\C-w: backward-kill-word'
+bind '\C-b: shell-backward-kill-word'
 
 # Alias definitions
 # You may want to put all your additions into a separate file like
