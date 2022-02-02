@@ -37,34 +37,10 @@ toggle-night() {
 # }}}1
 
 # Back Up {{{1
-# ----------------------------------------------------------------------------#
 
-# compare files {{{2
-
-# hash two files and compare their hashes
-check-hsum() {
-	echo "$(shasum -a 256 $1)"
-    echo "$(shasum -a 256 $2)"
-	if [[ "$(shasum -a 256 $1 | awk '{print $1}')" == "$(shasum -a 256 $2 | awk '{print $1}')" ]]; then
-		echo "Equal"
-	else
-		echo "NOT equal"
-	fi
-}
-
-# hsum alternative
-ecmp() {
-	if cmp -s "$1" "$2"; then
-		echo "eq"
-	else
-		echo "neq"
-	fi
-}
-# }}}2
 # }}}1
 
 # Dirs {{{1
-# ----------------------------------------------------------------------------#
 
 # Open DIR
 # run it in the background
@@ -106,58 +82,6 @@ cv () {
     # builtin cd "$@" && nvim -S
 }
 
-# Zip Tar {{{2
-
-tar-it () {
-	dirorfile="$1"
-	destination="$1.tar.gz"
-
-	tar -czvf $destination $dirorfile
-}
-
-untar-it () {
-	file="$1"
-	filename="${file%%.*}"
-
-	# alternative to get the filename
-	# filename=$(basename -- "$fullfile")
-	# extension="${filename##*.}"
-	# filename="${filename%.*}"
-
-	tar -xzvf $file $filename
-}
-
-unzip-it () {
-    zipfile="$1"
-    zipdir=${1%.zip}
-
-    unzip -d "$zipdir" "$zipfile"
-}
-
-extract-it() {
-    # typing extract-it followed by a filename will extract most archives you
-    # come across (assuming you have the packages needed to extract that type
-    # of archive).
-	if [ -f $1 ] ; then
-		case $1 in
-			*.tar.bz2)   tar xvjf $1    ;;
-			*.tar.gz)    tar xvzf $1    ;;
-			*.bz2)       bunzip2 $1     ;;
-			*.rar)       unrar x $1     ;;
-			*.gz)        gunzip $1      ;;
-			*.tar)       tar xvf $1     ;;
-			*.tbz2)      tar xvjf $1    ;;
-			*.tgz)       tar xvzf $1    ;;
-			*.zip)       unzip $1       ;;
-			*.Z)         uncompress $1  ;;
-			*.7z)        7z x $1        ;;
-			*)           echo "Unable to extract '$1'" ;;
-		esac
-	else
-			echo "'$1' is not a valid file"
-	fi
-}
-# }}}2
 # }}}1
 
 # Files {{{1
@@ -452,3 +376,100 @@ _update-all() {
         -i checkbox-checked-symbolic
 }
 # }}}1
+
+# Utilities {{{
+
+# message {{{
+
+msg_cli() {
+    local _color=$1
+    local message=$2
+
+    case $_color in
+        b|blue) local color=${COLOR_BLUE} ;;
+        g|green) local color=${COLOR_GREEN} ;;
+        y|yellow) local color=${COLOR_GREEN} ;;
+        r|red) local color=${COLOR_GREEN} ;;
+        *) local color=${COLOR_WHITE} ;;
+    esac
+
+    echo -e "${color}------------------------------- ${message} -------------------------------${COLOR_NONE}"
+}
+# }}}
+
+# Zip Tar {{{
+
+tar-it () {
+	dirorfile="$1"
+	destination="$1.tar.gz"
+
+	tar -czvf $destination $dirorfile
+}
+
+untar-it () {
+	file="$1"
+	filename="${file%%.*}"
+
+	# alternative to get the filename
+	# filename=$(basename -- "$fullfile")
+	# extension="${filename##*.}"
+	# filename="${filename%.*}"
+
+	tar -xzvf $file $filename
+}
+
+unzip-it () {
+    zipfile="$1"
+    zipdir=${1%.zip}
+
+    unzip -d "$zipdir" "$zipfile"
+}
+
+extract-it() {
+    # typing extract-it followed by a filename will extract most archives you
+    # come across (assuming you have the packages needed to extract that type
+    # of archive).
+	if [ -f $1 ] ; then
+		case $1 in
+			*.tar.bz2)   tar xvjf $1    ;;
+			*.tar.gz)    tar xvzf $1    ;;
+			*.bz2)       bunzip2 $1     ;;
+			*.rar)       unrar x $1     ;;
+			*.gz)        gunzip $1      ;;
+			*.tar)       tar xvf $1     ;;
+			*.tbz2)      tar xvjf $1    ;;
+			*.tgz)       tar xvzf $1    ;;
+			*.zip)       unzip $1       ;;
+			*.Z)         uncompress $1  ;;
+			*.7z)        7z x $1        ;;
+			*)           echo "Unable to extract '$1'" ;;
+		esac
+	else
+			echo "'$1' is not a valid file"
+	fi
+}
+# }}}
+
+# compare files {{{
+
+# hash two files and compare their hashes
+check-hsum() {
+	echo "$(shasum -a 256 $1)"
+    echo "$(shasum -a 256 $2)"
+	if [[ "$(shasum -a 256 $1 | awk '{print $1}')" == "$(shasum -a 256 $2 | awk '{print $1}')" ]]; then
+		echo "Equal"
+	else
+		echo "NOT equal"
+	fi
+}
+
+# hsum alternative
+ecmp() {
+	if cmp -s "$1" "$2"; then
+		echo "eq"
+	else
+		echo "neq"
+	fi
+}
+# }}}
+# }}}
