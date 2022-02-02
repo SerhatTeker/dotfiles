@@ -76,6 +76,7 @@ cask "docker" # docker desktop
 cask "google-cloud-sdk"
 cask "google-chrome"
 cask "iterm2"
+cask "multipass"
 cask "notion"
 cask "slack"
 cask "spotify"
