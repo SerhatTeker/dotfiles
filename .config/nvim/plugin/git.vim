@@ -21,9 +21,9 @@ nnoremap <silent>ss :G<CR>
 " Do commit
 nnoremap <silent>cc :Git commit<CR>
 " Do push
-nnoremap <leader>pp :Git push<CR>
+nnoremap <leader>gp :Git push<CR>
 " Do pull
-nnoremap <leader>ll :Git push<CR>
+nnoremap <leader>gl :Git pull<CR>
 
 " Show Commits
 nnoremap <leader>gc :Commits!<CR>
