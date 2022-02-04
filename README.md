@@ -7,6 +7,8 @@ this repository, review the code, and remove things you don’t want or need.
 Don’t blindly use my settings unless you know what that entails. Use at your own
 risk!
 
+**Warning:** Install scripts not complete yet.
+
 ## BASE
 
 - Install related `ssh keys`
