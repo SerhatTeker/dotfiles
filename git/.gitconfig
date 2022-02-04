@@ -9,7 +9,9 @@
 [credential]
 	helper = cache --timeout=3600
 [init]
-	defaultBranch = master
+    # >=2.28.0
+    # https://github.blog/2020-07-27-highlights-from-git-2-28/#introducing-init-defaultbranch
+	defaultBranch = develop
 [merge]
 	ff = false
 [pull]
