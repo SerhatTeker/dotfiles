@@ -24,33 +24,21 @@ ZCUSTOMS="$ZDOTDIR/plugins/customs"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$ZDOTDIR/.oh-my-zsh"
+
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_cache_dir
+# default but for explicit definition
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
 
 # ZSH_COMPDUMP {{{3
 
-# look modify-oh-my-zsh() in zsh.sh
+# Just change ZSH_COMPDUMP in related related line in oh-my-zsh.sh
+# until #9090 merged, https://github.com/ohmyzsh/ohmyzsh/pull/9090
 #
-# ZSH_COMPDUMP not working corretyly, see related issue and MR:
-# https://github.com/ohmyzsh/ohmyzsh/issues/7332
-# https://github.com/ohmyzsh/ohmyzsh/pull/9090
-#
-# https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_compdump
-# export ZSH_COMPDUMP="$ZSH_CACHE_DIR/.zcompdump"
-#
-#
-# Belows are not working either
-#
-# Workaround #1
-# https://github.com/ohmyzsh/ohmyzsh/issues/7332#issuecomment-624630253
-# if [ ! -d "$HOME/.cache/zsh" ]; then
-#     mkdir -p $HOME/.cache/zsh
+# # Save the location of the current completion dump file.
+# if [[ -z "$ZSH_COMPDUMP" ]]; then
+# -  ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
+# +  ZSH_COMPDUMP="${ZSH_CACHE_DIR}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
 # fi
-# export ZSH_COMPDUMP="$HOME/.cache/zsh/zcompdump-$HOST-$ZSH_VERSION"
-
-# Workaround #2
-# https://github.com/ohmyzsh/ohmyzsh/issues/7332#issuecomment-624221366
-# export ZSH_COMPDUMP="${ZSH_CACHE_DIR}/.zcompdump-${HOST}-${ZSH_VERSION}"
 # }}}3
 # }}}2
 # }}}1
