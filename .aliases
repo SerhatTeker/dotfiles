@@ -113,7 +113,6 @@ alias gstu='git stash -u'
 # tmux {{{
 
 alias ta='tmux a -t'
-alias tnew='tmux new -s'
 alias tls='tmux ls'
 alias tka='tmux kill-server'
 # tmux resurrect last sessions from resurrect addon
