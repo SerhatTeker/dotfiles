@@ -2,21 +2,29 @@
 
 " Change defaults {{{
 
-" 0. Add Python f,b,r strings
-" 1. Delete single ", ', `
+" Only Parenthesis
 au Filetype * let g:AutoPairs = {
             \ '(':')',
             \ '[':']',
-            \ '{':'}',
-            \ "'":"'",
-            \ '"':'"',
-            \ '```':'```',
-            \ '"""':'"""',
-            \ "'''":"'''",
-            \ "b'":"'",
-            \ "f'":"'",
-            \ "r'":"'"
+            \ '{':'}'
             \ }
+
+" All
+" 0. Add Python f,b,r strings
+" 1. Delete single ", ', `
+" au Filetype * let g:AutoPairs = {
+"             \ '(':')',
+"             \ '[':']',
+"             \ '{':'}',
+"             \ "'":"'",
+"             \ '"':'"',
+"             \ '```':'```',
+"             \ '"""':'"""',
+"             \ "'''":"'''",
+"             \ "b'":"'",
+"             \ "f'":"'",
+"             \ "r'":"'"
+"             \ }
 " }}}
 
 " Toggle Autopairs disabled due to conflict {{{
