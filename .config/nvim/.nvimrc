@@ -168,7 +168,6 @@ Plug 'junegunn/rainbow_parentheses.vim'
 
 " Pair
 Plug 'jiangmiao/auto-pairs'         " insert mode auto-completion for quotes, parens, brackets, etc
-" Plug 'Raimondi/delimitMate'         " insert mode auto-completion for quotes, parens, brackets, etc
 
 " Surround
 Plug 'tpope/vim-surround'           " Delete/change/add parentheses/quotes/XML-tags/much more
