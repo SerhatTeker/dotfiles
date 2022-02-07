@@ -10,6 +10,7 @@ trim_trailing_whitespace = true
 indent_style = space
 indent_size = 4
 
+# explicit
 [*.{rst,ini}]
 indent_style = space
 indent_size = 4
@@ -35,5 +36,9 @@ line_length=120
 multi_line_output=3
 
 [*.go]
+indent_style = tab
+indent_size = 8
+
+[*.c]
 indent_style = tab
 indent_size = 8
