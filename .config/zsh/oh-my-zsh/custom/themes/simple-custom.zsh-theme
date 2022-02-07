@@ -1,4 +1,5 @@
-# vim:ft=zsh ts=4 sw=4 sts=4
+# -*- coding: utf-8 -*-
+# vim: set ft=zsh et ts=4 sw=4 sts=4:
 
 # Default - OLD
 # PROMPT='%{$fg[cyan]%}%~%  %{$fg_bold[blue]%}$(git_prompt_info) %(?.%{$fg[green]%}.%{$fg[red]%})%B$%b '
