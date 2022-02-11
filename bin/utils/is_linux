@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+
+# Check whether OS is Linux or not
+
+main() {
+    local uname="$(uname -a)"
+
+    if [[ "$uname" =~ Linux ]]; then
+        return
+    fi
+
+    false
+}
+
+main
