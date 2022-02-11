@@ -309,12 +309,6 @@ setopt SHARE_HISTORY # share command history data
 # autoload -U +X bashcompinit && bashcompinit
 # autoload -Uz compinit && compinit
 
-# kubectl
-# Check kubectl installed
-if hash kubectl 2>/dev/null; then
-    source <(kubectl completion zsh)
-fi
-
 # aws
 complete -C $(which aws_completer) aws
 
