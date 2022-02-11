@@ -127,12 +127,4 @@ fi
 # tty font color
 setterm -clear all -foreground green -bold on -cursor on
 
-# powerline
-# if you want you use it uncomment this section
-# export TERM="screen-256color"
-# powerline-daemon -q
-# POWERLINE_BASH_CONTINUATION=1
-# POWERLINE_BASH_SELECT=1
-# . ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
