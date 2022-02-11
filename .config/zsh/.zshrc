@@ -27,19 +27,11 @@ export ZSH="$ZDOTDIR/.oh-my-zsh"
 
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_cache_dir
 # default but for explicit definition
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/ohmyzsh"
 
-# ZSH_COMPDUMP {{{3
-
-# Just change ZSH_COMPDUMP in related related line in oh-my-zsh.sh
-# until #9090 merged, https://github.com/ohmyzsh/ohmyzsh/pull/9090
-#
-# # Save the location of the current completion dump file.
-# if [[ -z "$ZSH_COMPDUMP" ]]; then
-# -  ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-# +  ZSH_COMPDUMP="${ZSH_CACHE_DIR}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-# fi
-# }}}3
+# Use custom ZSH_COMPDUMP until #9090 merged
+# https://github.com/ohmyzsh/ohmyzsh/pull/9090
+export ZSH_COMPDUMP="${XDG_CACHE_HOME}/.zcompdump-${HOST/.*/}-${ZSH_VERSION}"
 # }}}2
 # }}}1
 
