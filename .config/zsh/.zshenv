@@ -11,6 +11,14 @@
 #
 # ----------------------------------------------------------------------------#
 
+# Disable zsh default compinit since oh-my-zsh will compinit
+# Starting Issue
+# https://github.com/ohmyzsh/ohmyzsh/issues/7332
+# Solution
+# https://github.com/ohmyzsh/ohmyzsh/issues/7332#issuecomment-491595390
+# https://github.com/ohmyzsh/ohmyzsh/issues/7332#issuecomment-593308026
+skip_global_compinit=1
+
 # https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
 # User directories
 export XDG_CONFIG_HOME="${HOME}/.config"

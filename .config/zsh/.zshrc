@@ -305,9 +305,9 @@ setopt SHARE_HISTORY # share command history data
 
 # Auto complete {{{2
 
-autoload bashcompinit && bashcompinit
+# autoload bashcompinit && bashcompinit
 # autoload -U +X bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
+# autoload -Uz compinit && compinit
 
 # kubectl
 # Check kubectl installed
@@ -319,5 +319,5 @@ fi
 complete -C $(which aws_completer) aws
 
 # terraform
-# complete -C /home/serhat/.local/bin/terraform terraform
+# complete -C ~/.local/bin/terraform terraform
 # }}}2
