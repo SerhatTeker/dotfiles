@@ -76,9 +76,8 @@ export HOMEBREW_NO_ENV_HINTS=1
 
 # Dotfiles {{{
 
-export XDG_CONFIG_HOME=${HOME}/.config
-
 # NeoVim
+# TODO: Move it to $XDG_CONFIG_HOME
 export MYNVIMRC=$HOME/dotfiles/.config/vim/.nvimrc
 # Bat
 export BAT_CONFIG_PATH=${XDG_CONFIG_HOME}/bat/bat.conf
