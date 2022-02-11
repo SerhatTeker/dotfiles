@@ -263,6 +263,35 @@ fi
 
 # SETTINGS-2 {{{1
 
+# Extra Auto complete {{{2
+
+# autoload bashcompinit && bashcompinit
+# autoload -U +X bashcompinit && bashcompinit
+# autoload -Uz compinit && compinit
+
+# aws
+complete -C $(which aws_completer) aws
+
+# terraform
+# complete -C ~/.local/bin/terraform terraform
+# }}}2
+
+# History {{{2
+
+# !!! Warning !!!
+# History settings should be after `source $ZSH/oh-my-zsh.sh`
+HISTFILE=$ZDOTDIR/.zsh_history
+HISTSIZE=1000000 # 1M
+SAVEHIST=$HISTSIZE
+
+setopt HIST_IGNORE_ALL_DUPS # ignore duplicated commands history list
+setopt HIST_SAVE_NO_DUPS  # do not save duplicated command
+setopt HIST_REDUCE_BLANKS  # remove unnecessary blanks
+setopt INC_APPEND_HISTORY_TIME  # append command to history file immediately after execution
+setopt EXTENDED_HISTORY  # record command start time
+setopt SHARE_HISTORY # share command history data
+# }}}2
+
 # Aliases, functions and others {{{2
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -283,35 +312,7 @@ fi
 [ -f $ZDOTDIR/.private.zsh ] && source $ZDOTDIR/.private.zsh
 
 # Personal specific extras
+# Overrides defaults if there are any
 [ -f $ZDOTDIR/.zsh.local ] && source $ZDOTDIR/.zsh.local
 # }}}2
-
-# History {{{2
-
-# !!! Warning !!!
-# History settings should be after `source $ZSH/oh-my-zsh.sh`
-HISTFILE=$ZDOTDIR/.zsh_history
-HISTSIZE=1000000 # 1M
-SAVEHIST=$HISTSIZE
-
-setopt HIST_IGNORE_ALL_DUPS # ignore duplicated commands history list
-setopt HIST_SAVE_NO_DUPS  # do not save duplicated command
-setopt HIST_REDUCE_BLANKS  # remove unnecessary blanks
-setopt INC_APPEND_HISTORY_TIME  # append command to history file immediately after execution
-setopt EXTENDED_HISTORY  # record command start time
-setopt SHARE_HISTORY # share command history data
-# }}}2
 # }}}1
-
-# Auto complete {{{2
-
-# autoload bashcompinit && bashcompinit
-# autoload -U +X bashcompinit && bashcompinit
-# autoload -Uz compinit && compinit
-
-# aws
-complete -C $(which aws_completer) aws
-
-# terraform
-# complete -C ~/.local/bin/terraform terraform
-# }}}2
