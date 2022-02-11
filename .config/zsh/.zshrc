@@ -54,7 +54,7 @@ ZSH_THEME="simple-custom"
 
 # Base16 Shell Themes {{{
 # Optional
-BASE16_SHELL="$HOME/.config/base16-shell/"
+BASE16_SHELL="${XDG_CONFIG_HOME}/base16-shell/"
 [ -n "$PS1" ] && \
 	[ -s "$BASE16_SHELL/profile_helper.sh" ] && \
 		eval "$("$BASE16_SHELL/profile_helper.sh")"
@@ -151,12 +151,10 @@ zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 # Preferred editor for local and remote sessions
 # use nvim
 # if not exists use vim
-if [ -f $(which nvim) ]; then
+if hash nvim 2>/dev/null; then
 	export EDITOR='nvim'
-else
-	if [ -f $(which vim) ]; then
-		export EDITOR='vim'
-	fi
+elif hash vim 2>/dev/null; then
+	export EDITOR='vim'
 fi
 
 # SSH different editor choice
