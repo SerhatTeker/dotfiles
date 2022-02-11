@@ -169,6 +169,7 @@ alias rv='deactivate && source .venv/bin/activate'
 
 # display $paths line by line
 alias sedpath='sed "s/ /\n/g" <<< "$path"'
+alias paths='sed "s/ /\n/g" <<< "$path"'
 # }}}
 
 # Others {{{
