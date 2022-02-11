@@ -73,8 +73,8 @@ alias cdg='cd-gitroot'
 # print all and ignore .git and .venv dir
 alias tree='tree -aI ".git|.venv"'
 
-# config:source
-alias sz='source $ZDOTDIR/.zshrc'
+# source zsh
+alias sz='exec zsh'
 
 # https://askubuntu.com/a/22043
 alias sudo='sudo '
