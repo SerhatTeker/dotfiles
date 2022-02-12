@@ -49,6 +49,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'PhilRunninger/nerdtree-visual-selection'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-unimpaired'
+Plug 'kshenoy/vim-signature'                            " toggle, display and navigate marks
 " }}}3
 
 " Theme {{{3
