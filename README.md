@@ -25,4 +25,14 @@ risk!
 
 ## LINUX
 
+### Gnome Terminal
 
+Tango with custom Background
+
+Text and Background Color: Tango Dark
+Custom Background : #0B0B0B
+Palette: Tango Dark
+
+For #080808: https://www.colorhexa.com/080808
+
+https://www.ditig.com/256-colors-cheat-sheet

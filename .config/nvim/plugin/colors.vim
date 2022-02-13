@@ -82,7 +82,7 @@ function! InitiateColorscheme()
         " set background=dark
         " colorscheme onedark
         " let g:onedark_color_overrides = {
-        "             \ "black": {"gui": "#1b1b1b", "cterm": "233", "cterm16": "0" },
+        "             \ "black": {"gui": "#0b0b0b", "cterm": "233", "cterm16": "0" },
         "             \}
 
         " One

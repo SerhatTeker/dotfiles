@@ -1,9 +1,12 @@
 # Colors (One Dark - https://github.com/atom/atom/tree/master/packages/one-dark-syntax)
 colors:
   primary:
-    # background: '#282c34'   # soft contrast
-    # background: '#1c1c1c'   # medium contrast
-    background: '#121212'     # hard contrast
+    # background: '#282c34'     # soft contrast
+    # background: '#1c1c1c'     # medium contrast
+    # background: '#121212'     # hard contrast-0
+    background: '#0B0B0B'     # hard contrast-1
+    # background: '#080808'     # hard contrast-2
+
     # foreground: '#abb2bf'
     foreground: '#d0d0d0'
   cursor:
