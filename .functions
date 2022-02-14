@@ -396,8 +396,10 @@ msg_cli() {
     case $_color in
         b|blue) local color=${COLOR_BLUE} ;;
         g|green) local color=${COLOR_GREEN} ;;
-        y|yellow) local color=${COLOR_GREEN} ;;
-        r|red) local color=${COLOR_GREEN} ;;
+        y|yellow) local color=${COLOR_YELLOW} ;;
+        r|red) local color=${COLOR_RED} ;;
+        c|cyan) local color=${COLOR_CYAN} ;;
+        p|purple) local color=${COLOR_PURPLE} ;;
         *) local color=${COLOR_WHITE} ;;
     esac
 
