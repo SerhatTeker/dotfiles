@@ -387,26 +387,6 @@ _update-all() {
 
 # Utilities {{{
 
-# message {{{
-
-msg_cli() {
-    local _color=$1
-    local message=$2
-
-    case $_color in
-        b|blue) local color=${COLOR_BLUE} ;;
-        g|green) local color=${COLOR_GREEN} ;;
-        y|yellow) local color=${COLOR_YELLOW} ;;
-        r|red) local color=${COLOR_RED} ;;
-        c|cyan) local color=${COLOR_CYAN} ;;
-        p|purple) local color=${COLOR_PURPLE} ;;
-        *) local color=${COLOR_WHITE} ;;
-    esac
-
-    echo -e "${color}------------------------------- ${message} -------------------------------${COLOR_NONE}"
-}
-# }}}
-
 # Zip Tar {{{
 
 tar-it () {
