@@ -254,7 +254,7 @@ journal(){
 # Use 3.8 if $PYTHON_VERSION not set
 pipg() {
     local py=${PYTHON:-python3} # ${PYTHON} comes from .zshenv
-    PIP_REQUIRE_VIRTUALENV=false ${py} -m pip --user "$@"
+    PIP_REQUIRE_VIRTUALENV=false ${py} -m pip "${@}"
 }
 
 # If a virtualenv with name of .venv, load it.
