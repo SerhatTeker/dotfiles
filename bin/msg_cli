@@ -48,7 +48,7 @@ COLOR_RESET=$(tput sgr0)
 
 _color=$1
 _message=$2
-_type=${3:-"header"}
+_type=$3
 
 
 case $_color in
@@ -63,7 +63,6 @@ esac
 
 
 case $_type in
-    h|header) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
     n|normal) echo -e "${color}${_message}${COLOR_RESET}" ;;
     *) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
 esac
