@@ -40,6 +40,7 @@ __default-shell() {
 check_zsh_installed() {
     if hash zsh 2>/dev/null; then
         echo "Configuring zsh"
+        # __default-shell
     else
         echo "Zsh not installed. Install first."
         exit 1
@@ -118,7 +119,7 @@ modify-oh-my-zsh() {
     # https://github.com/ohmyzsh/ohmyzsh/blob/4e2f4cdf686fe560cec3ec7072628c4d0f723929/oh-my-zsh.sh#L108
     # ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
     # ZSH_COMPDUMP="${XDG_CACHE_HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-    echo ""
+    :
 }
 
 # TODO: Fix: not working together with ioh-my-zsh
@@ -158,7 +159,6 @@ custom-themes() {
 
 
 main() {
-    # __default-shell
     check_zsh_installed
     link-xdg
     link-personal
