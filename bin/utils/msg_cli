@@ -5,25 +5,36 @@
 # Helper function bin to stdout message colorful
 
 
-COLOR_NONE="\e[0m"
-COLOR_WHITE="\e[1;37m"
-COLOR_RED="\e[0;31m"
-COLOR_BLUE="\e[0;34m"
-COLOR_GREEN="\e[0;32m"
-COLOR_YELLOW="\e[1;33m"
-COLOR_BROWN="\e[0;33m"
-COLOR_PINK="\e[0;35m"
-COLOR_CYAN="\e[0;36m"
-COLOR_PURPLE="\e[0;35m"
-COLOR_BLACK="\e[0;30m"
-COLOR_LIGHTGRAY="\e[0;37m"
-COLOR_DARKGRAY="\e[1;30m"
-COLOR_LIGHTBLUE="\e[1;34m"
-COLOR_LIGHTGREEN="\e[1;32m"
-COLOR_LIGHTCYAN="\e[1;36m"
-COLOR_LIGHTRED="\e[1;31m"
-COLOR_LIGHTPURPLE="\e[1;35m"
+# Not compatible
+# http://mywiki.wooledge.org/BashFAQ/037
+#
+# COLOR_NONE="\e[0m"
+# COLOR_WHITE="\e[1;37m"
+# COLOR_RED="\e[0;31m"
+# COLOR_BLUE="\e[0;34m"
+# COLOR_GREEN="\e[0;32m"
+# COLOR_YELLOW="\e[1;33m"
+# COLOR_BROWN="\e[0;33m"
+# COLOR_PINK="\e[0;35m"
+# COLOR_CYAN="\e[0;36m"
+# COLOR_PURPLE="\e[0;35m"
+# COLOR_BLACK="\e[0;30m"
+# COLOR_LIGHTGRAY="\e[0;37m"
+# COLOR_DARKGRAY="\e[1;30m"
+# COLOR_LIGHTBLUE="\e[1;34m"
+# COLOR_LIGHTGREEN="\e[1;32m"
+# COLOR_LIGHTCYAN="\e[1;36m"
+# COLOR_LIGHTRED="\e[1;31m"
+# COLOR_LIGHTPURPLE="\e[1;35m"
 
+COLOR_BLUE=$(tput setaf 4)
+COLOR_RED=$(tput setaf 1)
+COLOR_GREEN=$(tput setaf 2)
+COLOR_YELLOW=$(tput setaf 3)
+COLOR_CYAN=$(tput setaf 6)
+COLOR_MAGENTA=$(tput setaf 5)
+COLOR_WHITE=$(tput setaf 15)
+COLOR_RESET=$(tput sgr0)
 
 _color=$1
 message=$2
@@ -32,11 +43,11 @@ message=$2
 case $_color in
     b|blue) color=${COLOR_BLUE} ;;
     g|green) color=${COLOR_GREEN} ;;
-    y|yellow) color=${COLOR_YELLOW} ;;
     r|red) color=${COLOR_RED} ;;
+    y|yellow) color=${COLOR_YELLOW} ;;
     c|cyan) color=${COLOR_CYAN} ;;
-    p|purple) color=${COLOR_PURPLE} ;;
+    m|magenta) color=${COLOR_MAGENTA} ;;
     *) color=${COLOR_WHITE} ;;
 esac
 
-echo -e "${color}------------------------------- ${message} -------------------------------${COLOR_NONE}"
+echo -e "${color}------------------------------- ${message} -------------------------------${COLOR_RESET}"
