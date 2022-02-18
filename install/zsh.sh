@@ -11,7 +11,8 @@
 #
 # Install and customize zsh
 # ----------------------------------------------------------------------------#
-#
+
+
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
 set -o nounset
@@ -28,10 +29,6 @@ export ZMAIN=${XDG_CONFIG_HOME}/zsh
 export ZDOTDIR=${ZMAIN}
 export ZSH=${ZMAIN}/.oh-my-zsh
 DOT_ZSH=${DOTFILES}/zsh    # Alias for dotfiles zsh
-
-
-# Ask for the administrator password upfront
-sudo -v
 
 
 __default-shell() {
@@ -173,5 +170,6 @@ main() {
 
 main
 # iplugins
+# link-personal
 
 exit 0
