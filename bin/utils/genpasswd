@@ -3,6 +3,7 @@
 # vim: set ft=sh et ts=4 sw=4 sts=4:
 
 # Generate pseudorandom password
+# TODO: Add args to choose bash, openssl, py options
 
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
@@ -11,15 +12,12 @@ set -o nounset
 set -o pipefail
 
 
-# Default length
-LENGTH=20
-# Pass a number argument for the lenth
-if [ ! -z "$1" ] && [ $1 -gt 1 ]; then
-  LENGTH=$1
-fi
+# Default 20
+LENGTH=${1:-20}
 
 CHARS='A-Za-z0-9!"#$%&'\''()*+,-./:;<=>?@[\]^_`{|}~'
 LC_ALL=C tr -dc $CHARS </dev/urandom | head -c $LENGTH ; echo
 
 # Alternative Method
 # openssl rand -base64 $LENGTH
+# openssl rand -base64 256
