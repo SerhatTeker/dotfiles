@@ -5,7 +5,7 @@
 # Helper function bin to stdout message colorful
 
 
-# Not compatible
+# Not compatible, solution:
 # http://mywiki.wooledge.org/BashFAQ/037
 #
 # COLOR_NONE="\e[0m"
@@ -26,7 +26,7 @@
 # COLOR_LIGHTCYAN="\e[1;36m"
 # COLOR_LIGHTRED="\e[1;31m"
 # COLOR_LIGHTPURPLE="\e[1;35m"
-
+#
 COLOR_BLUE=$(tput setaf 4)
 COLOR_RED=$(tput setaf 1)
 COLOR_GREEN=$(tput setaf 2)
