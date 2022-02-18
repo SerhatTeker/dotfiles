@@ -58,8 +58,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Tmux
-*/tmux/plugins/*
-*/tmux/resurrect
+tmux/plugins/*
+tmux/resurrect
 
 # Zsh
 .oh-my-zsh
