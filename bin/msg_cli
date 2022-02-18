@@ -58,6 +58,7 @@ case $_color in
     y|yellow) color=${COLOR_YELLOW} ;;
     c|cyan) color=${COLOR_CYAN} ;;
     m|magenta) color=${COLOR_MAGENTA} ;;
+    w|white) color=${COLOR_WHITE} ;;
     *) color=${COLOR_WHITE} ;;
 esac
 
