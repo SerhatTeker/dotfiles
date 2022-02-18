@@ -23,41 +23,91 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
-# Ask for the administrator password upfront
-sudo -v
-
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    if [ -f "${XDG_CONFIG_HOME}/zsh" ] || [ ! -L "${XDG_CONFIG_HOME}/zsh" ];then
-        # or remove dir after informing in advance?
-        echo "${XDG_CONFIG_HOME}/zsh is not a symlink. Delete it manually."
-        exit 1
-    else
-        unlink "${XDG_CONFIG_HOME}/zsh"
-        ln -sf "${DOTFILES}/.config/zsh" "${XDG_CONFIG_HOME}/zsh"
-    fi
-fi
-
 # Export main environment variables for ZSH
 export ZMAIN=${XDG_CONFIG_HOME}/zsh
 export ZDOTDIR=${ZMAIN}
 export ZSH=${ZMAIN}/.oh-my-zsh
+DOT_ZSH=${DOTFILES}/zsh    # Alias for dotfiles zsh
 
-default-shell() {
+
+# Ask for the administrator password upfront
+sudo -v
+
+
+__default-shell() {
     # make zsh default shell
     sudo sh -c "echo $(which zsh) >> /etc/shells"
     chsh -s $(which zsh)
 }
 
-# create soft links
-link-configs() {
-    ln -s ${DOTFILES}/.config/zsh/ ${XDG_CONFIG_HOME}
-    ln -sf ${SYSBAK}/zsh/.private.zsh ${ZMAIN}/.private.zsh
-    ln -sf ${PRIVATE}/zsh/.private.zsh ${ZMAIN}/.zsh_history
+check_zsh_installed() {
+    if hash zsh 2>/dev/null; then
+        echo "Configuring zsh"
+    else
+        echo "Zsh not installed. Install first."
+        exit 1
+    fi
+}
+
+# Create XDG_CONFIG_HOME link
+link-xdg() {
+    # Linux
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        if [ -f "${XDG_CONFIG_HOME}/zsh" ] || [ ! -L "${XDG_CONFIG_HOME}/zsh" ];then
+            # or remove dir after informing in advance?
+            echo "${XDG_CONFIG_HOME}/zsh is not a symlink. Delete it manually."
+            exit 1
+        else
+            unlink "${XDG_CONFIG_HOME}/zsh"
+            ln -sf "${DOT_ZSH}" "${XDG_CONFIG_HOME}/zsh"
+        fi
+    # MacOS
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        if [ -f "${XDG_CONFIG_HOME}/zsh" ] && [ ! -L "${XDG_CONFIG_HOME}/zsh" ];then
+            echo "${XDG_CONFIG_HOME}/zsh is not a symlink. Delete it manually."
+            exit 1
+        else
+            unlink "${XDG_CONFIG_HOME}/zsh"
+            ln -sf "${DOT_ZSH}" "${XDG_CONFIG_HOME}/zsh"
+        fi
+    # Other
+    else
+        echo "${OSTYPE} not implemented"
+        exit 1
+    fi
+}
+
+# create personal soft links
+link-personal() {
+    if [ -f ${SYSBAK}/zsh/.private.zsh ]; then
+        ln -sf ${SYSBAK}/zsh/.private.zsh ${ZMAIN}/.private.zsh
+    fi
+
+    if [ -f ${PRIVATE}/zsh/.zsh_history ]; then
+        ln -sf ${PRIVATE}/zsh/.zsh_history ${ZMAIN}/.zsh_history
+    fi
+}
+
+# Set ZDOTDIR globally
+set-zdotdir() {
+    # Set global ZDOTDIR
+    # Hacky ugly way to fix tmux behavior
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" | \
+            sudo tee -a /etc/zsh/zshenv
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        # TODO: Implement
+        echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" | \
+            sudo tee -a /etc/zshenv
+    else
+        echo "No install configuration for ${OSTYPE}"
+        exit 1
+    fi
 }
 
 ioh-my-zsh() {
-    if [[ -d "${HOME}/dotfiles/.config/zsh/.oh-my-zsh" ]];then
-        rm -rf ${DOTFILES}/.config/zsh/.oh-my-zsh
+    if [[ -d "${HOME}/dotfiles/zsh/.oh-my-zsh" ]];then
+        rm -rf ${DOT_ZSH}/.oh-my-zsh
     fi
     wget \
         https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh \
@@ -72,14 +122,6 @@ modify-oh-my-zsh() {
     # ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
     # ZSH_COMPDUMP="${XDG_CACHE_HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
     echo ""
-}
-
-custom-themes() {
-    for theme in "simple" "gallois"
-    do
-        ln -s ${DOTFILES}/.config/zsh/oh-my-zsh/custom/themes/${theme}-custom.zsh-theme \
-            ${ZSH}/custom/themes
-    done
 }
 
 # TODO: Fix: not working together with ioh-my-zsh
@@ -109,26 +151,21 @@ iplugins() {
         ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 }
 
-set-zdotdir() {
-    # Set global ZDOTDIR
-    # Hacky ugly way to fix tmux behavior
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" | \
-            sudo tee -a /etc/zsh/zshenv
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        # TODO: Implement
-        echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" | \
-            sudo tee -a /etc/zshenv
-    else
-        echo "No install configuration for ${OSTYPE}"
-        exit 1
-    fi
+custom-themes() {
+    for theme in "simple" "gallois"
+    do
+        ln -sf ${DOT_ZSH}/oh-my-zsh/custom/themes/${theme}-custom.zsh-theme \
+            ${ZSH}/custom/themes
+    done
 }
 
+
 main() {
-    # default-shell
+    # __default-shell
+    check_zsh_installed
+    link-xdg
+    link-personal
     set-zdotdir
-    link-configs
     ioh-my-zsh
     iplugins
     custom-themes
