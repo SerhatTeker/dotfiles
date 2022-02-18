@@ -18,8 +18,8 @@
 if filereadable(expand("$MYNVIMRC"))
 	source $MYNVIMRC
 " fallbacks
-elseif filereadable(expand("~/.nvimrc"))
-	source ~/.nvimrc
+elseif filereadable(expand("~/.config/nvim/.nvimrc"))
+	source ~/.config/nvim/.nvimrc
 else
 	source ~/.vimrc
 endif
