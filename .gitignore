@@ -62,9 +62,9 @@ $RECYCLE.BIN/
 */tmux/resurrect
 
 # Zsh
-*/zsh/.oh-my-zsh
-*/zsh/.private.zsh
-*/zsh/.zsh_history
-*/zsh/.zcompdump
-*/zsh/.zcompdump*
-*/zsh/.local.zsh
+.oh-my-zsh
+.private.zsh
+.zsh_history
+.zcompdump
+.zcompdump*
+.local.zsh
