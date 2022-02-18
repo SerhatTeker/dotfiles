@@ -81,7 +81,7 @@ cask "notion"
 cask "slack"
 cask "spotify"
 cask "telegram"
-# cask "virtualbox"
+# cask "virtualbox"     # not compatible with M1
 cask "visual-studio-code"
 cask "vlc"
 cask "zoom"
