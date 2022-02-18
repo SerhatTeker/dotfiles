@@ -3,6 +3,15 @@
 # vim: set ft=sh et ts=4 sw=4 sts=4:
 
 # Helper function bin to stdout message colorful
+# Usage:
+#
+# As header
+# msg_cli green "OK" header
+# msg_cli g "OK"
+#
+# Normal:
+# msg_cli green "OK" normal
+# msg_cli g "OK" n
 
 
 # Not compatible, solution:
@@ -36,8 +45,10 @@ COLOR_MAGENTA=$(tput setaf 5)
 COLOR_WHITE=$(tput setaf 15)
 COLOR_RESET=$(tput sgr0)
 
+
 _color=$1
-message=$2
+_message=$2
+_type=${3:-"header"}
 
 
 case $_color in
@@ -50,4 +61,9 @@ case $_color in
     *) color=${COLOR_WHITE} ;;
 esac
 
-echo -e "${color}------------------------------- ${message} -------------------------------${COLOR_RESET}"
+
+case $_type in
+    h|header) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
+    n|normal) echo -e "${color}${_message}${COLOR_RESET}" ;;
+    *) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
+esac
