@@ -172,6 +172,11 @@ alias sedpath='sed "s/ /\n/g" <<< "$path"'
 alias paths='sed "s/ /\n/g" <<< "$path"'
 # }}}
 
+# VM {{{
+
+alias mp='multipass'
+# }}}
+
 # Others {{{
 
 alias cmatrix='cmatrix -Baf'
