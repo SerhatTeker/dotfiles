@@ -22,24 +22,42 @@ force_remove() {
     local _source=$1
     local _target=$2
 
-    echo ${_target}
-
-    if [ -f "${_target}" ] && [ ! -L "${_target}" ];then
-        echo "Soft link NOT exist"
-        if ${force}; then
-            rm -rf ${_target}
-        else
-            msg_cli red "${_target} is not a symlink. Delete it manually, or force it with -f|--force"
-            echo "Force not set to <true>"
-            return
-        fi
+    if [ -d "${_target}" ] && [ ! -L "${_target}" ];then
+        # echo "${_target} is a directory. Delete it manually."
+        msg_cli yellow "WARNING: Deleting directory ${_target}"
+        rm -rf ${_target}
+    elif [ -f "${_target}" ] && [ ! -L "${_target}" ];then
+        # echo "${_target} is not a symlink. Delete it manually."
+        msg_cli yellow "WARNING: Deleting file ${_target}"
+        rm ${_target}
     else
-        echo "Soft link DOES exist"
+        [ -L "${_target}" ] && unlink "${_target}"
     fi
 
     ln -sf "${_source}" "${_target}"
 }
 
+# Link all configs
+dot_configs() {
+    declare -a arr=(
+            "alacritty"
+            "bat"
+            "git"
+            "httpie"
+            "lsd"
+            "rg"
+            "nvim"
+            "tmux"
+            "zsh"
+    )
+
+    for dir in "${arr[@]}"
+    do
+        force_remove "${DOTFILES}/${dir}" "${XDG_CONFIG_HOME}/${dir}"
+    done
+
+    # msg_cli green "Dotfiles configs linked to ${XDG_CONFIG_HOME}"
+}
 
 # Link all bins
 bins() {
@@ -47,73 +65,52 @@ bins() {
     local target=${HOME}/.local/bin
 
     ln -sf ${source}/* ${target}
-    msg_cli green "Bin files linked to ${target}"
-}
-
-# Link all configs
-dot_configs() {
-        declare -a arr=(
-                "alacritty"
-                "bat"
-                "git"
-                "httpie"
-                "lsd"
-                "rg"
-                "nvim"
-                "tmux"
-                "zsh"
-        )
-
-        for dir in "${arr[@]}"
-        do
-        force_remove "${DOTFILES}/${dir}" "${XDG_CONFIG_HOME}${dir}"
-        done
-
-    msg_cli green "Dotfiles configs linked to ${XDG_CONFIG_HOME}"
+    # msg_cli green "Bin files linked to ${target}"
 }
 
 dot_gnu() {
-    source="${SYSBAK}/.gnupg"
-    target="${HOME}/.gnupg"
+    [ -f "${SYSBAK}/.gnupg" ] || return 0
+
+    local source="${SYSBAK}/.gnupg"
+    local target="${HOME}/.gnupg"
 
     force_remove "${source}" "${target}"
     # make directory unreadable by others
     chmod -R o-rx "${target}"
     # make symlink available only to current user
     chmod 700 "${target}"
+    # msg_cli green ".gnupg linked"
 }
 
 # TODO: Check if true
 # other stuff
-home_other() {
-    for files in \
-        ctags/.ctags \
-        etc/.sqliterc; do
-
-        force_remove "${DOTFILES}/${files}" "${HOME}/${files}"
-    done
+home_others() {
+    force_remove "${DOTFILES}/ctags/.ctags" "${HOME}/.ctags"
+    force_remove "${DOTFILES}/etc/.sqliterc" "${HOME}/.sqliterc"
+    # msg_cli green ".gnupg linked"
 }
 
 languages() {
     # node
     force_remove "${DOTFILES}/node/.npmrc" "${HOME}/.npmrc"
+    # msg_cli green "Languages linked"
 }
 
 containers() {
-    mkdir -p "${XDG_CONFIG_HOME}/kube"
-    force_remove "${DOTFILES}/kube/kind.yaml" "${XDG_CONFIG_HOME}/kube/kind.yaml"
+    force_remove "${DOTFILES}/kube" "${XDG_CONFIG_HOME}/kube"
+    # msg_cli green "Containers linked"
 }
 
 
 main() {
-    # bins
     dot_configs
-    # dot_gnu
-    # languages
-    # containers
-    # home_other
+    bins
+    dot_gnu
+    home_others
+    languages
+    containers
 
-    msg_cli green "All Dotfiles linked"
+    msg_cli green "All dotfiles linked"
 }
 
 
@@ -131,7 +128,7 @@ else
         "$FMT_YELLOW" "$FMT_RESET"
     read -r opt
     case $opt in
-        y*|Y*|"") main ;;
+        y*|Y*|"") force=true; main ;;
         n*|N*) msg_cli white "Soft link creation skipped" ;;
         *) msg_cli yellow "Invalid choice. Shell change skipped" ;;
     esac
