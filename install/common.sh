@@ -41,9 +41,16 @@ __create_home_dirs
 
 export DOTFILES=${HOME}/dotfiles
 export SYSBAK=${HOME}/system-bak
-export XDG_CONFIG_HOME=${HOME}/.config
-export CONFIG=${HOME}/.config   # Alias for XDG_CONFIG_HOME
 export PRIVATE=${HOME}/Private
+
+
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_DATA_HOME="${HOME}/.local/share"
+
+export CONFIG=${HOME}/.config   # Alias for XDG_CONFIG_HOME
+
+export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
 # ----------------------------------------------------------------------------#
 # Utils functions

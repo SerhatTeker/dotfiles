@@ -18,15 +18,17 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+
 # Locate the root directory
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
+
 # Export main environment variables for ZSH
 export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
-export ZSH=${HOME}/.local/share/zsh/.oh-my-zsh
+export ZSH=${XDG_DATA_HOME}/zsh/.oh-my-zsh
 
 DOT_ZSH=${DOTFILES}/zsh    # Alias for dotfiles zsh
 
@@ -50,7 +52,7 @@ install_zsh() {
 }
 
 # Use below modified one from oh-my-zsh install.sh
-# oh-my-zsh install.sh needs user prompt input for chsh
+# cause oh-my-zsh install.sh needs user prompt input for chsh
 setup_shell() {
     # If this user's login shell is already "zsh", do not attempt to switch.
     if [ "$(basename -- "$SHELL")" = "zsh" ]; then
