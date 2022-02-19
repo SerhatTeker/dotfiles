@@ -289,21 +289,21 @@ setopt SHARE_HISTORY # share command history data
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-if [ -f $HOME/.aliases ]; then
-    source $HOME/.aliases
+if [ -f ${ZDOTDIR}/.aliases ]; then
+    source ${ZDOTDIR}/.aliases
 fi
 
 # Functions definitions
-if [ -f $HOME/.functions ]; then
-    source $HOME/.functions
+if [ -f ${ZDOTDIR}/.functions ]; then
+    source ${ZDOTDIR}/.functions
 fi
 
 # Senstive functions which are not pushed to Github
 # It contains some functions, aliases etc...
-[ -f $ZDOTDIR/.private.zsh ] && source $ZDOTDIR/.private.zsh
+[ -f ${ZDOTDIR}/.private.zsh ] && source ${ZDOTDIR}/.private.zsh
 
 # Personal specific extras
 # Overrides defaults if there are any
-[ -f $ZDOTDIR/.zsh.local ] && source $ZDOTDIR/.zsh.local
+[ -f ${ZDOTDIR}/.zsh.local ] && source ${ZDOTDIR}/.zsh.local
 # }}}2
 # }}}1
