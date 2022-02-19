@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+
+# Helper function bin to stdout message colorful
+# Usage:
+#
+# As header
+# msg_cli green "OK" header
+# msg_cli g "OK"
+#
+# Normal:
+# msg_cli green "OK" normal
+# msg_cli g "OK" n
+
+
+# Not compatible, solution:
+# http://mywiki.wooledge.org/BashFAQ/037
+#
+# COLOR_NONE="\e[0m"
+# COLOR_WHITE="\e[1;37m"
+# COLOR_RED="\e[0;31m"
+# COLOR_BLUE="\e[0;34m"
+# COLOR_GREEN="\e[0;32m"
+# COLOR_YELLOW="\e[1;33m"
+# COLOR_BROWN="\e[0;33m"
+# COLOR_PINK="\e[0;35m"
+# COLOR_CYAN="\e[0;36m"
+# COLOR_PURPLE="\e[0;35m"
+# COLOR_BLACK="\e[0;30m"
+# COLOR_LIGHTGRAY="\e[0;37m"
+# COLOR_DARKGRAY="\e[1;30m"
+# COLOR_LIGHTBLUE="\e[1;34m"
+# COLOR_LIGHTGREEN="\e[1;32m"
+# COLOR_LIGHTCYAN="\e[1;36m"
+# COLOR_LIGHTRED="\e[1;31m"
+# COLOR_LIGHTPURPLE="\e[1;35m"
+#
+COLOR_BLUE=$(tput setaf 4)
+COLOR_RED=$(tput setaf 1)
+COLOR_GREEN=$(tput setaf 2)
+COLOR_YELLOW=$(tput setaf 3)
+COLOR_CYAN=$(tput setaf 6)
+COLOR_MAGENTA=$(tput setaf 5)
+COLOR_WHITE=$(tput setaf 15)
+COLOR_RESET=$(tput sgr0)
+
+# TODO: Fix $2 when $1 not supllied
+msg_cli() {
+    local _color=${1:-white}
+    local _message=$2
+    local _type=${3:-header}
+
+
+    case $_color in
+        b|blue) local color=${COLOR_BLUE} ;;
+        g|green) local color=${COLOR_GREEN} ;;
+        r|red) local color=${COLOR_RED} ;;
+        y|yellow) local color=${COLOR_YELLOW} ;;
+        c|cyan) local color=${COLOR_CYAN} ;;
+        m|magenta) local color=${COLOR_MAGENTA} ;;
+        w|white) local color=${COLOR_WHITE} ;;
+        *) color=${COLOR_WHITE} ;;
+    esac
+
+
+    case $_type in
+        h|header) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
+        n|normal) echo -e "${color}${_message}${COLOR_RESET}" ;;
+        *) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
+    esac
+}
+
+msg_cli "$@"

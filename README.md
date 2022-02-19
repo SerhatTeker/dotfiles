@@ -9,6 +9,19 @@ risk!
 
 **Warning:** Install scripts not complete yet.
 
+## XDG_CONFIG_HOME
+
+- alacritty
+- bat
+- git
+- httpie
+- lsd
+- rg
+- flake8
+- nvim
+- tmux
+- zsh
+
 ## BASE
 
 - Install related `ssh keys`

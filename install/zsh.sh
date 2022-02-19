@@ -11,11 +11,13 @@
 #
 # Install and customize zsh
 # ----------------------------------------------------------------------------#
-#
+
+
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
 set -o nounset
 set -o pipefail
+
 
 # Locate the root directory
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
@@ -23,69 +25,182 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
-# Ask for the administrator password upfront
-sudo -v
-
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    if [ -f "${XDG_CONFIG_HOME}/zsh" ] || [ ! -L "${XDG_CONFIG_HOME}/zsh" ];then
-        # or remove dir after informing in advance?
-        echo "${XDG_CONFIG_HOME}/zsh is not a symlink. Delete it manually."
-        exit 1
-    else
-        unlink "${XDG_CONFIG_HOME}/zsh"
-        ln -sf "${DOTFILES}/.config/zsh" "${XDG_CONFIG_HOME}/zsh"
-    fi
-fi
 
 # Export main environment variables for ZSH
-export ZMAIN=${XDG_CONFIG_HOME}/zsh
-export ZDOTDIR=${ZMAIN}
-export ZSH=${ZMAIN}/.oh-my-zsh
+export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
+export ZSH=${XDG_DATA_HOME}/zsh/.oh-my-zsh
 
-default-shell() {
-    # make zsh default shell
-    sudo sh -c "echo $(which zsh) >> /etc/shells"
-    chsh -s $(which zsh)
-}
+DOT_ZSH=${DOTFILES}/zsh    # Alias for dotfiles zsh
 
-# create soft links
-link-configs() {
-    ln -s ${DOTFILES}/.config/zsh/ ${XDG_CONFIG_HOME}
-    ln -sf ${SYSBAK}/zsh/.private.zsh ${ZMAIN}/.private.zsh
-    ln -sf ${PRIVATE}/zsh/.private.zsh ${ZMAIN}/.zsh_history
-}
 
-ioh-my-zsh() {
-    if [[ -d "${HOME}/dotfiles/.config/zsh/.oh-my-zsh" ]];then
-        rm -rf ${DOTFILES}/.config/zsh/.oh-my-zsh
+install_zsh() {
+    if ! command_exists zsh; then
+        msg_cli blue "Zsh not installed. Installing..."
+
+        if is_linux; then
+            sudo apt install zsh -y
+        elif is_macos; then
+            brew install zsh
+        else
+            echo "Unknown OS: ${OSTYPE}"
+            exit 1
+        fi
+
+        # make_default_shell
+        msg_cli green "Zsh installed"
     fi
+}
+
+# Use below modified one from oh-my-zsh install.sh
+# cause oh-my-zsh install.sh needs user prompt input for chsh
+setup_shell() {
+    # If this user's login shell is already "zsh", do not attempt to switch.
+    if [ "$(basename -- "$SHELL")" = "zsh" ]; then
+        return
+    fi
+
+    # If this platform doesn't provide a "chsh" command, bail out.
+    if ! command_exists chsh; then
+        msg_cli red "I can't change your shell automatically because this system does not have chsh."
+        msg_cli blug "Please manually change your default shell to zsh"
+        return
+    fi
+
+
+    # Test for the right location of the "shells" file
+    if [ -f /etc/shells ]; then
+        shells_file=/etc/shells
+    elif [ -f /usr/share/defaults/etc/shells ]; then # Solus OS
+        shells_file=/usr/share/defaults/etc/shells
+    else
+        fmt_error "could not find /etc/shells file. Change your default shell manually."
+        return
+    fi
+
+    # Get the path to the right zsh binary
+    # 1. Use the most preceding one based on $PATH, then check that it's in the shells file
+    # 2. If that fails, get a zsh path from the shells file, then check it actually exists
+    if ! zsh=$(command -v zsh) || ! grep -qx "$zsh" "$shells_file"; then
+        if ! zsh=$(grep '^/.*/zsh$' "$shells_file" | tail -n 1) || [ ! -f "$zsh" ]; then
+            fmt_error "no zsh binary found or not present in '$shells_file'"
+            fmt_error "change your default shell manually."
+            return
+        fi
+    fi
+
+    # We're going to change the default shell, so back up the current one
+    if [ -n "$SHELL" ]; then
+        echo "$SHELL" > ~/.shell.pre-oh-my-zsh
+    else
+        grep "^$USER:" /etc/passwd | awk -F: '{print $7}' > ~/.shell.pre-oh-my-zsh
+    fi
+
+    echo "Changing your shell to $zsh..."
+
+    # Check if user has sudo privileges to run `chsh` with or without `sudo`
+    #
+    # This allows the call to succeed without password on systems where the
+    # user does not have a password but does have sudo privileges, like in
+    # Google Cloud Shell.
+    #
+    # On systems that don't have a user with passwordless sudo, the user will
+    # be prompted for the password either way, so this shouldn't cause any issues.
+    #
+    if user_can_sudo; then
+        sudo -k chsh -s "$zsh" "$USER"  # -k forces the password prompt
+    else
+        chsh -s "$zsh" "$USER"          # run chsh normally
+    fi
+
+    # Check if the shell change was successful
+    if [ $? -ne 0 ]; then
+        fmt_error "chsh command unsuccessful. Change your default shell manually."
+    else
+        export SHELL="$zsh"
+        msg_cli green "Shell successfully changed to '$zsh'"
+    fi
+
+    echo
+}
+
+# Create XDG_CONFIG_HOME link
+link-xdg() {
+    # Linux
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        if [ -f "${XDG_CONFIG_HOME}/zsh" ] && [ ! -L "${XDG_CONFIG_HOME}/zsh" ];then
+            # or remove dir after informing in advance?
+            msg_cli red "${XDG_CONFIG_HOME}/zsh is not a symlink. Delete it manually."
+            exit 1
+        else
+            ln -sf "${DOT_ZSH}" "${XDG_CONFIG_HOME}/zsh"
+        fi
+    # MacOS
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        if [ -f "${XDG_CONFIG_HOME}/zsh" ] && [ ! -L "${XDG_CONFIG_HOME}/zsh" ];then
+            msg_cli red "${XDG_CONFIG_HOME}/zsh is not a symlink. Delete it manually."
+            exit 1
+        else
+            ln -sf "${DOT_ZSH}" "${XDG_CONFIG_HOME}/zsh"
+        fi
+    # Other
+    else
+        msg_cli red "${OSTYPE} not implemented"
+        exit 1
+    fi
+
+	msg_cli green "Zsh dotfiles linked to XDG_CONFIG_HOME"
+}
+
+# create personal soft links
+link-personal() {
+	msg_cli blue "Linking personal files"
+    if [ -f ${SYSBAK}/zsh/.private.zsh ]; then
+        ln -sf ${SYSBAK}/zsh/.private.zsh ${ZDOTDIR}/.private.zsh
+    fi
+
+    if [ -f ${PRIVATE}/zsh/.zsh_history ]; then
+        ln -sf ${PRIVATE}/zsh/.zsh_history ${ZDOTDIR}/.zsh_history
+    fi
+	msg_cli green "Linked personal files"
+}
+
+# Set ZDOTDIR globally
+set-zdotdir() {
+	msg_cli blue "Setting ZDOTDIR"
+    # Set global ZDOTDIR
+    # Hacky ugly way to fix tmux behavior
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" | \
+            sudo tee -a /etc/zsh/zshenv
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        # TODO: Implement
+        echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" | \
+            sudo tee -a /etc/zshenv
+    else
+        echo "No install configuration for ${OSTYPE}"
+        exit 1
+    fi
+	msg_cli green "Succesfully Set ZDOTDIR"
+}
+
+install_oh-my-zsh() {
+    # Fresh install: Remove if exists
+    if [[ -d "${ZSH}" ]];then
+        rm -rf "${ZSH}"
+    fi
+
     wget \
         https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh \
         -P /tmp
-    ZSH="${ZMAIN}/.oh-my-zsh" sh /tmp/install.sh
-    # ZSH="${ZMAIN}/.oh-my-zsh" sh /tmp/install.sh > /dev/null 2>&1
+
+#   --unattended: sets both CHSH and RUNZSH to 'no'
+    ZSH="${ZSH}" sh /tmp/install.sh --unattended
 }
 
-# TODO: replace/sed ZDOTDIR with XDG_CACHE_HOME in oh-my-zsh.sh
-modify-oh-my-zsh() {
-    # https://github.com/ohmyzsh/ohmyzsh/blob/4e2f4cdf686fe560cec3ec7072628c4d0f723929/oh-my-zsh.sh#L108
-    # ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-    # ZSH_COMPDUMP="${XDG_CACHE_HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
-    echo ""
-}
-
-custom-themes() {
-    for theme in "simple" "gallois"
-    do
-        ln -s ${DOTFILES}/.config/zsh/oh-my-zsh/custom/themes/${theme}-custom.zsh-theme \
-            ${ZSH}/custom/themes
-    done
-}
-
-# TODO: Fix: not working together with ioh-my-zsh
-# Modify install.sh script
 # install custom plugins
-iplugins() {
+custom_plugins() {
+	msg_cli blue "Installing custom plugins"
+
     ZSH_CUSTOM="${ZSH}/custom"
 
     # zsh-syntax-highlighting custom plugin
@@ -107,34 +222,35 @@ iplugins() {
     # https://github.com/zsh-users/zsh-completions
     git clone https://github.com/zsh-users/zsh-completions \
         ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+
+	msg_cli green "Installed custom plugins"
 }
 
-set-zdotdir() {
-    # Set global ZDOTDIR
-    # Hacky ugly way to fix tmux behavior
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" | \
-            sudo tee -a /etc/zsh/zshenv
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        # TODO: Implement
-        echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" | \
-            sudo tee -a /etc/zshenv
-    else
-        echo "No install configuration for ${OSTYPE}"
-        exit 1
-    fi
+# install custom themes
+custom-themes() {
+	msg_cli blue "Installing custom themes"
+    for theme in "simple" "gallois"
+    do
+        ln -sf ${DOT_ZSH}/oh-my-zsh/custom/themes/${theme}-custom.zsh-theme \
+            ${ZSH}/custom/themes
+    done
+	msg_cli green "Installed custom themes"
 }
+
 
 main() {
-    # default-shell
+    install_zsh
+    setup_shell
+    link-xdg
+    link-personal
     set-zdotdir
-    link-configs
-    ioh-my-zsh
-    iplugins
+    install_oh-my-zsh
+    custom_plugins
     custom-themes
+
+    msg_cli green "Zsh completely installed and configured. Happy zsh!"
 }
 
 main
-# iplugins
 
 exit 0

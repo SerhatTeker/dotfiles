@@ -7,12 +7,15 @@
 
 # lsd
 # https://github.com/Peltoche/lsd
-alias ls='lsd'
-alias l='lsd -l'
-alias la='lsd -lA'
-alias lla='lsd -la'
-alias lsa='lsd -a'
-alias lt='lsd --tree'
+# In order to use lsd first check if exists
+if hash lsd 2>/dev/null; then
+    alias ls='lsd'
+    alias l='lsd -l'
+    alias la='lsd -lA'
+    alias lla='lsd -la'
+    alias lsa='lsd -a'
+    alias lt='lsd --tree'
+fi
 
 # show all files
 alias lsf='ls -p | grep -v /'
@@ -170,6 +173,11 @@ alias rv='deactivate && source .venv/bin/activate'
 # display $paths line by line
 alias sedpath='sed "s/ /\n/g" <<< "$path"'
 alias paths='sed "s/ /\n/g" <<< "$path"'
+# }}}
+
+# VM {{{
+
+alias mp='multipass'
 # }}}
 
 # Others {{{

@@ -1,8 +1,20 @@
 #!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
 
+
+# INFO
+# --------------------------------------------------------------------------------------
 # Start a workspace in a tmux session for a project
 # Create 3 windows: 1 for editor, 1 for server and 1 for shell
 # Activate virtualenv if exists in every pane
+#
+# USAGE
+# --------------------------------------------------------------------------------------
+# $ start-workspace /path/to/project
+# for the project on current path
+# $ start-workspace
+
 
 # Set Session Name
 PROJECT_PATH="$1"
@@ -10,6 +22,9 @@ PROJECT_PATH="$1"
 # If $PROJECT_PATH given use it otherwise use $PWD
 if [ -z $PROJECT_PATH ];then
     PROJECT_PATH="$PWD"
+else
+    # use absolute path
+    PROJECT_PATH="$(readlink -f ${PROJECT_PATH})"
 fi
 
 # Check Session arg given. Use it, otherwise use PROJECT_PATH basename
