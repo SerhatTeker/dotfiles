@@ -125,7 +125,7 @@ modify-oh-my-zsh() {
 # TODO: Fix: not working together with ioh-my-zsh
 # Modify install.sh script
 # install custom plugins
-iplugins() {
+custom_plugins() {
     ZSH_CUSTOM="${ZSH}/custom"
 
     # zsh-syntax-highlighting custom plugin
@@ -164,7 +164,7 @@ main() {
     link-personal
     set-zdotdir
     ioh-my-zsh
-    iplugins
+    custom_plugins
     custom-themes
 }
 
