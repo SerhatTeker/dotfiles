@@ -1,3 +1,0 @@
-# BIN
-
-Local binary files.
