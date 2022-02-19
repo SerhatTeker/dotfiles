@@ -23,7 +23,9 @@ ZCUSTOMS="$ZDOTDIR/plugins/customs"
 # oh-my-zsh {{{2
 
 # Path to your oh-my-zsh installation.
-export ZSH="$ZDOTDIR/.oh-my-zsh"
+# Don't use ZDOTDIR dir: makes everything complex
+# export ZSH="${ZDOTDIR}/.oh-my-zsh"
+export ZSH="${HOME}/.local/share/zsh/.oh-my-zsh"
 
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_cache_dir
 # default but for explicit definition
@@ -210,7 +212,7 @@ plugins=(
     zsh-syntax-highlighting
 )
 
-source $ZSH/oh-my-zsh.sh
+source ${ZSH}/oh-my-zsh.sh
 # }}}2
 
 # Config Plugins {{{2
