@@ -25,9 +25,9 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 source "${ROOT}/install/common.sh"
 
 # Export main environment variables for ZSH
-export ZMAIN=${XDG_CONFIG_HOME}/zsh
-export ZDOTDIR=${ZMAIN}
-export ZSH=${ZMAIN}/.oh-my-zsh
+export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
+export ZSH=${ZDOTDIR}/.oh-my-zsh
+
 DOT_ZSH=${DOTFILES}/zsh    # Alias for dotfiles zsh
 
 
@@ -78,11 +78,11 @@ link-xdg() {
 # create personal soft links
 link-personal() {
     if [ -f ${SYSBAK}/zsh/.private.zsh ]; then
-        ln -sf ${SYSBAK}/zsh/.private.zsh ${ZMAIN}/.private.zsh
+        ln -sf ${SYSBAK}/zsh/.private.zsh ${ZDOTDIR}/.private.zsh
     fi
 
     if [ -f ${PRIVATE}/zsh/.zsh_history ]; then
-        ln -sf ${PRIVATE}/zsh/.zsh_history ${ZMAIN}/.zsh_history
+        ln -sf ${PRIVATE}/zsh/.zsh_history ${ZDOTDIR}/.zsh_history
     fi
 }
 
@@ -110,8 +110,8 @@ ioh-my-zsh() {
     wget \
         https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh \
         -P /tmp
-    ZSH="${ZMAIN}/.oh-my-zsh" sh /tmp/install.sh
-    # ZSH="${ZMAIN}/.oh-my-zsh" sh /tmp/install.sh > /dev/null 2>&1
+    ZSH="${ZDOTDIR}/.oh-my-zsh" sh /tmp/install.sh
+    # ZSH="${ZDOTDIR}/.oh-my-zsh" sh /tmp/install.sh > /dev/null 2>&1
 }
 
 # TODO: replace/sed ZDOTDIR with XDG_CACHE_HOME in oh-my-zsh.sh
