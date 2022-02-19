@@ -20,9 +20,19 @@ set -o pipefail
 # Locate the root directory
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
-export XDG_CONFIG_HOME=${HOME}/.config
+
+# Create default HOME directories if not exists
+__create_home_dirs() {
+    for dir in ".config" "dotfiles" "system-bak" "Private"
+    do
+        mkdir -p ${HOME}/${dir}
+    done
+}
+
+__create_home_dirs
 
 export DOTFILES=${HOME}/dotfiles
 export SYSBAK=${HOME}/system-bak
-export CONFIG=${HOME}/.config
+export XDG_CONFIG_HOME=${HOME}/.config
+export CONFIG=${HOME}/.config   # Alias for XDG_CONFIG_HOME
 export PRIVATE=${HOME}/Private
