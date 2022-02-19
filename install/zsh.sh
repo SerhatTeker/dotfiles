@@ -222,8 +222,6 @@ custom_plugins() {
     # https://github.com/zsh-users/zsh-completions
     git clone https://github.com/zsh-users/zsh-completions \
         ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
-
-	msg_cli green "Installed custom plugins"
 }
 
 # install custom themes
@@ -234,7 +232,6 @@ custom-themes() {
         ln -sf ${DOT_ZSH}/oh-my-zsh/custom/themes/${theme}-custom.zsh-theme \
             ${ZSH}/custom/themes
     done
-	msg_cli green "Installed custom themes"
 }
 
 
