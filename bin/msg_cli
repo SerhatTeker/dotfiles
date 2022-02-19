@@ -46,11 +46,11 @@ COLOR_WHITE=$(tput setaf 15)
 COLOR_RESET=$(tput sgr0)
 
 
-msg_cli() {
+main() {
     if [ $# -ge 2 ]; then
         local _color=${1:-white}
         local _message=$2
-        local _type=${3:-normal}
+        local _type=${3:-header}
 
         case $_color in
             b|blue) color=${COLOR_BLUE} ;;
@@ -63,7 +63,6 @@ msg_cli() {
             *) color=${COLOR_WHITE} ;;
         esac
 
-
         case $_type in
             h|header) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
             n|normal) echo -e "${color}${_message}${COLOR_RESET}" ;;
@@ -74,4 +73,4 @@ msg_cli() {
     fi
 }
 
-msg_cli "$@"
+main "$@"
