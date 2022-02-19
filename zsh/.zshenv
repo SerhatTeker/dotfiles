@@ -136,7 +136,7 @@ export PYTHONBREAKPOINT=ipdb.set_trace
 export DOCKER_BUILDKIT=1
 
 # kind
-export KINDCONFIG=$HOME/.kube/kind.yaml
+export KINDCONFIG=${XDG_CONFIG_HOME}/kube/kind.yaml
 # }}}2
 
 # Log {{{
