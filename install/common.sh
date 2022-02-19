@@ -30,9 +30,19 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # Create default HOME directories if not exists
 __create_home_dirs() {
-    for dir in ".config" "dotfiles" "system-bak" "Private"
-    do
-        mkdir -p ${HOME}/${dir}
+	declare -a arr=(
+		"dotfiles"
+		"system-bak"
+		"Private"
+		".config"
+		".cache"
+		".local/share"
+		".local/bin"
+	)
+
+	for dir in "${arr[@]}"
+	do
+        mkdir -p "${HOME}/${dir}"
     done
 }
 
@@ -43,12 +53,12 @@ export DOTFILES=${HOME}/dotfiles
 export SYSBAK=${HOME}/system-bak
 export PRIVATE=${HOME}/Private
 
-
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_DATA_HOME="${HOME}/.local/share"
-
 export CONFIG=${HOME}/.config   # Alias for XDG_CONFIG_HOME
+
+export LOCAL_BIN="${HOME}/.local/bin"
 
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
