@@ -45,25 +45,30 @@ COLOR_MAGENTA=$(tput setaf 5)
 COLOR_WHITE=$(tput setaf 15)
 COLOR_RESET=$(tput sgr0)
 
-
-_color=$1
-_message=$2
-_type=$3
-
-
-case $_color in
-    b|blue) color=${COLOR_BLUE} ;;
-    g|green) color=${COLOR_GREEN} ;;
-    r|red) color=${COLOR_RED} ;;
-    y|yellow) color=${COLOR_YELLOW} ;;
-    c|cyan) color=${COLOR_CYAN} ;;
-    m|magenta) color=${COLOR_MAGENTA} ;;
-    w|white) color=${COLOR_WHITE} ;;
-    *) color=${COLOR_WHITE} ;;
-esac
+# TODO: Fix $2 when $1 not supllied
+msg_cli() {
+    local _color=${1:-white}
+    local _message=$2
+    local _type=${3:-header}
 
 
-case $_type in
-    n|normal) echo -e "${color}${_message}${COLOR_RESET}" ;;
-    *) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
-esac
+    case $_color in
+        b|blue) local color=${COLOR_BLUE} ;;
+        g|green) local color=${COLOR_GREEN} ;;
+        r|red) local color=${COLOR_RED} ;;
+        y|yellow) local color=${COLOR_YELLOW} ;;
+        c|cyan) local color=${COLOR_CYAN} ;;
+        m|magenta) local color=${COLOR_MAGENTA} ;;
+        w|white) local color=${COLOR_WHITE} ;;
+        *) color=${COLOR_WHITE} ;;
+    esac
+
+
+    case $_type in
+        h|header) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
+        n|normal) echo -e "${color}${_message}${COLOR_RESET}" ;;
+        *) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
+    esac
+}
+
+msg_cli "$@"
