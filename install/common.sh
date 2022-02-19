@@ -101,28 +101,31 @@ COLOR_RESET=$(tput sgr0)
 
 
 msg_cli() {
-    _color=${1:-white}
-    _message=$2
-    _type=${3:-normal}
+    if [ $# -ge 2 ]; then
+        local _color=${1:-white}
+        local _message=$2
+        local _type=${3:-normal}
+
+        case $_color in
+            b|blue) color=${COLOR_BLUE} ;;
+            g|green) color=${COLOR_GREEN} ;;
+            r|red) color=${COLOR_RED} ;;
+            y|yellow) color=${COLOR_YELLOW} ;;
+            c|cyan) color=${COLOR_CYAN} ;;
+            m|magenta) color=${COLOR_MAGENTA} ;;
+            w|white) color=${COLOR_WHITE} ;;
+            *) color=${COLOR_WHITE} ;;
+        esac
 
 
-    case $_color in
-        b|blue) color=${COLOR_BLUE} ;;
-        g|green) color=${COLOR_GREEN} ;;
-        r|red) color=${COLOR_RED} ;;
-        y|yellow) color=${COLOR_YELLOW} ;;
-        c|cyan) color=${COLOR_CYAN} ;;
-        m|magenta) color=${COLOR_MAGENTA} ;;
-        w|white) color=${COLOR_WHITE} ;;
-        *) color=${COLOR_WHITE} ;;
-    esac
-
-
-    case $_type in
-        h|header) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
-        n|normal) echo -e "${color}${_message}${COLOR_RESET}" ;;
-        *) echo -e "${color}${_message}${COLOR_RESET}" ;;
-    esac
+        case $_type in
+            h|header) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
+            n|normal) echo -e "${color}${_message}${COLOR_RESET}" ;;
+            *) echo -e "${color}${_message}${COLOR_RESET}" ;;
+        esac
+    else
+        echo -e "${COLOR_WHITE}${1}${COLOR_RESET}"
+    fi
 }
 
 # ----------------------------------------------------------------------------#
