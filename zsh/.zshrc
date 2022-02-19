@@ -52,13 +52,14 @@ ZSH_THEME="simple-custom"
 # ZSH_THEME="avit"
 # ZSH_THEME="powerlevel9k/powerlevel9k"
 
-# Base16 Shell Themes {{{
+# Base16 Shell Themes {{{2
 # Optional
+
 BASE16_SHELL="${XDG_CONFIG_HOME}/base16-shell/"
 [ -n "$PS1" ] && \
-	[ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-		eval "$("$BASE16_SHELL/profile_helper.sh")"
-# }}}
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+    eval "$("$BASE16_SHELL/profile_helper.sh")"
+# }}}2
 # }}}1
 
 # SETTINGS-1 {{{1
@@ -135,9 +136,9 @@ export LANG=en_US.UTF-8
 
 # prompt settings {{{
 _fix_cursor() {
-	# change cursor color
-	echo -ne '\e]12;yellow\a'
-	# alternative: xterm 214 or 220
+    # change cursor color
+    # alternative: xterm 214 or 220
+    echo -ne '\e]12;yellow\a'
 }
 precmd_functions+=(_fix_cursor)
 
@@ -152,9 +153,9 @@ zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 # use nvim
 # if not exists use vim
 if hash nvim 2>/dev/null; then
-	export EDITOR='nvim'
+    export EDITOR='nvim'
 elif hash vim 2>/dev/null; then
-	export EDITOR='vim'
+    export EDITOR='vim'
 fi
 
 # SSH different editor choice
@@ -188,25 +189,25 @@ fi
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	git
-	vi-mode
-	# dotenv    # Disabled
+    git
+    vi-mode
+    # dotenv    # Disabled
     cd-gitroot
     copydir
     copyfile
-	docker
-	docker-compose
+    docker
+    docker-compose
     httpie
     kubectl
     macos
-	python
+    python
     pass
     terraform
     ubuntu
     zsh-autosuggestions
     zsh-completions
     # Note that zsh-syntax-highlighting must be the last plugin sourced.
-	zsh-syntax-highlighting
+    zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -289,12 +290,12 @@ setopt SHARE_HISTORY # share command history data
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 if [ -f $HOME/.aliases ]; then
-	source $HOME/.aliases
+    source $HOME/.aliases
 fi
 
 # Functions definitions
 if [ -f $HOME/.functions ]; then
-	source $HOME/.functions
+    source $HOME/.functions
 fi
 
 # Senstive functions which are not pushed to Github
