@@ -27,7 +27,7 @@ export ZSH="$ZDOTDIR/.oh-my-zsh"
 
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Settings#zsh_cache_dir
 # default but for explicit definition
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/ohmyzsh"
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME}/oh-my-zsh"
 
 # Use custom ZSH_COMPDUMP until #9090 merged
 # https://github.com/ohmyzsh/ohmyzsh/pull/9090
