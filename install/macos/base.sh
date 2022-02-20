@@ -19,8 +19,11 @@ set -o pipefail
 # Locate the root directory
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
+# shellcheck source=scripts/common.sh
+source "${ROOT}/install/common.sh"
 
-ibrew() {
+
+install_brew() {
     # Install Homebrew to $HOME/.homebrew instead of /usr/local:
     git clone https://github.com/Homebrew/brew.git ${HOME}/.homebrew
     # check brew installed
@@ -42,20 +45,13 @@ ictags() {
     brew install --HEAD universal-ctags
 }
 
-tweak-tmux() {
-    # TODO: tweak tmux color with xterm color
-    # use sed
-    echo ""
-}
-
 
 main() {
-    echo "Started Installation for ${OSTYPE}"
-    ibrew
+    msg_cli green "Started Installation for ${OSTYPE}"
+    install_brew
     brew-bundle
-    ictags
-    tweak-tmux
-    echo "Finished Installation ${OSTYPE}"
+    # ictags
+    msg_cli green "Finished Installation ${OSTYPE}"
 }
 
 main
