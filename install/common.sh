@@ -31,13 +31,14 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # Create default HOME directories if not exists
 __create_home_dirs() {
 	declare -a arr=(
+		".config"
+		".cache"
+		".local/bin"
+        ".local/share"
+        ".local/lib"
 		"dotfiles"
 		"system-bak"
 		"Private"
-		".config"
-		".cache"
-		".local/share"
-		".local/bin"
 	)
 
 	for dir in "${arr[@]}"
@@ -49,16 +50,15 @@ __create_home_dirs() {
 __create_home_dirs
 
 
-export DOTFILES=${HOME}/dotfiles
-export SYSBAK=${HOME}/system-bak
-export PRIVATE=${HOME}/Private
-
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_DATA_HOME="${HOME}/.local/share"
-export CONFIG=${HOME}/.config   # Alias for XDG_CONFIG_HOME
+export XDG_BIN_HOME="${HOME}/.local/bin"
+export XDG_LIB_HOME="${HOME}/.local/lib"
 
-export LOCAL_BIN="${HOME}/.local/bin"
+export DOTFILES=${HOME}/dotfiles
+export SYSBAK=${HOME}/system-bak
+export PRIVATE=${HOME}/Private
 
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
@@ -84,6 +84,25 @@ is_macos() {
     fi
 
     false
+}
+
+force_remove() {
+    local _source=$1
+    local _target=$2
+
+    if [ -d "${_target}" ] && [ ! -L "${_target}" ];then
+        # echo "${_target} is a directory. Delete it manually."
+        msg_cli yellow "WARNING: Deleting directory ${_target}"
+        rm -rf ${_target}
+    elif [ -f "${_target}" ] && [ ! -L "${_target}" ];then
+        # echo "${_target} is not a symlink. Delete it manually."
+        msg_cli yellow "WARNING: Deleting file ${_target}"
+        rm ${_target}
+    else
+        [ -L "${_target}" ] && unlink "${_target}"
+    fi
+
+    ln -sf "${_source}" "${_target}"
 }
 
 # ----------------------------------------------------------------------------#
@@ -233,4 +252,20 @@ setup_color() {
 	FMT_RESET=$(printf '\033[0m')
 }
 
-setup_color
+# ----------------------------------------------------------------------------#
+# Common main
+# ----------------------------------------------------------------------------#
+
+is_different_os() {
+    if is_linux || is_macos; then
+        msg_cli red "OSTYPE: ${OSTYPE} is not implemented"
+        exit 1
+    fi
+}
+
+main_common() {
+    is_different_os
+    setup_color
+}
+
+main_common

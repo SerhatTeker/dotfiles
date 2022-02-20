@@ -125,29 +125,7 @@ setup_shell() {
 
 # Create XDG_CONFIG_HOME link
 link-xdg() {
-    # Linux
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        if [ -f "${XDG_CONFIG_HOME}/zsh" ] && [ ! -L "${XDG_CONFIG_HOME}/zsh" ];then
-            # or remove dir after informing in advance?
-            msg_cli red "${XDG_CONFIG_HOME}/zsh is not a symlink. Delete it manually."
-            exit 1
-        else
-            ln -sf "${DOT_ZSH}" "${XDG_CONFIG_HOME}/zsh"
-        fi
-    # MacOS
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        if [ -f "${XDG_CONFIG_HOME}/zsh" ] && [ ! -L "${XDG_CONFIG_HOME}/zsh" ];then
-            msg_cli red "${XDG_CONFIG_HOME}/zsh is not a symlink. Delete it manually."
-            exit 1
-        else
-            ln -sf "${DOT_ZSH}" "${XDG_CONFIG_HOME}/zsh"
-        fi
-    # Other
-    else
-        msg_cli red "${OSTYPE} not implemented"
-        exit 1
-    fi
-
+    force_remove "${DOT_ZSH}" "${XDG_CONFIG_HOME}/zsh"
 	msg_cli green "Zsh dotfiles linked to XDG_CONFIG_HOME"
 }
 
@@ -244,6 +222,27 @@ main() {
     msg_cli green "Zsh completely installed and configured. Happy zsh!"
 }
 
-main
+
+force=${1:-false}
+if [ "$force" == "--force" -o "$force" == "-f" ]; then
+    force=true
+fi
+
+
+if ${force}; then
+    main
+else
+    # Prompt for user choice on changing the default login shell
+    printf '%sThis may overwrite existing files in your home directory. Are you sure? (y/n)%s ' \
+        "$FMT_YELLOW" "$FMT_RESET"
+    read -r opt
+    case $opt in
+        y*|Y*|"") force=true; main ;;
+        n*|N*) msg_cli white "Soft link creation skipped" ;;
+        *) msg_cli yellow "Invalid choice. Shell change skipped" ;;
+    esac
+fi
+
+unset ${force}
 
 exit 0
