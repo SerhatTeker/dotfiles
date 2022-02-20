@@ -159,7 +159,7 @@ link-personal() {
     fi
 
     if [ -f ${PRIVATE}/zsh/.zsh_history ]; then
-        ln -sf ${PRIVATE}/zsh/.zsh_history ${ZDOTDIR}/.zsh_history
+        ln -sf ${PRIVATE}/zsh/.zsh_history ${XDG_DATA_HOME}/zsh/.zsh_history
     fi
 	msg_cli green "Linked personal files"
 }
