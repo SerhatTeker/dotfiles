@@ -301,7 +301,7 @@ if [ -f ${ZDOTDIR}/.functions ]; then
 fi
 
 # Senstive functions which are not pushed to Github
-# It contains some functions, aliases etc...
+# It contains work related stuff, some functions, aliases etc...
 [ -f ${ZDOTDIR}/.private.zsh ] && source ${ZDOTDIR}/.private.zsh
 
 # Personal specific extras
