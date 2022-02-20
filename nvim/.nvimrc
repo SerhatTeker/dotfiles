@@ -95,7 +95,9 @@ Plug 'tweekmonster/django-plus.vim'
 " }}}4
 
 " Golang
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+if executable('go')
+    Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoInstallBinaries' }
+endif
 
 " Yaml
 Plug 'pedrohdz/vim-yaml-folds'
