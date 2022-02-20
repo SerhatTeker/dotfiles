@@ -23,3 +23,24 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
+
+
+install_brew() {
+    /bin/bash -c \
+        "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    # check brew installed
+    which brew
+    # close analytics
+    brew analytics off
+}
+
+
+main() {
+    msg_cli green "Started Installation for ${OSTYPE}"
+    install_brew
+    msg_cli green "Finished Installation ${OSTYPE}"
+}
+
+main
+
+exit 0
