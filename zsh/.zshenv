@@ -61,14 +61,14 @@ fi
 
 # Homebrew {{{
 
-# Warning: /usr/bin occurs before $HOME/.homebrew/bin in your PATH. This
-# means that system-provided programs will be used instead of thoseprov
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    if [ -d "/home/linuxbrew/.homebrew/bin" ] ; then
+    if [ -d "/home/linuxbrew/.linuxbrew/bin" ]; then
         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    if [ -d "$HOME/.homebrew/bin" ] ; then
+    # Warning: /usr/bin occurs before $HOME/.homebrew/bin in your PATH. This
+    # means that system-provided programs will be used instead of thoseprov
+    if [ -d "$HOME/.homebrew/bin" ]; then
         eval "$(${HOME}/.homebrew/bin/brew shellenv)"
     fi
 fi
