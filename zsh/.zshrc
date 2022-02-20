@@ -235,21 +235,21 @@ ZSH_DOTENV_PROMPT=false
 # }}}3
 
 # zsh-highlight {{{3
-if [[ "$ZSH_CUSTOM_HIGHLIGHT" == "TRUE" ]]; then
-    [ -f $ZCUSTOMS/.syntax-highlight.zsh ] && source $ZCUSTOMS/.syntax-highlight.zsh
+if [[ "${ZSH_CUSTOM_HIGHLIGHT}" == "TRUE" ]]; then
+    [ -f ${ZCUSTOMS}/.syntax-highlight.zsh ] && source ${ZCUSTOMS}/.syntax-highlight.zsh
 fi
 # }}}3
 
 # agnoster {{{3
 
-if [[ "$ZSH_THEME" == "agnoster" ]]; then
-    [ -f $ZCUSTOMS/.agnoster.zsh ] && source $ZCUSTOMS/.agnoster.zsh
+if [[ "${ZSH_THEME}" == "agnoster" ]]; then
+    [ -f ${ZCUSTOMS}/.agnoster.zsh ] && source ${ZCUSTOMS}/.agnoster.zsh
 fi
 # }}}3
 
 # FZF {{{3
 
-[ -f $ZDOTDIR/.fzf.zsh ] && source $ZDOTDIR/.fzf.zsh
+[ -f ${ZDOTDIR}/.fzf.zsh ] && source ${ZDOTDIR}/.fzf.zsh
 # }}}3
 # }}}2
 # }}}1
