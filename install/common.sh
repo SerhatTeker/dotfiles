@@ -257,7 +257,7 @@ setup_color() {
 # ----------------------------------------------------------------------------#
 
 is_different_os() {
-    if is_linux || is_macos; then
+    if is_linux && is_macos; then
         msg_cli red "OSTYPE: ${OSTYPE} is not implemented"
         exit 1
     fi
