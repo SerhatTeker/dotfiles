@@ -1,5 +1,5 @@
 autoflake==1.4                  # https://github.com/fsouza/autoflake8
-black==21.12b0                  # https://github.com/psf/black
+black==22.1.0                   # https://github.com/psf/black
 bpytop==1.0.68                  # https://github.com/aristocratos/bpytop
 # Last supported global config : ~/.config/flake8
 # https://flake8.pycqa.org/en/latest/release-notes/4.0.0.html#backwards-incompatible-changes
