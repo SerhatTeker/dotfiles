@@ -330,9 +330,6 @@ ve() {
 
             echo "Upgrading pip"
             ${py} -m pip install --upgrade pip
-
-            _rich_traceback_venv ${venv}
-            _pretty_errors_venv ${venv}
         else
             echo "Virtual environment  ${venv} already exists, activating..."
             source ${venv}/bin/activate
