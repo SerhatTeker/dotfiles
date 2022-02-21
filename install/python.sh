@@ -24,21 +24,56 @@ source "${ROOT}/install/common.sh"
 
 
 VERSION=${PYTHON_VERSION:-3.8}
+PYTHON="python${VERSION}"
 
-install-reqirements() {
-    PIP_REQUIRE_VIRTUALENV=false \
-        python${VERSION} -m pip install --user \
-        ${ROOT}/python/requirements/base.txt
+
+install_packages() {
+    # Can't use ensurepip cause it's disabled for Ubuntu
+    # ${PYTHON} -m ensurepip --upgrade
+    # https://pip.pypa.io/en/stable/installation/#ensurepip
+    if is_linux; then
+        sudo apt update -y
+        sudo apt install -y \
+            python3-pip \
+            ${PYTHON}-venv
+    fi
 }
 
-pretty-errors() {
-    ln -sf ${ROOT}/python/usercustomize.py \
-        "${HOME}/.local/lib/python${VERSION}/site-packages"
+install_reqirements() {
+    PIP_REQUIRE_VIRTUALENV=false \
+        ${PYTHON} -m pip install --user \
+        -r "${ROOT}/python/requirements/base.txt"
+
+    msg_cli blue "Global user packages installed"
+}
+
+pretty_errors() {
+    local site_dir="$(${PYTHON} -c "import site; print(f'{site.USER_SITE}')")"
+
+    ln -sf "${ROOT}/python/usercustomize.py" \
+        ${site_dir}
+
+    msg_cli white "Pretty errors configuration added"
+}
+
+rich_traceback() {
+    local site_dir="$(${PYTHON} -c "import site; print(f'{site.USER_SITE}')")"
+    local file="${site_dir}/sitecustomize.py"
+
+    cat << EOF >> ${file}
+from rich.traceback import install
+install(show_locals=True)
+EOF
+    msg_cli white "Rich traceback added"
 }
 
 main() {
-    install-reqirements
-    pretty-errors
+    install_packages
+    install_reqirements
+    pretty_errors
+    rich_traceback
+
+    msg_cli green "Python configured"
 }
 
 main
