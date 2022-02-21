@@ -268,25 +268,75 @@ auto-venv() {
 	fi
 }
 
+_pretty_errors_venv() {
+    local venv="${1:-./.venv}"
+    venv_python=$(python -c "import sys; print(f'python{sys.version_info.major}.{sys.version_info.minor}')")
+    local file="${venv}/lib/${venv_python}/site-packages/usercustomize.py"
 
-# If virtualenv already exists activate it,
-# If not create it with global packages, update pip then activate it
+    cat << EOF >> ${file}
+try:
+    import pretty_errors
+except ImportError:
+    print(
+        "You have uninstalled pretty_errors but it is still present in your python startup."
+        + "  Please remove its section from file:\n "
+        + __file__
+        + "\n"
+    )
+else:
+    pretty_errors.configure(
+        arrow_head_character="^",
+        arrow_tail_character="-",
+        display_arrow=True,
+        display_locals=True,
+        line_number_first=False,
+        lines_after=3,
+        lines_before=5,
+        truncate_code=True,
+        name="custom",
+    )
+EOF
+    echo "Pretty errors added"
+}
+
+# Add rich traceback
+# https://rich.readthedocs.io/en/stable/traceback.html#automatic-traceback-handler
+_rich_traceback_venv() {
+    local venv="${1:-./.venv}"
+    venv_python=$(python -c "import sys; print(f'python{sys.version_info.major}.{sys.version_info.minor}')")
+    local file="${venv}/lib/${venv_python}/site-packages/sitecustomize.py"
+
+    cat << EOF >> ${file}
+from rich.traceback import install
+install(show_locals=True)
+EOF
+    echo "Rich traceback added"
+}
+
+
+# 0. If not already in virtualenv:
+# 0.1. If virtualenv already exists activate it,
+# 0.2. If not create it with global packages, update pip then activate it
 ve() {
     local py=${PYTHON:-python3} # ${PYTHON} comes from .zshenv
     local venv="${1:-./.venv}"
 
-    if [ ! -d ${venv} ]; then
-        ${PYTHON} \
-            -m venv ${venv} \
-            --system-site-packages
-        source ${venv}/bin/activate
-        # Using old cached version from ensurepip
-        # >>> import ensurepip
-        # >>> ensurepip.version()
-        ${py} -m pip install --upgrade pip
-    else
-        echo "Virtual environment  ${venv} already exists, activating..."
-        source ${venv}/bin/activate
+    # If not already in virtualenv, $VIRTUAL_ENV set from $venv/bin/activate script
+	if [ -z "$VIRTUAL_ENV" ]; then
+        if [ ! -d ${venv} ]; then
+            echo "Creating and activating virtual environment ${venv}"
+            ${py} -m venv ${venv} --system-site-package
+            source ${venv}/bin/activate
+
+            echo "Upgrading pip"
+            ${py} -m pip install --upgrade pip
+
+            _rich_traceback_venv ${venv}
+            _pretty_errors_venv ${venv}
+        else
+            echo "Virtual environment  ${venv} already exists, activating..."
+            source ${venv}/bin/activate
+        fi
     fi
 }
 
