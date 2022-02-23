@@ -27,6 +27,7 @@ endif
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.local/share/nvim/plugged')
 
+
 " Snippets {{{3
 
 Plug 'SirVer/ultisnips'
@@ -163,21 +164,24 @@ Plug 'bkad/CamelCaseMotion'
 
 " Others {{{3
 
-Plug 'godlygeek/tabular'            " Align text with :/=/, etc.
+Plug 'godlygeek/tabular'                " Align text with :/=/, etc.
 Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-commentary'         " comment stuff out
-Plug 'AndrewRadev/splitjoin.vim'    " Switch between single-line and multiline forms of code
+Plug 'tpope/vim-commentary'             " comment stuff out
+Plug 'AndrewRadev/splitjoin.vim'        " Switch between single-line and multiline forms of code
 Plug 'junegunn/rainbow_parentheses.vim'
 
 " Pair
-Plug 'jiangmiao/auto-pairs'         " insert mode auto-completion for quotes, parens, brackets, etc
+Plug 'jiangmiao/auto-pairs'             " insert mode auto-completion for quotes, parens, brackets, etc
 
 " Surround
-Plug 'tpope/vim-surround'           " Delete/change/add parentheses/quotes/XML-tags/much more
-Plug 'tpope/vim-repeat'             " Needed for 'vim-surround'
+Plug 'tpope/vim-surround'               " Delete/change/add parentheses/quotes/XML-tags/much more
+Plug 'tpope/vim-repeat'                 " Needed for 'vim-surround'
 
 " Indentline
 Plug 'Yggdroot/indentLine'
+
+" Tracking
+Plug 'ActivityWatch/aw-watcher-vim'     " ActivityWatch watcher: https://docs.activitywatch.net/en/latest/watchers.html
 " }}}3
 
 " Session {{{3
