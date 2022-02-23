@@ -1,3 +1,4 @@
+# vim: syntax=ruby filetype=ruby
 tap "heroku/brew"
 tap "homebrew/bundle"
 tap "homebrew/cask"
@@ -23,11 +24,11 @@ brew "fluxcd/tap/flux"
 brew "fzf"
 brew "gettext"
 brew "gh"
-brew "gnupg"
 brew "git"
 brew "git-crypt"
 brew "glib"
-brew "gnupg"
+brew "gopass"                   # https://github.com/gopasspw/gopass
+brew "gnupg2"
 brew "gnu-tar"
 brew "gnu-time"
 brew "gnu-which"
@@ -40,7 +41,7 @@ brew "gnu-getopt"
 brew "go"
 brew "graphviz"
 brew "grpc"
-brew "heroku/brew/heroku
+brew "heroku/brew/heroku"
 brew "htop"
 brew "hugo"
 brew "jq"
@@ -56,7 +57,7 @@ brew "nvim"
 brew "openssl"
 brew "openssh"
 brew "protobuf"
-# brew "python@3.9"
+# brew "python@3.9"             # Don't install python versions via homebrew
 brew "ripgrep"
 brew "ruby"
 brew "rust"
@@ -72,17 +73,19 @@ brew "wget"
 brew "youtube-dl"
 brew "yarn"
 
-cask "docker" # docker desktop
+cask "docker"                   # docker desktop
 cask "google-cloud-sdk"
 cask "google-chrome"
 cask "iterm2"
-cask "keycastr"
 cask "multipass"
 cask "notion"
 cask "slack"
 cask "spotify"
 cask "telegram"
-# cask "virtualbox"     # not compatible with M1
+# cask "virtualbox"             # not compatible with M1
 cask "visual-studio-code"
 cask "vlc"
 cask "zoom"
+
+# Optional
+# cask "keycastr"
