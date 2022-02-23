@@ -1,4 +1,4 @@
-" CtrlSF {{{2
+" CtrlSF {{{
 
 " Substitute the word under the cursor.
 " &	Keep the flags from the previous substitute.
@@ -13,7 +13,7 @@ nmap <leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 " shows the preview window automatically while moving from match to match in the results pane
 let g:ctrlsf_auto_preview = 1
 
-" mappings {{{3
+" mappings {{{2
 
 " In CtrlSF window:
 " Enter, o, double-click - Open corresponding file of current line in the window which CtrlSF is launched from.
@@ -33,18 +33,17 @@ let g:ctrlsf_auto_preview = 1
 "     \ "popen": "<C-LeftMouse>"
 "     \ }
 
-nmap     <leader>f <Plug>CtrlSFPrompt
-vmap     <leader>f <Plug>CtrlSFVwordPath
-nmap     <leader>F <Plug>CtrlSFCwordPath
-" vmap     <C-F>F <Plug>CtrlSFVwordExec
-" nmap     <C-F>p <Plug>CtrlSFPwordPath
+nmap    <C-S>f <Plug>CtrlSFPrompt
+vmap    <C-S>f <Plug>CtrlSFVwordPath
+nmap    <C-S>F <Plug>CtrlSFCwordPath
+nmap    <C-S>B <Plug>CtrlSFCCwordPath
 
-nnoremap <leader>o :CtrlSFOpen<CR>
-nnoremap <leader>t :CtrlSFToggle<CR>
-inoremap <leader>t <Esc>:CtrlSFToggle<CR>
-" }}}3
+nnoremap <C-S>o :CtrlSFOpen<CR>
+nnoremap <C-S>t :CtrlSFToggle<CR>
+inoremap <C-S>t <Esc>:CtrlSFToggle<CR>
+" }}}2
 
-" commands {{{3
+" commands {{{2
 
 " <Plug>CtrlSFPrompt
 " Input :CtrlSF in command line for you, just a handy shortcut.
@@ -64,6 +63,5 @@ inoremap <leader>t <Esc>:CtrlSFToggle<CR>
 
 " <Plug>CtrlSFPwordPath
 " Input :CtrlSF foo in command line where foo is the last search pattern of vim.
-
-" }}}3
+" }}}2
 " }}}2
