@@ -269,8 +269,8 @@ let g:dotFiles='$HOME/dotfiles/.config/nvim'
 
 augroup nvimrc
     " auto source .vimrc after save in files in nvim dot dir
-    autocmd! BufWritePost ~/dotfiles/.config/nvim/* source % | echom "Reloaded $NVIMRC"
-    autocmd! BufWritePost ~/.nvimrc source % | echom "Reloaded $NVIMRC"
+    autocmd! BufWritePost ~/dotfiles/nvim/* source % | echom "Reloaded $NVIMRC"
+    autocmd! BufWritePost ~/.config/nvim/.nvimrc source % | echom "Reloaded $NVIMRC"
 
     " $MYNVIMRC filetype
     autocmd! BufNewFile,BufRead .nvimrc set filetype=vim
