@@ -208,6 +208,10 @@ custom-themes() {
     done
 }
 
+completions() {
+    mkdir -p "${ZSH}/completions"
+}
+
 
 main() {
     install_zsh
@@ -218,6 +222,7 @@ main() {
     install_oh-my-zsh
     custom_plugins
     custom-themes
+    completions
 
     msg_cli green "Zsh completely installed and configured. Happy zsh!"
 }
