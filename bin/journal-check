@@ -99,9 +99,9 @@ _test_base() {
 	TEST_DATE=2019-03-04
 	# DATE=$TEST_DATE
 
-    DRAFT="$JOURNAL_DIR/content/journal/draft.md"
-    FILENAME="$JOURNAL_DIR/content/journal/$YNUMF/m$MNUM/w$WNUM.md"
-    WFILE="$(find "$JOURNAL_DIR" -wholename $FILENAME)"
+    DRAFT="$JOURNAL/content/journal/draft.md"
+    FILENAME="$JOURNAL/content/journal/$YNUMF/m$MNUM/w$WNUM.md"
+    WFILE="$(find "$JOURNAL" -wholename $FILENAME)"
 
 	if [[ -e "$WFILE" ]]; then
 		echo "$WFILE exists"
@@ -151,13 +151,13 @@ _test() {
 # Main {{{
 
 journal() {
-    DRAFT="$JOURNAL_DIR/content/journal/draft.md"
-    FILENAME="$JOURNAL_DIR/content/journal/$YNUMF/m$MNUM/w$WNUM.md"
-    WFILE="$(find "$JOURNAL_DIR" -wholename $FILENAME)"
+    DRAFT="$JOURNAL/content/journal/draft.md"
+    FILENAME="$JOURNAL/content/journal/$YNUMF/m$MNUM/w$WNUM.md"
+    WFILE="$(find "$JOURNAL" -wholename $FILENAME)"
 
 	if [[ ! -e "$WFILE" ]]; then
 		if [ ! -f $FILENAME ]; then
-			mkdir -p "$JOURNAL_DIR/content/journal/$YNUMF/m$MNUM/"
+			mkdir -p "$JOURNAL/content/journal/$YNUMF/m$MNUM/"
 			touch $FILENAME
 			echo "$FILENAME created"
 		fi
@@ -194,13 +194,13 @@ journal() {
 }
 
 journal-todo() {
-    DRAFT="$JOURNAL_DIR/content/journal/todo_draft.md"
-    FILENAME="${JOURNAL_DIR}/content/journal/${YNUMF}/m${MNUM}/w${WNUM}_todo.md"
-    WFILE="$(find "$JOURNAL_DIR" -wholename $FILENAME)"
+    DRAFT="$JOURNAL/content/journal/todo_draft.md"
+    FILENAME="${JOURNAL}/content/journal/${YNUMF}/m${MNUM}/w${WNUM}_todo.md"
+    WFILE="$(find "$JOURNAL" -wholename $FILENAME)"
 
 	if [[ ! -e "$WFILE" ]]; then
 		if [ ! -f $FILENAME ]; then
-			mkdir -p "$JOURNAL_DIR/content/journal/$YNUMF/m$MNUM/"
+			mkdir -p "$JOURNAL/content/journal/$YNUMF/m$MNUM/"
 			touch $FILENAME
 			echo "$FILENAME created"
 		fi
