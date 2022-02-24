@@ -24,6 +24,7 @@ dot_configs() {
             "alacritty"
             "bat"
             "git"
+            "gh"
             "httpie"
             "lsd"
             "rg"
