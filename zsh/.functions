@@ -74,19 +74,18 @@ mkcd () {
 
 # shortcut : cd $DIR then run nvim -s
 cv () {
-    # takes first argument as $DIR
-    _ARG="$@"
-    _DIR="$HOME"
+    local dir="${1:-$HOME}"
 
-    if [ "$_ARG" = "dot" ]; then
-        _DIR=$DOTFILES_DIR
-    elif [ "$_ARG" = "bak" ]; then
-        _DIR=$SYSTEM_BAK_DIR
-    else
-        _DIR=$_ARG
+
+    if [ "$dir" = "dot" ]; then
+        local dir=$DOTFILES
+        echo "dir dot"
+    elif [ "$dir" = "bak" ]; then
+        echo "dir bak"
+        local dir=$SYSTEM_BAK
     fi
 
-    builtin cd "$_DIR" && nvim -S
+    builtin cd "${dir}" && nvim -S
     # builtin cd "$@" && nvim -S
 }
 
