@@ -73,6 +73,7 @@ brew "wget"
 brew "youtube-dl"
 brew "yarn"
 
+cask "cryptomator"              # enc vault
 cask "docker"                   # docker desktop
 cask "google-cloud-sdk"
 cask "google-chrome"
