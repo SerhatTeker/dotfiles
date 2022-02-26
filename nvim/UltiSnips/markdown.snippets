@@ -91,14 +91,16 @@ snippet cbl "Codeblock" b
 \`\`\`$1
 $2
 \`\`\`
+
 $0
 endsnippet
 
 # cbl for bash
-snippet cbash "Codeblock" b
+snippet cbash "Codeblock Bash" b
 \`\`\`bash
 \$ $1
 \`\`\`
+
 $0
 endsnippet
 
@@ -151,9 +153,23 @@ snippet hugo-linenos "Highlight Line Numbers" b
 \`\`\`$1 {linenos=table,hl_lines=[$2]}
 $3
 \`\`\`
-$0
 
+$0
 endsnippet
+
+# Highlight Lines for Code Snippets, Same as hugo-linenos
+# Example
+# ```go {linenos=table,hl_lines=[8,"15-17"],linenostart=199}
+# // ... code
+# ```
+snippet cblh "Codeblock Highlight Line Numbers" b
+\`\`\`$1 {linenos=table,hl_lines=[$2]}
+$3
+\`\`\`
+
+$0
+endsnippet
+
 
 #####################
 #   Zettelkasten    #
