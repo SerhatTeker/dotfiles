@@ -14,10 +14,13 @@ Don’t use my settings unless you know what that entails.
 ![Nvim](./images/nvim.png "Nvim")
 
 <details>
+
 <summary>Show More</summary>
+
 ![tmux](./images/tmux.png "tmux")
 
 ![Nvim](./images/nvim_split.png "Nvim Split")
+
 </details>
 
 ## BASE
