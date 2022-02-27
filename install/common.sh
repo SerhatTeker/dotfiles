@@ -98,11 +98,9 @@ force_remove() {
     local _target=$2
 
     if [ -d "${_target}" ] && [ ! -L "${_target}" ];then
-        # echo "${_target} is a directory. Delete it manually."
         msg_cli yellow "WARNING: Deleting directory ${_target}"
         rm -rf ${_target}
     elif [ -f "${_target}" ] && [ ! -L "${_target}" ];then
-        # echo "${_target} is not a symlink. Delete it manually."
         msg_cli yellow "WARNING: Deleting file ${_target}"
         rm ${_target}
     else
