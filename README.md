@@ -10,11 +10,15 @@ Don’t use my settings unless you know what that entails.
 
 ## Screenshots
 
-![Nvim](./images/vim.png "Nvim")
 
-![Nvim2](./images/nvim2.png "Nvim2")
+![Nvim](./images/nvim.png "Nvim")
 
-![tmux](./images/vim.png "tmux")
+<details>
+<summary>Show More</summary>
+![tmux](./images/tmux.png "tmux")
+
+![Nvim](./images/nvim_split.png "Nvim Split")
+</details>
 
 ## BASE
 
