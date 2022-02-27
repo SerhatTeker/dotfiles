@@ -8,6 +8,10 @@ Don’t use my settings unless you know what that entails.
 
 **Warning:** WIP README and install scripts.
 
+## Screenshots
+
+![Nvim](./images/vim.png "Nvim")
+
 
 ## BASE
 
