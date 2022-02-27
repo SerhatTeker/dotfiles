@@ -14,3 +14,24 @@ set -o pipefail
 
 $0
 endsnippet
+
+
+snippet shebang-script "shebang-script" b
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+
+
+#
+# Usage:
+# $ $1
+
+
+# Bash safeties: exit on error, no unset variables, pipelines can't hide errors
+set -o errexit
+set -o nounset
+set -o pipefail
+
+
+$0
+endsnippet
