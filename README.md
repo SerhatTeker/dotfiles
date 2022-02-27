@@ -12,6 +12,9 @@ Don’t use my settings unless you know what that entails.
 
 ![Nvim](./images/vim.png "Nvim")
 
+![Nvim2](./images/nvim2.png "Nvim2")
+
+![tmux](./images/vim.png "tmux")
 
 ## BASE
 
