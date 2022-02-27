@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 # vim: set ft=sh et ts=4 sw=4 sts=4:
-
+#
 # ----------------------------------------------------------------------------#
 #                                                              _
 #               ___ ___  _ __ ___  _ __ ___   ___  _ __    ___| |__
@@ -15,17 +15,20 @@
 # Source: https://github.com/SerhatTeker/dotfiles
 #
 # ----------------------------------------------------------------------------#
+
 #
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
 set -o nounset
 set -o pipefail
 
+
 # Locate the root directory
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
+
 # ----------------------------------------------------------------------------#
-# Environments and default directories
+# Environments and default directories {{{
 # ----------------------------------------------------------------------------#
 
 # Create default HOME directories if not exists
@@ -61,9 +64,13 @@ export SYSBAK=${HOME}/system-bak
 export PRIVATE=${HOME}/Private
 
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+# ----------------------------------------------------------------------------#
+# }}}
+# ----------------------------------------------------------------------------#
+
 
 # ----------------------------------------------------------------------------#
-# Utils functions
+# Utils functions {{{
 # ----------------------------------------------------------------------------#
 
 is_linux() {
@@ -104,9 +111,13 @@ force_remove() {
 
     ln -sf "${_source}" "${_target}"
 }
+# ----------------------------------------------------------------------------#
+# }}}
+# ----------------------------------------------------------------------------#
+
 
 # ----------------------------------------------------------------------------#
-# Colors and msg_cli
+# Colors and msg_cli {{{
 # ----------------------------------------------------------------------------#
 
 COLOR_BLUE=$(tput setaf 4)
@@ -122,8 +133,8 @@ COLOR_RESET=$(tput sgr0)
 msg_cli() {
     if [ $# -ge 2 ]; then
         local _color=${1:-white}
-        local _message=$2
-        local _type=${3:-normal}
+        local message=$2
+        local type=${3:-normal}
 
         case $_color in
             b|blue) color=${COLOR_BLUE} ;;
@@ -136,21 +147,63 @@ msg_cli() {
             *) color=${COLOR_WHITE} ;;
         esac
 
-
-        case $_type in
-            h|header) echo -e "${color}------------------------------- ${_message} -------------------------------${COLOR_RESET}" ;;
-            n|normal) echo -e "${color}${_message}${COLOR_RESET}" ;;
-            *) echo -e "${color}${_message}${COLOR_RESET}" ;;
+        case $type in
+            h|header) _center_text "${color}" "${message}" ;;
+            n|normal) echo -e "${color}${message}${COLOR_RESET}" ;;
+            *) echo -e "${color}${message}${COLOR_RESET}" ;;
         esac
     else
-        echo -e "${COLOR_WHITE}${1}${COLOR_RESET}"
+        local message=${1:?Message needed!}
+
+        echo -e "${COLOR_WHITE}${message}${COLOR_RESET}"
     fi
 }
 
+# Center the text with a surrounding border
+# first argument: color
+# second argument: text to show
+# Usage:
+# $ _center_text blue "Something I want to print"
+_center_text() {
+    local color=${1}
+    local text="${2}"
+    local text_width=${#2}
+
+    local term_width=$(tput cols)
+    local ch="-"
+    local padding="$(printf '%0.1s' ${ch}{1..50})"
+
+    # TODO: Make better way
+    # Adapt large/medium/small window sizes
+    if [ $term_width -ge 200 ]; then
+        local print_width=$(tput cols)*4/10
+    elif [ $term_width -ge 120 ]; then
+        local print_width=$(tput cols)*6/10
+    else
+        local print_width=${term_width}
+    fi
+
+    printf '%s%*.*s %s %*.*s%s\n' \
+        "${color}" \
+        0 \
+        "$(((print_width-2-text_width)/2))" \
+        "${padding}" \
+        "${text}" \
+        0 \
+        "$(((print_width-1-text_width)/2))" \
+        "${padding}" \
+        "${COLOR_RESET}"
+}
 # ----------------------------------------------------------------------------#
-# Utils from oh-my-zsh install.sh
+# }}}
+# ----------------------------------------------------------------------------#
+
+
+# ----------------------------------------------------------------------------#
+# Utils from oh-my-zsh install.sh {{{
+# ----------------------------------------------------------------------------#
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh
-# ----------------------------------------------------------------------------#
+
 
 # Make sure important variables exist if not already defined
 #
@@ -251,9 +304,13 @@ setup_color() {
 	FMT_BOLD=$(printf '\033[1m')
 	FMT_RESET=$(printf '\033[0m')
 }
+# ----------------------------------------------------------------------------#
+# }}}
+# ----------------------------------------------------------------------------#
+
 
 # ----------------------------------------------------------------------------#
-# Common main
+# Common main {{{
 # ----------------------------------------------------------------------------#
 
 is_different_os() {
@@ -269,3 +326,12 @@ main_common() {
 }
 
 main_common
+
+msg_cli "blue" "Salla" "header"
+msg_cli "green" "Salla iste" "header"
+msg_cli "red" "Salla iste dallama" "header"
+msg_cli "yellow" "Salla iste dallama banane" "header"
+msg_cli "magenta" "Sallai ste dallama banane what" "header"
+# ----------------------------------------------------------------------------#
+# }}}
+# ----------------------------------------------------------------------------#
