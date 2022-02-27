@@ -324,12 +324,6 @@ main_common() {
 }
 
 main_common
-
-msg_cli "blue" "Salla" "header"
-msg_cli "green" "Salla iste" "header"
-msg_cli "red" "Salla iste dallama" "header"
-msg_cli "yellow" "Salla iste dallama banane" "header"
-msg_cli "magenta" "Sallai ste dallama banane what" "header"
 # ----------------------------------------------------------------------------#
 # }}}
 # ----------------------------------------------------------------------------#
