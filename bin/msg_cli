@@ -4,7 +4,7 @@
 
 # TODO: Make this zsh autocomplet function
 # Helper function bin to stdout message colorful
-# Usage:
+# Usages:
 #
 # As header
 # msg_cli green "OK" header
@@ -14,6 +14,8 @@
 # msg_cli green "OK" normal
 # msg_cli g "OK" n
 
+
+# Colors {{{
 
 # Not compatible, solution:
 # http://mywiki.wooledge.org/BashFAQ/037
@@ -45,6 +47,8 @@ COLOR_CYAN=$(tput setaf 6)
 COLOR_MAGENTA=$(tput setaf 5)
 COLOR_WHITE=$(tput setaf 15)
 COLOR_RESET=$(tput sgr0)
+# }}}
+
 
 # Center the text with a surrounding border
 # first argument: color
