@@ -15,11 +15,13 @@ Don’t use my settings unless you know what that entails.
 
 <details>
 
-<summary>Show More</summary>
+<summary>Show More Screenshot</summary>
 
 ![tmux](./images/tmux.png "tmux")
 
 ![Nvim](./images/nvim_split.png "Nvim Split")
+
+![fzf](./images/fzf.png "fzf")
 
 </details>
 
