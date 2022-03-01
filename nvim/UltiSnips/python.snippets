@@ -15,6 +15,17 @@ logger = logging.getLogger(__name__)
 $0
 endsnippet
 
+snippet logi "log info" b
+logger.info(f"{$1 = }")
+$0
+endsnippet
+
+snippet logcur "log currency" b
+logger.info(f"$1{$2:,.2f}")
+$0
+endsnippet
+
+
 snippet shebang "shebang" b
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
