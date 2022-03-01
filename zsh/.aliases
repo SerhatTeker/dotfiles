@@ -104,13 +104,14 @@ alias postman='~/apps/postman/Postman\ Agent/Postman\ Agent > /dev/null 2>&1 &'
 
 alias gac='git add . && git commit'
 # Initial empty commit for repos
-alias gcae='git init && git commit --allow-empty -m "Initial commit"'
-alias gaec='git init && git commit --allow-empty -m "Initial commit"'
+alias gie='git init && git commit --allow-empty -m "Initial commit"'
 # Visualize git branch tree
 alias glvb='git log --graph --simplify-by-decoration --pretty=format:'%d' --all'
 # List tracked files by git
 alias gtf='git ls-tree -r $(git_current_branch) --name-only'
+# Stash
 alias gstu='git stash -u'
+alias gstum='git stash save -u -m'
 # }}}
 
 # tmux {{{
