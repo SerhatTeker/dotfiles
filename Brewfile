@@ -80,7 +80,7 @@ cask "google-chrome"
 cask "iterm2"
 cask "multipass"
 cask "notion"
-cask "obsidian"                 # obsidian md
+cask "obsidian"                 # obsidian md | no linux
 cask "slack"
 cask "spotify"
 cask "telegram"
