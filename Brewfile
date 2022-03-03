@@ -84,10 +84,10 @@ cask "obsidian"                 # obsidian md | no linux
 cask "slack"
 cask "spotify"
 cask "telegram"
-# cask "virtualbox"             # not compatible with M1
+# cask "virtualbox"               # not compatible with M1
 cask "visual-studio-code"
 cask "vlc"
 cask "zoom"
 
 # Optional
-# cask "keycastr"
+# cask "keycastr"               # show keys strokes | no linux
