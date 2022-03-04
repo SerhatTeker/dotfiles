@@ -67,6 +67,12 @@ EOF
     msg_cli white "Rich traceback added"
 }
 
+configure_pudb() {
+    mkdir -p ${XDG_CONFIG_HOME}/pudb
+    ln -sf "${ROOT}/python/pudb.cfg" \
+        ${XDG_CONFIG_HOME}/pudb
+}
+
 main() {
     install_packages
     install_reqirements

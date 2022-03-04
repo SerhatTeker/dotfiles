@@ -127,8 +127,11 @@ export PYTHON="python${PYTHON_VERSION}"
 # Install libs in virtualenv
 export PIP_REQUIRE_VIRTUALENV=true
 
-# Use ipdb instead of pdb
-export PYTHONBREAKPOINT=ipdb.set_trace
+# TODO: Add exists check
+# Use pudb instead of pdb
+export PYTHONBREAKPOINT=pudb.set_trace
+# Alternative: use ipdb instead of pdb
+# export PYTHONBREAKPOINT=ipdb.set_trace
 # }}}2
 
 # Containers {{{2
