@@ -71,6 +71,8 @@ configure_pudb() {
     mkdir -p ${XDG_CONFIG_HOME}/pudb
     ln -sf "${ROOT}/python/pudb.cfg" \
         ${XDG_CONFIG_HOME}/pudb
+
+    msg_cli white "pudb configured"
 }
 
 main() {
@@ -82,6 +84,7 @@ main() {
     msg_cli green "Python configured"
 }
 
-main
+# main
+configure_pudb
 
 exit 0
