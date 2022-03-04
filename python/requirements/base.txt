@@ -1,5 +1,6 @@
 autoflake==1.4                  # https://github.com/fsouza/autoflake8
 black==22.1.0                   # https://github.com/psf/black
+bpython==0.22.1                 # https://bpython-interpreter.org/
 bpytop==1.0.68                  # https://github.com/aristocratos/bpytop
 # Last supported global config : ~/.config/flake8
 # https://flake8.pycqa.org/en/latest/release-notes/4.0.0.html#backwards-incompatible-changes
@@ -9,4 +10,5 @@ ipdb==0.13.9                    # https://github.com/gotcha/ipdb
 jedi==0.18.1                    # https://github.com/davidhalter/jedi
 jedi-language-server==0.35.1    # https://github.com/pappasam/jedi-language-server
 pretty-errors==1.2.25           # https://github.com/onelivesleft/PrettyErrors
+pudb==2022.1                    # https://github.com/inducer/pudb
 pytest==6.2.2                   # https://github.com/pytest-dev/pytest
