@@ -195,7 +195,7 @@ plugins=(
     vi-mode
     # dotenv    # Disabled
     cd-gitroot
-    copydir
+    copypath
     copyfile
     docker
     docker-compose
