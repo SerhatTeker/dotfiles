@@ -37,37 +37,37 @@ export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 typeset -U path
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    path+=("$HOME/bin")
+if [ -d "${HOME}/bin" ] ; then
+    path+=("${HOME}/bin")
 fi
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    path+=("$HOME/.local/bin")
+if [ -d "${HOME}/.local/bin" ] ; then
+    path+=("${HOME}/.local/bin")
 fi
 
 # Node modules global
-if [ -d "$HOME/.local/bin" ] ; then
-    path+=("$HOME/.node_modules/bin")
+if [ -d "${HOME}/.local/bin" ] ; then
+    path+=("${HOME}/.node_modules/bin")
 fi
 
 # Rust
-if [ -f "$HOME/.cargo/env" ] ; then
-    source "$HOME/.cargo/env"
+if [ -f "${HOME}/.cargo/env" ] ; then
+    source "${HOME}/.cargo/env"
 fi
 
 # Python
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    path+=("$HOME/Library/Python/3.8/bin")
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+    path+=("${HOME}/Library/Python/3.8/bin")
 fi
 
 # Homebrew {{{
 
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+if [[ "${OSTYPE}" == "linux-gnu"* ]]; then
     if [ -d "/home/linuxbrew/.linuxbrew/bin" ]; then
         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     fi
-elif [[ "$OSTYPE" == "darwin"* ]]; then
+elif [[ "${OSTYPE}" == "darwin"* ]]; then
     # Warning: /usr/bin occurs before $HOME/.homebrew/bin in your PATH. This
     # means that system-provided programs will be used instead of thoseprov
     if [ -d "$HOME/.homebrew/bin" ]; then
@@ -90,13 +90,13 @@ export HOMEBREW_NO_ENV_HINTS=1
 
 # NeoVim
 # TODO: Move it to $XDG_CONFIG_HOME
-export MYNVIMRC=$HOME/dotfiles/nvim/.nvimrc
+export MYNVIMRC="$HOME/dotfiles/nvim/.nvimrc"
 # Bat
-export BAT_CONFIG_PATH=${XDG_CONFIG_HOME}/bat/bat.conf
+export BAT_CONFIG_PATH="${XDG_CONFIG_HOME}/bat/bat.conf"
 # Ripgrep
-export RIPGREP_CONFIG_PATH=${XDG_CONFIG_HOME}/rg/.ripgreprc
+export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME}/rg/.ripgreprc"
 # httpie
-export HTTPIE_CONFIG_DIR=${XDG_CONFIG_HOME}/httpie
+export HTTPIE_CONFIG_DIR="${XDG_CONFIG_HOME}/httpie"
 # zsh
 export ZSH_CUSTOM_HIGHLIGHT="TRUE"
 
@@ -115,7 +115,7 @@ export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 # IaC {{{
 
 # Ansible
-export ANSIBLE_CONFIG=${XDG_CONFIG_HOME}/ansible/ansible.cfg
+export ANSIBLE_CONFIG="${XDG_CONFIG_HOME}/ansible/ansible.cfg"
 # }}}
 
 # Python {{{2
@@ -141,12 +141,12 @@ export PYTHONBREAKPOINT=pudb.set_trace
 export DOCKER_BUILDKIT=1
 
 # kind
-export KINDCONFIG=${XDG_CONFIG_HOME}/kube/kind.yaml
+export KINDCONFIG="${XDG_CONFIG_HOME}/kube/kind.yaml"
 # }}}2
 
 # Log {{{
 
-export LOG_FILE=/tmp/output.log
+export LOG_FILE="/tmp/output.log"
 # }}}
 
 # Colors {{{2
