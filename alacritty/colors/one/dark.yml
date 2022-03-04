@@ -1,4 +1,14 @@
+# Color schemes
+# https://github.com/alacritty/alacritty/wiki/Color-schemes
+#
 # Colors (One Dark - https://github.com/atom/atom/tree/master/packages/one-dark-syntax)
+#
+# Alternative #1
+# https://gist.github.com/SerhatTeker/7762780e25269ee67afe31658d263330
+#
+# Alternative #2
+# https://github.com/eendroroy/alacritty-theme/blob/master/themes/one_dark.yaml
+#
 colors:
   primary:
     # background: '#282c34'     # soft contrast
@@ -7,8 +17,8 @@ colors:
     background: '#0B0B0B'     # hard contrast-1
     # background: '#080808'     # hard contrast-2
 
-    # foreground: '#abb2bf'
-    foreground: '#d0d0d0'
+    foreground: '#abb2bf'
+    # foreground: '#d0d0d0'
   cursor:
     text:       CellBackground
     cursor:     '#528bff' # syntax-cursor-color
@@ -17,12 +27,11 @@ colors:
     background: '#3e4451' # syntax-selection-color
   normal:
     # black:      '#5c6370' # mono-3
-    black:      '#1c1c1c'
+    black:      '#0B0B0B'
     red:        '#e06c75' # red 1
     green:      '#98c379'
     yellow:     '#e5c07b' # orange 2
     blue:       '#61afef'
     magenta:    '#c678dd'
     cyan:       '#56b6c2'
-    # white:      '#828997' # mono-2
     white:      '#828997' # mono-2
