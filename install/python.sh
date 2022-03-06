@@ -26,6 +26,8 @@ source "${ROOT}/install/common.sh"
 VERSION=${PYTHON_VERSION:-3.8}
 PYTHON="python${VERSION}"
 
+# Install {{{
+
 
 install_packages() {
     # Can't use ensurepip cause it's disabled for Ubuntu
@@ -46,6 +48,14 @@ install_reqirements() {
 
     msg_cli blue "Global user packages installed"
 }
+
+_install() {
+    install_packages
+    install_reqirements
+}
+# }}}
+
+# Configure {{{
 
 pretty_errors() {
     local site_dir="$(${PYTHON} -c "import site; print(f'{site.USER_SITE}')")"
@@ -75,16 +85,21 @@ configure_pudb() {
     msg_cli white "pudb configured"
 }
 
-main() {
-    install_packages
-    install_reqirements
+_configure() {
     pretty_errors
     rich_traceback
+    configure_pudb
+}
+# }}}
+
+main() {
+    _install
+    _configure
 
     msg_cli green "Python configured"
 }
 
-# main
-configure_pudb
+main
+# _configure
 
 exit 0
