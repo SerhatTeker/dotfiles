@@ -78,17 +78,30 @@ EOF
 }
 
 configure_pudb() {
-    mkdir -p ${XDG_CONFIG_HOME}/pudb
-    ln -sf "${ROOT}/python/pudb.cfg" \
-        ${XDG_CONFIG_HOME}/pudb
+    local source="${DOTFILES}/python/pudb.cfg"
+    local target="${XDG_CONFIG_HOME}/pudb"
+
+    mkdir -p ${target}
+    ln -sf ${source} ${target}
 
     msg_cli white "pudb configured"
+}
+
+configure_ipython() {
+    local source="${DOTFILES}/python/ipython_config.py"
+    local target="${XDG_CONFIG_HOME}/.ipython/profile_default"
+
+    mkdir -p ${target}
+    ln -sf "${source}" ${target}
+
+    msg_cli white "ipython configured"
 }
 
 _configure() {
     pretty_errors
     rich_traceback
     configure_pudb
+    configure_ipython
 }
 # }}}
 
