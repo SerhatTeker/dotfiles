@@ -78,6 +78,7 @@ alias tree='tree -aI ".git|.venv"'
 
 # source zsh
 alias sz='exec zsh'
+alias ez='exec zsh'
 
 # https://askubuntu.com/a/22043
 alias sudo='sudo '
