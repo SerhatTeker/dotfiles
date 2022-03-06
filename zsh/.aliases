@@ -144,17 +144,20 @@ alias kgao='kubectl get all -A > /tmp/output.log ; nvim /tmp/output.log'
 # }}}
 
 # python {{{
+#
+# ${PYTHON} from .zshenv
 
-alias p='python3.8'
-alias pp='python3.8 -m pip'
-alias pd="python -m ipdb -c continue"
-# default ipython alias uses python 2
-# TODO: make this function with $PYTHON_VERSION arg
-alias pi='python3.8 -c "import IPython; IPython.terminal.ipapp.launch_new_instance()"'
+alias p='${PYTHON}'
+alias pp='${PYTHON} -m pip'
+
+# Interactive
+alias pi='${PYTHON} -m IPython -i'
+alias pid="${PYTHON} -m ipdb -c continue"
+alias pib='${PYTHON} -m bpython -i'
 
 # django {{{
-alias pm="python manage.py"
-alias pdm="python -m ipdb -c continue manage.py"
+alias pm="${PYTHON} manage.py"
+alias pdm="${PYTHON} -m ipdb -c continue manage.py"
 # }}}
 
 # virtual environment {{{
