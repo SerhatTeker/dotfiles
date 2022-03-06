@@ -317,22 +317,26 @@ EOF
 # 0.1. If virtualenv already exists activate it,
 # 0.2. If not create it with global packages, update pip then activate it
 ve() {
-    local py=${PYTHON:-python3} # ${PYTHON} comes from .zshenv
-    local venv="${1:-./.venv}"
+    local py=${1:-$PYTHON}              # ${PYTHON} comes from .zshenv
+    local venv="${2:-./.venv}"
+    local bin="${venv}/bin/activate"
 
-    # If not already in virtualenv, $VIRTUAL_ENV set from $venv/bin/activate script
-	if [ -z "$VIRTUAL_ENV" ]; then
+    # If not already in virtualenv
+    # $VIRTUAL_ENV is being set from $venv/bin/activate script
+	if [ -z "${VIRTUAL_ENV}" ]; then
         if [ ! -d ${venv} ]; then
             echo "Creating and activating virtual environment ${venv}"
             ${py} -m venv ${venv} --system-site-package
-            source ${venv}/bin/activate
-
+            echo "export PYTHON=${py}" >> ${bin}    # Overwrite $PYTHON on .zshenv
+            source ${bin}
             echo "Upgrading pip"
             ${py} -m pip install --upgrade pip
         else
             echo "Virtual environment  ${venv} already exists, activating..."
-            source ${venv}/bin/activate
+            source ${bin}
         fi
+    else
+        echo "Already in a virtual environment!"
     fi
 }
 
