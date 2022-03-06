@@ -316,6 +316,12 @@ EOF
 # 0. If not already in virtualenv:
 # 0.1. If virtualenv already exists activate it,
 # 0.2. If not create it with global packages, update pip then activate it
+# 1. If already in virtualenv: just warn
+#
+# Usage:
+# $ ve
+# $ ve python3.9
+# $ ve python3.9 ./.venv-diff
 ve() {
     local py=${1:-$PYTHON}              # ${PYTHON} comes from .zshenv
     local venv="${2:-./.venv}"
@@ -327,7 +333,7 @@ ve() {
         if [ ! -d ${venv} ]; then
             echo "Creating and activating virtual environment ${venv}"
             ${py} -m venv ${venv} --system-site-package
-            echo "export PYTHON=${py}" >> ${bin}    # Overwrite $PYTHON on .zshenv
+            echo "export PYTHON=${py}" >> ${bin}    # Overwrite ${PYTHON} on .zshenv
             source ${bin}
             echo "Upgrading pip"
             ${py} -m pip install --upgrade pip
