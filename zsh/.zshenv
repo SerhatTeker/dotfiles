@@ -132,6 +132,8 @@ export PIP_REQUIRE_VIRTUALENV=true
 export PYTHONBREAKPOINT=pudb.set_trace
 # Alternative: use ipdb instead of pdb
 # export PYTHONBREAKPOINT=ipdb.set_trace
+
+export IPYTHONDIR="${XDG_CONFIG_HOME}/.ipython"
 # }}}2
 
 # Containers {{{2
