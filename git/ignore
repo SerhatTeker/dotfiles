@@ -49,10 +49,6 @@ celerybeat.pid
 .dmypy.json
 dmypy.json
 
-# IPython
-profile_default/
-ipython_config.py
-
 # Sphinx documentation
 docs/_build/
 
