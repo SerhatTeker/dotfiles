@@ -32,7 +32,15 @@
 
 ## lines of code to run at IPython startup.
 #  Default: []
-c.InteractiveShellApp.exec_lines = ['%autoreload 2']
+c.InteractiveShellApp.exec_lines = ['%autoreload 3']
+# %autoreload 1
+# Reload all modules imported with %aimport every time before executing the Python code typed.
+#
+# %autoreload 2
+# Reload all modules (except those excluded by %aimport) every time before executing the Python code typed.
+#
+# %autoreload 3
+# Reload all modules AND autoload newly added objects every time before executing the Python code typed.
 
 ## A list of dotted module names of IPython extensions to load.
 #  Default: []
