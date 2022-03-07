@@ -6,7 +6,8 @@ import logging
 
 logging.basicConfig(
 	level=logging.INFO,
-	format="[%(asctime)s] [%(levelname)-8s] [%(module)s %(name)s (%(lineno)d)] : %(message)s",
+	format="[%(asctime)s] [%(levelname)-8s] : %(message)s",  # short
+	# format="[%(asctime)s] [%(levelname)-8s] [%(module)s %(name)s (%(lineno)d)] : %(message)s",  # long
 	datefmt="%Y-%m-%d %H:%M:%S %z",
 )
 logger = logging.getLogger(__name__)
