@@ -58,16 +58,18 @@ def timerun(func):
 
 	@functools.wraps(func)
 	def wrapper(*args, **kwargs):
-		start = time.time()
+		start = time.perf_counter()
 		result = func(*args, **kwargs)
-		duration = time.time() - start
+		duration = time.perf_counter() - start
+		msg = f"Duration of {func.__name__} function was {duration} sec"
 
 		try:
-			logger.info(f"Duration of {func.__name__} function was {duration} sec")
-		except Exception:
-			print(f"Duration of {func.__name__} function was {duration} sec")
+			logger.info(msg)
+		except NameError:
+			print(msg)
 
 		return result
+
 	return wrapper
 $0
 endsnippet
