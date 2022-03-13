@@ -1,6 +1,7 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 #
 # default: https://github.com/alacritty/alacritty/blob/master/alacritty.yml
+# or $DOTFILES/alacritty/alacritty.yml.default
 
 # Import additional configuration files
 #
@@ -30,36 +31,37 @@ window:
   startup_mode: Fullscreen
   dynamic_title: true
 
-# From colors/{one, gruvbox, dracula}.yml
+# From colors/{one, gruvbox, dracula, ubuntu}.yml
 # colors: *dark
 
 fonts:
   ubuntu_mono: &ubuntu_mono
     normal:
-      family: 'Ubuntu Mono'
+      family: &ubuntu_family 'Ubuntu Mono'
       style: Regular
     bold:
-      family: 'Ubuntu Mono'
+      family: *ubuntu_family
       style: Bold
     italic:
-      family: 'Ubuntu Mono'
+      family: *ubuntu_family
       style: Italic
     bold_italic:
-      family: 'Ubuntu Mono'
+      family: *ubuntu_family
       style: Bold Italic
-    size: 12.0
+    size: &font_size 12.0
+
   sf_mono: &sf_mono
     normal:
-      family: 'SF Mono'
+      family: &sf_family 'SF Mono'
       style: Regular
     bold:
-      family: 'SF Mono'
+      family: *sf_family
       style: Bold
     italic:
-      family: 'SF Mono'
+      family: *sf_family
       style: Italic
     bold_italic:
-      family: 'SF Mono'
+      family: *sf_family
       style: Bold Italic
     # Offset is the extra space around each character. offset.y can be thought of
     # as modifying the linespacing, and offset.x as modifying the letter spacing.
@@ -76,7 +78,7 @@ fonts:
     # for retina displays, but for non-retina you probably want this set to
     # false.
     use_thin_strokes: true
-    size: 12.0
+    size: *font_size
 
 # Font configuration
 font: *sf_mono
