@@ -32,7 +32,7 @@ call ChangeBackground()
 autocmd Signal SIGUSR1 * call ChangeBackground()
 " }}}
 
-" Statusbar Themes {{{
+" Airline Statusbar Themes {{{
 
 if g:colors_name ==# "neodark"
     let g:airline_theme="onedark"
