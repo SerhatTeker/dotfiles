@@ -1,4 +1,6 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
+#
+# default: https://github.com/alacritty/alacritty/blob/master/alacritty.yml
 
 # Import additional configuration files
 #
@@ -27,10 +29,57 @@ window:
   startup_mode: Fullscreen
   dynamic_title: true
 
+# Font configuration
 font:
+  # Normal (roman) font face
   normal:
-    family: Ubuntu Mono
-  size: 12
+    # Font family
+    #
+    # Default:
+    #   - (macOS) Menlo
+    #   - (Linux/BSD) monospace
+    #   - (Windows) Consolas
+    family: 'Ubuntu Mono'
+    # family: 'SF Mono'
+    # The `style` can be specified to pick a specific face.
+    style: Regular
+
+  # Bold font face
+  bold:
+    # Font family
+    #
+    # If the bold family is not specified, it will fall back to the
+    # value specified for the normal font.
+    #family: monospace
+    family: 'Ubuntu Mono'
+    # family: 'SF Mono'
+    # The `style` can be specified to pick a specific face.
+    style: Bold
+
+  # Italic font face
+  italic:
+    # Font family
+    #
+    # If the italic family is not specified, it will fall back to the
+    # value specified for the normal font.
+    family: 'Ubuntu Mono'
+    # family: 'SF Mono'
+    # The `style` can be specified to pick a specific face.
+    style: Italic
+
+  # Bold italic font face
+  bold_italic:
+    # Font family
+    #
+    # If the bold italic family is not specified, it will fall back to the
+    # value specified for the normal font.
+    family: 'Ubuntu Mono'
+    # family: 'SF Mono'
+    # The `style` can be specified to pick a specific face.
+    style: Bold Italic
+
+  # Point size
+  size: 12.0
 
 colors:
   cursor:
