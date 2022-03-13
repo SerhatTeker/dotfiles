@@ -11,7 +11,8 @@
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
 import:
-  - ~/.config/alacritty/colors/one/dark.yml
+  # - ~/.config/alacritty/colors/gruvbox.yml
+  - ~/.config/alacritty/colors/one.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -29,6 +30,8 @@ window:
   startup_mode: Fullscreen
   dynamic_title: true
 
+# From colors/{one, gruvbox, dracula}.yml
+# colors: *dark
 
 fonts:
   ubuntu_mono: &ubuntu_mono
@@ -77,10 +80,6 @@ fonts:
 
 # Font configuration
 font: *sf_mono
-
-colors:
-  cursor:
-   cursor: '#ffc600'
 
 cursor:
   # Cursor style

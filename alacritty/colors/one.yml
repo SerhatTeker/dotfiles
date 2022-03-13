@@ -1,0 +1,61 @@
+# Color schemes
+# https://github.com/alacritty/alacritty/wiki/Color-schemes
+schemes:
+  # Colors (One Dark - https://github.com/atom/atom/tree/master/packages/one-dark-syntax)
+  #
+  # Alternative #1
+  # https://gist.github.com/SerhatTeker/7762780e25269ee67afe31658d263330
+  #
+  # Alternative #2
+  # https://github.com/eendroroy/alacritty-theme/blob/master/themes/one_dark.yaml
+  one_dark: &one_dark
+    primary:
+      # background: '#282c34'     # soft contrast
+      # background: '#1c1c1c'     # medium contrast
+      # background: '#121212'     # hard contrast-0
+      background: '#0B0B0B'     # hard contrast-1
+      # background: '#080808'     # hard contrast-2
+      foreground: '#abb2bf'
+      # foreground: '#d0d0d0'
+    cursor:
+      text:       CellBackground
+      cursor:     '#528bff' # syntax-cursor-color
+    selection:
+      text:       CellForeground
+      background: '#3e4451' # syntax-selection-color
+    normal:
+      # black:      '#5c6370' # mono-3
+      black:      '#0B0B0B'
+      red:        '#e06c75' # red 1
+      green:      '#98c379'
+      yellow:     '#e5c07b' # orange 2
+      blue:       '#61afef'
+      magenta:    '#c678dd'
+      cyan:       '#56b6c2'
+      white:      '#828997' # mono-2
+    cursor:
+     cursor: '#ffc600'
+  # Colors (One Light - https://github.com/atom/atom/tree/master/packages/one-light-syntax)
+  one_light: &one_light
+    primary:
+      background: '#fafafa'
+      foreground: '#383a42'
+    cursor:
+      text:       CellBackground
+      cursor:     '#526eff' # syntax-cursor-color
+    selection:
+      text:       CellForeground
+      background: '#e5e5e6' # syntax-selection-color
+    normal:
+      black:      '#696c77' # mono-2
+      red:        '#e45649' # red 1
+      green:      '#50a14f'
+      yellow:     '#c18401' # orange 2
+      blue:       '#4078f2'
+      magenta:    '#a626a4'
+      cyan:       '#0184bc'
+      white:      '#a0a1a7' # mono-3
+    cursor:
+     cursor: '#ffc600'
+
+colors: *one_dark
