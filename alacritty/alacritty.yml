@@ -29,65 +29,89 @@ window:
   startup_mode: Fullscreen
   dynamic_title: true
 
+
+fonts:
+  ubuntu_mono: &ubuntu_mono
+    normal:
+      family: 'Ubuntu Mono'
+      style: Regular
+    bold:
+      family: 'Ubuntu Mono'
+      style: Bold
+    italic:
+      family: 'Ubuntu Mono'
+      style: Italic
+    bold_italic:
+      family: 'Ubuntu Mono'
+      style: Bold Italic
+    size: 12.0
+  sf_mono: &sf_mono
+    normal:
+      family: 'SF Mono'
+      style: Regular
+    bold:
+      family: 'SF Mono'
+      style: Bold
+    italic:
+      family: 'SF Mono'
+      style: Italic
+    bold_italic:
+      family: 'SF Mono'
+      style: Bold Italic
+    # Offset is the extra space around each character. offset.y can be thought of
+    # as modifying the linespacing, and offset.x as modifying the letter spacing.
+    offset:
+      x: 0
+      y: 0
+    # Glyph offset determines the locations of the glyphs within their cells with
+    # the default being at the bottom. Increase the x offset to move the glyph to
+    # the right, increase the y offset to move the glyph upward.
+    glyph_offset:
+      x: 0
+      y: 0
+    # OS X only: use thin stroke font rendering. Thin strokes are suitable
+    # for retina displays, but for non-retina you probably want this set to
+    # false.
+    use_thin_strokes: true
+    size: 12.0
+
 # Font configuration
-font:
-  # Normal (roman) font face
-  normal:
-    # Font family
-    #
-    # Default:
-    #   - (macOS) Menlo
-    #   - (Linux/BSD) monospace
-    #   - (Windows) Consolas
-    family: 'Ubuntu Mono'
-    # family: 'SF Mono'
-    # The `style` can be specified to pick a specific face.
-    style: Regular
-
-  # Bold font face
-  bold:
-    # Font family
-    #
-    # If the bold family is not specified, it will fall back to the
-    # value specified for the normal font.
-    #family: monospace
-    family: 'Ubuntu Mono'
-    # family: 'SF Mono'
-    # The `style` can be specified to pick a specific face.
-    style: Bold
-
-  # Italic font face
-  italic:
-    # Font family
-    #
-    # If the italic family is not specified, it will fall back to the
-    # value specified for the normal font.
-    family: 'Ubuntu Mono'
-    # family: 'SF Mono'
-    # The `style` can be specified to pick a specific face.
-    style: Italic
-
-  # Bold italic font face
-  bold_italic:
-    # Font family
-    #
-    # If the bold italic family is not specified, it will fall back to the
-    # value specified for the normal font.
-    family: 'Ubuntu Mono'
-    # family: 'SF Mono'
-    # The `style` can be specified to pick a specific face.
-    style: Bold Italic
-
-  # Point size
-  size: 12.0
+font: *sf_mono
 
 colors:
   cursor:
    cursor: '#ffc600'
 
 cursor:
+  # Cursor style
+  #
+  # Values for 'style':
+  #   - ▇ Block
+  #   - _ Underline
+  #   - | Beam
   style:
     blinking: Always
   blink_interval: 500
+
+# Shell
+#
+# You can set shell.program to the path of your favorite shell, e.g. /bin/zsh.
+# Entries in shell.args are passed unmodified as arguments to the shell.
+#
+# shell:
+#   program: /usr/local/bin/fish
+#   args:
+#     - --login
+#
+#
+# Tmux
+# shell:
+#   program: /usr/local/bin/tmux
+#   args:
+#     - new-session
+#     - -A
+#     - -D
+#     - -s
+#     - main
 
 live_config_reload: true
