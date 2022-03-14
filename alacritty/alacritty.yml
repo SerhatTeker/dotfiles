@@ -81,7 +81,7 @@ fonts:
     size: *font_size
 
 # Font configuration
-font: *sf_mono
+font: *ubuntu_mono
 
 cursor:
   # Cursor style
