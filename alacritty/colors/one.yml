@@ -8,7 +8,7 @@ schemes:
   #
   # Alternative #2
   # https://github.com/eendroroy/alacritty-theme/blob/master/themes/one_dark.yaml
-  one_dark: &one_dark
+  one_dark: &theme_dark
     primary:
       # background: '#282c34'     # soft contrast
       # background: '#1c1c1c'     # medium contrast
@@ -39,7 +39,7 @@ schemes:
       white:      '#828997' # mono-2
 
   # Colors (One Light - https://github.com/atom/atom/tree/master/packages/one-light-syntax)
-  one_light: &one_light
+  one_light: &theme_light
     primary:
       background: '#fafafa'
       foreground: '#383a42'
@@ -62,4 +62,4 @@ schemes:
       cyan:       '#0184bc'
       white:      '#a0a1a7' # mono-3
 
-colors: *one_dark
+colors: *theme_dark

@@ -1,6 +1,6 @@
 schemes:
   # Colors (Gruvbox dark)
-  gruvbox_dark: &gruvbox_dark
+  gruvbox_dark: &theme_dark
     primary:
       # hard contrast background - '#1d2021'
       background:        &gruvbox_dark_bg '#282828'
@@ -64,7 +64,7 @@ schemes:
     # indexed_colors: []
 
   # Colors (Gruvbox light)
-  gruvbox_light: &gruvbox_light
+  gruvbox_light: &theme_light
     # Default colors
     primary:
       # hard contrast: background = '#f9f5d7'
@@ -94,4 +94,4 @@ schemes:
       cyan:    '#427b58'
       white:   '#3c3836'
 
-colors: *gruvbox_dark
+colors: *theme_dark
