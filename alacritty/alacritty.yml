@@ -80,6 +80,7 @@ fonts:
     use_thin_strokes: true
     size: *font_size
 
+# TODO: make dependin on OS
 # Font configuration
 font: *ubuntu_mono
 
