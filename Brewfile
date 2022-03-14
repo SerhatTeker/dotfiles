@@ -90,4 +90,5 @@ cask "vlc"
 cask "zoom"
 
 # Optional
-# cask "keycastr"               # show keys strokes | no linux
+# cask "keycastr"                 # show keys strokes | no linux
+# cask "google-drive"             # google drive desktop | no linux
