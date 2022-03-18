@@ -50,6 +50,7 @@ autocmd FileType python call SemshiCustomHighlights()
 
 " vim-pydocstring {{{
 
+" TODO: make dynamic
 let g:pydocstring_doq_path = '~/.local/bin/doq'
 let g:pydocstring_formatter = 'google'
 nmap <silent> <C-_> <Plug>(pydocstring)
