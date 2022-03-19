@@ -1,6 +1,19 @@
 " ----------------------------------------------------------------------------"
 "	Colors		{{{
 " ----------------------------------------------------------------------------"
+"
+"  Colors controlled from:
+"  * colors.vim : defines defaults
+"  * backgroundTheme.vim : update theme according to OS theme change
+"
+" Default theme is **neodark** and background is **dark** defined in colors.vim
+" Light theme is **one**
+" Theme change controlled by ChangeBackground() from backgroundTheme.vim
+
+
+" Global color theme and background choice
+let g:default_theme="neodark"
+let g:default_background="dark"
 
 " colors settings {{{
 
@@ -49,46 +62,56 @@ augroup END
 
 " Using ChangeBackground
 function! InitiateColorscheme()
-    " check base16 theme
+
+    " Background
+    if g:default_background ==# "dark"
+        set background=dark
+    else
+        set background=light
+    endif
+
+    " Colorscheme and airline theme {{{
+
+    " check base16 theme exists
     if filereadable(expand("~/.vimrc_background"))
         let base16colorspace=256
         source ~/.vimrc_background
-    elseif filereadable(expand("~/.config/nvim/colors/neodark.vim"))
-    " elseif !isdirectory($VIMRUNTIME . '/colors/neodark.vim')
-        " Onedark
-        colorscheme neodark
-        set background=dark
-
-        " Custom Cursor {{{
-
-        " define custom cursor highlight
-        hi Cursor guibg=yellow
-        setlocal guicursor=
-                    \n-v-c:block-Cursor/lCursor
-                    \,i-ci-ve:block-Cursor/lCursor
-                    \,r-cr-o:hor50-Cursor/lCursor
-        " }}}
     else
-        " gruvbox {{{
+        if g:default_theme ==# "neodark"
+            colorscheme neodark
 
-        let g:gruvbox_contrast_dark = "hard"
-        let g:gruvbox_contrast_light = "hard"
+            let g:airline_theme="onedark"
 
-        colorscheme gruvbox
-        set background=dark
-        " }}}
+            " Custom Cursor {{{
 
-        " Onedark
-        " set background=dark
-        " colorscheme onedark
-        " let g:onedark_color_overrides = {
-        "             \ "black": {"gui": "#0b0b0b", "cterm": "233", "cterm16": "0" },
-        "             \}
+            " define custom cursor highlight
+            hi Cursor guibg=yellow
+            setlocal guicursor=
+                        \n-v-c:block-Cursor/lCursor
+                        \,i-ci-ve:block-Cursor/lCursor
+                        \,r-cr-o:hor50-Cursor/lCursor
+            " }}}
 
-        " One
-        " colorscheme one
-        " set background=light
+        elseif g:default_theme ==# "gruvbox"
+            let g:gruvbox_contrast_dark = "hard"
+            let g:gruvbox_contrast_light = "hard"
+            colorscheme gruvbox
+
+            let g:airline_theme="gruvbox"
+
+        elseif g:default_theme ==# "one"
+            colorscheme one
+
+            let g:airline_theme="one"
+        else
+            colorscheme onedark
+            let g:onedark_color_overrides = {
+                        \ "black": {"gui": "#0b0b0b", "cterm": "233", "cterm16": "0" },
+                        \}
+        endif
     endif
+    " }}}
+
 endfunction
 
 call InitiateColorscheme()
