@@ -2,6 +2,8 @@
 "	Colors		{{{
 " ----------------------------------------------------------------------------"
 "
+" Colors initiated from ChangeBackground() in backgroundTheme.vim
+"
 "  Colors controlled from:
 "  * colors.vim : defines defaults
 "  * backgroundTheme.vim : update theme according to OS theme change
@@ -58,17 +60,19 @@ augroup Shape
 augroup END
 " }}}
 
-" InitiateColorscheme {{{
+" InitiateColors {{{
 
-" Using ChangeBackground
-function! InitiateColorscheme()
+" Used in ChangeBackground
+function! InitiateColors()
 
-    " Background
+    " Background {{{
+
     if g:default_background ==# "dark"
         set background=dark
     else
         set background=light
     endif
+    " }}}
 
     " Colorscheme and airline theme {{{
 
@@ -111,11 +115,7 @@ function! InitiateColorscheme()
         endif
     endif
     " }}}
-
 endfunction
-
-call InitiateColorscheme()
-" autocmd VimEnter * call InitiateColorscheme()
 " }}}
 " ----------------------------------------------------------------------------"
 "	}}}

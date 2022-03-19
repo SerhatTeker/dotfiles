@@ -6,8 +6,8 @@
 function! ChangeBackground()
     " --- Linux ---
     if system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-light"
-        set background=light
-        colorscheme one
+        let g:default_theme="one"
+        let g:default_background="light"
     endif
 
     " --- MacOS ---
@@ -23,6 +23,9 @@ function! ChangeBackground()
     if exists(":AirlineTheme")
         :AirlineRefresh
     endif
+
+    call InitiateColors()                           " colors.vim
+    " autocmd VimEnter * call InitiateColors()
 endfunction
 
 " initialize the colorscheme for the first run
