@@ -51,6 +51,7 @@ Plug 'PhilRunninger/nerdtree-visual-selection'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-unimpaired'
 Plug 'kshenoy/vim-signature'                            " toggle, display and navigate marks
+Plug 'easymotion/vim-easymotion'                        " motions on speed
 " }}}3
 
 " Theme {{{3
