@@ -31,17 +31,3 @@ call ChangeBackground()
 " change the color scheme if we receive a SigUSR1
 autocmd Signal SIGUSR1 * call ChangeBackground()
 " }}}
-
-" Airline Statusbar Themes {{{
-
-if g:colors_name ==# "neodark"
-    let g:airline_theme="onedark"
-elseif g:colors_name ==# "gruvbox"
-    let g:airline_theme="gruvbox"
-elseif g:colors_name ==# "one"
-    let g:airline_theme="one"
-else
-    " let g:airline_theme=g:colors_name
-    let g:airline_theme="onedark"
-endif
-" }}}
