@@ -16,6 +16,11 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
+defaults() {
+    sudo apt install -y \
+        i3 \
+        i3blocks
+}
 
 # TODO: write
 install_obsidian() {
