@@ -9,5 +9,5 @@
 
 
 for layout in ${HOME}/.config/i3/layouts/* ; do
-  i3-msg "workspace $(basename "${layout}" .json); append_layout ${layout}"
+    i3-msg "workspace $(basename "${layout}" .json); append_layout ${layout}"
 done
