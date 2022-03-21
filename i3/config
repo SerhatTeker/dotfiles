@@ -93,6 +93,9 @@ bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
+
+# Lock
+bindsym $mod+Shift+x exec i3lock --color 0B0B0B
 # }}}
 
 # Monitors {{{
@@ -198,14 +201,15 @@ bar {
 
 # Startup {{{
 
-exec gnome-terminal
-exec google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering
+# Gnome
+exec --no-startup-id /usr/lib/gsd-xsettings
+exec_always --no-startup-id gnome-power-manager
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id gnome-flashback
+
+# exec gnome-terminal
+# exec google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering
 # exec spotify
-#
-# no-id
-# exec --no-startup-id google-chrome-stable
-# exec --no-startup-id gnome-terminal
-# exec --no-startup-id spotify
 # }}}
 
 # Keys {{{
