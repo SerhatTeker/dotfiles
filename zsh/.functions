@@ -20,7 +20,7 @@ telegram() {
     if pgrep Telegram; then
         pkill Telegram
     else
-        nohup $APPS_DIR/Telegram/Telegram >/dev/null 2>&1 &
+        nohup ${APPS}/Telegram/Telegram >/dev/null 2>&1 &
     fi
 }
 
