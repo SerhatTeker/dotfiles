@@ -143,11 +143,27 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+# TODO: import?
+# Personal Preferences {{{
+
 # default workspaces
-# assign [class="Google-chrome"] number $ws2
-assign [class="Gnome-terminal"] number $ws3
+# assign [class="Gnome-terminal"] number $ws3
+assign [class="Nautilus"] $ws7
+assign [class="Slack"] $ws8
 assign [class="Spotify"] $ws10
 
+# Windows
+for_window [class="Telegram"] floating enable
+for_window [class="Signal"] floating enable
+for_window [class="Telegram"] move to workspace $ws9
+for_window [class="Signal"] move to workspace $ws9
+# }}}
+# }}}
+
+# Layouts {{{
+
+# Restore layouts
+# exec ~/.config/i3/scripts/restore-layouts.sh
 # }}}
 
 # Reload/Restart/Exit {{{
@@ -214,12 +230,7 @@ exec --no-startup-id gnome-flashback
 
 # Keys {{{
 
+# Bind CapsLock to Escape
 exec_always xmodmap -e "clear lock" # disable caps lock switch
-exec_always xmodmap -e "keysym Caps_Lock = Escape" #set caps_lock as escape
-# }}}
-
-# Layouts {{{
-
-# Restore layouts
-# exec ~/.config/i3/scripts/restore-layouts.sh
+exec_always xmodmap -e "keysym Caps_Lock = Escape" # set caps_lock as escape
 # }}}
