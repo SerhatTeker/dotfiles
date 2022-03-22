@@ -143,8 +143,7 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-# TODO: import?
-# Personal Preferences {{{
+# Personal Layouts {{{
 
 # default workspaces
 # assign [class="Gnome-terminal"] number $ws3
@@ -222,6 +221,8 @@ exec --no-startup-id /usr/lib/gsd-xsettings
 exec_always --no-startup-id gnome-power-manager
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id gnome-flashback
+
+exec --no-startup-id redshift
 
 # exec gnome-terminal
 # exec google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering

@@ -34,10 +34,18 @@ install_brew() {
     brew analytics off
 }
 
+_i3() {
+    sudo apt install -y \
+        i3 \
+        i3blocks \
+        redshift
+}
+
 
 main() {
     msg_cli green "Started Installation for ${OSTYPE}"
     install_brew
+    _i3
     msg_cli green "Finished Installation ${OSTYPE}"
 }
 

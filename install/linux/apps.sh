@@ -17,14 +17,13 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 source "${ROOT}/install/common.sh"
 
 defaults() {
-    sudo apt install -y \
-        i3 \
-        i3blocks
+    :
 }
 
 # TODO: write
 install_obsidian() {
     # https://github.com/obsidianmd/obsidian-releases
+    :
 }
 
 
