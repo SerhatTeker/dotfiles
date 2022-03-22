@@ -34,11 +34,21 @@ install_brew() {
     brew analytics off
 }
 
+i3_gnome() {
+    git clone https://github.com/i3-gnome/i3-gnome.git
+    cd i3-gnome
+    sudo make install
+}
+
 _i3() {
     sudo apt install -y \
         i3 \
         i3blocks \
+        fonts-font-awesome \
+        lm-sensors \
         redshift
+
+    i3_gnome
 }
 
 
