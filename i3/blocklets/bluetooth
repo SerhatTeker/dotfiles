@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# WIP
+
+# Left click
+if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+  sudo bluetoothctl power on
+# Middle click
+elif [[ "${BLOCK_BUTTON}" -eq 2 ]]; then
+  sudo bluetoothctl power toggle
+# Right click
+elif [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+  sudo bluetoothctl power off
+fi
+
+STATUS="$(bluetoothctl show | grep 'Powered' | awk -F':' '{print $2}')"
+
+echo ${STATUS}
+
+if [[ "${STATUS}" = "on" ]]; then
+  echo "on"
+  echo "on"
+  echo ""
+fi
