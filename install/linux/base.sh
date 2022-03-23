@@ -46,6 +46,7 @@ _i3() {
         i3blocks \
         fonts-font-awesome \
         lm-sensors \
+        j4-dmenu-desktop \
         redshift
 
     i3_gnome
