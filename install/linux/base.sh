@@ -34,6 +34,7 @@ install_brew() {
     brew analytics off
 }
 
+# TODO: Fix func
 i3_gnome() {
     git clone https://github.com/i3-gnome/i3-gnome.git
     cd i3-gnome
