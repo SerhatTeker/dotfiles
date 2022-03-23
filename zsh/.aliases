@@ -99,6 +99,9 @@ alias rm-shada='rm ~/.local/share/nvim/shada/main.shada.tmp.x'
 # alias code='code-insiders'
 
 alias postman='~/apps/postman/Postman\ Agent/Postman\ Agent > /dev/null 2>&1 &'
+
+# open google-chrome with dark mode forced
+alias chrome-i3='i3-msg workspace 2; exec google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering > /dev/null 2>&1 &'
 # }}}
 
 # git {{{
