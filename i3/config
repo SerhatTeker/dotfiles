@@ -149,17 +149,24 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Personal Layouts {{{
 
-# default workspaces
+# Default Workspaces
 # assign [class="Gnome-terminal"] number $ws3
 assign [class="Nautilus"] $ws7
 assign [class="Slack"] $ws8
-assign [class="Spotify"] $ws10
+# Assign not working for Spotify
+# https://unix.stackexchange.com/questions/448261/i3-assign-spotify-to-workspace
+# assign [class="Spotify"] $ws10
+for_window [class="Spotify"] move to workspace $ws10
 
 # Windows
 for_window [class="Telegram"] floating enable
 for_window [class="Signal"] floating enable
 for_window [class="Telegram"] move to workspace $ws9
 for_window [class="Signal"] move to workspace $ws9
+
+# spotify: no border
+for_window [class="^Spotify$"] border none
+for_window [class="^Spotify Premium$"] border none
 # }}}
 # }}}
 
@@ -227,10 +234,6 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id gnome-flashback
 
 exec --no-startup-id redshift
-
-# exec gnome-terminal
-# exec google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering
-# exec spotify
 # }}}
 
 # Keys {{{
