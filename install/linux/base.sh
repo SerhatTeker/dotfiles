@@ -34,14 +34,15 @@ install_brew() {
     brew analytics off
 }
 
-# TODO: Fix func
 i3_gnome() {
-    git clone https://github.com/i3-gnome/i3-gnome.git
-    cd i3-gnome
-    sudo make install
+    local dir=/tmp/i3-gnome
+
+    git clone https://github.com/i3-gnome/i3-gnome.git ${dir}
+    cd ${dir} && \
+        sudo make install
 }
 
-_i3() {
+i3_setup() {
     sudo apt install -y \
         i3 \
         i3blocks \
@@ -57,7 +58,7 @@ _i3() {
 main() {
     msg_cli green "Started Installation for ${OSTYPE}"
     install_brew
-    _i3
+    i3_setup
     msg_cli green "Finished Installation ${OSTYPE}"
 }
 
