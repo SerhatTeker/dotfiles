@@ -61,6 +61,12 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
     path+=("${HOME}/Library/Python/3.8/bin")
 fi
 
+# Golang
+if [ -e "/usr/local/go" ] ; then
+    path+=("${HOME}/go/bin")    # $GOPATH
+    path+=("/usr/local/go/bin")
+fi
+
 # Homebrew {{{
 
 if [[ "${OSTYPE}" == "linux-gnu"* ]]; then
@@ -135,6 +141,12 @@ export PYTHONBREAKPOINT=pudb.set_trace
 
 export IPYTHONDIR="${XDG_CONFIG_HOME}/.ipython"
 # }}}2
+
+# Golang {{{
+
+export GOPATH="${HOME}/go"
+export GOBIN="${GOPATH}/bin"
+# }}}
 
 # Containers {{{2
 
