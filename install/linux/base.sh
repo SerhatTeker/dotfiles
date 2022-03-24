@@ -25,14 +25,20 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 source "${ROOT}/install/common.sh"
 
 
+install_apts() {
+    sudo apt install \
+        build-essential
+}
+
 install_brew() {
-    /bin/bash -c \
+    bash -c \
         "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     # check brew installed
     which brew
     # close analytics
     brew analytics off
 }
+
 
 i3_gnome() {
     local dir=/tmp/i3-gnome
@@ -54,11 +60,18 @@ i3_setup() {
     i3_gnome
 }
 
+install_snaps() {
+    sudo snap install \
+        multipass
+}
+
 
 main() {
     msg_cli green "Started Installation for ${OSTYPE}"
+    install_apts
     install_brew
     i3_setup
+    install_snaps
     msg_cli green "Finished Installation ${OSTYPE}"
 }
 
