@@ -4,16 +4,22 @@
 " `Appearance` setting. We also refresh the statusline colors to reflect the
 " new mode.
 function! ChangeBackground()
-    " --- Linux ---
-    if system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-light"
-        let g:default_theme="one"
-        let g:default_background="light"
-    endif
 
-    " --- MacOS ---
-    if system("defaults read -g AppleInterfaceStyle") !~ '^Dark'
-        let g:default_theme="one"
-        let g:default_background="light"
+    " Check OS
+    if has("unix")
+        " --- MacOS ---
+        if has("mac") || has("macunix")
+            if system("defaults read -g AppleInterfaceStyle") !~ '^Dark'
+                let g:default_theme="one"
+                let g:default_background="light"
+            endif
+        " --- Linux ---
+        else
+            if system("gsettings get org.gnome.desktop.interface gtk-theme") =~ "Yaru-light"
+                let g:default_theme="one"
+                let g:default_background="light"
+            endif
+        endif
     endif
 
     " check if the plugin exists and loaded
