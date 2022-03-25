@@ -151,8 +151,8 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Default Workspaces
 # assign [class="Gnome-terminal"] number $ws3
-assign [class="Nautilus"] $ws7
-assign [class="Slack"] $ws8
+assign [class="Slack"] $ws6
+assign [class="Nautilus"] $ws8
 # Assign not working for Spotify
 # https://unix.stackexchange.com/questions/448261/i3-assign-spotify-to-workspace
 # assign [class="Spotify"] $ws10
