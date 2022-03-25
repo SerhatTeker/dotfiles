@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+
+# Copyright (C) 2022 Serhat Teker <serhat.teke@gmail.com>
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+#------------------------------------------------------------------------
+
+COLOR_GE60=${COLOR_GE60:-#FF0000}
+COLOR_GE40=${COLOR_GE40:-#FFAE00}
+COLOR_GE20=${COLOR_GE20:-#FFF600}
+COLOR_LOW=${COLOR_LOWR:-#00FF00}
+
+command -v mono >/dev/null 2>&1 || exit
+
+FAN="$(mono /opt/nbfc/nbfc.exe status -a | awk 'FNR == 9 {print}' | awk -F':' '{print $2}' | awk -F'.' '{print $2}')"
+
+echo ${FAN}% # full text
+echo ${FAN}% # short text
+
+# color
+if [[ $FAN -ge 60 ]]; then
+    echo $COLOR_GE60
+elif [[ $FAN -ge 40 ]]; then
+    echo $COLOR_GE40
+elif [[ $FAN -ge 20 ]]; then
+    echo $COLOR_GE20
+else
+    echo $COLOR_LOW
+fi
