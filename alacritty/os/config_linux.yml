@@ -1,0 +1,14 @@
+font:
+  normal:
+    family: &ubuntu_family 'Ubuntu Mono'
+    style: Regular
+  bold:
+    family: *ubuntu_family
+    style: Bold
+  italic:
+    family: *ubuntu_family
+    style: Italic
+  bold_italic:
+    family: *ubuntu_family
+    style: Bold Italic
+  size: 12.0

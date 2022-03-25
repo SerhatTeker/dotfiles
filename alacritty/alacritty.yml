@@ -12,13 +12,25 @@
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
 import:
-  # - ~/.config/alacritty/colors/gruvbox.yml
   - ~/.config/alacritty/colors/one.yml
+  # No script/conditional way to change OS spesific configs
+  # https://github.com/alacritty/alacritty/issues/779
+  - ~/.config/alacritty/os/config_linux.yml
+
+# From colors/{one, gruvbox, dracula, ubuntu}.yml
+# colors: *dark
+
+# From os/config_{linux, macos}.yml
+# font: *sf_mono
+
+window:
+  startup_mode: Fullscreen
+  dynamic_title: true
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-#env:
+# env:
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
@@ -26,63 +38,6 @@ import:
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
   # TERM: alacritty
-
-window:
-  startup_mode: Fullscreen
-  dynamic_title: true
-
-# From colors/{one, gruvbox, dracula, ubuntu}.yml
-# colors: *dark
-
-fonts:
-  ubuntu_mono: &ubuntu_mono
-    normal:
-      family: &ubuntu_family 'Ubuntu Mono'
-      style: Regular
-    bold:
-      family: *ubuntu_family
-      style: Bold
-    italic:
-      family: *ubuntu_family
-      style: Italic
-    bold_italic:
-      family: *ubuntu_family
-      style: Bold Italic
-    size: &font_size 12.0
-
-  sf_mono: &sf_mono
-    normal:
-      family: &sf_family 'SF Mono'
-      style: Regular
-    bold:
-      family: *sf_family
-      style: Bold
-    italic:
-      family: *sf_family
-      style: Italic
-    bold_italic:
-      family: *sf_family
-      style: Bold Italic
-    # Offset is the extra space around each character. offset.y can be thought of
-    # as modifying the linespacing, and offset.x as modifying the letter spacing.
-    offset:
-      x: 0
-      y: 0
-    # Glyph offset determines the locations of the glyphs within their cells with
-    # the default being at the bottom. Increase the x offset to move the glyph to
-    # the right, increase the y offset to move the glyph upward.
-    glyph_offset:
-      x: 0
-      y: 0
-    # OS X only: use thin stroke font rendering. Thin strokes are suitable
-    # for retina displays, but for non-retina you probably want this set to
-    # false.
-    use_thin_strokes: true
-    size: *font_size
-
-# TODO: make dependin on OS
-# Font configuration
-font: *ubuntu_mono
 
 cursor:
   # Cursor style
@@ -104,7 +59,6 @@ cursor:
 #   program: /usr/local/bin/fish
 #   args:
 #     - --login
-#
 #
 # Tmux
 # shell:
