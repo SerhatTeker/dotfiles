@@ -63,9 +63,9 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
 fi
 
 # Golang
-if [ -e "/usr/local/go" ] ; then
-    path+=("${HOME}/go/bin")    # $GOPATH
-    path+=("/usr/local/go/bin")
+if command -v go >/dev/null 2>&1; then
+    path+=("${HOME}/go/bin")        # $GOPATH
+    path+=("$(go env GOROOT)/bin")
 fi
 
 # Homebrew {{{
