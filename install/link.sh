@@ -26,6 +26,7 @@ dot_configs() {
             "git"
             "gh"
             "httpie"
+            "i3"
             "lsd"
             "rg"
             "nvim"
