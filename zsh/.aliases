@@ -121,6 +121,7 @@ alias gstum='git stash save -u -m'
 alias ta='tmux a -t'
 alias tls='tmux ls'
 alias tka='tmux kill-server'
+alias tks='tmux kill-session -t'
 # tmux resurrect last sessions from resurrect addon
 alias mux='pgrep -vx tmux > /dev/null && \
 		tmux new -d -s delete-me && \
