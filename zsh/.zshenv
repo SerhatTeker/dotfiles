@@ -47,9 +47,9 @@ if [ -d "${HOME}/.local/bin" ] ; then
     path+=("${HOME}/.local/bin")
 fi
 
-# Node modules global
-if [ -d "${HOME}/.node_modules/bin" ] ; then
-    path+=("${HOME}/.node_modules/bin")
+# Node npm modules global
+if [ -d "${XDG_LIB_HOME}/node/npm" ] ; then
+    path+=("${XDG_LIB_HOME}/node/npm")
 fi
 
 # Rust
@@ -147,6 +147,13 @@ export IPYTHONDIR="${XDG_CONFIG_HOME}/.ipython"
 
 export GOPATH="${HOME}/go"
 export GOBIN="${GOPATH}/bin"
+# }}}
+
+# Node {{{
+
+# Change default ${HOME}/.npmrc userconfig file location
+# https://docs.npmjs.com/cli/v8/using-npm/config#userconfig
+export npm_config_userconfig="${XDG_CONFIG_HOME}/node/.npmrc"
 # }}}
 
 # Containers {{{2

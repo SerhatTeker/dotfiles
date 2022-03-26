@@ -29,6 +29,7 @@ dot_configs() {
             "i3"
             "lsd"
             "rg"
+            "node"
             "nvim"
             "tmux"
             "zsh"
@@ -73,12 +74,6 @@ home_others() {
     # msg_cli green ".gnupg linked"
 }
 
-languages() {
-    # node
-    force_remove "${DOTFILES}/node/.npmrc" "${HOME}/.npmrc"
-    # msg_cli green "Languages linked"
-}
-
 containers() {
     force_remove "${DOTFILES}/kube" "${XDG_CONFIG_HOME}/kube"
     # msg_cli green "Containers linked"
@@ -90,7 +85,6 @@ main() {
     bins
     dot_gnu
     home_others
-    languages
     containers
 
     msg_cli green "All dotfiles linked"
