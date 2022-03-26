@@ -58,7 +58,6 @@ Plug 'easymotion/vim-easymotion'                        " motions on speed
 
 Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
-Plug 'fatih/molokai'
 Plug 'morhetz/gruvbox'
 " Colors
 Plug 'gko/vim-coloresque'                               " css/less/sass/html color preview for vim
