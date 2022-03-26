@@ -36,7 +36,8 @@ nnoremap <silent>HH :Gclog<CR>
 nnoremap <silent>HF :0Gclog!<CR>
 
 " Git diff current and previous version
-nmap <leader>d :Gvdiffsplit HEAD<CR>
+" With <!> left to right, and focus on current
+nmap <leader>d :Gvdiffsplit! HEAD<CR>
 " always open diffs vertical
 set diffopt+=vertical
 
