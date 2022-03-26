@@ -181,8 +181,11 @@ Plug 'tpope/vim-repeat'                 " Needed for 'vim-surround'
 " Indentline
 Plug 'Yggdroot/indentLine'
 
-" Tracking
-Plug 'ActivityWatch/aw-watcher-vim'     " ActivityWatch watcher: https://docs.activitywatch.net/en/latest/watchers.html
+" Activity tracking
+" TODO: Put aw-server bin to $XDG_BIN_HOME
+if executable('aw-server')
+    Plug 'ActivityWatch/aw-watcher-vim'     " ActivityWatch watcher: https://docs.activitywatch.net/en/latest/watchers.html
+endif
 " }}}3
 
 " Session {{{3
