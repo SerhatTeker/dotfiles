@@ -33,7 +33,6 @@ install_brew() {
 }
 
 brew-bundle() {
-    # TODO: create Brewfile
     brew bundle --file=${ROOT}/Brewfile
 }
 
