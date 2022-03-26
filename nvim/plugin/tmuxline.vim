@@ -7,8 +7,8 @@ let g:tmuxline_preset = {
             \'c'    : '#W',
             \'win'  : '#I #W',
             \'cwin' : '#I #W',
-            \'x'    : '%a',
-            \'y'    : ['%R', '%D'],
+            \'x'    : 'w%U:d0%w',
+            \'y'    : ['%R', '%d-%m-%y'],
             \'z'    : '#h',
             \}
 
@@ -23,7 +23,7 @@ let g:tmuxline_separators = {
             \ 'left_alt': '|',
             \ 'right' : '',
             \ 'right_alt' : '|',
-            \ 'space' : ' '
+            \ 'space' : ' ',
             \ }
 " }}}
 " }}}
