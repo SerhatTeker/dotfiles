@@ -1,26 +1,32 @@
 [user]
-	name = Serhat Teker
-	email = serhat.teker@gmail.com
-	signingkey = E4E824E75934CABA11ED9686F037930082E016E1
+    name = Serhat Teker
+    email = serhat.teker@gmail.com
+    signingkey = E4E824E75934CABA11ED9686F037930082E016E1
 [core]
-	editor = nvim
+    editor = nvim
     # Already default. http://git-scm.com/docs/gitignore#_description
     # excludesFile = $HOME/.config/git/ignore
 [credential]
-	helper = cache --timeout=3600
+    helper = cache --timeout=3600
 [init]
     # >=2.28.0
     # https://github.blog/2020-07-27-highlights-from-git-2-28/#introducing-init-defaultbranch
-	defaultBranch = develop
+    defaultBranch = develop
 [merge]
-	ff = false
+    ff = false
+    tool = nvimdiff
+    # conflictstyle = diff3
+[mergetool]
+    prompt = false
 [pull]
-	rebase = true
+    rebase = true
 [push]
-	# It pushes both commits and only tags that are both:
-	# annotated and reachable (an ancestor) from the pushed commits
-	followTags = true
-	verbose = true
+    # It pushes both commits and only tags that are both:
+    # annotated and reachable (an ancestor) from the pushed commits
+    followTags = true
+    verbose = true
 [diff]
-	tool = nvimdiff
-	guitool = nvimdiff
+    tool = nvimdiff
+    guitool = nvimdiff
+[difftool]
+    prompt = false
