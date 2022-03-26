@@ -48,7 +48,7 @@ if [ -d "${HOME}/.local/bin" ] ; then
 fi
 
 # Node modules global
-if [ -d "${HOME}/.local/bin" ] ; then
+if [ -d "${HOME}/.node_modules/bin" ] ; then
     path+=("${HOME}/.node_modules/bin")
 fi
 
