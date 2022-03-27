@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+
+
+# Install default missing fonts
+# Usage:
+# $ bash fonts.sh
+
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
@@ -6,47 +14,62 @@ set -o nounset
 set -o pipefail
 
 
-# SF Mono {{{
+sf_mono_powerline() {
+    local dir=/tmp/SF-Mono-Powerline
 
-cd /tmp && \
-	git clone https://github.com/Twixes/SF-Mono-Powerline.git --depth=1
+    git clone \
+        https://github.com/Twixes/SF-Mono-Powerline.git \
+        --depth=1 \
+        ${dir}
 
-cd /tmp/SF-Mono-Powerline
+    # Set source and target directories
+    powerline_fonts_dir=${dir}
 
-# Set source and target directories
-powerline_fonts_dir="$( cd "$( dirname "$0" )" && pwd )"
+    if is_macos; then
+      local font_dir="${HOME}/Library/Fonts"
+    else
+      local font_dir="${XDG_DATA_HOME}/fonts"
+    fi
 
-# if an argument is given it is used to select which fonts to install
-prefix=""
+    # Create if not exist
+    mkdir -p ${font_dir}
 
-if test "$(uname)" = "Darwin" ; then
-  # MacOS
-  font_dir="$HOME/Library/Fonts"
-else
-  # Linux
-  font_dir="$HOME/.local/share/fonts"
-  mkdir -p $font_dir
-fi
+    # Copy all fonts to user fonts directory
+    echo "Copying fonts..."
+    find \
+        "${powerline_fonts_dir}" \
+        \( -name "*.[ot]tf" -or -name "*.pcf.gz" \) \
+        -type f -print0 | \
+        xargs -0 -n1 -I % cp "%" "${font_dir}/"
 
-# Copy all fonts to user fonts directory
-echo "Copying fonts..."
-find "$powerline_fonts_dir" \( -name "$prefix*.[ot]tf" -or -name "$prefix*.pcf.gz" \) -type f -print0 | xargs -0 -n1 -I % cp "%" "$font_dir/"
+    # Reset font cache on Linux
+    if which fc-cache >/dev/null 2>&1 ; then
+        echo "Resetting font cache, this may take a moment..."
+        fc-cache -f "${font_dir}"
+    fi
 
-# Reset font cache on Linux
-if which fc-cache >/dev/null 2>&1 ; then
-    echo "Resetting font cache, this may take a moment..."
-    fc-cache -f "$font_dir"
-fi
+    echo "SF-Mono-Powerline fonts installed to ${font_dir}"
+}
 
-echo "SF-Mono-Powerline fonts installed to $font_dir"
-# }}}
+powerline_patched() {
+    local dir=/tmp/fonts
+
+    git clone \
+        https://github.com/powerline/fonts.git \
+        --depth=1 \
+        ${dir}
+
+    ${dir}/install.sh
+}
 
 
-# Powerline Patched {{{
+main() {
+    sf_mono_powerline
+    powerline_patched
 
-cd /tmp && \
-    git clone https://github.com/powerline/fonts.git --depth=1
+    msg_cli blue "Fonts installed" normal
+}
 
-cd /tmp/fonts && \
-    ./install.sh
-# }}}
+main
+
+exit 0
