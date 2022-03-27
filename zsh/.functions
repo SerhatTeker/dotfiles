@@ -451,6 +451,13 @@ _update-all() {
 
 # Utilities {{{
 
+# General {{{
+
+command_exists() {
+	command -v "$@" >/dev/null 2>&1
+}
+# }}}
+
 # Zip Tar {{{
 
 tar-it () {
