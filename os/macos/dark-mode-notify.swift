@@ -54,6 +54,7 @@
 //
 // # Credit
 //
+// Root: https://arslan.io/2021/02/15/automatic-dark-mode-for-terminal-applications
 // Most credit goes to https://github.com/mnewt/dotemacs/blob/master/bin/dark-mode-notifier.swift
 // Source: https://github.com/bouk/dark-mode-notify
 
