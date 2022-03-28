@@ -32,10 +32,11 @@ install_brew() {
     brew analytics off
 }
 
-brew-bundle() {
+brew_bundle() {
     brew bundle --file=${ROOT}/Brewfile
 }
 
+# NOTE: Disabled
 # Install universal-ctags
 # https://gist.github.com/nazgob/1570678
 # https://docs.ctags.io/en/latest/osx.html#building-with-homebrew
@@ -61,13 +62,11 @@ dark_mode_notify() {
 main() {
     msg_cli green "Started Installation for ${OSTYPE}"
     install_brew
-    brew-bundle
+    brew_bundle
     dark_mode_notify
-    # ictags
     msg_cli green "Finished Installation ${OSTYPE}"
 }
 
-# main
-dark_mode_notify
+main
 
 exit 0
