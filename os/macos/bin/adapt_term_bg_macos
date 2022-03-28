@@ -48,8 +48,8 @@ main() {
         target_mode="light"
     fi
 
-    vim_sessions_toggle
     alacritty_toggle
+    vim_sessions_toggle
 
     echo "Adapted to ${target_mode} mode"
 }
