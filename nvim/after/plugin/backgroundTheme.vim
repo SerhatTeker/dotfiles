@@ -23,7 +23,7 @@ function! ChangeBackground()
                 let g:default_theme="one"
             else
                 let g:default_background="dark"
-                let g:default_theme="onedark"
+                let g:default_theme="neodark"
             endif
         endif
     endif
