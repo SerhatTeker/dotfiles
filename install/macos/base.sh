@@ -20,7 +20,7 @@ set -o pipefail
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # shellcheck source=scripts/common.sh
-source "${ROOT}/install/common.sh"
+source "${ROOT}/common.sh"
 
 
 install_brew() {
@@ -44,15 +44,30 @@ ictags() {
     brew install --HEAD universal-ctags
 }
 
+dark_mode_notify() {
+    ln -sf ${DOTFILES}/os/macos/bin/adapt_term_bg_macos ${XDG_BIN_HOME}
+
+    swiftc ${DOTFILES}/os/macos/dark-mode-notify.swift \
+        -o /tmp/dark-mode-notify
+    sudo cp /tmp/dark-mode-notify /usr/local/bin
+
+    ln -sf ${DOTFILES}/os/macos/com.serhatteker.dark-mode-notify.plist \
+        ${HOME}/Library/LaunchAgents
+
+    launchctl load -w "${HOME}/Library/LaunchAgents/com.serhatteker.dark-mode-notify.plist"
+}
+
 
 main() {
     msg_cli green "Started Installation for ${OSTYPE}"
     install_brew
     brew-bundle
+    dark_mode_notify
     # ictags
     msg_cli green "Finished Installation ${OSTYPE}"
 }
 
-main
+# main
+dark_mode_notify
 
 exit 0

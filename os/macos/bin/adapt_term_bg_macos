@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# Adapt MacOS Monterey Dark/Light Theme on Terminal (alacritty, tmux, nvim)
+# Using neodark as dark mode and one as light mode
+# (Alternative is Gruvbox dark/light)
+#
+# Usage:
+# $ adapt_term_bg_macos
+
+
+# Send ChangeBackground() Signal to all vim/nvim instances in all tmux sessions
+vim_sessions_toggle() {
+    local tmux_bin=${HOME}/.homebrew/bin/tmux   # plist not accepting relative paths
+    local is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+        | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+
+    for session in `${tmux_bin} list-sessions -F '#S'`; do
+        for window in `${tmux_bin} list-windows -t $session -F '#{window_index}'`; do
+            for pane in `${tmux_bin} list-panes -t $session:$window -F '#P'`; do
+                local pix="${session}:${window}.${pane}"
+
+                ${tmux_bin} if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} escape ENTER"
+                ${tmux_bin} if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} ':call ChangeBackground()' ENTER"
+            done
+        done
+    done
+}
+
+alacritty_toggle() {
+    local theme_path_main="${HOME}/dotfiles/alacritty/colors"
+    local sed_bin=${HOME}/.homebrew/bin/gsed    # macos sed is pain and plist not accepting relative paths
+
+    # Not using gruvbox now, but possible in future.
+    if [[ ${target_mode} =~ "light" ]]; then
+        ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path_main}/one.yml"
+        ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path_main}/gruvbox.yml"
+    else
+        ${sed_bin} -i 's/*theme_light/*theme_dark/g' "${theme_path_main}/one.yml"
+        ${sed_bin} -i 's/*theme_light/*theme_dark/g' "${theme_path_main}/gruvbox.yml"
+    fi
+}
+
+main() {
+    theme_mode="$(defaults read -g AppleInterfaceStyle)"
+    if [[ ${theme_mode} =~ "Dark" ]]; then
+        target_mode="dark"
+    else
+        target_mode="light"
+    fi
+
+    vim_sessions_toggle
+    alacritty_toggle
+
+    echo "Adapted to ${target_mode} mode"
+}
+
+main
+
+exit 0
