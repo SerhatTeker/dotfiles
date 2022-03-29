@@ -55,7 +55,9 @@ i3_setup() {
         fonts-font-awesome \
         lm-sensors \
         j4-dmenu-desktop \
-        redshift
+        redshift \
+        maim \
+        xclip
 
     i3_gnome
 }
