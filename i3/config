@@ -159,6 +159,7 @@ assign [class="Nautilus"] $ws7
 for_window [class="Spotify"] move to workspace $ws10
 
 # Windows
+for_window [class="Nautilus"] floating enable
 for_window [class="Telegram"] floating enable
 for_window [class="Signal"] floating enable
 for_window [class="Telegram"] move to workspace $ws9
@@ -193,13 +194,13 @@ mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
         # Pressing left will shrink the window’s width.
+        # Pressing down will shrink the window’s height.
+        # Pressing up will grow the window’s height.
         # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize shrink height 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
