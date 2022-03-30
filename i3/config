@@ -163,7 +163,6 @@ assign [class="Nautilus"] $ws7
 for_window [class="Spotify"] move to workspace $ws10
 
 # Windows
-for_window [class="Nautilus"] floating enable
 for_window [class="Telegram"] floating enable
 for_window [class="Signal"] floating enable
 for_window [class="Telegram"] move to workspace $ws9
