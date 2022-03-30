@@ -194,6 +194,8 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # Resize {{{
 
 # resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
+
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -217,8 +219,31 @@ mode "resize" {
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
+# }}}
 
-bindsym $mod+r mode "resize"
+# Move {{{
+
+# move floating windows with keys
+bindsym $mod+m mode "move" focus floating
+
+mode "move" {
+    bindsym $mod+Tab focus right
+
+    bindsym h     move left
+    bindsym j     move down
+    bindsym k     move up
+    bindsym l     move right
+
+    bindsym Left  move left
+    bindsym Down  move down
+    bindsym Up    move up
+    bindsym Right move right
+
+    # back to normal: Enter or Escape or $mod+m
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+m mode "default"
+}
 # }}}
 
 # Bar Blocks {{{
