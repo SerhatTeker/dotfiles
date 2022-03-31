@@ -110,19 +110,22 @@ bu-tmux-resurrect() {
 	ls -lt $TMUX_RESURRECT/tmux_*.txt | awk '{if(NR!=1) print $9}' | xargs -i rm {}
 }
 
-# replace whitespaces with underscores in filenames
-replace-spaces() {
-    ARG=$1
+# Replace whitespaces with underscores`_` in filename(s)
+# Provide directory or single filename
+replace_spaces() {
+    local arg=$1
 
-    if [[ -d $ARG ]]; then
-        for file in ${ARG}/*
+    # Replace all files in the directory
+    if [[ -d ${arg} ]]; then
+        for file in ${arg}/*
         do
-            mv $file ${file// /_}
+            mv ${file} ${file// /_}
         done
-    elif [[ -f $ARG ]]; then
-        mv ${ARG} ${ARG// /_}
+    # Single file
+    elif [[ -f ${arg} ]]; then
+        mv ${arg} ${arg// /_}
     else
-        echo "Provided ${ARG} is not valid"
+        echo "Provided ${arg} is not valid"
         exit 1
     fi
 }
