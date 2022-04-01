@@ -69,9 +69,9 @@ endfunction
 
 " mapping extra {{{
 
-nmap <silent> <Leader>v <Plug>(go-def-vertical)
-nmap <silent> <Leader>s <Plug>(go-def-split)
-nmap <silent> <Leader>d <Plug>(go-def-tab)
+nmap <silent> <Leader>dt <Plug>(go-def-tab)
+nmap <silent> <Leader>dv <Plug>(go-def-vertical)
+nmap <silent> <Leader>ds <Plug>(go-def-split)
 
 nmap <silent> <Leader>x <Plug>(go-doc-vertical)
 
