@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
 # ----------------------------------------------------------------------------#
 #                      _           _        _ _       _
 #                     (_)_ __  ___| |_ __ _| | |  ___| |__
@@ -22,7 +24,7 @@ set -o pipefail
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # shellcheck source=scripts/common.sh
-source "${ROOT}/install/common.sh"
+source "${ROOT}/common.sh"
 
 
 install_apts() {
@@ -30,15 +32,41 @@ install_apts() {
         build-essential
 }
 
-install_brew() {
-    bash -c \
-        "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    # check brew installed
-    which brew
-    # close analytics
-    brew analytics off
+# Brew {{{
+
+brew_deps() {
+    # deps
+    sudo apt install -y \
+        build-essential \
+        procps \
+        curl \
+        file \
+        git
 }
 
+brew_install() {
+    # brew_deps
+
+    NONINTERACTIVE=1 \
+        bash -c \
+        "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    which brew          # check brew installed
+    brew analytics off  # close analytics
+}
+
+brew_bundle() {
+    brew bundle --file=${ROOT}/Brewfile
+}
+
+brew_main() {
+    brew_install
+    brew_bundle
+
+}
+# }}}
+
+# i3 {{{
 
 i3_gnome() {
     local dir=/tmp/i3-gnome
@@ -61,6 +89,7 @@ i3_setup() {
 
     i3_gnome
 }
+# }}}
 
 install_snaps() {
     sudo snap install \
@@ -70,13 +99,14 @@ install_snaps() {
 
 main() {
     msg_cli green "Started Installation for ${OSTYPE}"
+
+    sudo -v # Get sudo prompt before
+
     install_apts
-    install_brew
+    brew_main
     i3_setup
     install_snaps
     msg_cli green "Finished Installation ${OSTYPE}"
 }
 
 main
-
-exit 0
