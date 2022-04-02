@@ -53,6 +53,8 @@ install_zsh() {
     fi
 }
 
+# Setup shell {{{
+
 # Use below modified one from oh-my-zsh install.sh
 # cause oh-my-zsh install.sh needs user prompt input for chsh
 setup_shell() {
@@ -124,6 +126,7 @@ setup_shell() {
 
     echo
 }
+# }}}
 
 # Create XDG_CONFIG_HOME link
 link_xdg() {
@@ -133,16 +136,14 @@ link_xdg() {
 
 # Create personal soft links
 link_personal() {
-	msg_cli blue "Linking personal files" normal
     if [ -f ${SYSBAK}/zsh/.private.zsh ]; then
         ln -sf ${SYSBAK}/zsh/.private.zsh ${ZDOTDIR}/.private.zsh
+	    msg_cli green "Linked personal files" normal
     fi
-	msg_cli green "Linked personal files" normal
 }
 
 # Set ZDOTDIR globally
 set_zdotdir() {
-	msg_cli blue "Setting ZDOTDIR" normal
     # Set global ZDOTDIR
     # Hacky ugly way to fix tmux behavior
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -156,7 +157,8 @@ set_zdotdir() {
         echo "No install configuration for ${OSTYPE}"
         exit 1
     fi
-	msg_cli green "Succesfully Set ZDOTDIR" normal
+
+	msg_cli green "Succesfully set \$ZDOTDIR" normal
 }
 
 install_oh-my-zsh() {
@@ -172,6 +174,9 @@ install_oh-my-zsh() {
 #   --unattended: sets both CHSH and RUNZSH to 'no'
     ZSH="${ZSH}" sh /tmp/install.sh --unattended
 }
+
+
+# Customs {{{
 
 # Install custom plugins
 custom_plugins() {
@@ -215,6 +220,7 @@ custom_completions() {
     mkdir -p "${ZSH}/completions"
     ln -sf ${DOT_ZSH}/oh-my-zsh/completions/* "${ZSH}/completions"
 }
+# }}}
 
 # Must be run with -f|--force flag or taking user approval
 main() {
