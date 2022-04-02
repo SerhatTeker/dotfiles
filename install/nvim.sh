@@ -18,6 +18,13 @@ source "${ROOT}/install/common.sh"
 DOWNLOAD_DIR=/tmp
 
 
+is_installed() {
+    if command_exists nvim;then
+        msg_cli red "Nvim already installed, first uninstall it!" normal
+        exit 1
+    fi
+}
+
 appimage() {
     local base_url="https://github.com/neovim/neovim/releases"
     local nightly_url="${base_url}/download/nightly/nvim.appimage"
@@ -46,28 +53,12 @@ setup_plugins() {
     nvim +UpdateRemotePlugins +qall
 }
 
-check_node() {
-    if ! command_exists node; then
-        msg_cli yellow "node not installed." normal
-
-        # TODO: add install opt prompt
-        # wget -qO- \
-        #     https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-        # nvm install node
-        # nvm install-latest-npm
-
-        exit 1
-    fi
-
-}
 
 main() {
+    is_installed
     appimage
     check_config_file
     setup_plugins
-    check_node
 }
 
 main
-
-exit 0
