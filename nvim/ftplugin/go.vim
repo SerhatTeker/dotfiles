@@ -73,15 +73,16 @@ nmap <silent> <Leader>dt <Plug>(go-def-tab)
 nmap <silent> <Leader>dv <Plug>(go-def-vertical)
 nmap <silent> <Leader>ds <Plug>(go-def-split)
 
-nmap <silent> <Leader>x <Plug>(go-doc-vertical)
+nmap <silent> <Leader>db <Plug>(go-doc-browser)
+nmap <silent> <Leader>dx <Plug>(go-doc-vertical)
 
 nmap <silent> <Leader>i <Plug>(go-info)
 nmap <silent> <Leader>l <Plug>(go-metalinter)
 
 nmap <silent> <leader>b :<C-u>call <SID>build_go_files()<CR>
-nmap <silent> <leader>t  <Plug>(go-test)
 nmap <silent> <leader>r  <Plug>(go-run)
 nmap <silent> <leader>e  <Plug>(go-install)
+nmap <silent> <leader>t  <Plug>(go-test)
 
 nmap <silent> <Leader>c <Plug>(go-coverage-toggle)
 
