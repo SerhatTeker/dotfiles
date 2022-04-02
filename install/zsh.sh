@@ -35,7 +35,7 @@ DOT_ZSH=${DOTFILES}/zsh    # Alias for dotfiles zsh
 
 install_zsh() {
     if ! command_exists zsh; then
-        msg_cli blue "Zsh not installed. Installing..."
+        msg_cli blue "Zsh not installed. Installing..." normal
 
         if is_linux; then
             sudo apt install zsh -y
@@ -47,7 +47,7 @@ install_zsh() {
         fi
 
         # make_default_shell
-        msg_cli green "Zsh installed"
+        msg_cli green "Zsh installed" normal
     fi
 }
 
@@ -61,8 +61,8 @@ setup_shell() {
 
     # If this platform doesn't provide a "chsh" command, bail out.
     if ! command_exists chsh; then
-        msg_cli red "I can't change your shell automatically because this system does not have chsh."
-        msg_cli blug "Please manually change your default shell to zsh"
+        msg_cli red "I can't change your shell automatically because this system does not have chsh." normal
+        msg_cli blug "Please manually change your default shell to zsh" normal
         return
     fi
 
@@ -117,7 +117,7 @@ setup_shell() {
         fmt_error "chsh command unsuccessful. Change your default shell manually."
     else
         export SHELL="$zsh"
-        msg_cli green "Shell successfully changed to '$zsh'"
+        msg_cli green "Shell successfully changed to '$zsh'" normal
     fi
 
     echo
@@ -126,21 +126,21 @@ setup_shell() {
 # Create XDG_CONFIG_HOME link
 link-xdg() {
     force_remove "${DOT_ZSH}" "${XDG_CONFIG_HOME}/zsh"
-	msg_cli green "Zsh dotfiles linked to XDG_CONFIG_HOME"
+	msg_cli green "Zsh dotfiles linked to XDG_CONFIG_HOME" normal
 }
 
-# create personal soft links
+# Create personal soft links
 link-personal() {
-	msg_cli blue "Linking personal files"
+	msg_cli blue "Linking personal files" normal
     if [ -f ${SYSBAK}/zsh/.private.zsh ]; then
         ln -sf ${SYSBAK}/zsh/.private.zsh ${ZDOTDIR}/.private.zsh
     fi
-	msg_cli green "Linked personal files"
+	msg_cli green "Linked personal files" normal
 }
 
 # Set ZDOTDIR globally
 set-zdotdir() {
-	msg_cli blue "Setting ZDOTDIR"
+	msg_cli blue "Setting ZDOTDIR" normal
     # Set global ZDOTDIR
     # Hacky ugly way to fix tmux behavior
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -154,7 +154,7 @@ set-zdotdir() {
         echo "No install configuration for ${OSTYPE}"
         exit 1
     fi
-	msg_cli green "Succesfully Set ZDOTDIR"
+	msg_cli green "Succesfully Set ZDOTDIR" normal
 }
 
 install_oh-my-zsh() {
@@ -171,9 +171,9 @@ install_oh-my-zsh() {
     ZSH="${ZSH}" sh /tmp/install.sh --unattended
 }
 
-# install custom plugins
+# Install custom plugins
 custom_plugins() {
-	msg_cli blue "Installing custom plugins"
+	msg_cli blue "Installing custom plugins" normal
 
     ZSH_CUSTOM="${ZSH}/custom"
 
@@ -198,9 +198,9 @@ custom_plugins() {
         ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 }
 
-# install custom themes
-custom-themes() {
-	msg_cli blue "Installing custom themes"
+# Install custom themes
+custom_themes() {
+	msg_cli blue "Installing custom themes" normal
     for theme in "simple" "gallois"
     do
         ln -sf ${DOT_ZSH}/oh-my-zsh/custom/themes/${theme}-custom.zsh-theme \
@@ -208,8 +208,10 @@ custom-themes() {
     done
 }
 
-completions() {
+# Link custom completions
+custom_completions() {
     mkdir -p "${ZSH}/completions"
+    ln -sf ${DOT_ZSH}/oh-my-zsh/completions/* "${ZSH}/completions"
 }
 
 
@@ -221,10 +223,10 @@ main() {
     set-zdotdir
     install_oh-my-zsh
     custom_plugins
-    custom-themes
-    completions
+    custom_themes
+    custom_completions
 
-    msg_cli green "Zsh completely installed and configured. Happy zsh!"
+    msg_cli green "Zsh completely installed and configured. Happy zsh!" normal
 }
 
 
@@ -239,12 +241,12 @@ if ${force}; then
 else
     # Prompt for user choice on changing the default login shell
     printf '%sThis may overwrite existing files in your home directory. Are you sure? (y/n)%s ' \
-        "$FMT_YELLOW" "$FMT_RESET"
+        "${FMT_YELLOW}" "${FMT_RESET}"
     read -r opt
-    case $opt in
+    case ${opt} in
         y*|Y*|"") force=true; main ;;
-        n*|N*) msg_cli white "Soft link creation skipped" ;;
-        *) msg_cli yellow "Invalid choice. Shell change skipped" ;;
+        n*|N*) msg_cli white "Soft link creation skipped" normal ;;
+        *) msg_cli yellow "Invalid choice. Shell change skipped" normal ;;
     esac
 fi
 
