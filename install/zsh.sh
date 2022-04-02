@@ -124,13 +124,13 @@ setup_shell() {
 }
 
 # Create XDG_CONFIG_HOME link
-link-xdg() {
+link_xdg() {
     force_remove "${DOT_ZSH}" "${XDG_CONFIG_HOME}/zsh"
 	msg_cli green "Zsh dotfiles linked to XDG_CONFIG_HOME" normal
 }
 
 # Create personal soft links
-link-personal() {
+link_personal() {
 	msg_cli blue "Linking personal files" normal
     if [ -f ${SYSBAK}/zsh/.private.zsh ]; then
         ln -sf ${SYSBAK}/zsh/.private.zsh ${ZDOTDIR}/.private.zsh
@@ -139,7 +139,7 @@ link-personal() {
 }
 
 # Set ZDOTDIR globally
-set-zdotdir() {
+set_zdotdir() {
 	msg_cli blue "Setting ZDOTDIR" normal
     # Set global ZDOTDIR
     # Hacky ugly way to fix tmux behavior
@@ -215,12 +215,51 @@ custom_completions() {
 }
 
 
+# TODO: Add help() to errors.
+_error() {
+    msg_cli red "Invalid argument(s). Installing zsh cancelled" normal
+    exit 1
+}
+
+# Make forced or cancel the program
+make_forced() {
+    local force=${1}
+
+    # Set force, default is false
+    case ${force} in
+        -f|--force) local force=true ;;
+        false) local force=false ;;
+        *) _error ;;
+    esac
+
+    if ! ${force}; then
+        # Prompt for user choice on changing the default login shell
+        printf '%sThis may overwrite existing files in your home directory. Are you sure? (y/n)%s ' \
+            "${FMT_YELLOW}" "${FMT_RESET}"
+        read -r opt
+        case ${opt} in
+            y*|Y*|"") local force=true ;;
+            n*|N*) msg_cli red "Installing zsh cancelled." normal ; exit 0 ;;
+            *) _error ;;
+        esac
+    fi
+}
+
+# Must be run with -f|--force flag or taking user approval
 main() {
+    # Only allow -f|--force flag
+    if [ $# -gt 1 ]; then
+        _error
+    fi
+
+    # Default assigned to false for shebang flags
+    make_forced ${1:-false}
+
     install_zsh
     setup_shell
-    link-xdg
-    link-personal
-    set-zdotdir
+    link_xdg
+    link_personal
+    set_zdotdir
     install_oh-my-zsh
     custom_plugins
     custom_themes
@@ -229,27 +268,4 @@ main() {
     msg_cli green "Zsh completely installed and configured. Happy zsh!" normal
 }
 
-
-force=${1:-false}
-if [ "$force" == "--force" -o "$force" == "-f" ]; then
-    force=true
-fi
-
-
-if ${force}; then
-    main
-else
-    # Prompt for user choice on changing the default login shell
-    printf '%sThis may overwrite existing files in your home directory. Are you sure? (y/n)%s ' \
-        "${FMT_YELLOW}" "${FMT_RESET}"
-    read -r opt
-    case ${opt} in
-        y*|Y*|"") force=true; main ;;
-        n*|N*) msg_cli white "Soft link creation skipped" normal ;;
-        *) msg_cli yellow "Invalid choice. Shell change skipped" normal ;;
-    esac
-fi
-
-unset ${force}
-
-exit 0
+main "$@"
