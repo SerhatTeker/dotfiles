@@ -175,8 +175,9 @@ alias rv='[ -z "$VIRTUAL_ENV" ] && deactivate && source ./.venv/bin/activate'
 # Utilities {{{
 
 # display $paths line by line
+alias paths='print -rl $path'
+# oldie
 alias sedpath='sed "s/ /\n/g" <<< "$path"'
-alias paths='sed "s/ /\n/g" <<< "$path"'
 # }}}
 
 # VM {{{
