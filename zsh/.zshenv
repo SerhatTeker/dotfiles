@@ -63,9 +63,14 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
 fi
 
 # Golang
-if command -v go >/dev/null 2>&1; then
-    path+=("${HOME}/go/bin")        # $GOPATH
-    path+=("$(go env GOROOT)/bin")
+[ -d "/usr/local/go/bin" ] && path+=("/usr/local/go/bin")       # linux
+[ -d "${HOME}/go/bin" ] && path+=("${HOME}/go/bin")             # $GOPATH
+
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+    if command -v go >/dev/null 2>&1; then
+        # version changes path
+        path+=("$(go env GOROOT)/bin")
+    fi
 fi
 
 # Homebrew {{{
