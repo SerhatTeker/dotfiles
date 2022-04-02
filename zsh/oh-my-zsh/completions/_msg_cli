@@ -1,0 +1,44 @@
+#compdef msg_cli
+# -*- coding: utf-8 -*-
+# vim: set ft=zsh et ts=4 sw=4 sts=4:
+
+# autocomplete function for `msg_cli`
+#
+# binary/script can be found:
+# - ${HOME}/dotfiles/bin/msg_cli
+# - ${XDG_BIN_HOME}/msg_cli
+
+_msg_cli() {
+    local -a colors style
+
+    colors=(
+        blue
+        green
+        red
+        yellow
+        cyan
+        magenta
+        white
+    )
+
+    style=(
+        'header:header style like: --- msg ---'
+        'normal:normal style'
+    )
+
+    _arguments -C \
+        '1: :->color_choices' \
+        '2: :->msg' \
+        '3: :->style'
+
+    case $state in
+        (color_choices)  compadd -a colors
+            ;;
+        (msg) _describe 'command' "(message to display)"
+            ;;
+        (style) _describe 'command' style
+            ;;
+    esac
+}
+
+_msg_cli
