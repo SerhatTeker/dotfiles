@@ -214,46 +214,9 @@ custom_completions() {
     ln -sf ${DOT_ZSH}/oh-my-zsh/completions/* "${ZSH}/completions"
 }
 
-
-# TODO: Add help() to errors.
-_error() {
-    msg_cli red "Invalid argument(s). Installing zsh cancelled" normal
-    exit 1
-}
-
-# Make forced or cancel the program
-make_forced() {
-    local force=${1}
-
-    # Set force, default is false
-    case ${force} in
-        -f|--force) local force=true ;;
-        false) local force=false ;;
-        *) _error ;;
-    esac
-
-    if ! ${force}; then
-        # Prompt for user choice on changing the default login shell
-        printf '%sThis may overwrite existing files in your home directory. Are you sure? (y/n)%s ' \
-            "${FMT_YELLOW}" "${FMT_RESET}"
-        read -r opt
-        case ${opt} in
-            y*|Y*|"") local force=true ;;
-            n*|N*) msg_cli red "Installing zsh cancelled." normal ; exit 0 ;;
-            *) _error ;;
-        esac
-    fi
-}
-
 # Must be run with -f|--force flag or taking user approval
 main() {
-    # Only allow -f|--force flag
-    if [ $# -gt 1 ]; then
-        _error
-    fi
-
-    # Default assigned to false for shebang flags
-    make_forced ${1:-false}
+    make_forced ${@}
 
     install_zsh
     setup_shell

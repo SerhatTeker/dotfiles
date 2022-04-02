@@ -81,6 +81,8 @@ containers() {
 
 
 main() {
+    make_forced ${@}
+
     dot_configs
     bins
     dot_gnu
@@ -90,27 +92,4 @@ main() {
     msg_cli green "All dotfiles linked"
 }
 
-
-force=${1:-false}
-if [ "$force" == "--force" -o "$force" == "-f" ]; then
-    force=true
-fi
-
-
-if ${force}; then
-    main
-else
-    # Prompt for user choice on changing the default login shell
-    printf '%sThis may overwrite existing files in your home directory. Are you sure? (y/n)%s ' \
-        "$FMT_YELLOW" "$FMT_RESET"
-    read -r opt
-    case $opt in
-        y*|Y*|"") force=true; main ;;
-        n*|N*) msg_cli white "Soft link creation skipped" ;;
-        *) msg_cli yellow "Invalid choice. Shell change skipped" ;;
-    esac
-fi
-
-unset ${force}
-
-exit 0
+main "$@"

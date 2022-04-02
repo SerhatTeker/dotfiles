@@ -109,6 +109,46 @@ force_remove() {
 
     ln -sf "${_source}" "${_target}"
 }
+
+# Forced
+# ----------------------------------------------------------------------------#
+
+error_forced() {
+    msg_cli red "Invalid argument(s). Installing zsh cancelled" normal
+    exit 1
+}
+
+# Make forced or cancel the program
+make_forced() {
+    # Only allow -f|--force flag
+    if [ $# -gt 1 ]; then
+        error_forced
+    # If empty set false for shebang 'sets'
+    elif [ $# -eq 0 ]; then
+        local force=false
+    else
+        local force=${1}
+    fi
+
+    # Set force, default is false
+    case ${force} in
+        -f|--force) local force=true ;;
+        false) echo ;;
+        *) error_forced ;;
+    esac
+
+    if ! ${force}; then
+        # Prompt for user choice on changing the default login shell
+        printf '%sThis may overwrite existing files in your home directory. Are you sure? (y/n)%s ' \
+            "${FMT_YELLOW}" "${FMT_RESET}"
+        read -r opt
+        case ${opt} in
+            y*|Y*|"") local force=true ;;
+            n*|N*) msg_cli red "Installing zsh cancelled." normal ; exit 0 ;;
+            *) error_forced ;;
+        esac
+    fi
+}
 # ----------------------------------------------------------------------------#
 # }}}
 # ----------------------------------------------------------------------------#
