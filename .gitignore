@@ -68,3 +68,6 @@ tmux/resurrect
 .zcompdump
 .zcompdump*
 .local.zsh
+
+# GH
+hosts.yml
