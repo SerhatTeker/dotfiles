@@ -570,6 +570,15 @@ colors256() {
 
 # Tmux {{{
 
+# tmux resurrect last sessions from resurrect addon
+mux() {
+    pgrep -vx tmux > /dev/null
+    tmux new -d -s delete-me
+    tmux run-shell "${XDG_DATA_HOME}/tmux/plugins/tmux-resurrect/scripts/restore.sh"
+    tmux kill-session -t delete-me
+    tmux attach || tmux attach
+}
+
 # Crate and attach a new session with args
 # defaults: session named "new" in ${HOME} dir with window named "main"
 tnew() {
@@ -582,5 +591,11 @@ tnew() {
         -s ${session_name} \
         -c ${session_dir} \
         -n ${session_window_name}
+}
+
+# create dotfiles session in dotfiles dir and open saved vim session
+tdot() {
+    tmux new-session -d -s dotfiles -c ~/dotfiles -n main
+    tmux send-keys -t dotfiles:main "nvim -S" C-m
 }
 # }}}
