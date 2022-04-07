@@ -94,8 +94,16 @@ snippet link "Link to something"
 [${1:${VISUAL:Text}}](${2:https://})$0
 endsnippet
 
+# emdash
+snippet emdash "emdash" b
+— $1
+endsnippet
 
-# Code Block
+
+# Code Blocks
+################
+
+# cbl general
 snippet cbl "Codeblock" b
 \`\`\`$1
 $2
@@ -105,7 +113,7 @@ $0
 endsnippet
 
 # cbl for bash
-snippet cbash "Codeblock Bash" b
+snippet cbb "Codeblock Bash" b
 \`\`\`bash
 \$ $1
 \`\`\`
@@ -113,10 +121,31 @@ snippet cbash "Codeblock Bash" b
 $0
 endsnippet
 
+# cbl for python
+snippet cbp "Codeblock Python" b
+\`\`\`python
+$1
+\`\`\`
 
-# emdash
-snippet emdash "emdash" b
-— $1
+$0
+endsnippet
+
+# cbl for golang
+snippet cbg "Codeblock Golang" b
+\`\`\`go
+$1
+\`\`\`
+
+$0
+endsnippet
+
+# cbl for javascript
+snippet cbj "Codeblock Javascript" b
+\`\`\`javascript
+$1
+\`\`\`
+
+$0
 endsnippet
 
 ################
