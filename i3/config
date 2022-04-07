@@ -171,6 +171,8 @@ for_window [class="Signal"] move to workspace $ws9
 # spotify: no border
 for_window [class="^Spotify$"] border none
 for_window [class="^Spotify Premium$"] border none
+for_window [class="^Signal"] border none
+for_window [class="^Telegram"] border none
 # }}}
 # }}}
 
