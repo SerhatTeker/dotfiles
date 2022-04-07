@@ -46,7 +46,8 @@ bindsym $mod+q kill
 #
 # http://manpages.ubuntu.com/manpages/focal/man1/j4-dmenu-desktop.1.html
 # https://github.com/enkore/j4-dmenu-desktop
-bindsym $mod+d exec --no-startup-id j4-dmenu-desktop --display-binary
+# can be added: --display-binary
+bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
 
 # change focus
 bindsym $mod+h focus left
