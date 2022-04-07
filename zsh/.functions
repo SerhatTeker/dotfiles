@@ -101,14 +101,6 @@ cv () {
 
 # Files {{{1
 # ----------------------------------------------------------------------------#
-bu-tmux-resurrect() {
-	# make bu dir if not exist
-	mkdir -p $TMUX_RESURRECT/bu
-	# backup newest one
-	cp $(ls -lt $TMUX_RESURRECT/tmux_*.txt | head -n 1 | awk '{print $9}') $TMUX_RESURRECT/bu/
-	# clean all backups except newest one
-	ls -lt $TMUX_RESURRECT/tmux_*.txt | awk '{if(NR!=1) print $9}' | xargs -i rm {}
-}
 
 # Replace whitespaces with underscores`_` in filename(s)
 # Provide directory or single filename
@@ -597,5 +589,25 @@ tnew() {
 tdot() {
     tmux new-session -d -s dotfiles -c ~/dotfiles -n main
     tmux send-keys -t dotfiles:main "nvim -S" C-m
+}
+
+# backup last tmux resurrect session and clean the rest
+# when -c|--clean flag provided, clean all sessions but newest
+bak-tmux-resurrect() {
+    local resurrect_sessions="${XDG_DATA_HOME}/tmux/resurrect/sessions"
+    local newest_session="$(ls -lt ${resurrect_sessions}/tmux_*.txt | head -n 1 | awk '{print $11}')"
+
+	mkdir -p "${resurrect_sessions}/bu"
+	# backup newest one
+    cp ${newest_session} "${resurrect_sessions}/bu"
+    cp ${newest_session} "${resurrect_sessions}/last.txt"
+
+	# clean all backups except newest one
+    case "$1" in
+        -c|--clean) \
+            ls -lt ${resurrect_sessions}/tmux_*.txt | \
+            awk '{if(NR!=1) print $11}' | \
+            xargs -i rm {} ;;
+    esac
 }
 # }}}
