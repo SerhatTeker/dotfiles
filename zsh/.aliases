@@ -40,28 +40,23 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias shutdown='logout-sync && sudo shutdown -h now'
 alias sleep='systemctl suspend'
 
-## thrash
-alias thrash-empty='rm -rf ~/.local/share/Trash/*'
-alias thrash-clean='thrash-empty'
-alias clean-thrash='thrash-empty'
+## apt
+alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purge'
+### maintenance
+alias update='sudo -- sh -c "apt update -y; apt list --upgradable"'
+alias update-and-upgrade='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y"'
+
+## clean
+alias clean-thrash='rm -rf ~/.local/share/Trash/*'
+alias clean-screenshots='rm ${HOME}/Pictures/{Screenshot,screenshot_}*'
 alias erase='shred –vfzu –n 5'
 
-## screenshots
-alias screenshots-clear='rm -r $HOME/Pictures/Screenshot*'
-alias screenshots-clean='screenshots-clear'
-alias clean-screenshots='screenshots-clear'
+# Fan
 alias fan='mono /opt/nbfc/nbfc.exe status -a'
 
 # Network
 alias wifi-restart='nmcli radio wifi off && nmcli radio wifi on'
 alias wired-restart='service network-manager restart'
-
-## apt
-alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purge'
-
-## maintenance
-alias update='sudo -- sh -c "apt update -y; apt list --upgradable"'
-alias update-and-upgrade='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y"'
 
 ## pid
 alias list-pids='ps aux > pid.list && nvim pid.list'
@@ -102,6 +97,7 @@ alias postman='~/apps/postman/Postman\ Agent/Postman\ Agent > /dev/null 2>&1 &'
 # }}}
 
 # git {{{
+# additional git aliases to zsh git plugin
 
 alias gac='git add . && git commit'
 # Initial empty commit for repos
