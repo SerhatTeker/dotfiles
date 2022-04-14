@@ -31,6 +31,7 @@ dot_configs() {
             "rg"
             "node"
             "nvim"
+            "rofi"
             "tmux"
             "zsh"
     )
