@@ -282,7 +282,7 @@ exec --no-startup-id gnome-flashback
 # Night light
 exec --no-startup-id redshift
 # Wallpaper
-set $wallpaper "/home/$USER/Pictures/wallpaper/dune.jpg"
+set $wallpaper "/home/$USER/Pictures/wallpapers/dune.jpg"
 exec --no-startup-id feh --no-fehbg --bg-scale $wallpaper
 # }}}
 
