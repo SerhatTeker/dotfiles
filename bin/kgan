@@ -1,8 +1,20 @@
 #!/usr/bin/env bash
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+
 
 # Show all resources in a namespace
+# Usage:
+# $ kgan
+# $ kgan namespace
 
-set -eu
+
+# Bash safeties: exit on error, no unset variables, pipelines can't hide errors
+set -o errexit
+set -o nounset
+set -o pipefail
+
 
 RESOURCES=$(kubectl api-resources \
     --verbs=list \
@@ -14,6 +26,6 @@ RESOURCES=$(kubectl api-resources \
 NAMESPACE={1:-default}
 
 for resource in ${RESOURCES}; do
-    echo "----------------- ${resource} ----------------"
-    kubectl -n ${NAMESPACE} get --show-kind --ignore-not-found ${resource}
+    msg_cli blue "${RESOURCES}" header
+    kubectl -n ${NAMESPACE} get --show-kind --ignore-not-found ${RESOURCES}
 done
