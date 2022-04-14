@@ -76,6 +76,15 @@ i3_gnome() {
         sudo make install
 }
 
+i3_wakelock() {
+    sudo cp \
+        "${DOTFILES}/etc/systemd/wakelock@.service" \
+        "/etc/systemd/system"
+
+    sudo systemctl enable wakelock@${USER} \
+        && sudo systemctl daemon-reload
+}
+
 i3_setup() {
     sudo apt install -y \
         i3 \
@@ -88,6 +97,7 @@ i3_setup() {
         xclip
 
     i3_gnome
+    i3_wakelock
 }
 # }}}
 

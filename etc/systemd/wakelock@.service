@@ -1,0 +1,17 @@
+[Unit]
+Description=Lock screen when going to sleep/suspend/hibernate in i3
+Before=sleep.target
+Before=suspend.target
+Before=hibernate.target
+
+[Service]
+User=%I
+Type=simple
+Environment=DISPLAY=":1"
+ExecStart=/usr/bin/i3lock -n --color="#000000"
+TimeoutSec=infinity
+
+[Install]
+WantedBy=sleep.target
+WantedBy=suspend.target
+WantedBy=hibernate.target
