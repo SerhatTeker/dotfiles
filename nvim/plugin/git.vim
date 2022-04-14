@@ -2,28 +2,36 @@
 " A Vim plugin which shows git diff markers in the sign column
 " and stages/previews/undoes hunks and partial hunks.
 
-" disabled by default
-let g:gitgutter_enabled = 0
-" toggle with :GitGutterToggle
-" toggle line highlighting :GitGutterLineHighlightsToggle
-" With Neovim 0.3.2 or higher, toggle highlight line nr :GitGutterLineNrHighlightsToggle.
+if exists(":GitGutter")
+    " disabled by default
+    let g:gitgutter_enabled = 0
+    " toggle with :GitGutterToggle
+    " toggle line highlighting :GitGutterLineHighlightsToggle
+    " With Neovim 0.3.2 or higher, toggle highlight line nr :GitGutterLineNrHighlightsToggle.
 
-" Disable mappings, only use my customs
-let g:gitgutter_map_keys = 0
-nnoremap <leader>gt :GitGutterToggle<CR>
-nmap <leader>gh <Plug>(GitGutterPreviewHunk)
+    " Disable mappings, only use my customs
+    let g:gitgutter_map_keys = 0
+    nnoremap <leader>gt :GitGutterToggle<CR>
+    nmap <leader>gh <Plug>(GitGutterPreviewHunk)
+
+    let g:gitgutter_sign_added = '│'
+    let g:gitgutter_sign_modified =  '│'
+    let g:gitgutter_sign_removed = '_'
+
+    let g:gitgutter_sign_removed_first_line = '‾'
+    " let g:gitgutter_sign_removed_above_and_below = '{'
+    let g:gitgutter_sign_modified_removed = '~'
+
+    function! GitStatus()
+            let [a,m,r] = GitGutterGetHunkSummary()
+            return printf('+%d ~%d -%d', a, m, r)
+    endfunction
+
+    set statusline+=%{GitStatus()}
+endif
 " }}}
 
 " fugitive {{{
-
-" Status
-nnoremap <silent>ss :G<CR>
-" Do commit
-nnoremap <silent>cc :Git commit<CR>
-" Do push
-nnoremap <leader>gp :Git push<CR>
-" Do pull
-nnoremap <leader>gl :Git pull<CR>
 
 " Resolve merge conflicts
 nnoremap <leader>mc :Gdiffsplit!<CR>
