@@ -391,11 +391,6 @@ myip() {
 # Other {{{1
 # ----------------------------------------------------------------------------#
 
-# prints Dennis Ritchie
-unix-print () {
-	. $(find "$SCRIPTS_DIR/" -name "unix-print" 2>/dev/null)
-}
-
 # get last apt-get update date
 info-update-last () {
 	ls -lt --time-style="long-iso" /var/log/apt | grep -o '\([0-9]\{2,4\}[- ]\)\{3\}[0-9]\{2\}:[0-9]\{2\}' -m 1
