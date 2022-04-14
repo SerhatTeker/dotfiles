@@ -33,6 +33,15 @@ endif
 
 " fugitive {{{
 
+" Status
+nnoremap <silent>ss :G<CR>
+" Do commit
+nnoremap <silent>cc :Git commit<CR>
+" Do push
+nnoremap <leader>gp :Git push<CR>
+" Do pull
+nnoremap <leader>gl :Git pull<CR>
+
 " Resolve merge conflicts
 nnoremap <leader>mc :Gdiffsplit!<CR>
 nnoremap <leader>m2 :diffget //2<CR>
