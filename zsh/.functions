@@ -45,15 +45,12 @@ close_chrome_restore_popup() {
 
 # Launch Google Chrome with forced dark mode in i3
 chrome-i3() {
+    local flags='--force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering'
     nohup \
         i3-msg \
-        'workspace 2; exec google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering' \
+        "workspace 2; exec google-chrome-stable ${flags}" \
         >/dev/null 2>&1 &
 }
-# }}}1
-
-# Back Up {{{1
-
 # }}}1
 
 # Dirs {{{1
