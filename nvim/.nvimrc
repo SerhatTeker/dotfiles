@@ -155,7 +155,6 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'lewis6991/gitsigns.nvim'  " status info in columns
-" Plug 'airblade/vim-gitgutter'	" status info in columns
 " }}}3
 
 " motions {{{3
