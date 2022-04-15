@@ -1,11 +1,12 @@
 # Add my 'web' type.
 --type-add
 web:*.{html,css,js}*
-#
+
 # allow ripgrep to respect gitignores anywhere
 --no-require-git
 
-#--color=always
+# Disable for vim :Files
+# --color=always
 
 --hidden
 
