@@ -15,11 +15,13 @@
 
 " set guicursor =
 
-if filereadable(expand("$MYNVIMRC"))
+if filereadable(expand('$MYNVIMRC'))
 	source $MYNVIMRC
 " fallbacks
-elseif filereadable(expand("~/.config/nvim/.nvimrc"))
+elseif filereadable(expand('~/.config/nvim/.nvimrc'))
 	source ~/.config/nvim/.nvimrc
 else
 	source ~/.vimrc
 endif
+
+lua require('config')
