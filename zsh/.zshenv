@@ -132,14 +132,12 @@ export ANSIBLE_CONFIG="${XDG_CONFIG_HOME}/ansible/ansible.cfg"
 
 # Python {{{2
 
-# TODO: Add sysmlink python3 -> ~/.local/bin/python3.8 on MacOS
 export PYTHON_VERSION=3.8
 export PYTHON="python${PYTHON_VERSION}"
 
 # Install libs in virtualenv
 export PIP_REQUIRE_VIRTUALENV=true
 
-# TODO: Add exists check
 # Use pudb instead of pdb
 export PYTHONBREAKPOINT=pudb.set_trace
 # Alternative: use ipdb instead of pdb
