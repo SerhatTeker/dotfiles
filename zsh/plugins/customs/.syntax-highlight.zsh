@@ -1,10 +1,8 @@
 # This is custom syntax highlight configurations for
 # https://github.com/zsh-users/zsh-syntax-highlighting
 #
-# below settings based on:
-# https://framagit.org/phineas0fog/dotfiles/blob/\
-#     51385cb0d9ff4b244ecd0293a49c189b1352c1c4/custom/plugins/\
-#     zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+# Based on:
+# https://github.com/trapd00r/zsh-syntax-highlighting-filetypes
 ZSH_HIGHLIGHT_STYLES+=(
 	default			               'fg=248'
 	unknown-token		           'fg=196,bold,bg=234'
