@@ -243,14 +243,16 @@ ZSH_DOTENV_PROMPT=false
 
 # zsh-highlight {{{3
 if [[ "${ZSH_CUSTOM_HIGHLIGHT}" == "TRUE" ]]; then
-    [ -f ${ZCUSTOMS}/.syntax-highlight.zsh ] && source ${ZCUSTOMS}/.syntax-highlight.zsh
+    [ -f ${ZCUSTOMS}/.syntax-highlight.zsh ] \
+        && source ${ZCUSTOMS}/.syntax-highlight.zsh
 fi
 # }}}3
 
 # agnoster {{{3
 
 if [[ "${ZSH_THEME}" == "agnoster" ]]; then
-    [ -f ${ZCUSTOMS}/.agnoster.zsh ] && source ${ZCUSTOMS}/.agnoster.zsh
+    [ -f ${ZCUSTOMS}/.agnoster.zsh ] \
+        && source ${ZCUSTOMS}/.agnoster.zsh
 fi
 # }}}3
 
