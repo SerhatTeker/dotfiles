@@ -24,8 +24,9 @@ nnoremap <silent>HH :Gclog<CR>
 " Show File History
 nnoremap <silent>HF :0Gclog!<CR>
 
-" Git diff current and previous version
+" Git diff previous vs the current version
 " With <!> left to right, and focus on current
+" TIP: Therefore close with <C-W><C-O>, not :diffoff
 nmap <leader>d :Gvdiffsplit! HEAD<CR>
 " always open diffs vertical
 set diffopt+=vertical
