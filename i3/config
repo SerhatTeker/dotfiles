@@ -108,7 +108,7 @@ bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
 
 # Rofi {{{
 
-bindsym F1 exec --no-startup-id j4-dmenu-desktop --dmenu='rofi -dmenu -i'
+bindsym F3 exec --no-startup-id j4-dmenu-desktop --dmenu='rofi -dmenu -i'
 bindsym $mod+Shift+w exec --no-startup-id rofi -show window
 # }}}
 
