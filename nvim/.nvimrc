@@ -66,11 +66,9 @@ Plug 'edkolev/tmuxline.vim'                             " Tmux
 
 " Statusbar {{{3
 
-" Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'osyo-manga/vim-anzu'                              " Search matchup counts and position
-Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 " }}}3
 
 " Filetype {{{3
