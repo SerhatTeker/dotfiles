@@ -12,9 +12,8 @@
 "	Plugin Manager	{{{1
 " ----------------------------------------------------------------------------"
 
-" Auto Install {{{2
-
-" Automatic Plugin Manager and Plugins installation
+" Auto install {{{2
+" Automatic plugin manager and plugins installation
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
     silent !curl -fLSso ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -54,15 +53,15 @@ Plug 'kshenoy/vim-signature'                            " toggle, display and na
 Plug 'easymotion/vim-easymotion'                        " motions on speed
 " }}}3
 
-" Theme {{{3
+" Colors|Theme {{{3
 
+" Themes
 Plug 'joshdick/onedark.vim'
 Plug 'rakr/vim-one'
 Plug 'morhetz/gruvbox'
 " Colors
 Plug 'gko/vim-coloresque'                               " css/less/sass/html color preview for vim
-" Tmux
-Plug 'edkolev/tmuxline.vim'
+Plug 'edkolev/tmuxline.vim'                             " Tmux
 " }}}3
 
 " Statusbar {{{3
@@ -78,21 +77,14 @@ Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 
 " Python {{{4
 
-" syntax
-Plug 'SerhatTeker/python-syntax'
-" folding
-Plug 'tmhedberg/SimpylFold'
-" navigation
-Plug 'jeetsukumaran/vim-pythonsense'
-" Semantic Highliht
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-" autoflake: remove unused imports and variables
-Plug 'tell-k/vim-autoflake'
-" docstring
-Plug 'serhatteker/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
+Plug 'SerhatTeker/python-syntax'                        " syntax
+Plug 'tmhedberg/SimpylFold'                             " folding
+Plug 'jeetsukumaran/vim-pythonsense'                    " navigation
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}  " Semantic Highliht
+Plug 'tell-k/vim-autoflake'                             " autoflake: remove unused imports and variables
+Plug 'serhatteker/vim-pydocstring', { 'do': 'make install', 'for': 'python' }   " docstring
 
-" Django
-Plug 'tweekmonster/django-plus.vim'
+Plug 'tweekmonster/django-plus.vim'                     " Django
 " }}}4
 
 " Golang
@@ -109,7 +101,6 @@ Plug 'andrewstuart/vim-kubernetes'
 " default plugin
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-" bullets
 Plug 'dkarter/bullets.vim'
 " }}}4
 
@@ -122,19 +113,21 @@ Plug 'hashivim/vim-terraform'
 
 " LSP/CodeComplete/Linter {{{3
 
-Plug 'dense-analysis/ale'
-
-" Code Completion {{{
-
-" Use deoplete for go, for the rest coc.vim
+" CoC
+" NOTE: Use deoplete for go, for the rest coc.vim
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'antoinemadec/coc-fzf'
 
-" vim-go needs deoplete for realtime omnifunc completion
-" NOTE: PlugUpdate may not work, in a *.go file call <UpdateRemotePlugins> manually after
+" Deoplete
+" NOTE: vim-go needs deoplete for realtime omnifunc completion
+" PlugUpdate may not work, in a *.go file call <UpdateRemotePlugins> manually after
 Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins', 'for': 'go' }
-" }}}
-" }}}
+
+" Ale
+" NOTE: Ale and Coc: https://github.com/neoclide/coc.nvim/issues/348#issuecomment-810929209
+" CoC and Ale together: https://github.com/dense-analysis/ale#faq-coc-nvim
+Plug 'dense-analysis/ale'
+" }}}3
 
 " Syntax {{{3
 
@@ -147,7 +140,7 @@ let g:polyglot_disabled = [
             \]
 
 Plug 'sheerun/vim-polyglot'
-" 3}}}
+" }}}3
 
 " Git {{{3
 
@@ -157,40 +150,15 @@ Plug 'stsewd/fzf-checkout.vim'
 Plug 'lewis6991/gitsigns.nvim'  " status info in columns
 " }}}3
 
-" motions {{{3
+" Session {{{3
 
-Plug 'bkad/CamelCaseMotion'
-" }}}
-
-" Others {{{3
-
-Plug 'godlygeek/tabular'                " Align text with :/=/, etc.
-Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-commentary'             " comment stuff out
-Plug 'AndrewRadev/splitjoin.vim'        " Switch between single-line and multiline forms of code
-Plug 'junegunn/rainbow_parentheses.vim'
-
-" Pair
-Plug 'jiangmiao/auto-pairs'             " insert mode auto-completion for quotes, parens, brackets, etc
-
-" Surround
-Plug 'tpope/vim-surround'               " Delete/change/add parentheses/quotes/XML-tags/much more
-Plug 'tpope/vim-repeat'                 " Needed for 'vim-surround'
-
-" Indentline
-Plug 'Yggdroot/indentLine'
+Plug 'tpope/vim-obsession'                              " continuously updated session files
 
 " Activity tracking
 " ActivityWatch watcher: https://docs.activitywatch.net/en/latest/watchers.html
 if filereadable(expand("~/apps/activitywatch/aw-qt"))
     Plug 'ActivityWatch/aw-watcher-vim'
 endif
-" }}}3
-
-" Session {{{3
-
-" continuously updated session files
-Plug 'tpope/vim-obsession'
 " }}}3
 
 " Minimal {{{3
@@ -206,16 +174,29 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'preservim/tagbar'
 " }}}3
 
+" Others {{{3
+
+Plug 'godlygeek/tabular'                " Align text with :/=/, etc.
+Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-commentary'             " comment stuff out
+Plug 'AndrewRadev/splitjoin.vim'        " Switch between single-line and multiline forms of code
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'bkad/CamelCaseMotion'             " Motions
+Plug 'jiangmiao/auto-pairs'             " insert mode auto-completion for quotes, parens, brackets, etc
+Plug 'tpope/vim-surround'               " Delete/change/add parentheses/quotes/XML-tags/much more
+Plug 'tpope/vim-repeat'                 " Needed for 'vim-surround'
+Plug 'Yggdroot/indentLine'              " Indentline
+" }}}3
+
 call plug#end()
 " }}}2
 
-" Auto Install on Startup {{{2
-" Automatically install missing plugins on startup
-
-" autocmd VimEnter *
-"             \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-"             \|   PlugInstall --sync | q
-"             \| endif
+" Auto install on startup {{{2
+" Automatically install missing plugins on startup/vimenter
+autocmd VimEnter *
+            \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+            \|   PlugInstall --sync | q
+            \| endif
 " }}}2
 " ----------------------------------------------------------------------------"
 "	}}}
