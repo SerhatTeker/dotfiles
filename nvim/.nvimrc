@@ -75,13 +75,12 @@ Plug 'osyo-manga/vim-anzu'                              " Search matchup counts 
 
 " Python {{{4
 
-Plug 'SerhatTeker/python-syntax'                        " syntax
-Plug 'tmhedberg/SimpylFold'                             " folding
-Plug 'jeetsukumaran/vim-pythonsense'                    " navigation
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}  " Semantic Highliht
-Plug 'tell-k/vim-autoflake'                             " autoflake: remove unused imports and variables
+Plug 'SerhatTeker/python-syntax'                        " Syntax highliht
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}  " Semantic syntax highliht
+Plug 'tmhedberg/SimpylFold'                             " Folding
+Plug 'jeetsukumaran/vim-pythonsense'                    " Navigation
+Plug 'tell-k/vim-autoflake'                             " Autoflake: remove unused imports and variables
 Plug 'serhatteker/vim-pydocstring', { 'do': 'make install', 'for': 'python' }   " docstring
-
 Plug 'tweekmonster/django-plus.vim'                     " Django
 " }}}4
 
