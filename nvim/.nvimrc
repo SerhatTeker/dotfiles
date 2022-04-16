@@ -141,10 +141,10 @@ Plug 'sheerun/vim-polyglot'
 
 " Git {{{3
 
-Plug 'itchyny/vim-gitbranch'
-Plug 'tpope/vim-fugitive'
-Plug 'stsewd/fzf-checkout.vim'
-Plug 'lewis6991/gitsigns.nvim'  " status info in columns
+Plug 'tpope/vim-fugitive'                               " A Git wrapper
+Plug 'itchyny/vim-gitbranch'                            " Provides the branch name
+Plug 'stsewd/fzf-checkout.vim'                          " Manage branches and tags with fzf
+Plug 'lewis6991/gitsigns.nvim'                          " status info in columns
 " }}}3
 
 " Session {{{3
