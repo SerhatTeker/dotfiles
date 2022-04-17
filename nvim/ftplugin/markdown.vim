@@ -37,28 +37,6 @@ let g:bullets_set_mappings = 1
 let g:mkdp_auto_close = 0
 " }}}
 
-" Tabularize {{{
-if exists(":Tabularize")
-	" Align vnoremap <leader>ss :Tabularize /\S\(' . split(&commentstring, '%s')[0] . '.*\)\@<!\zs\ /l0<CR>
-	nnoremap <leader>as :Tabularize /\S\(' . split(&commentstring, '%s')[0] . '.*\)\@<!\zs\ /l0<CR>
-	" align with `:`
-	nmap <leader>a: :Tabularize /:\zs<CR>
-	vmap <leader>a: :tabularize /:\zs<CR>
-	" align with `-`
-	nmap <leader>a- :Tabularize /-\zs<CR>
-	vmap <leader>a- :tabularize /-\zs<CR>
-	" align with `=`
-	nmap <leader>a= :Tabularize /:\zs<CR>
-	vmap <leader>a= :tabularize /:\zs<CR>
-	" align end comments
-	vnoremap <expr> <Leader>a. ':Tabularize /^\s*\S.*\zs' . split(&commentstring, '%s')[0] . "<CR>"
-	nnoremap <expr> <Leader>a. ':Tabularize /^\s*\S.*\zs' . split(&commentstring, '%s')[0] . "<CR>"
-
-	" Additional Patterns
-	AddTabularPattern! jo  /:[^-]*\|-.*/l1l0
-endif
-" }}}
-
 " deoplete {{{
 
 " using for default mappings markdown plugging

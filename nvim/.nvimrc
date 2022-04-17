@@ -177,7 +177,7 @@ Plug 'preservim/tagbar'
 
 " Others {{{3
 
-Plug 'godlygeek/tabular'                " Align text with :/=/, etc.
+Plug 'godlygeek/tabular'                " Align text with : / = |, etc.
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-commentary'             " comment stuff out
 Plug 'AndrewRadev/splitjoin.vim'        " Switch between single-line and multiline forms of code
@@ -446,24 +446,7 @@ nnoremap <C-B>c :BufCurOnly<CR>
 " }}}
 
 " Align {{{
-if exists(":Tabularize")
-    " Align
-    vnoremap <leader>ss :Tabularize /\S\(' . split(&commentstring, '%s')[0] . '.*\)\@<!\zs\ /l0<CR>
-    nnoremap <leader>ss :Tabularize /\S\(' . split(&commentstring, '%s')[0] . '.*\)\@<!\zs\ /l0<CR>
-    " align with `:`
-    nmap <leader>a: :Tabularize /:\zs<CR>
-    vmap <leader>a: :tabularize /:\zs<CR>
-    " align with `-`
-    nmap <leader>a- :Tabularize /-<CR>
-    vmap <leader>a- :tabularize /-<CR>
-    " align with `=`
-    nmap <leader>a= :Tabularize /:\zs<CR>
-    vmap <leader>a= :tabularize /:\zs<CR>
-    " align end comments
-    vnoremap <expr> <Leader>a. ':Tabularize /^\s*\S.*\zs' . split(&commentstring, '%s')[0] . "<CR>"
-    nnoremap <expr> <Leader>a. ':Tabularize /^\s*\S.*\zs' . split(&commentstring, '%s')[0] . "<CR>"
-endif
-
+"
 " Align blocks of text and keep them selected
 vmap < <gv
 vmap > >gv
