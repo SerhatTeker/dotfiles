@@ -165,20 +165,25 @@ git-sync-fork() {
 		git rebase upstream/master
 }
 
-# Delete branch local and remote
-# TODO: Add prompt to ensure
+# Delete given local and remote branch
+# Usage:
+# $ git-prune-branch your-branch
+# $ git-prune-branch your-branch upstream
+# TODO: Improve with autocompletion function
 git-prune-branch() {
-    BRANCH=$1
-    REMOTE="origin"
+    local branch="${1}"
+    local remote="${2:-origin}"
 
-    if [ "$2" != "" ]; then
-        # Positional parameter $2 is not empty
-        REMOTE=$1
-        BRANCH=$2
-    fi
-
-    git branch -D $BRANCH
-    git push -d $REMOTE $BRANCH
+    # Ensure with taking prompt
+    msg_cli yellow \
+        "This will delete your local and remote branch <${branch}>. Are you sure? (y/n)"  \
+        normal
+    read -r opt
+    case ${opt} in
+        y*|Y*|"") git branch -D ${branch}; git push -d ${remote} ${branch} ;;
+        n*|N*) msg_cli red "Deleting ${branch} cancelled." normal ;;
+        *) msg_cli red "Please type y/Y or n/N" normal ;;
+    esac
 }
 
 # Git checkout a pull request locally
