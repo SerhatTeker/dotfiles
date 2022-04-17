@@ -177,20 +177,19 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # Default Workspaces
 # assign [class="Gnome-terminal"] number $ws3
-assign [class="Slack"] $ws6
-assign [class="Nautilus"] $ws7
+assign [class="Slack"] $ws5
+for_window [class="Telegram"] move to workspace $ws6
+for_window [class="Signal"] move to workspace $ws6
 # Assign not working for Spotify
 # https://unix.stackexchange.com/questions/448261/i3-assign-spotify-to-workspace
 # assign [class="Spotify"] $ws10
-for_window [class="Spotify"] move to workspace $ws10
+for_window [class="Spotify"] move to workspace $ws7
+assign [class="Nautilus"] $ws10
 
 # Windows
 for_window [class="Telegram"] floating enable
 for_window [class="Signal"] floating enable
-for_window [class="Telegram"] move to workspace $ws9
-for_window [class="Signal"] move to workspace $ws9
-
-# spotify: no border
+## no borders
 for_window [class="^Spotify$"] border none
 for_window [class="^Spotify Premium$"] border none
 for_window [class="^Signal"] border none
