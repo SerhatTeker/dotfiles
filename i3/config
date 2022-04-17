@@ -79,7 +79,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -108,7 +108,7 @@ bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
 
 # Rofi {{{
 
-bindsym $mod+Shift+d exec --no-startup-id j4-dmenu-desktop --dmenu='rofi -dmenu -i'
+bindsym $mod+space exec --no-startup-id j4-dmenu-desktop --dmenu='rofi -dmenu -i'
 bindsym $mod+Shift+w exec --no-startup-id rofi -show window
 # }}}
 
