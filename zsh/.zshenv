@@ -30,6 +30,10 @@ export XDG_DATA_HOME="${HOME}/.local/share"
 
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
+# Disable coredumps for systemd
+# https://www.cyberciti.biz/faq/disable-core-dumps-in-linux-with-systemd-sysctl
+ulimit -S -c 0
+
 # ----------------------------------------------------------------------------#
 # BIN {{{1
 # ----------------------------------------------------------------------------#

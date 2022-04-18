@@ -32,6 +32,11 @@ install_apts() {
         build-essential
 }
 
+install_snaps() {
+    sudo snap install \
+        multipass
+}
+
 # Brew {{{
 
 brew_deps() {
@@ -102,10 +107,23 @@ i3_setup() {
 }
 # }}}
 
-install_snaps() {
-    sudo snap install \
-        multipass
+# Security {{{
+
+# https://www.cyberciti.biz/faq/disable-core-dumps-in-linux-with-systemd-sysctl
+disable_core_dumps() {
+    local file=/etc/security/limits.conf
+    printf \
+        "* hard core 0\n* soft core 0" \
+        | sudo tee -a /etc/security/limits.conf
+
+    # Make sure the Linux prevents setuid and setgid programs from dumping core to
+    printf \
+        "fs.suid_dumpable=0\nkernel.core_pattern=|/bin/false" \
+        | sudo tee -a /etc/sysctl.conf
+    # Activate changes
+    sudo sysctl -p /etc/sysctl.conf
 }
+# }}}
 
 
 main() {
@@ -114,9 +132,10 @@ main() {
     sudo -v # Get sudo prompt before
 
     install_apts
-    brew_main
-    i3_setup
     install_snaps
+    disable_core_dumps
+    i3_setup
+    brew_main
     msg_cli green "Finished Installation ${OSTYPE}"
 }
 
