@@ -36,6 +36,8 @@ get_release() {
 
 copy_bin() {
     cp -v "${SOURCE_DIR}/hugo" ${DEST_DIR}
+    # with version
+    # cp -v "${SOURCE_DIR}/hugo" "${DEST_DIR}/hugo_${HUGO_VERSION}"
 }
 
 # Remove tmp source dir
