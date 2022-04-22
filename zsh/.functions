@@ -51,6 +51,12 @@ chrome-i3() {
         "workspace 2; exec google-chrome-stable ${flags}" \
         >/dev/null 2>&1 &
 }
+
+# Kill and restart ActivityWatch process
+aw-reboot() {
+    pkill -f aw
+    nohup ~/apps/activitywatch/aw-qt > /dev/null 2>&1 &
+}
 # }}}1
 
 # Dirs {{{1
