@@ -1,12 +1,32 @@
 #!/usr/bin/env bash
 
-# Adapt MacOS Monterey Dark/Light Theme on Terminal (alacritty, tmux, nvim)
-# Using neodark as dark mode and one as light mode
-# (Alternative is Gruvbox dark/light)
+# =================================================================================================
 #
-# Usage:
-# $ adapt_term_bg_macos
-
+# Copyright 2022 Serhat Teker <me@serhatteker.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+#
+# File                  : adapt_term_bg_macos
+# Descrtiption          : Adapt MacOS Monterey Dark/Light Theme on terminal; alacritty, tmux, nvim.
+# Author                : Serhat Teker <me@serhatteker.com>
+# Date                  : 2022-04-23T15:41:00+0300 | 1650717660
+# Last Modified Date    : 2022-04-23T15:41:00+0300 | 1650717660
+# Notes                 : Using <neodark> as dark mode and <one> as light mode.
+# Using neodark as dark mode and one as light mode. (Alternative is Gruvbox dark/light)
+# Usage                 : $ ./adapt_term_bg_macos
+#
+# =================================================================================================
 
 # Send ChangeBackground() Signal to all vim/nvim instances in all tmux sessions
 vim_sessions_toggle() {
@@ -15,8 +35,8 @@ vim_sessions_toggle() {
         | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
 
     for session in `${tmux_bin} list-sessions -F '#S'`; do
-        for window in `${tmux_bin} list-windows -t $session -F '#{window_index}'`; do
-            for pane in `${tmux_bin} list-panes -t $session:$window -F '#P'`; do
+        for window in `${tmux_bin} list-windows -t ${session} -F '#{window_index}'`; do
+            for pane in `${tmux_bin} list-panes -t ${session}:${window} -F '#P'`; do
                 local pix="${session}:${window}.${pane}"
 
                 ${tmux_bin} if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} escape ENTER"
