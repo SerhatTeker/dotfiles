@@ -1,0 +1,203 @@
+#!/usr/bin/env bash
+
+# =================================================================================================
+#
+# Copyright 2022 Serhat Teker <me@serhatteker.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+#
+# File                  : toggle-theme
+# Descrtiption          : Toggle theme mode on Ubuntu 20.04 LTS and MacOS Monterey 12.3
+# Author                : Serhat Teker <me@serhatteker.com>
+# Date                  : 2022-04-23T15:41:00+0300 | 1650717660
+# Last Modified Date    : 2022-04-23T15:41:00+0300 | 1650717660
+# Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
+# and using on Ubuntu 20.04 LTS and MacOS Monterey 12.3.
+# Usage                 : $ ./toggle-theme
+#
+# Pass theme flag to use the specific theme;
+# $ ./toggle-theme -l|--light
+# or
+# $ ./toggle-theme d|dark
+#
+# =================================================================================================
+
+
+# Terminal {{{
+
+# Send ChangeBackground() Signal to all vim/nvim instances in all tmux sessions
+vim_sessions_toggle() {
+    local is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+        | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+
+    for session in $(tmux list-sessions -F '#S'); do
+        for window in $(tmux list-windows -t $session -F '#{window_index}'); do
+            for pane in $(tmux list-panes -t $session:$window -F '#P'); do
+                local pix="${session}:${window}.${pane}"
+
+                tmux if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} escape ENTER"
+                tmux if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} ':call ChangeBackground()' ENTER"
+            done
+        done
+    done
+}
+
+alacritty_toggle() {
+    local theme_path="${HOME}/dotfiles/alacritty/colors/one.yml"
+
+    # MacOS sed is pain, use gsed
+    # local sed_bin=$(command -v gsed || sed)
+    if is_macos; then
+        local sed_bin=gsed
+    else
+        local sed_bin=sed
+    fi
+
+    # Not using gruvbox now, but possible in future.
+    if [[ ${target_mode} =~ "light" ]]; then
+        ${sed_bin} -i 's/*theme_dark/*theme_light/g' ${theme_path}
+        ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path_main}/gruvbox.yml"
+    else
+        ${sed_bin} -i 's/*theme_light/*theme_dark/g' ${theme_path}
+        ${sed_bin} -i 's/*theme_light/*theme_dark/g' "${theme_path_main}/gruvbox.yml"
+    fi
+}
+# }}}
+
+# OS Toggle {{{
+
+gtk_toggle() {
+    if [[ ${target_mode} =~ "light" ]]; then
+        gsettings set org.gnome.desktop.interface gtk-theme "Yaru-light"
+    else
+        gsettings set org.gnome.desktop.interface gtk-theme "Yaru-dark"
+    fi
+}
+
+macos_toggle() {
+    if [[ ${target_mode} == "light" ]]; then
+        osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" >/dev/null
+    elif [[ ${target_mode} == "dark" ]]; then
+        osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" >/dev/null
+    fi
+}
+
+os_toggle() {
+    if is_macos; then
+        macos_toggle ${target_mode}
+    else
+        gtk_toggle ${target_mode}
+    fi
+}
+# }}}
+
+# Chrome {{{
+
+# NOTE: Disabled. Open manually
+reopen_chrome() {
+    # If chrome session exists
+    local chrome_bin=/usr/bin/google-chrome-stable
+    if [[ -n $(pgrep tmux) ]]; then
+        # Close Chrome
+        pkill -f chrome
+
+        # Open Chrome again
+        if [[ ${target_mode} =~ "light" ]]; then
+            ${chrome_bin} \
+                >/dev/null 2>&1 &
+        else
+            nohup ${chrome_bin} \
+                --force-dark-mode \
+                --enable-features=WebUIDarkMode,CSSColorSchemeUARendering \
+                >/dev/null 2>&1 &
+        fi
+    fi
+}
+
+# TODO: Add this to startup or .zprofile/.zshenv etc.
+# Close annoying Chrome's Restore Popup in Linux
+# https://raspberrypi.stackexchange.com/a/89705
+close_restore_popup() {
+    local chrome_preferences="${XDG_CONFIG_HOME}/google-chrome/Default/Preferences"
+
+    sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' ${chrome_preferences}
+    sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ${chrome_preferences}
+}
+
+chrome_toggle() {
+    # Run only in linux
+    is_linux || return 0
+    close_restore_popup
+    # reopen_chrome
+
+    local file="${HOME}/.local/share/applications/google-chrome.desktop"
+    local default='\/usr\/bin\/google-chrome-stable'
+    local dark='\/usr\/bin\/google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering'
+
+    if [[ ${target_mode} =~ "light" ]]; then
+        sed -i "s/${dark}/${default}/" ${file}
+    else
+        sed -i "s/${default}/${dark}/" ${file}
+    fi
+}
+# }}}
+
+# Main {{{
+
+main() {
+    # No mode flag. Default usage.
+    if [[ $# -eq 0 ]]; then
+        # Check current mode and by toggling set target_mode
+        if is_linux; then
+            theme=$(gsettings get org.gnome.desktop.interface gtk-theme)
+            if [[ ${theme} =~ "dark" ]]; then
+                target_mode="light"
+            else
+                target_mode="dark"
+            fi
+        else
+            theme="$(defaults read -g AppleInterfaceStyle)"
+            if [[ ${theme} =~ "Dark" ]]; then
+                target_mode="light"
+            else
+                target_mode="dark"
+            fi
+        fi
+    fi
+
+    # If theme mode passed use it.
+    while [[ "$#" -gt 0 ]]; do
+        case $1 in
+            -d|--dark) target_mode="dark" ; shift ;;
+            d|dark) target_mode="dark" ; shift ;;
+            -l|--light) target_mode="light" ; shift ;;
+            l|light) target_mode="light" ; shift ;;
+            *) echo "Unknown argument passed: $1"; exit 1 ;;
+        esac
+        shift
+    done
+
+    os_toggle
+    vim_sessions_toggle
+    alacritty_toggle
+    chrome_toggle       # Run only in linux
+
+    echo "Switched to ${target_mode} mode"
+
+}
+
+main "$@"
+
+exit 0
+# }}}
