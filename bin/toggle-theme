@@ -21,7 +21,7 @@
 # Descrtiption          : Toggle theme mode on Ubuntu 20.04 LTS and MacOS Monterey 12.3
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2022-04-23T15:41:00+0300 | 1650717660
+# Last Modified Date    : 2022-04-24T22:16:54+0300 | 1650827814
 # Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
 # and using on Ubuntu 20.04 LTS and MacOS Monterey 12.3.
 # Usage                 : $ ./toggle-theme
@@ -54,7 +54,7 @@ vim_sessions_toggle() {
 }
 
 alacritty_toggle() {
-    local theme_path="${HOME}/dotfiles/alacritty/colors/one.yml"
+    local theme_path="${HOME}/dotfiles/alacritty/colors"
 
     # MacOS sed is pain, use gsed
     # local sed_bin=$(command -v gsed || sed)
@@ -66,11 +66,11 @@ alacritty_toggle() {
 
     # Not using gruvbox now, but possible in future.
     if [[ ${target_mode} =~ "light" ]]; then
-        ${sed_bin} -i 's/*theme_dark/*theme_light/g' ${theme_path}
-        ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path_main}/gruvbox.yml"
+        ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path}/one.yml"
+        ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path}/gruvbox.yml"
     else
-        ${sed_bin} -i 's/*theme_light/*theme_dark/g' ${theme_path}
-        ${sed_bin} -i 's/*theme_light/*theme_dark/g' "${theme_path_main}/gruvbox.yml"
+        ${sed_bin} -i 's/*theme_light/*theme_dark/g' "${theme_path}/one.yml"
+        ${sed_bin} -i 's/*theme_light/*theme_dark/g' "${theme_path}/gruvbox.yml"
     fi
 }
 # }}}
