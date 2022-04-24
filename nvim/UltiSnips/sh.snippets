@@ -15,7 +15,6 @@ set -o pipefail
 $0
 endsnippet
 
-
 snippet shebang-script "shebang-script" b
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
@@ -34,4 +33,8 @@ set -o pipefail
 
 
 $0
+endsnippet
+
+snippet timestamp "timestamp in ISO8601 and unix" b
+`date +%Y-%m-%dT%H:%M:%S%z` | `date +%s` $0
 endsnippet
