@@ -22,16 +22,36 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
+os_base() {
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        bash "${ROOT}/install/linux/base.sh"
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        bash "${ROOT}/install/macos/base.sh"
+    else
+        echo "No install configuration for ${OSTYPE}"
+        exit 1
+    fi
+}
 
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    bash "${ROOT}/install/linux/base.sh"
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    bash "${ROOT}/install/macos/base.sh"
-else
-    echo "No install configuration for ${OSTYPE}"
-    exit 1
-fi
+brew_deps() {
+    brew install \
+        git \
+        ripgrep
+}
 
-bash ${ROOT}/python/python.sh
+main() {
+    os_base
 
-bash ${ROOT}/python/fonts.sh
+    bash "${ROOT}/python/zsh.sh"
+    bash "${ROOT}/python/python.sh"
+    bash "${ROOT}/python/nvim.sh"
+    bash "${ROOT}/python/tmux.sh"
+    bash "${ROOT}/python/fonts.sh"
+    bash "${ROOT}/python/link.sh"
+
+    brew_deps
+
+    exit 0
+}
+
+main
