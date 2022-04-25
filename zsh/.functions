@@ -577,11 +577,23 @@ mux() {
 }
 
 # Crate and attach a new session with args
-# defaults: session named "new" in ${HOME} dir with window named "main"
+# Usage:
+# - $ tnew directory
+# - $ tnew session_name session_dir session_window_name
+# default with no arg: session named "new" in ${HOME} dir with window named "main"
+# TODO: Write zsh autocompletion func
 tnew() {
-    local session_name="${1:-new}"
-    local session_dir=${2:-~/}
-    local session_window_name="${3:-main}"
+    if [[ $# -eq 1 ]]; then
+        local session_dir="${1}"
+        # if dir consists ".", split and get first name
+        local session_name=$(echo $(basename ${session_dir}) \
+            | awk '{split($session_name, a, "."); print a[1]}')
+        local session_window_name="main"
+    else
+        local session_name="${1:-new}"
+        local session_dir=${2:-~/}
+        local session_window_name="${3:-main}"
+    fi
 
     tmux new-session \
         -d \
