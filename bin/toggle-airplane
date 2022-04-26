@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+
+
+# Toggle Airplane Mode; wifi, bluetooth and other radio
+# Usage:
+# $ ./toggle-airplane
+
+
+# Bash safeties: exit on error, no unset variables, pipelines can't hide errors
+set -o errexit
+set -o nounset
+set -o pipefail
+
+
+toggle_airplane_linux() {
+    local wifi_status="$(nmcli r wifi | awk 'FNR = 2 {print $1}')"
+
+    if [ "${wifi_status}" == "enabled" ]; then
+        rfkill block all & wifi_status="disabled"
+    else
+        rfkill unblock all & wifi_status="enabled"
+    fi
+
+    notify-send "Airplane Mode" "${wifi_status}"
+}
+
+# TODO: Add MacOS version as well
+main() {
+    if is_linux; then
+        toggle_airplane_linux
+    fi
+}
+
+main
