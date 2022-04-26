@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
 
 # =================================================================================================
 #
@@ -21,7 +23,7 @@
 # Descrtiption          : Toggle theme mode on Ubuntu 20.04 LTS and MacOS Monterey 12.3
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2022-04-24T22:16:54+0300 | 1650827814
+# Last Modified Date    : 2022-04-26T13:33:22+0300 | 1650969202
 # Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
 # and using on Ubuntu 20.04 LTS and MacOS Monterey 12.3.
 # Usage                 : $ ./toggle-theme
@@ -32,6 +34,11 @@
 # $ ./toggle-theme d|dark
 #
 # =================================================================================================
+
+# Bash safeties: exit on error, no unset variables, pipelines can't hide errors
+set -o errexit
+set -o nounset
+set -o pipefail
 
 
 # Terminal {{{
