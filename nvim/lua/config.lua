@@ -54,6 +54,7 @@ require('gitsigns').setup {
 
         -- Actions
         map('n', '<leader>ht', ':Gitsigns toggle_signs<CR>')
+        map('n', '<leader>hh', ':Gitsigns preview_hunk<CR>')
         map('n', '<leader>hp', ':Gitsigns preview_hunk<CR>')
         map('v', '<leader>hp', ':Gitsigns preview_hunk<CR>')
         map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
