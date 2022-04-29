@@ -103,7 +103,8 @@ bindsym $mod+Shift+x exec i3lock --color 0B0B0B
 # http://manpages.ubuntu.com/manpages/focal/man1/j4-dmenu-desktop.1.html
 # https://github.com/enkore/j4-dmenu-desktop
 # can be added: --display-binary
-bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
+# bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
+bindsym $mod+d exec --no-startup-id rofi -show run
 # }}}
 
 # Rofi {{{
@@ -330,11 +331,16 @@ exec_always --no-startup-id gnome-power-manager
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id gnome-flashback
 
-# Night light
-exec --no-startup-id redshift
 # Wallpaper
 set $wallpaper "/home/$USER/Pictures/wallpapers/dune.jpg"
 exec --no-startup-id feh --no-fehbg --bg-scale $wallpaper
+
+# Night light
+exec --no-startup-id redshift
+
+# Custom/Local
+exec --no-startup-id "/home/$USER/apps/activitywatch/aw-qt" # activity tracking
+exec --no-startup-id "/home/$USER/.local/toggle-airplane"   # Desktop mode with ethernet
 # }}}
 
 # Screenshots {{{
