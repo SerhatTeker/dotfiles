@@ -369,4 +369,13 @@ bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection c
 # Bind CapsLock to Escape
 exec_always xmodmap -e "clear lock" # disable caps lock switch
 exec_always xmodmap -e "keysym Caps_Lock = Escape" # set caps_lock as escape
+
+# Media player controls {{{
+
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+# }}}
 # }}}

@@ -99,8 +99,9 @@ i3_setup() {
         j4-dmenu-desktop \
         redshift \
         maim \
-        xclip \
-        rofi
+        playerctl \
+        rofi \
+        xclip
 
     i3_gnome
     i3_wakelock
