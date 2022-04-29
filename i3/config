@@ -21,18 +21,12 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec i3-sensible-terminal # gnome-terminal
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+q kill
@@ -109,8 +103,12 @@ bindsym $mod+d exec --no-startup-id rofi -show run
 
 # Rofi {{{
 
-bindsym $mod+space exec --no-startup-id j4-dmenu-desktop --dmenu='rofi -dmenu -i'
-bindsym $mod+Shift+w exec --no-startup-id rofi -show window
+# bindsym $mod+space exec --no-startup-id j4-dmenu-desktop --dmenu='rofi -dmenu -i'   # old default
+# bindsym $mod+space exec --no-startup-id rofi -show drun                             # only drun
+# bindsym $mod+space exec --no-startup-id "rofi -modi drun,run,window -show drun"     # disable ssh
+bindsym $mod+space exec --no-startup-id "rofi -combi-modi drun,run -show combi"     # combi mode
+
+bindsym $mod+Shift+w exec --no-startup-id rofi -show window                         # only windows
 # }}}
 
 # Monitors {{{
@@ -217,7 +215,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # Resize {{{
 
 # resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize"
+bindsym Mod1+r mode "resize"
 
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -364,11 +362,12 @@ bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewi
 bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 # }}}
 
-# Keys {{{
+# Custom Keys {{{
 
 # Bind CapsLock to Escape
 exec_always xmodmap -e "clear lock" # disable caps lock switch
 exec_always xmodmap -e "keysym Caps_Lock = Escape" # set caps_lock as escape
+# }}}
 
 # Media player controls {{{
 
@@ -377,5 +376,11 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioStop exec playerctl stop
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
-# }}}
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 # }}}
