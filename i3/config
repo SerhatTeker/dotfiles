@@ -104,9 +104,9 @@ bindsym $mod+d exec --no-startup-id rofi -show run
 # Rofi {{{
 
 # bindsym $mod+space exec --no-startup-id j4-dmenu-desktop --dmenu='rofi -dmenu -i'   # old default
-# bindsym $mod+space exec --no-startup-id rofi -show drun                             # only drun
+bindsym $mod+space exec --no-startup-id rofi -show drun                             # only drun
 # bindsym $mod+space exec --no-startup-id "rofi -modi drun,run,window -show drun"     # disable ssh
-bindsym $mod+space exec --no-startup-id "rofi -combi-modi drun,run -show combi"     # combi mode
+# bindsym $mod+space exec --no-startup-id "rofi -combi-modi drun,run -show combi"     # combi mode
 
 bindsym $mod+Shift+w exec --no-startup-id rofi -show window                         # only windows
 # }}}
