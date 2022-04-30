@@ -85,6 +85,21 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+x exec i3lock --color 0B0B0B
 # }}}
 
+# Reload/Restart/Exit {{{
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+# Custom exits with rofi
+bindsym $mod+Shift+e exec --no-startup-id "/home/$USER/.config/i3/bin/i3-exit"
+# Default, alternative
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+# }}}
+
 # dmenu {{{
 
 # start dmenu (a program launcher)
@@ -202,21 +217,6 @@ for_window [class="^Telegram"] border none
 # exec ~/.config/i3/scripts/restore-layouts.sh
 # }}}
 
-# Reload/Restart/Exit {{{
-
-# reload the configuration file
-bindsym $mod+Shift+c reload
-
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-
-# exit i3 (logs you out of your X session)
-# Custom exits with rofi
-bindsym $mod+Shift+e exec --no-startup-id "/home/$USER/.config/i3/bin/i3-exit"
-# Default, alternative
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-# }}}
-
 # Resize {{{
 
 # resize window (you can also use the mouse for that)
@@ -270,6 +270,43 @@ mode "move" {
     bindsym Escape mode "default"
     bindsym $mod+m mode "default"
 }
+# }}}
+
+# Screenshots {{{
+
+# Full Screen               | PrtScrn
+# Selection                 | Shift + PrtScrn
+# Active Window             | Super + PrtScrn
+# Clipboard Full Screen     | Ctrl + PrtScrn
+# Clipboard Selection       | Ctrl + Shift + PrtScrn
+# Clipboard Active Window   | Ctrl + Super + PrtScrn
+
+# Screenshots
+set $screenshot "/home/$USER/Pictures/screenshot_$(date +%Y-%m-%dT%H:%M:%S%z).png"
+bindsym Print exec --no-startup-id maim $screenshot
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) $screenshot
+bindsym Shift+Print exec --no-startup-id maim --select $screenshot
+
+## Clipboard Screenshots
+bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+# }}}
+
+# Media player controls {{{
+
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 # }}}
 
 # Gruvbox Colors {{{
@@ -326,6 +363,13 @@ bar {
 }
 # }}}
 
+# Custom Keys {{{
+
+# Bind CapsLock to Escape
+exec_always xmodmap -e "clear lock" # disable caps lock switch
+exec_always xmodmap -e "keysym Caps_Lock = Escape" # set caps_lock as escape
+# }}}
+
 # Startup {{{
 
 # Gnome
@@ -346,48 +390,4 @@ exec --no-startup-id udiskie
 # Custom/Local
 exec --no-startup-id "/home/$USER/apps/activitywatch/aw-qt"     # activity tracking
 exec --no-startup-id "/home/$USER/.local/bin/toggle-airplane"   # Desktop mode with ethernet
-# }}}
-
-# Screenshots {{{
-
-# Full Screen               | PrtScrn
-# Selection                 | Shift + PrtScrn
-# Active Window             | Super + PrtScrn
-# Clipboard Full Screen     | Ctrl + PrtScrn
-# Clipboard Selection       | Ctrl + Shift + PrtScrn
-# Clipboard Active Window   | Ctrl + Super + PrtScrn
-
-# Screenshots
-set $screenshot "/home/$USER/Pictures/screenshot_$(date +%Y-%m-%dT%H:%M:%S%z).png"
-bindsym Print exec --no-startup-id maim $screenshot
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) $screenshot
-bindsym Shift+Print exec --no-startup-id maim --select $screenshot
-
-## Clipboard Screenshots
-bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
-bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
-# }}}
-
-# Custom Keys {{{
-
-# Bind CapsLock to Escape
-exec_always xmodmap -e "clear lock" # disable caps lock switch
-exec_always xmodmap -e "keysym Caps_Lock = Escape" # set caps_lock as escape
-# }}}
-
-# Media player controls {{{
-
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioStop exec playerctl stop
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 # }}}
