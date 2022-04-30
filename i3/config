@@ -335,6 +335,8 @@ exec --no-startup-id feh --no-fehbg --bg-scale $wallpaper
 
 # Night light
 exec --no-startup-id redshift
+# Mounting (i3 Nautilus)
+exec --no-startup-id udiskie
 
 # Custom/Local
 exec --no-startup-id "/home/$USER/apps/activitywatch/aw-qt"     # activity tracking

@@ -101,6 +101,7 @@ i3_setup() {
         maim \
         playerctl \
         rofi \
+        udiskie \
         xclip
 
     i3_gnome
