@@ -331,19 +331,6 @@ set tags=tags
 
 " }}}2
 
-" filetype syntax {{{2
-
-" toml
-au BufNewFile,BufReadPost *.toml set syntax=toml
-
-" yaml
-au BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml
-au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-" service, systemd
-au BufNewFile,BufReadPost *.service set syntax=systemd
-" }}}2
-
 " save {{{2
 
 " restore last cursor position
