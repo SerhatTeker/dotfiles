@@ -62,7 +62,7 @@ main() {
     make_forced ${@}
 
     install_tmux
-    force_remove "${DOTFILES}/tmux" "${HOME}/.config"   # link config. overwrites link.sh
+    force_remove "${DOTFILES}/tmux" "${XDG_CONFIG_HOME}/tmux"   # link config. overwrites link.sh
 }
 
 main "$@"

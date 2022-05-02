@@ -66,7 +66,7 @@ main() {
     is_installed nvim
     check_base_deps
     appimage
-    force_remove "${DOTFILES}/${nvim}" "${XDG_CONFIG_HOME}/${nvim}" # link config. overwrites link.sh
+    force_remove "${DOTFILES}/nvim" "${XDG_CONFIG_HOME}/nvim" # link config. overwrites link.sh
     setup_plugins
 }
 
