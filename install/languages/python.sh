@@ -42,16 +42,20 @@ INSTALL_URL="https://gist.githubusercontent.com/SerhatTeker/7d0fc99d27e9bf1d75b4
 
 install_python() {
     # Skip the function if $PYTHON_VERSION already exists
-    command_exists ${PYTHON} && return
+    if command_exists ${PYTHON}; then
+        info "You have already ${PYTHON}"
+        return
+    fi
 
     if is_macos; then
         # Installing on MacOS complicated
-        msg_cli red "You should install ${PYTHON} on MacOS manually!" normal
+        error "You should install ${PYTHON} on MacOS manually!"
+        exit 1
     else
         INSTALL_PYTHON_VERSION="${_INSTALL_PYTHON_VERSION}" \
             wget -O - ${INSTALL_URL} | bash
 
-        msg_cli green "Python installed!" normal
+        success "Python installed!"
         ${PYTHON} --version --version
     fi
 }
@@ -65,6 +69,7 @@ install_packages() {
         sudo apt install -y \
             python3-pip \
             ${PYTHON}-venv
+        info "Python Linux packages installed"
     fi
 }
 
@@ -73,10 +78,11 @@ install_reqirements() {
         ${PYTHON} -m pip install --user \
         -r "${ROOT}/python/requirements/base.txt"
 
-    msg_cli green "Global user packages installed" normal
+    success "Global user packages installed"
 }
 
 _install() {
+    info "Python install started"
     install_python
     install_packages
     install_reqirements
@@ -102,7 +108,7 @@ rich_traceback() {
 from rich.traceback import install
 install(show_locals=True)
 EOF
-    msg_cli "Rich traceback added" normal
+    msg_cli white "Rich traceback added" normal
 }
 
 configure_pudb() {
@@ -112,7 +118,7 @@ configure_pudb() {
     mkdir -p ${target}
     ln -sf ${source} ${target}
 
-    msg_cli "pudb configured" normal
+    msg_cli white "pudb configured" normal
 }
 
 configure_ipython() {
@@ -122,15 +128,16 @@ configure_ipython() {
     mkdir -p ${target}
     ln -sf "${source}" ${target}
 
-    msg_cli "ipython configured" normal
+    msg_cli white "ipython configured" normal
 }
 
 _configure() {
+    info "Python configuration started"
     pretty_errors
     rich_traceback
     configure_pudb
     configure_ipython
-    msg_cli green "Python ${PYTHON} configured."
+    success "Python ${PYTHON} configured"
 }
 # }}}
 

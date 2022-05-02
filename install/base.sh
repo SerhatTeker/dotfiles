@@ -12,7 +12,7 @@
 # Source: https://github.com/SerhatTeker/dotfiles
 #
 # ----------------------------------------------------------------------------#
-#
+
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
 set -o nounset
@@ -30,31 +30,26 @@ os_base() {
         bash "${ROOT}/install/linux/base.sh"
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         bash "${ROOT}/install/macos/base.sh"
-    else
-        echo "No install configuration for ${OSTYPE}"
-        exit 1
     fi
 }
 
-common_os_brew_deps() {
-    brew install \
-        git \
-        ripgrep
-}
 
 main() {
-    make_forced ${@}
+    info "Started base installation"
 
-    bash "${ROOT}/link.sh"
-    bash "${ROOT}/zsh.sh"
-    bash "${ROOT}/tmux.sh"
-    bash "${ROOT}/languages/python.sh"
-    bash "${ROOT}/languages/node.sh"
-    bash "${ROOT}/languages/golang.sh"
-    bash "${ROOT}/nvim.sh"
-    bash "${ROOT}/fonts.sh"
+    os_base
 
-    common_os_brew_deps
+    local dir="${ROOT}/install"
+    bash "${dir}/zsh.sh"
+    bash "${dir}/link.sh"
+    bash "${dir}/tmux.sh"
+    bash "${dir}/languages/python.sh"
+    bash "${dir}/languages/node.sh"
+    bash "${dir}/languages/golang.sh"
+    bash "${dir}/nvim.sh"
+    bash "${dir}/fonts.sh"
+
+    success "Finished base installation"
 }
 
-main "$@"
+main

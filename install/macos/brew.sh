@@ -22,6 +22,8 @@ source "${ROOT}/common.sh"
 
 
 install_brew() {
+    command_exists brew && return
+
     # Install Homebrew to $HOME/.homebrew instead of /usr/local:
     git clone https://github.com/Homebrew/brew.git ${HOME}/.homebrew
     # check brew installed
@@ -31,9 +33,8 @@ install_brew() {
 }
 
 brew_bundle() {
-    brew bundle --file=${ROOT}/Brewfile
+    brew bundle install --file="${ROOT}/Brewfile"
 }
-
 
 # NOTE: Disabled
 # Install universal-ctags
@@ -44,9 +45,9 @@ ictags() {
     brew install --HEAD universal-ctags
 }
 
-brew_main() {
+main() {
     install_brew
     brew_bundle
 }
 
-brew_main
+main "$@"

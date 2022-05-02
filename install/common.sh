@@ -51,16 +51,15 @@ __create_home_dirs() {
 
 __create_home_dirs
 
-
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_BIN_HOME="${HOME}/.local/bin"
 export XDG_LIB_HOME="${HOME}/.local/lib"
 
-export DOTFILES=${HOME}/dotfiles
-export SYSBAK=${HOME}/system-bak
-export PRIVATE=${HOME}/Private
+export DOTFILES="${HOME}/dotfiles"
+export SYSBAK="${HOME}/system-bak"
+export PRIVATE="${HOME}/Private"
 
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 # ----------------------------------------------------------------------------#
@@ -116,6 +115,10 @@ info() {
     msg_cli blue "INFO: $1" normal
 }
 
+success() {
+    msg_cli green "SUCCESS: $1" normal
+}
+
 warn() {
     msg_cli yellow "WARNING: $1" normal
 }
@@ -131,8 +134,7 @@ error() {
 
 is_installed() {
     if command_exists $1;then
-        msg_cli red "$1 already installed!" normal
-        msg_cli red "If you want to re-install it, first uninstall it!" normal
+        warn "$1 already installed! If you want to re-install it, first uninstall it!"
         exit 0
     fi
 }
@@ -184,16 +186,16 @@ make_forced() {
     # Check if both `INTERACTIVE` and `NONINTERACTIVE` are set
     # Always use single-quoted strings with `exp` expressions
     # shellcheck disable=SC2016
-    if [[ -n "${INTERACTIVE-}" && -n "${NONINTERACTIVE-}" ]]; then
+    if [[ -n "${INTERACTIVE-}" && -n "${NO_INTERACTIVE-}" ]]; then
         abort 'Both `$INTERACTIVE` and `$NONINTERACTIVE` are set. Please unset at least one variable and try again.'
     fi
 
-    if [[ -z "${NONINTERACTIVE-}" ]]; then
+    if [[ -z "${NO_INTERACTIVE-}" ]]; then
         printf '%sThis may overwrite existing files in your HOME directory. Are you sure? (y/n)%s ' \
             "${FMT_YELLOW}" "${FMT_RESET}"
         read -r opt
         case ${opt} in
-            y*|Y*|"") return ;;
+            y*|Y*|"") export NO_INTERACTIVE=1 ; return ;;
             n*|N*) msg_cli red "Installing cancelled." normal ; exit 0 ;;
             *) error_forced ;;
         esac

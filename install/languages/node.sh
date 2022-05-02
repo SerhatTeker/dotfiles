@@ -51,8 +51,6 @@ nvm_auto_install() {
 
 
 main() {
-    make_forced ${@}
-
     # Check already installed
     is_installed npm
     is_installed node
@@ -67,7 +65,7 @@ main() {
 
     # Ensure install
     command_exists node \
-        && msg_cli green "Node installed at your system!" normal
+        && success "Node installed at your system!"
 }
 
 main "$@"

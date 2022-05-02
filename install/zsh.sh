@@ -228,6 +228,8 @@ custom_completions() {
 
 # Must be run with -f|--force flag or taking user approval
 main() {
+    is_installed zsh
+
     # Install
     install_zsh
 

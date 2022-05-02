@@ -41,12 +41,12 @@ dark_mode_notify() {
 
 
 main() {
-    msg_cli green "Started Installation for ${OSTYPE}"
+    info "Started base ${OSTYPE}"
 
     bash "${ROOT}/macos/brew.sh"
     dark_mode_notify
 
-    msg_cli green "Finished Installation ${OSTYPE}"
+    sucess "Finished base ${OSTYPE}"
 }
 
 main

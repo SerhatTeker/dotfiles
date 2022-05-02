@@ -24,19 +24,31 @@ set -o pipefail
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # shellcheck source=scripts/common.sh
-echo "${ROOT}/install/common.sh"
+source "${ROOT}/install/common.sh"
 
 
 DOWNLOAD_DIR=/tmp
 
+exists_or_install() {
+    if ! command_exists $1; then
+        if is_linux; then
+            sudo apt install $2
+        else
+            command_exists brew || warn "You need Homebrew to install rg"
+            bash "${ROOT}/install/brew.sh"
+            brew install $2
+        fi
+    fi
+}
+
 
 check_base_deps() {
-    check_dep_or_install rg ripgrep
-    check_dep_or_install wget wget
+    exists_or_install rg ripgrep
+    exists_or_install wget wget
     command_exists npm || bash "${ROOT}/install/languages/node.sh"
     command_exists python3 || bash "${ROOT}/install/languages/python.sh"
 
-    msg_cli blue "All deps exist, starting to install nvim..." normal
+    info "All deps exist, starting to install nvim..."
 }
 
 # Use appimage, more compact and easier.
@@ -44,7 +56,10 @@ appimage() {
     local base_url="https://github.com/neovim/neovim/releases"
     local nightly_url="${base_url}/download/nightly/nvim.appimage"
     local stable_url="${base_url}/latest/download/nvim.appimage"
-    local url=${stable_url}
+    local version="0.6.1"
+    local version_url="${base_url}/download/v${version}/nvim.appimage"
+
+    local url=${version_url}
 
     wget \
         ${url} \
@@ -55,19 +70,31 @@ appimage() {
 }
 
 setup_plugins() {
-    nvim +PlugInstall +qall
-    nvim +UpdateRemotePlugins +qall
+    ${nvim_bin} +PlugInstall +qall
+    ${nvim_bin} +UpdateRemotePlugins +qall
+}
+
+nvim_os(){
+    if is_linux; then
+        appimage
+        local nvim_bin="${XDG_BIN_HOME}/nvim"
+    else
+        exists_or_install nvim neovim
+        local nvim_bin="${HOME}/.homebrew/nvim"
+    fi
+    setup_plugins
 }
 
 
 main() {
-    make_forced ${@}
+    info "Started nvim install"
 
     is_installed nvim
     check_base_deps
-    appimage
+    nvim_os
     force_remove "${DOTFILES}/nvim" "${XDG_CONFIG_HOME}/nvim" # link config. overwrites link.sh
-    setup_plugins
+
+    success "Finished nvim install"
 }
 
 main "$@"

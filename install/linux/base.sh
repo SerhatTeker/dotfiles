@@ -27,6 +27,7 @@ source "${ROOT}/common.sh"
 
 
 install_apts() {
+    sudo apt update
     sudo apt install \
         build-essential
 }
@@ -39,6 +40,7 @@ install_snaps() {
 
 # Security {{{
 
+# TODO: Check if already disabled
 # https://www.cyberciti.biz/faq/disable-core-dumps-in-linux-with-systemd-sysctl
 disable_core_dumps() {
     local file=/etc/security/limits.conf
@@ -57,17 +59,15 @@ disable_core_dumps() {
 
 
 main() {
-    msg_cli green "Started Installation for ${OSTYPE}"
-
-    sudo -v # Get sudo prompt before
+    info "Started base ${OSTYPE}"
 
     install_apts
     install_snaps
     disable_core_dumps
+    bash "${ROOT}/install/brew.sh"
     bash "${ROOT}/install/linux/i3.sh"
-    bash "${ROOT}/install/linux/brew.sh"
 
-    msg_cli green "Finished Installation ${OSTYPE}"
+    success "Finished base ${OSTYPE}"
 }
 
 main

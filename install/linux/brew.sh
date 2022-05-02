@@ -30,6 +30,8 @@ brew_deps() {
 }
 
 brew_install() {
+    command_exists brew && return
+
     NONINTERACTIVE=1 \
         bash -c \
         "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -39,13 +41,22 @@ brew_install() {
 }
 
 brew_bundle() {
-    # TODO: make a separate linux Brewfile
-    brew bundle --file=${ROOT}/Brewfile
+    local type="${1:-min}"
+
+    brew bundle install --file="${ROOT}/Brewfile"   # minimal base
+    case ${type} in
+        -m|--minimal|m|min|minimal) echo
+            ;;
+        -f|--full|f|full) brew bundle install --file="${ROOT}/linux/Brewfile.linux"    # linux tools
+            ;;
+        *) echo "Unkown flag <$1>"
+            ;;
+    esac
 }
 
 brew_main() {
     brew_install
-    brew_bundle
+    brew_bundle "$@"
 }
 
-brew_main
+brew_main "$@"
