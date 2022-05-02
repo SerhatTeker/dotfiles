@@ -51,7 +51,7 @@ install_python() {
         INSTALL_PYTHON_VERSION="${_INSTALL_PYTHON_VERSION}" \
             wget -O - ${INSTALL_URL} | bash
 
-        msg_cli green "Python configured"
+        msg_cli green "Python installed!" normal
         ${PYTHON} --version --version
     fi
 }
@@ -73,7 +73,7 @@ install_reqirements() {
         ${PYTHON} -m pip install --user \
         -r "${ROOT}/python/requirements/base.txt"
 
-    msg_cli blue "Global user packages installed"
+    msg_cli green "Global user packages installed" normal
 }
 
 _install() {
@@ -139,5 +139,4 @@ main() {
     _configure
 }
 
-# main
-echo ${ROOT}
+main
