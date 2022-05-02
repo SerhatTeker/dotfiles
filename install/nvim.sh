@@ -1,7 +1,19 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 # vim: set ft=sh et ts=4 sw=4 sts=4:
-
+# ----------------------------------------------------------------------------#
+#                                  _                 _
+#                       _ ____   _(_)_ __ ___    ___| |__
+#                      | '_ \ \ / / | '_ ` _ \  / __| '_ \
+#                      | | | \ V /| | | | | | |_\__ \ | | |
+#                      |_| |_|\_/ |_|_| |_| |_(_)___/_| |_|
+#
+#
+# Author: Serhat Teker <serhat.teker@gmail.com>
+# Source: https://github.com/SerhatTeker/dotfiles
+#
+# Install and customize nvim
+# ----------------------------------------------------------------------------#
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit

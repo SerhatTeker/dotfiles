@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 # vim: set ft=sh et ts=4 sw=4 sts=4:
-
-
+# ----------------------------------------------------------------------------#
+#                       __             _             _
+#                      / _| ___  _ __ | |_ ___   ___| |__
+#                     | |_ / _ \| '_ \| __/ __| / __| '_ \
+#                     |  _| (_) | | | | |_\__ \_\__ \ | | |
+#                     |_|  \___/|_| |_|\__|___(_)___/_| |_|
+#
+#
+# Author: Serhat Teker <serhat.teker@gmail.com>
+# Source: https://github.com/SerhatTeker/dotfiles
+#
 # Install default missing fonts
 # Usage:
 # $ bash fonts.sh
-
+# ----------------------------------------------------------------------------#
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit

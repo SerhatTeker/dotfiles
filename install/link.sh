@@ -1,9 +1,20 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 # vim: set ft=sh et ts=4 sw=4 sts=4:
-
+# ----------------------------------------------------------------------------#
+#                           _ _       _          _
+#                          | (_)_ __ | | __  ___| |__
+#                          | | | '_ \| |/ / / __| '_ \
+#                          | | | | | |   < _\__ \ | | |
+#                          |_|_|_| |_|_|\_(_)___/_| |_|
+#
+#
+# Author: Serhat Teker <serhat.teker@gmail.com>
+# Source: https://github.com/SerhatTeker/dotfiles
+#
 # Make soft links for bin to ~/.local/bin
 # Make soft links for dotfiles configs to ~/.config
+# ----------------------------------------------------------------------------#
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit

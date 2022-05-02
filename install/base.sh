@@ -35,7 +35,7 @@ os_base() {
     fi
 }
 
-brew_deps() {
+common_os_brew_deps() {
     brew install \
         git \
         ripgrep
@@ -44,14 +44,14 @@ brew_deps() {
 main() {
     os_base
 
-    bash "${ROOT}/python/zsh.sh"
-    bash "${ROOT}/python/python.sh"
-    bash "${ROOT}/python/nvim.sh"
-    bash "${ROOT}/python/tmux.sh"
-    bash "${ROOT}/python/fonts.sh"
-    bash "${ROOT}/python/link.sh"
+    bash "${ROOT}/zsh.sh"
+    bash "${ROOT}/python.sh"
+    bash "${ROOT}/nvim.sh"
+    bash "${ROOT}/tmux.sh"
+    bash "${ROOT}/fonts.sh"
+    bash "${ROOT}/link.sh"
 
-    brew_deps
+    common_os_brew_deps
 }
 
 main
