@@ -24,6 +24,7 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
+
 os_base() {
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         bash "${ROOT}/install/linux/base.sh"
@@ -44,12 +45,14 @@ common_os_brew_deps() {
 main() {
     os_base
 
-    bash "${ROOT}/zsh.sh"
-    bash "${ROOT}/python.sh"
-    bash "${ROOT}/nvim.sh"
-    bash "${ROOT}/tmux.sh"
-    bash "${ROOT}/fonts.sh"
     bash "${ROOT}/link.sh"
+    bash "${ROOT}/zsh.sh"
+    bash "${ROOT}/tmux.sh"
+    bash "${ROOT}/languages/python.sh"
+    bash "${ROOT}/languages/node.sh"
+    bash "${ROOT}/languages/golang.sh"
+    bash "${ROOT}/nvim.sh"
+    bash "${ROOT}/fonts.sh"
 
     common_os_brew_deps
 }
