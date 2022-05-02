@@ -26,28 +26,6 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 source "${ROOT}/common.sh"
 
 
-install_brew() {
-    # Install Homebrew to $HOME/.homebrew instead of /usr/local:
-    git clone https://github.com/Homebrew/brew.git ${HOME}/.homebrew
-    # check brew installed
-    which brew
-    # close analytics
-    brew analytics off
-}
-
-brew_bundle() {
-    brew bundle --file=${ROOT}/Brewfile
-}
-
-# NOTE: Disabled
-# Install universal-ctags
-# https://gist.github.com/nazgob/1570678
-# https://docs.ctags.io/en/latest/osx.html#building-with-homebrew
-ictags() {
-    brew tap universal-ctags/universal-ctags
-    brew install --HEAD universal-ctags
-}
-
 dark_mode_notify() {
     ln -sf ${DOTFILES}/os/macos/bin/adapt_term_bg_macos ${XDG_BIN_HOME}
 
@@ -64,9 +42,10 @@ dark_mode_notify() {
 
 main() {
     msg_cli green "Started Installation for ${OSTYPE}"
-    install_brew
-    brew_bundle
+
+    bash "${ROOT}/macos/brew.sh"
     dark_mode_notify
+
     msg_cli green "Finished Installation ${OSTYPE}"
 }
 
