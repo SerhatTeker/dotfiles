@@ -70,4 +70,4 @@ main() {
     setup_plugins
 }
 
-# main "$@"
+main "$@"

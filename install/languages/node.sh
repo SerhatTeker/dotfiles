@@ -70,4 +70,4 @@ main() {
         && msg_cli green "Node installed at your system!" normal
 }
 
-main
+main "$@"
