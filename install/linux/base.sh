@@ -37,39 +37,6 @@ install_snaps() {
         multipass
 }
 
-# Brew {{{
-
-brew_deps() {
-    # deps
-    sudo apt install -y \
-        build-essential \
-        procps \
-        curl \
-        file \
-        git
-}
-
-brew_install() {
-    # brew_deps
-
-    NONINTERACTIVE=1 \
-        bash -c \
-        "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-    which brew          # check brew installed
-    brew analytics off  # close analytics
-}
-
-brew_bundle() {
-    brew bundle --file=${ROOT}/Brewfile
-}
-
-brew_main() {
-    brew_install
-    brew_bundle
-
-}
-# }}}
 
 # Security {{{
 
@@ -99,7 +66,8 @@ main() {
     install_snaps
     disable_core_dumps
     bash "${ROOT}/install/linux/i3.sh"
-    brew_main
+    bash "${ROOT}/install/linux/brew.sh"
+
     msg_cli green "Finished Installation ${OSTYPE}"
 }
 
