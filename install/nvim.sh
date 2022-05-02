@@ -32,10 +32,10 @@ DOWNLOAD_DIR=/tmp
 
 # For single usage of nvim.sh
 check_base_deps() {
-    _check_dep wget
-    _check_dep node
-    _check_dep npm
-    _check_dep python3
+    check_dep wget
+    check_dep node
+    check_dep npm
+    check_dep python3
 
     # rg
     if ! command_exists rg; then
@@ -64,7 +64,7 @@ appimage() {
     local stable_url="${base_url}/latest/download/nvim.appimage"
     local url=${stable_url}
 
-    _check_dep wget
+    check_dep wget
 
     wget \
         ${url} \
