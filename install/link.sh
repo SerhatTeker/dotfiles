@@ -93,8 +93,6 @@ containers() {
 
 
 main() {
-    make_forced ${@}
-
     dot_configs
     bins
     dot_gnu

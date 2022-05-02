@@ -59,8 +59,6 @@ tpm() {
 }
 
 main() {
-    make_forced ${@}
-
     install_tmux
     force_remove "${DOTFILES}/tmux" "${XDG_CONFIG_HOME}/tmux"   # link config. overwrites link.sh
 }

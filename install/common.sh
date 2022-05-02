@@ -67,10 +67,11 @@ export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 # }}}
 # ----------------------------------------------------------------------------#
 
-
 # ----------------------------------------------------------------------------#
 # Utils functions {{{
 # ----------------------------------------------------------------------------#
+
+# Check OS {{{
 
 is_linux() {
     local uname="$(uname -a)"
@@ -92,22 +93,38 @@ is_macos() {
     false
 }
 
-force_remove() {
-    local _source=$1
-    local _target=$2
-
-    if [ -d "${_target}" ] && [ ! -L "${_target}" ];then
-        msg_cli yellow "WARNING: Deleting directory ${_target}"
-        rm -rf ${_target}
-    elif [ -f "${_target}" ] && [ ! -L "${_target}" ];then
-        msg_cli yellow "WARNING: Deleting file ${_target}"
-        rm ${_target}
-    else
-        [ -L "${_target}" ] && unlink "${_target}"
+is_different_os() {
+    if is_linux && is_macos; then
+        msg_cli red "OSTYPE: ${OSTYPE} is not implemented"
+        exit 1
     fi
-
-    ln -sf "${_source}" "${_target}"
 }
+# }}}
+
+# Message helpers {{{
+
+abort() {
+  printf "%s\n" "$@" >&2
+  exit 1
+}
+
+msg() {
+    msg_cli white "$1" normal
+}
+
+info() {
+    msg_cli blue "INFO: $1" normal
+}
+
+warn() {
+    msg_cli yellow "WARNING: $1" normal
+}
+
+error() {
+    msg_cli red "ERROR: $1" normal
+}
+# }}}
+
 
 # dep installed {{{
 # ----------------------------------------------------------------------------#
@@ -122,7 +139,7 @@ is_installed() {
 
 check_dep() {
     command_exists $1 || {
-        msg_cli red "$1 not exist, first install it!" normal
+        error "$1 not exist, first install it!"
         exit 1
     }
 }
@@ -132,7 +149,7 @@ check_dep() {
 # $2 package to install
 check_dep_or_install() {
     command_exists $1 && return
-    command_exists brew || msg_cli red "brew not exist, first install it!" normal
+    command_exists brew || error "brew not exist, first install it!"
     brew install $2
 }
 # }}}
@@ -140,130 +157,53 @@ check_dep_or_install() {
 # Forced {{{
 # ----------------------------------------------------------------------------#
 
+force_remove() {
+    local _source=$1
+    local _target=$2
+
+    if [ -d "${_target}" ] && [ ! -L "${_target}" ];then
+        warn "Deleting directory ${_target}"
+        rm -rf ${_target}
+    elif [ -f "${_target}" ] && [ ! -L "${_target}" ];then
+        warn "WARNING: Deleting file ${_target}"
+        rm ${_target}
+    else
+        [ -L "${_target}" ] && unlink "${_target}"
+    fi
+
+    ln -sf "${_source}" "${_target}"
+}
+
 error_forced() {
-    msg_cli red "Invalid argument(s). Installing zsh cancelled" normal
+    error "Invalid argument(s). Installing cancelled"
     exit 1
 }
 
 # Make forced or cancel the program
 make_forced() {
-    # Only allow -f|--force flag
-    if [ $# -gt 1 ]; then
-        error_forced
-    # If empty set false for shebang 'sets'
-    elif [ $# -eq 0 ]; then
-        local force=false
-    else
-        local force=${1}
+    # Check if both `INTERACTIVE` and `NONINTERACTIVE` are set
+    # Always use single-quoted strings with `exp` expressions
+    # shellcheck disable=SC2016
+    if [[ -n "${INTERACTIVE-}" && -n "${NONINTERACTIVE-}" ]]; then
+        abort 'Both `$INTERACTIVE` and `$NONINTERACTIVE` are set. Please unset at least one variable and try again.'
     fi
 
-    # Set force, default is false
-    case ${force} in
-        -f|--force) local force=true ;;
-        false) echo ;;
-        *) error_forced ;;
-    esac
-
-    if ! ${force}; then
-        # Prompt for user choice on changing the default login shell
-        printf '%sThis may overwrite existing files in your home directory. Are you sure? (y/n)%s ' \
+    if [[ -z "${NONINTERACTIVE-}" ]]; then
+        printf '%sThis may overwrite existing files in your HOME directory. Are you sure? (y/n)%s ' \
             "${FMT_YELLOW}" "${FMT_RESET}"
         read -r opt
         case ${opt} in
-            y*|Y*|"") local force=true ;;
-            n*|N*) msg_cli red "Installing zsh cancelled." normal ; exit 0 ;;
+            y*|Y*|"") return ;;
+            n*|N*) msg_cli red "Installing cancelled." normal ; exit 0 ;;
             *) error_forced ;;
         esac
     fi
 }
+
 # }}}
 # ----------------------------------------------------------------------------#
 # }}}
 # ----------------------------------------------------------------------------#
-
-
-# ----------------------------------------------------------------------------#
-# Colors and msg_cli {{{
-# ----------------------------------------------------------------------------#
-
-COLOR_BLUE=$(tput setaf 4)
-COLOR_RED=$(tput setaf 1)
-COLOR_GREEN=$(tput setaf 2)
-COLOR_YELLOW=$(tput setaf 3)
-COLOR_CYAN=$(tput setaf 6)
-COLOR_MAGENTA=$(tput setaf 5)
-COLOR_WHITE=$(tput setaf 15)
-COLOR_RESET=$(tput sgr0)
-
-
-msg_cli() {
-    if [ $# -ge 2 ]; then
-        local _color=${1:-white}
-        local message=$2
-        local type=${3:-normal}
-
-        case $_color in
-            b|blue) color=${COLOR_BLUE} ;;
-            g|green) color=${COLOR_GREEN} ;;
-            r|red) color=${COLOR_RED} ;;
-            y|yellow) color=${COLOR_YELLOW} ;;
-            c|cyan) color=${COLOR_CYAN} ;;
-            m|magenta) color=${COLOR_MAGENTA} ;;
-            w|white) color=${COLOR_WHITE} ;;
-            *) color=${COLOR_WHITE} ;;
-        esac
-
-        case $type in
-            h|header) _center_text "${color}" "${message}" ;;
-            n|normal) echo -e "${color}${message}${COLOR_RESET}" ;;
-            *) echo -e "${color}${message}${COLOR_RESET}" ;;
-        esac
-    else
-        local message=${1:?Message needed!}
-
-        echo -e "${COLOR_WHITE}${message}${COLOR_RESET}"
-    fi
-}
-
-# Center the text with a surrounding border
-# first argument: color
-# second argument: text to show
-# Usage:
-# $ _center_text blue "Something I want to print"
-_center_text() {
-    local color=${1}
-    local text="${2}"
-    local text_width=${#2}
-
-    local term_width=$(tput cols)
-    local ch="-"
-    local padding="$(printf '%0.1s' ${ch}{1..50})"
-
-    # TODO: Make better way
-    # Adapt large/medium/small window sizes
-    if [ $term_width -ge 200 ]; then
-        local print_width=$(tput cols)*4/10
-    elif [ $term_width -ge 120 ]; then
-        local print_width=$(tput cols)*6/10
-    else
-        local print_width=${term_width}
-    fi
-
-    printf '%s%*.*s %s %*.*s%s\n' \
-        "${color}" \
-        0 \
-        "$(((print_width-2-text_width)/2))" \
-        "${padding}" \
-        "${text}" \
-        0 \
-        "$(((print_width-1-text_width)/2))" \
-        "${padding}" \
-        "${COLOR_RESET}"
-}
-# ----------------------------------------------------------------------------#
-# }}}
-# ----------------------------------------------------------------------------#
-
 
 # ----------------------------------------------------------------------------#
 # Utils from oh-my-zsh install.sh {{{
@@ -374,24 +314,92 @@ setup_color() {
 # }}}
 # ----------------------------------------------------------------------------#
 
-
 # ----------------------------------------------------------------------------#
-# Common main {{{
+# Colors and msg_cli {{{
 # ----------------------------------------------------------------------------#
 
-is_different_os() {
-    if is_linux && is_macos; then
-        msg_cli red "OSTYPE: ${OSTYPE} is not implemented"
-        exit 1
+COLOR_BLUE=$(tput setaf 4)
+COLOR_RED=$(tput setaf 1)
+COLOR_GREEN=$(tput setaf 2)
+COLOR_YELLOW=$(tput setaf 3)
+COLOR_CYAN=$(tput setaf 6)
+COLOR_MAGENTA=$(tput setaf 5)
+COLOR_WHITE=$(tput setaf 15)
+COLOR_RESET=$(tput sgr0)
+
+
+msg_cli() {
+    if [ $# -ge 2 ]; then
+        local _color=${1:-white}
+        local message=$2
+        local type=${3:-normal}
+
+        case $_color in
+            b|blue) color=${COLOR_BLUE} ;;
+            g|green) color=${COLOR_GREEN} ;;
+            r|red) color=${COLOR_RED} ;;
+            y|yellow) color=${COLOR_YELLOW} ;;
+            c|cyan) color=${COLOR_CYAN} ;;
+            m|magenta) color=${COLOR_MAGENTA} ;;
+            w|white) color=${COLOR_WHITE} ;;
+            *) color=${COLOR_WHITE} ;;
+        esac
+
+        case $type in
+            h|header) _center_text "${color}" "${message}" ;;
+            n|normal) echo -e "${color}${message}${COLOR_RESET}" ;;
+            *) echo -e "${color}${message}${COLOR_RESET}" ;;
+        esac
+    else
+        local message=${1:?Message needed!}
+
+        echo -e "${COLOR_WHITE}${message}${COLOR_RESET}"
     fi
 }
+
+# Center the text with a surrounding border
+# first argument: color
+# second argument: text to show
+# Usage:
+# $ _center_text blue "Something I want to print"
+_center_text() {
+    local color=${1}
+    local text="${2}"
+    local text_width=${#2}
+
+    local term_width=$(tput cols)
+    local ch="-"
+    local padding="$(printf '%0.1s' ${ch}{1..50})"
+
+    # TODO: Make better way
+    # Adapt large/medium/small window sizes
+    if [ $term_width -ge 200 ]; then
+        local print_width=$(tput cols)*4/10
+    elif [ $term_width -ge 120 ]; then
+        local print_width=$(tput cols)*6/10
+    else
+        local print_width=${term_width}
+    fi
+
+    printf '%s%*.*s %s %*.*s%s\n' \
+        "${color}" \
+        0 \
+        "$(((print_width-2-text_width)/2))" \
+        "${padding}" \
+        "${text}" \
+        0 \
+        "$(((print_width-1-text_width)/2))" \
+        "${padding}" \
+        "${COLOR_RESET}"
+}
+# ----------------------------------------------------------------------------#
+# }}}
+# ----------------------------------------------------------------------------#
 
 main_common() {
     is_different_os
     setup_color
+    make_forced
 }
 
 main_common
-# ----------------------------------------------------------------------------#
-# }}}
-# ----------------------------------------------------------------------------#
