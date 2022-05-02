@@ -119,5 +119,3 @@ main() {
 
 main
 # _configure
-
-exit 0

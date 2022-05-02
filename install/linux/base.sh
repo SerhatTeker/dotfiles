@@ -71,5 +71,3 @@ main() {
 }
 
 main
-
-base.sh

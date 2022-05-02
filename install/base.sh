@@ -52,8 +52,6 @@ main() {
     bash "${ROOT}/python/link.sh"
 
     brew_deps
-
-    exit 0
 }
 
 main

@@ -51,7 +51,6 @@ main() {
             && msg_cli green "Node installed at your system!" normal
     else
         msg_cli yellow "Node already installed at your system." normal
-        exit 0
     fi
 }
 

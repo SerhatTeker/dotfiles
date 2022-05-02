@@ -79,5 +79,3 @@ fi
 tmux attach-session -t ${SESSION}:${MAIN_WINDOW}
 # Return to main vim window
 tmux select-window -t ${SESSION}:${MAIN_WINDOW}
-
-exit 0
