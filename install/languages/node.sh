@@ -1,7 +1,19 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 # vim: set ft=sh et ts=4 sw=4 sts=4:
-
+# ----------------------------------------------------------------------------#
+#                                       _            _
+#                       _ __   ___   __| | ___   ___| |__
+#                      | '_ \ / _ \ / _` |/ _ \ / __| '_ \
+#                      | | | | (_) | (_| |  __/_\__ \ | | |
+#                      |_| |_|\___/ \__,_|\___(_)___/_| |_|
+#
+#
+# Author: Serhat Teker <serhat.teker@gmail.com>
+# Source: https://github.com/SerhatTeker/dotfiles
+#
+# Install node and npm via nvm
+# ----------------------------------------------------------------------------#
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
@@ -16,8 +28,7 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 source "${ROOT}/common.sh"
 
 
-
-# Prefer manual install
+# NOTE: Prefer manual install
 nvm_manual_install() {
     local url="https://github.com/nvm-sh/nvm.git"
 
@@ -28,7 +39,8 @@ nvm_manual_install() {
     ) && \. "${NVM_DIR}/nvm.sh"
 }
 
-# Prefer manual install, since below adds environment and paths to .zshrc
+# Alternative install method
+# NOTE: Prefer manual install, since below adds environment and paths to .zshrc
 nvm_auto_install() {
     local version="0.39.1"
     local url="https://raw.githubusercontent.com/nvm-sh/nvm/v${nvm_version}/install.sh"
@@ -39,21 +51,23 @@ nvm_auto_install() {
 
 
 main() {
-    if ! command_exists node; then
-        msg_cli blue "Node not found, installing..." normal
+    make_forced ${@}
 
-        nvm_manual_install
+    # Check already installed
+    is_installed npm
+    is_installed node
 
-        # install last node
-        nvm install node
-        # install last comptabile npm
-        nvm install-latest-npm
+    # Install
+    command_exists nvm || nvm_manual_install
+    nvm install node        # install last version node
+    nvm install-latest-npm  # install last comptabile version npm
 
-        command_exists node \
-            && msg_cli green "Node installed at your system!" normal
-    else
-        msg_cli yellow "Node already installed at your system." normal
-    fi
+    # Soft link
+    force_remove "${DOTFILES}/node" "${XDG_CONFIG_HOME}/node" # link config. overwrites link.sh
+
+    # Ensure install
+    command_exists node \
+        && msg_cli green "Node installed at your system!" normal
 }
 
 main
