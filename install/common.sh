@@ -109,6 +109,17 @@ force_remove() {
     ln -sf "${_source}" "${_target}"
 }
 
+# dep installed {{{
+# ----------------------------------------------------------------------------#
+
+is_installed() {
+    if command_exists $1;then
+        msg_cli red "$1 already installed!" normal
+        msg_cli red "If you want to re-install it, first uninstall it!" normal
+        exit 0
+    fi
+}
+
 check_dep() {
     command_exists $1 || {
         msg_cli red "$1 not exist, first install it!" normal
@@ -116,7 +127,17 @@ check_dep() {
     }
 }
 
-# Forced
+# Check dep installed or install with brew
+# $1 command to check
+# $2 package to install
+check_dep_or_install() {
+    command_exists $1 && return
+    command_exists brew || msg_cli red "brew not exist, first install it!" normal
+    brew install $2
+}
+# }}}
+
+# Forced {{{
 # ----------------------------------------------------------------------------#
 
 error_forced() {
@@ -155,6 +176,7 @@ make_forced() {
         esac
     fi
 }
+# }}}
 # ----------------------------------------------------------------------------#
 # }}}
 # ----------------------------------------------------------------------------#
