@@ -59,11 +59,10 @@ tpm() {
 }
 
 main() {
-    # link config
-    force_remove "${DOTFILES}/tmux" "${HOME}/.config"
+    make_forced ${@}
 
     install_tmux
+    force_remove "${DOTFILES}/tmux" "${HOME}/.config"   # link config. overwrites link.sh
 }
 
-# main
-install_tmux
+main "$@"
