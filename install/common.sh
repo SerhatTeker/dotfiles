@@ -109,6 +109,13 @@ force_remove() {
     ln -sf "${_source}" "${_target}"
 }
 
+check_dep() {
+    command_exists $1 || {
+        msg_cli red "$1 not exist, first install it!" normal
+        exit 1
+    }
+}
+
 # Forced
 # ----------------------------------------------------------------------------#
 

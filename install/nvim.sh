@@ -29,12 +29,6 @@ source "${ROOT}/install/common.sh"
 
 DOWNLOAD_DIR=/tmp
 
-_check_dep() {
-    command_exists $1 || {
-        msg_cli red "$1 not exist, first install it!" normal
-        exit 1
-    }
-}
 
 # For single usage of nvim.sh
 check_base_deps() {
