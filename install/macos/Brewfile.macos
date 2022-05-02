@@ -1,16 +1,8 @@
 # vim: syntax=ruby filetype=ruby
-tap "heroku/brew"
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/cask-fonts"
-tap "homebrew/cask-versions"
-tap "homebrew/core"
-tap "homebrew/services"
-tap "homebrew/cask-drivers"
-
+# MacOS
+# Brew
 brew "ansible"
 brew "awscli"
-brew "bash"
 brew "bat"
 brew "bitwarden-cli"
 brew "dockutil"
@@ -38,8 +30,6 @@ brew "gawk"
 brew "grep"
 brew "gnutls"
 brew "gnu-getopt"
-brew "go"
-brew "graphviz"
 brew "grpc"
 brew "heroku/brew/heroku"
 brew "htop"
@@ -52,27 +42,20 @@ brew "kustomize"
 brew "kubectx"
 brew "less"
 brew "ncurses"
-brew "node"
-brew "nvim"
 brew "openssl"
 brew "openssh"
 brew "protobuf"
-# brew "python@3.9"             # Don't install python versions via homebrew
 brew "ripgrep"
-brew "ruby"
-brew "rust"
 brew "shellcheck"
-brew "sphinx-doc"
 brew "telnet"
 brew "terraform"
 brew "tmux"
 brew "tree"
-brew "vagrant"
 brew "watch"
 brew "wget"
 brew "youtube-dl"
 brew "yarn"
-
+# Cask
 cask "cryptomator"              # enc vault
 cask "docker"                   # docker desktop
 cask "google-cloud-sdk"
@@ -84,11 +67,11 @@ cask "obsidian"                 # obsidian md | no linux
 cask "slack"
 cask "spotify"
 cask "telegram"
-# cask "virtualbox"               # not compatible with M1
 cask "visual-studio-code"
 cask "vlc"
 cask "zoom"
-
 # Optional
-# cask "keycastr"                 # show keys strokes | no linux
-# cask "google-drive"             # google drive desktop | no linux
+# brew "vagrant"                  # not compatible with M1
+# cask "keycastr"                 # show keys strokes       | no linux
+# cask "google-drive"             # google drive desktop    | no linux
+# cask "virtualbox"               # not compatible with M1

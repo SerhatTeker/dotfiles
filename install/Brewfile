@@ -1,0 +1,13 @@
+# vim: syntax=ruby filetype=ruby
+# Main minimal Brewfile
+# tap "homebrew/bundle"
+# tap "homebrew/cask"
+# tap "homebrew/cask-fonts"
+# tap "homebrew/cask-versions"
+# tap "homebrew/core"
+# tap "homebrew/services"
+# tap "homebrew/cask-drivers"
+# brew
+brew "bat"
+brew "git"
+brew "ripgrep"
