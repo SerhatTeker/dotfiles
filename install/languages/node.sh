@@ -9,10 +9,12 @@ set -o nounset
 set -o pipefail
 
 
-ROOT="${HOME}/dotfiles"
+# Locate the root directory
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # shellcheck source=scripts/common.sh
-source "${ROOT}/install/common.sh"
+source "${ROOT}/common.sh"
+
 
 
 # Prefer manual install

@@ -22,10 +22,11 @@ set -o nounset
 set -o pipefail
 
 
-ROOT="${HOME}/dotfiles"
+# Locate the root directory
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # shellcheck source=scripts/common.sh
-source "${ROOT}/install/common.sh"
+source "${ROOT}/common.sh"
 
 
 # Use 3.8 as default python version
@@ -138,4 +139,5 @@ main() {
     _configure
 }
 
-main
+# main
+echo ${ROOT}

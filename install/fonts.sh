@@ -23,6 +23,13 @@ set -o nounset
 set -o pipefail
 
 
+# Locate the root directory
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+# shellcheck source=scripts/common.sh
+source "${ROOT}/common.sh"
+
+
 sf_mono_powerline() {
     local dir=/tmp/SF-Mono-Powerline
 
