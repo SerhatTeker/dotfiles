@@ -71,44 +71,6 @@ brew_main() {
 }
 # }}}
 
-# i3 {{{
-
-i3_gnome() {
-    local dir=/tmp/i3-gnome
-
-    git clone https://github.com/i3-gnome/i3-gnome.git ${dir}
-    cd ${dir} && \
-        sudo make install
-}
-
-i3_wakelock() {
-    sudo cp \
-        "${DOTFILES}/etc/systemd/wakelock@.service" \
-        "/etc/systemd/system"
-
-    sudo systemctl enable wakelock@${USER} \
-        && sudo systemctl daemon-reload
-}
-
-i3_setup() {
-    sudo apt install -y \
-        i3 \
-        i3blocks \
-        fonts-font-awesome \
-        lm-sensors \
-        j4-dmenu-desktop \
-        redshift \
-        maim \
-        playerctl \
-        rofi \
-        udiskie \
-        xclip
-
-    i3_gnome
-    i3_wakelock
-}
-# }}}
-
 # Security {{{
 
 # https://www.cyberciti.biz/faq/disable-core-dumps-in-linux-with-systemd-sysctl
@@ -136,7 +98,7 @@ main() {
     install_apts
     install_snaps
     disable_core_dumps
-    i3_setup
+    bash "${ROOT}/install/linux/i3.sh"
     brew_main
     msg_cli green "Finished Installation ${OSTYPE}"
 }
