@@ -14,6 +14,13 @@ set -o nounset
 set -o pipefail
 
 
+# Locate the root directory
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+# shellcheck source=scripts/common.sh
+source "${ROOT}/common.sh"
+
+
 # Use i3wm/i3-gaps with GNOME Session infrastructure.
 i3_gnome() {
     local dir=/tmp/i3-gnome
