@@ -28,11 +28,13 @@ source "${ROOT}/install/common.sh"
 
 
 # Export main environment variables for ZSH
-export ZDOTDIR=${XDG_CONFIG_HOME}/zsh
-export ZSH=${XDG_DATA_HOME}/zsh/.oh-my-zsh
+export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+export ZSH="${XDG_DATA_HOME}/zsh/.oh-my-zsh"
 
-DOT_ZSH=${DOTFILES}/zsh    # Alias for dotfiles zsh
+DOT_ZSH="${DOTFILES}/zsh"    # Alias for dotfiles zsh
 
+
+# Install {{{
 
 install_zsh() {
     if ! command_exists zsh; then
@@ -51,6 +53,7 @@ install_zsh() {
         msg_cli green "Zsh installed" normal
     fi
 }
+# }}}
 
 # Setup shell {{{
 
@@ -125,21 +128,6 @@ setup_shell() {
 
     echo
 }
-# }}}
-
-# Create XDG_CONFIG_HOME link
-link_xdg() {
-    force_remove "${DOT_ZSH}" "${XDG_CONFIG_HOME}/zsh"
-	msg_cli green "Zsh dotfiles linked to XDG_CONFIG_HOME" normal
-}
-
-# Create personal soft links
-link_personal() {
-    if [ -f ${SYSBAK}/zsh/.private.zsh ]; then
-        ln -sf ${SYSBAK}/zsh/.private.zsh ${ZDOTDIR}/.private.zsh
-	    msg_cli green "Linked personal files" normal
-    fi
-}
 
 # Set ZDOTDIR globally
 set_zdotdir() {
@@ -159,6 +147,26 @@ set_zdotdir() {
 
 	msg_cli green "Succesfully set \$ZDOTDIR" normal
 }
+# }}}
+
+# Soft Link {{{
+
+# Create XDG_CONFIG_HOME link
+link_xdg() {
+    force_remove "${DOT_ZSH}" "${XDG_CONFIG_HOME}/zsh"
+	msg_cli blue "Zsh dotfiles linked to XDG_CONFIG_HOME" normal
+}
+
+# Create personal soft links
+link_personal() {
+    if [ -f ${SYSBAK}/zsh/.private.zsh ]; then
+        ln -sf ${SYSBAK}/zsh/.private.zsh ${ZDOTDIR}/.private.zsh
+	    msg_cli blue "Linked personal files" normal
+    fi
+}
+# }}}
+
+# oh-my-zsh {{{
 
 install_oh-my-zsh() {
     # Fresh install: Remove if exists
@@ -173,7 +181,6 @@ install_oh-my-zsh() {
 #   --unattended: sets both CHSH and RUNZSH to 'no'
     ZSH="${ZSH}" sh /tmp/install.sh --unattended
 }
-
 
 # Customs {{{
 
@@ -220,16 +227,24 @@ custom_completions() {
     ln -sf ${DOT_ZSH}/oh-my-zsh/completions/* "${ZSH}/completions"
 }
 # }}}
+# }}}
 
 # Must be run with -f|--force flag or taking user approval
 main() {
     make_forced ${@}
 
+    # Install
     install_zsh
+
+    # Setup shell
     setup_shell
+    set_zdotdir
+
+    # Soft link
     link_xdg
     link_personal
-    set_zdotdir
+
+    # oh-my-zsh
     install_oh-my-zsh
     custom_plugins
     custom_themes
