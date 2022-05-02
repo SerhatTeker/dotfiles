@@ -44,9 +44,6 @@ install_zsh() {
             sudo apt install zsh -y
         elif is_macos; then
             brew install zsh
-        else
-            echo "Unknown OS: ${OSTYPE}"
-            exit 1
         fi
 
         # make_default_shell
