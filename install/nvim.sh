@@ -24,47 +24,27 @@ set -o pipefail
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # shellcheck source=scripts/common.sh
-source "${ROOT}/install/common.sh"
+echo "${ROOT}/install/common.sh"
 
 
 DOWNLOAD_DIR=/tmp
 
 
-# For single usage of nvim.sh
 check_base_deps() {
-    check_dep wget
-    check_dep node
-    check_dep npm
-    check_dep python3
+    check_dep_or_install rg ripgrep
+    check_dep_or_install wget wget
+    command_exists npm || bash "${ROOT}/install/languages/node.sh"
+    command_exists python3 || bash "${ROOT}/install/languages/python.sh"
 
-    # rg
-    if ! command_exists rg; then
-        if ! command_exists brew; then
-            msg_cli red "brew not exist, first install it!" normal
-            return
-        else
-            brew install ripgrep
-        fi
-    fi
-
-    msg_cli green "All deps exist, starting to install nvim..."
+    msg_cli blue "All deps exist, starting to install nvim..." normal
 }
 
-
-is_installed() {
-    if command_exists nvim;then
-        msg_cli red "Nvim already installed, first uninstall it!" normal
-        exit 0
-    fi
-}
-
+# Use appimage, more compact and easier.
 appimage() {
     local base_url="https://github.com/neovim/neovim/releases"
     local nightly_url="${base_url}/download/nightly/nvim.appimage"
     local stable_url="${base_url}/latest/download/nvim.appimage"
     local url=${stable_url}
-
-    check_dep wget
 
     wget \
         ${url} \
@@ -74,13 +54,6 @@ appimage() {
     cp "${DOWNLOAD_DIR}/nvim" "${XDG_BIN_HOME}/nvim"
 }
 
-# For single usage of nvim.sh
-# Already linking in link.sh
-link_config() {
-    local dir="nvim"
-    force_remove "${DOTFILES}/${dir}" "${XDG_CONFIG_HOME}/${dir}"
-}
-
 setup_plugins() {
     nvim +PlugInstall +qall
     nvim +UpdateRemotePlugins +qall
@@ -88,11 +61,13 @@ setup_plugins() {
 
 
 main() {
-    is_installed
-    # check_base_deps
+    make_forced ${@}
+
+    is_installed nvim
+    check_base_deps
     appimage
-    link_config
+    force_remove "${DOTFILES}/${nvim}" "${XDG_CONFIG_HOME}/${nvim}" # link config. overwrites link.sh
     setup_plugins
 }
 
-main
+# main "$@"
