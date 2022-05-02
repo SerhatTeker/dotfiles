@@ -43,7 +43,7 @@ common_os_brew_deps() {
 }
 
 main() {
-    os_base
+    make_forced ${@}
 
     bash "${ROOT}/link.sh"
     bash "${ROOT}/zsh.sh"
@@ -57,4 +57,4 @@ main() {
     common_os_brew_deps
 }
 
-main
+main "$@"
