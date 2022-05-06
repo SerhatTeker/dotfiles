@@ -72,23 +72,3 @@ highlight CusConst ctermfg=215 guifg=#ffaf5f
 " -----------------------------------------------------------------------------"
 " }}}1
 " -----------------------------------------------------------------------------"
-
-" -----------------------------------------------------------------------------"
-" Custom syntax {{{
-" -----------------------------------------------------------------------------"
-
-" FIXME: not highlighting
-" highlight sTodo ctermfg=15 guifg=#ffffff ctermbg=39 guibg=#61AFEF
-" highlight sFixme cterm=bold ctermfg=160 guifg=#d70000
-" highlight sBug cterm=bold ctermfg=15 ctermbg=9 guibg=#ff0000
-
-" " Highlight
-" " TODO Group
-" syntax match sTodo /TODO/
-" syntax match sFixme /FIXME/
-" syntax match sBug /BUG/
-" syn match   sTodo   contained   "\<\(TODO\|FIXME\):"
-" read :echo &runtimepath
-" -----------------------------------------------------------------------------"
-" }}}1
-" -----------------------------------------------------------------------------"
