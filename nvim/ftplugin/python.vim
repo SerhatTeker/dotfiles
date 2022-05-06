@@ -29,28 +29,11 @@ let g:semshi#error_sign_delay = 1.5
 " number of lines second
 let g:semshi#update_delay_facto = 0.0
 
-" Semshi highlights
-" Default colors not working; add them as well as custom ones
-function! SemshiHighlights()
-    " Defaults {{{
-
-    hi semshiLocal           ctermfg=209 guifg=#ff875f
-    hi semshiGlobal          ctermfg=214 guifg=#ffaf00
-    hi semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
-    hi semshiFree            ctermfg=218 guifg=#ffafd7
-    hi semshiAttribute       ctermfg=49  guifg=#00ffaf
-    hi semshiUnresolved      ctermfg=226 guifg=#ffff00 cterm=underline gui=underline
-
-    hi semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
-    hi semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
-    sign define semshiError text=E> texthl=semshiErrorSign
-    " }}}
-
-    " Customs {{{
-    " Custom Colors for OneDark Theme
-
-    hi semshiSelf               guifg=#E5C07B
+" Custom Colors for OneDark Theme
+function! SemshiCustomHighlights()
     hi semshiBuiltin            guifg=#56B6C2
+    hi semshiGlobal             guifg=NONE
+    hi semshiSelf               guifg=#E5C07B
     hi semshiSelected           guifg=#1b1b1b guibg=#ABB2BF
 
     hi semshiParameter          guifg=#D19A66                       " Default Parameter
@@ -58,15 +41,12 @@ function! SemshiHighlights()
     " Alternative
     " hi semshiParameter          guifg=#E06C75                     " Parameter Pylance style
     " hi semshiParameterUnused    guifg=#7e1b23 gui=underline,italic
-
-    " Somehow Semshi messing with serhatteker/python-syntax
-    hi link pythonDunderMethod  Constant
     " }}}
 endfunction
 
-augroup semshiHighlight
+augroup semshiCustomHighlight
     au!
-    autocmd BufEnter <buffer> call SemshiHighlights()
+    autocmd BufEnter <buffer> call SemshiCustomHighlights()
 augroup END
 " }}}
 
