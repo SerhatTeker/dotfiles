@@ -6,9 +6,8 @@
 " Remove mapping
 let g:no_autoflake_maps=1
 
-" Default <F9>
 " no need: using in AleFixCustom()
-autocmd FileType python map <buffer> <leader><F3> :call Autoflake()<CR>
+map <leader><F3> :call Autoflake()<CR>
 
 " Remove all unused imports, whether or not they are from the standard library
 let g:autoflake_remove_all_unused_imports=1
@@ -30,8 +29,26 @@ let g:semshi#error_sign_delay = 1.5
 " number of lines second
 let g:semshi#update_delay_facto = 0.0
 
-" Custom Colors for OneDark Theme
-function! SemshiCustomHighlights()
+" Semshi highlights
+" Default colors not working; add them as well as custom ones
+function! SemshiHighlights()
+    " Defaults {{{
+
+    hi semshiLocal           ctermfg=209 guifg=#ff875f
+    hi semshiGlobal          ctermfg=214 guifg=#ffaf00
+    hi semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
+    hi semshiFree            ctermfg=218 guifg=#ffafd7
+    hi semshiAttribute       ctermfg=49  guifg=#00ffaf
+    hi semshiUnresolved      ctermfg=226 guifg=#ffff00 cterm=underline gui=underline
+
+    hi semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
+    hi semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
+    sign define semshiError text=E> texthl=semshiErrorSign
+    " }}}
+
+    " Customs {{{
+    " Custom Colors for OneDark Theme
+
     hi semshiSelf               guifg=#E5C07B
     hi semshiBuiltin            guifg=#56B6C2
     hi semshiSelected           guifg=#1b1b1b guibg=#ABB2BF
@@ -44,8 +61,13 @@ function! SemshiCustomHighlights()
 
     " Somehow Semshi messing with serhatteker/python-syntax
     hi link pythonDunderMethod  Constant
+    " }}}
 endfunction
-autocmd FileType python call SemshiCustomHighlights()
+
+augroup semshiHighlight
+    au!
+    autocmd BufEnter <buffer> call SemshiHighlights()
+augroup END
 " }}}
 
 " vim-pydocstring {{{
