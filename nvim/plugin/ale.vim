@@ -79,7 +79,7 @@ nmap <F8> <Plug>(ale_fix)
 
 " Use ALEFix with Autoflake
 " nmap <silent> <F8> :call AleFixCustom()<CR>
-" function! eleFixCustom()
+" function! AleFixCustom()
 "     if &filetype == "python"
 "         if exists("*Autoflake()")
 "             noremap <buffer> <leader><F9> :call Autoflake()<CR>
