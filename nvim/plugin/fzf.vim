@@ -60,7 +60,7 @@ let g:fzf_action = {
 " map <leader>b :Buffers<CR>
 map B :Buffers<CR>
 map <leader>l :Lines<CR>
-map <C-p> :<C-u>Files!<CR>
+map <C-p> :<C-u>Files<CR>
 map <leader><C-p> :<C-u>AllFiles<CR>
 map <C-f> :<C-u>Rg!<CR>
 " }}}3
