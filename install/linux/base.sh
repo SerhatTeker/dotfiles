@@ -28,9 +28,15 @@ source "${ROOT}/common.sh"
 
 install_apts() {
     sudo apt update
+
     sudo apt install \
         build-essential \
+        fd-find \
+        ripgrep \
         unzip
+
+    # https://github.com/sharkdp/fd#on-debian
+    force_remove "$(which fdfind)" "${XDG_BIN_HOME}/fd" # link bin
 }
 
 install_snaps() {
