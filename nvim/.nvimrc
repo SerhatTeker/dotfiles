@@ -26,6 +26,8 @@ endif
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.local/share/nvim/plugged')
 
+" -- Lua world --
+Plug 'nvim-lua/plenary.nvim'
 
 " Snippets {{{3
 
@@ -51,9 +53,6 @@ Plug 'mbbill/undotree'
 Plug 'tpope/vim-unimpaired'
 Plug 'easymotion/vim-easymotion'                        " motions on speed
 Plug 'kshenoy/vim-signature'                            " toggle, display and navigate marks
-
-" -- Lua world --
-Plug 'nvim-lua/plenary.nvim'
 Plug 'ThePrimeagen/harpoon'                             " Navigate defined main marks/files in workspaces
 " }}}3
 
@@ -146,11 +145,13 @@ Plug 'sheerun/vim-polyglot'
 
 " Git {{{3
 
-Plug 'tpope/vim-fugitive'                               " A Git wrapper
-Plug 'itchyny/vim-gitbranch'                            " Provides the branch name
-Plug 'stsewd/fzf-checkout.vim'                          " Manage branches and tags with fzf
-Plug 'lewis6991/gitsigns.nvim'                          " status info in columns
+Plug 'tpope/vim-fugitive'           " A Git wrapper
+Plug 'itchyny/vim-gitbranch'        " Provides the branch name
+Plug 'stsewd/fzf-checkout.vim'      " Manage branches and tags with fzf
+Plug 'lewis6991/gitsigns.nvim'      " status info in columns
+Plug 'sindrets/diffview.nvim'       " Single tabpage interface for all git revs
 " }}}3
+"
 
 " Session {{{3
 
