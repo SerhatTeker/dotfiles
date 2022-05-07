@@ -5,7 +5,7 @@
 " https://github.com/junegunn/fzf/blob/master/README-VIM.md#examples
 " Default fzf layout
 " - Popup window (center of the screen)
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 
 " Commands {{{4
 
