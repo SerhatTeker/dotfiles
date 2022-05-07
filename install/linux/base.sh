@@ -29,7 +29,7 @@ source "${ROOT}/common.sh"
 install_apts() {
     sudo apt update
 
-    sudo apt install \
+    sudo apt install -y \
         build-essential \
         fd-find \
         ripgrep \
@@ -77,4 +77,5 @@ main() {
     success "Finished base ${OSTYPE}"
 }
 
-main
+# main
+install_apts
