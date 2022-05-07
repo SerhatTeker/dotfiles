@@ -29,7 +29,8 @@ source "${ROOT}/common.sh"
 install_apts() {
     sudo apt update
     sudo apt install \
-        build-essential
+        build-essential \
+        unzip
 }
 
 install_snaps() {
