@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 # vim: set ft=sh et ts=4 sw=4 sts=4:
-
 # =================================================================================================
 #
 # Copyright 2022 Serhat Teker <me@serhatteker.com>
@@ -23,7 +22,7 @@
 # Descrtiption          : Toggle theme mode on Ubuntu 20.04 LTS and MacOS Monterey 12.3
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2022-04-26T13:33:22+0300 | 1650969202
+# Last Modified Date    : 2022-05-09T18:04:23+0300 | 1652108663
 # Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
 # and using on Ubuntu 20.04 LTS and MacOS Monterey 12.3.
 # Usage                 : $ ./toggle-theme
@@ -63,14 +62,6 @@ vim_sessions_toggle() {
 alacritty_toggle() {
     local theme_path="${HOME}/dotfiles/alacritty/colors"
 
-    # MacOS sed is pain, use gsed
-    # local sed_bin=$(command -v gsed || sed)
-    if is_macos; then
-        local sed_bin=gsed
-    else
-        local sed_bin=sed
-    fi
-
     # Not using gruvbox now, but possible in future.
     if [[ ${target_mode} =~ "light" ]]; then
         ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path}/one.yml"
@@ -79,6 +70,24 @@ alacritty_toggle() {
         ${sed_bin} -i 's/*theme_light/*theme_dark/g' "${theme_path}/one.yml"
         ${sed_bin} -i 's/*theme_light/*theme_dark/g' "${theme_path}/gruvbox.yml"
     fi
+}
+
+# i3 rofi
+rofi_toggle() {
+    local file="${HOME}/dotfiles/rofi/config"
+
+    # only for linux
+    is_linux || return
+
+    # Not using gruvbox now, but possible in future.
+    if [[ ${target_mode} =~ "light" ]]; then
+        ${sed_bin} -i 's/dark/light/g' "${file}"
+    else
+        ${sed_bin} -i 's/light/dark/g' "${file}"
+    fi
+
+    # restart i3 config
+    i3-msg restart
 }
 # }}}
 
@@ -168,6 +177,7 @@ main() {
         # Check current mode and by toggling set target_mode
         if is_linux; then
             theme=$(gsettings get org.gnome.desktop.interface gtk-theme)
+            sed_bin=sed
             if [[ ${theme} =~ "dark" ]]; then
                 target_mode="light"
             else
@@ -175,6 +185,7 @@ main() {
             fi
         else
             theme="$(defaults read -g AppleInterfaceStyle)"
+            sed_bin=gsed
             if [[ ${theme} =~ "Dark" ]]; then
                 target_mode="light"
             else
@@ -198,11 +209,11 @@ main() {
     os_toggle
     vim_sessions_toggle
     alacritty_toggle
-    chrome_toggle       # Run only in linux
+    rofi_toggle         # Run only for linux
+    chrome_toggle       # Run only for linux
 
     echo "Switched to ${target_mode} mode"
-
 }
+# }}}
 
 main "$@"
-# }}}
