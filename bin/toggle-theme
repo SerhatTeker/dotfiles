@@ -22,16 +22,16 @@
 # Descrtiption          : Toggle theme mode on Ubuntu 20.04 LTS and MacOS Monterey 12.3
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2022-05-09T18:04:23+0300 | 1652108663
+# Last Modified Date    : 2022-05-09T18:46:28+0300 | 1652111188
 # Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
 # and using on Ubuntu 20.04 LTS and MacOS Monterey 12.3.
 # Usage                 : $ ./toggle-theme
 #
-# Pass theme flag to use the specific theme;
-# $ ./toggle-theme -l|--light
-# or
-# $ ./toggle-theme d|dark
-#
+# or pass theme flag to use the specific theme:
+# Light mode
+# $ ./toggle-theme -l|--light|l|light
+# Dark mode
+# $ ./toggle-theme -d|--dark|d|dark
 # =================================================================================================
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
@@ -171,9 +171,22 @@ chrome_toggle() {
 
 # Main {{{
 
+display_usage() {
+    echo "Toggle the theme for developer workflow from one mode to another"
+    echo "Usages:"
+    echo "1. Just run without flag:"
+    echo "$ ./toggle-theme"
+    echo "2. If you want spesific theme, pass theme flag to use the specific theme:"
+    echo "For light mode:"
+    echo "$ ./toggle-theme -l|--light|l|light"
+    echo "For dark mode:"
+    echo "$ ./toggle-theme -d|--dark|d|dark"
+}
+
 main() {
     # No mode flag. Default usage.
-    if [[ $# -eq 0 ]]; then
+    if [[ "$#" -eq 0 ]]; then
+        echo "No flag passed"
         # Check current mode and by toggling set target_mode
         if is_linux; then
             theme=$(gsettings get org.gnome.desktop.interface gtk-theme)
@@ -192,19 +205,20 @@ main() {
                 target_mode="dark"
             fi
         fi
-    fi
-
     # If theme mode passed use it.
-    while [[ "$#" -gt 0 ]]; do
+    elif [[ "$#" -eq 1 ]]; then
+        echo "Flags passed: <$@>"
         case $1 in
-            -d|--dark) target_mode="dark" ; shift ;;
-            d|dark) target_mode="dark" ; shift ;;
-            -l|--light) target_mode="light" ; shift ;;
-            l|light) target_mode="light" ; shift ;;
-            *) echo "Unknown argument passed: $1"; exit 1 ;;
+            -d|--dark|d|dark) target_mode="dark" ;;
+            -l|--light|l|light) target_mode="light" ;;
+            -h|--help) display_usage; exit 0 ;;
+            *) echo "Unknown argument passed: $1" ;;
         esac
-        shift
-    done
+    else
+        echo "Unknown argument(s) passed!"
+        display_usage
+        exit 1
+    fi
 
     os_toggle
     vim_sessions_toggle
