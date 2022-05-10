@@ -22,7 +22,7 @@
 # Descrtiption          : Toggle theme mode on Ubuntu 20.04 LTS and MacOS Monterey 12.3
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2022-05-10T17:28:54+0300 | 1652192934
+# Last Modified Date    : 2022-05-10T17:37:41+0300 | 1652193461
 # Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
 # and using on Ubuntu 20.04 LTS and MacOS Monterey 12.3.
 # Usage                 : $ ./toggle-theme
@@ -169,11 +169,34 @@ chrome_toggle() {
 }
 # }}}
 
+# Check OS {{{
+# Helper functions
+
+is_linux() {
+    local uname="$(uname -a)"
+    [[ "$uname" =~ Linux ]] && return
+    false
+}
+
+is_macos() {
+    local uname="$(uname -a)"
+    [[ "$uname" =~ Darwin ]] && return
+    false
+}
+
+is_different_os() {
+    if is_linux && is_macos; then
+        echo "OSTYPE: ${OSTYPE} is not implemented"
+        exit 1
+    fi
+}
+# }}}
+
 # Main {{{
 
 display_usage() {
     cat << EOF
-Toggle the theme for developer workflow from one mode to another
+    Toggle the theme for developer workflow from one mode to another
 Usages:
 
 1. Just run without flag:
@@ -197,9 +220,9 @@ main() {
     local sed_bin=$(command -v gsed || command -v sed) # MacOS sed is pain, use gsed
     local target_mode="dark"    # Default theme mode is dark
 
-    # No mode flag. Default usage.
+    # No mode flag. Default usage
     if [[ "$#" -eq 0 ]]; then
-        # Check current mode and by toggling set target_mode
+        # Check current mode and set target_mode
         if is_linux; then
             local theme=$(gsettings get org.gnome.desktop.interface gtk-theme)
             [[ ${theme} =~ "dark" ]] && local target_mode="light"
@@ -207,7 +230,7 @@ main() {
             local theme="$(defaults read -g AppleInterfaceStyle)"
             [[ ${theme} =~ "Dark" ]] && local target_mode="light"
         fi
-    # If theme mode passed use it.
+    # If theme mode passed use it
     elif [[ "$#" -eq 1 ]]; then
         case $1 in
             -d|--dark|d|dark) local target_mode="dark" ;;
@@ -228,5 +251,6 @@ main() {
     echo "Switched to ${target_mode} mode"
 }
 # }}}
+
 
 main "$@"
