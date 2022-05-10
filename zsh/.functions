@@ -324,14 +324,18 @@ EOF
 }
 
 
+# Logical conditions:
 # 0. If not already in virtualenv:
 # 0.1. If virtualenv already exists activate it,
 # 0.2. If not create it with global packages, update pip then activate it
 # 1. If already in virtualenv: just warn
 #
 # Usage:
+# Without arguments it will create virtualenv named `.venv` with `python3.8` version
 # $ ve
+# or for a specific python version
 # $ ve python3.9
+# or for a specific python version and environment name;
 # $ ve python3.9 ./.venv-diff
 ve() {
     local py=${1:-$PYTHON}              # ${PYTHON} comes from .zshenv
