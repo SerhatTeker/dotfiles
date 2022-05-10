@@ -22,7 +22,7 @@
 # Descrtiption          : Toggle theme mode on Ubuntu 20.04 LTS and MacOS Monterey 12.3
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2022-05-10T17:25:12+0300 | 1652192712
+# Last Modified Date    : 2022-05-10T17:28:54+0300 | 1652192934
 # Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
 # and using on Ubuntu 20.04 LTS and MacOS Monterey 12.3.
 # Usage                 : $ ./toggle-theme
@@ -172,15 +172,19 @@ chrome_toggle() {
 # Main {{{
 
 display_usage() {
-    echo "Toggle the theme for developer workflow from one mode to another"
-    echo "Usages:"
-    echo "1. Just run without flag:"
-    echo "$ ./toggle-theme"
-    echo "2. If you want spesific theme, pass theme flag to use the specific theme:"
-    echo "For light mode:"
-    echo "$ ./toggle-theme -l|--light|l|light"
-    echo "For dark mode:"
-    echo "$ ./toggle-theme -d|--dark|d|dark"
+    cat << EOF
+Toggle the theme for developer workflow from one mode to another
+Usages:
+
+1. Just run without flag:
+$ ./toggle-theme
+
+2. If you want spesific theme, pass one of the theme flag to use the specific theme:
+For light mode:
+$ ./toggle-theme -l|--light|l|light
+For dark mode:
+$ ./toggle-theme -d|--dark|d|dark
+EOF
 }
 
 error_arg() {
