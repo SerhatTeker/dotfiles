@@ -45,10 +45,10 @@ Plug 'dyng/ctrlsf.vim'
 
 " Navigation {{{3
 
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'PhilRunninger/nerdtree-visual-selection'
+" Plug 'christoomey/vim-tmux-navigator'
+" Plug 'scrooloose/nerdtree'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'PhilRunninger/nerdtree-visual-selection'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-unimpaired'
 Plug 'easymotion/vim-easymotion'                        " motions on speed
@@ -71,7 +71,7 @@ Plug 'edkolev/tmuxline.vim'                             " Tmux
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'osyo-manga/vim-anzu'                              " Search matchup counts and position
+" Plug 'osyo-manga/vim-anzu'                              " Search matchup counts and position
 " }}}3
 
 " Filetype {{{3
@@ -84,7 +84,7 @@ Plug 'blueyed/semshi', { 'branch': 'handle-ColorScheme', 'do': ':UpdateRemotePlu
 Plug 'tmhedberg/SimpylFold'                             " Folding
 Plug 'jeetsukumaran/vim-pythonsense'                    " Navigation
 Plug 'tell-k/vim-autoflake'                             " Autoflake: remove unused imports and variables
-Plug 'serhatteker/vim-pydocstring', { 'do': 'make install', 'for': 'python'}            " docstring
+" Plug 'serhatteker/vim-pydocstring', { 'do': 'make install', 'for': 'python'}            " docstring
 Plug 'tweekmonster/django-plus.vim'                     " Django
 " }}}4
 
@@ -101,7 +101,7 @@ Plug 'andrewstuart/vim-kubernetes'
 
 " default plugin
 Plug 'plasticboy/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'dkarter/bullets.vim'
 " }}}4
 
@@ -122,7 +122,7 @@ Plug 'antoinemadec/coc-fzf'
 " Deoplete
 " NOTE: vim-go needs deoplete for realtime omnifunc completion
 " PlugUpdate may not work, in a *.go file call <UpdateRemotePlugins> manually after
-Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins', 'for': 'go' }
+" Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins', 'for': 'go' }
 
 " Ale
 " NOTE: Ale and Coc: https://github.com/neoclide/coc.nvim/issues/348#issuecomment-810929209
