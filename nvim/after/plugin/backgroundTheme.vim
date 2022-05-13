@@ -34,6 +34,7 @@ function! ChangeBackground()
     " check if the plugin exists and loaded
     if exists(":AirlineTheme")
         :AirlineRefresh
+        call AirlineInit()
     endif
 endfunction
 

@@ -31,16 +31,19 @@ function! AirlineInit()
 
     " Default Z Info
     " https://github.com/vim-airline/vim-airline/blob/a294f0cb7e847219f67c2a55d5fb400b7c93d4af/autoload/airline/init.vim#L217
-    " let spc = g:airline_symbols.space
+    let spc = g:airline_symbols.space
     " let g:airline_section_z = airline#section#create(['windowswap', 'obsession', '%p%%'.spc, 'linenr', 'maxlinenr', ':%v'])
     "
     " Simple Z info : line:column
-    let g:airline_section_z = airline#section#create(['%l', ':%c'])
+      let g:airline_section_z = airline#section#create(['%l', ':%c'])               " No Percentage
+      " let g:airline_section_z = airline#section#create(['%p%%'.spc, '%l', ':%c'])   " Percentage at the start
+      " let g:airline_section_z = airline#section#create(['%l', ':%c ', '%p%%'.spc])  " Percentage at the end
     " Custom Y info : fileencoding|fileformat
     let g:airline_section_y = airline#section#create(['%{&ff}', ' | %{&fenc}'])
     " }}}
     :AirlineRefresh
 endfun
 
-autocmd VimEnter * call AirlineInit()
+" calling from ChangeBackground() in backgroundTheme.vim
+" autocmd VimEnter * call AirlineInit()
 " }}}
