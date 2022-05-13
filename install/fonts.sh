@@ -27,7 +27,7 @@ set -o pipefail
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # shellcheck source=scripts/common.sh
-source "${ROOT}/common.sh"
+source "${ROOT}/install/common.sh"
 
 
 sf_mono_powerline() {
