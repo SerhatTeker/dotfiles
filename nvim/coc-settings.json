@@ -28,5 +28,16 @@
   ],
   "yaml.schemas": {
       "kubernetes": "/*.yaml"
+  },
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".git/"],
+      "disableWorkspaceFolders": true,
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "completeUnimported": true
+      }
+    }
   }
 }

@@ -115,14 +115,8 @@ Plug 'hashivim/vim-terraform'
 " LSP/CodeComplete/Linter {{{3
 
 " CoC
-" NOTE: Use deoplete for go, for the rest coc.vim
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'antoinemadec/coc-fzf'
-
-" Deoplete
-" NOTE: vim-go needs deoplete for realtime omnifunc completion
-" PlugUpdate may not work, in a *.go file call <UpdateRemotePlugins> manually after
-" Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins', 'for': 'go' }
 
 " Ale
 " NOTE: Ale and Coc: https://github.com/neoclide/coc.nvim/issues/348#issuecomment-810929209
