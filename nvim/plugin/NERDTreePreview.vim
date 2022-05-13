@@ -25,9 +25,15 @@
 " * Using :q to exit the NERDTree window does not clear the preview, use q instead
 " * Opening vim on a directory (e.g. `vim .`) does not load NERDTreePreview correctly
 
-if !exists('g:NERDTreePreview_Enable')
-    let g:NERDTreePreview_Enable = 1
+" Enable if NERDTree enabled
+if !exists(':NERDTreeToggle')
+    let g:NERDTreePreview_Enable = 0
+else
+    if !exists('g:NERDTreePreview_Enable')
+        let g:NERDTreePreview_Enable = 1
+    endif
 endif
+
 let g:NERDTreePreview_line_count_limit = 10000
 
 augroup NERDTreePreview
