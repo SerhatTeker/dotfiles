@@ -45,10 +45,10 @@ Plug 'dyng/ctrlsf.vim'
 
 " Navigation {{{3
 
-" Plug 'christoomey/vim-tmux-navigator'
-" Plug 'scrooloose/nerdtree'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-" Plug 'PhilRunninger/nerdtree-visual-selection'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'PhilRunninger/nerdtree-visual-selection'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-unimpaired'
 Plug 'easymotion/vim-easymotion'                        " motions on speed
