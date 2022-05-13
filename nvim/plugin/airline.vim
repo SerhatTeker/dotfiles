@@ -11,9 +11,6 @@ let g:airline_powerline_fonts = 0
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#branch#enabled = 1
 
-" Python virtual env
-let g:airline#extensions#virtualenv#enabled = 1
-
 " obsession - continuously updated session
 let g:airline#extensions#obsession#enabled = 1
 let g:airline#extensions#obsession#indicator_text = '$'
