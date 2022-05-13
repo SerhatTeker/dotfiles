@@ -31,8 +31,8 @@ install_apts() {
 
     sudo apt install -y \
         build-essential \
-        fonts-powerline \
         fonts-font-awesome \
+        fonts-powerline \
         fd-find \
         ripgrep \
         unzip

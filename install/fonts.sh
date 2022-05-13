@@ -68,6 +68,8 @@ sf_mono_powerline() {
 }
 
 powerline_patched() {
+    # for Debian or Ubuntu there should be a package available to install
+    # $ sudo apt-get install fonts-powerline
     local dir=/tmp/fonts
 
     git clone \
