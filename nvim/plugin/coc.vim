@@ -7,6 +7,7 @@ let g:coc_global_extensions = [
     \ 'coc-eslint',
     \ 'coc-html',
     \ 'coc-jedi',
+    \ 'coc-pyright',
     \ 'coc-json',
     \ 'coc-sh',
     \ 'coc-sql',
@@ -20,7 +21,7 @@ let g:coc_global_extensions = [
 " Disable for go since vim-go
 " autocmd FileType go let b:coc_suggest_disable = 1
 
-" Going To definition
+" Go to definitions
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -39,7 +40,23 @@ function! s:show_documentation()
     endif
 endfunction
 
-" coc-go {{{
+" python-pyright {{{
+
+" Detect project root correctly
+" https://github.com/fannheyward/coc-pyright/issues/521#issuecomment-858530052
+autocmd FileType python let b:coc_root_patterns = [
+            \'.git',
+            \'.env',
+            \'venv',
+            \'.venv',
+            \'setup.cfg',
+            \'setup.py',
+            \'pyproject.toml',
+            \'pyrightconfig.json'
+            \]
+" }}}
+
+" go-gopls {{{
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -56,7 +73,6 @@ function! s:check_back_space() abort
 endfunction
 
 " nmap <silent> <Enter> <Plug>(coc-definition)
-" nmap <silent> <Leader>r <Plug>(coc-references)
 " nmap <silent> <Leader>f <Plug>(coc-fix-current)
 
 " go {{{

@@ -121,7 +121,7 @@ Plug 'antoinemadec/coc-fzf'
 " Ale
 " NOTE: Ale and Coc: https://github.com/neoclide/coc.nvim/issues/348#issuecomment-810929209
 " CoC and Ale together: https://github.com/dense-analysis/ale#faq-coc-nvim
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 " }}}3
 
 " Syntax {{{3

@@ -1,8 +1,13 @@
 {
   "coc.preferences.useQuickfixForLocations": false,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "python"
+  ],
   "coc.preferences.snippets.enable": true,
-  "diagnostic.displayByAle": true,
-  "jedi.enable": true,
+  "diagnostic.displayByAle": false,
+  // Jedi
+  // if jedi enabled 'displayByAle' should be enabled
+  "jedi.enable": false,
   "jedi.startupMessage": false,
   "jedi.markupKindPreferred": "plaintext",
   "jedi.trace.server": "off",
@@ -20,21 +25,52 @@
   "jedi.workspace.extraPaths": [],
   "jedi.workspace.symbols.maxSymbols": 20,
   "jedi.workspace.symbols.ignoreFolders": [
-    ".nox",
     ".tox",
     ".venv",
     ".pytest_cache",
     "__pycache__"
   ],
+  // Pyright
+  // if pyright enabled 'displayByAle' should be disabled
+  "pyright.enable": true,
+  "pyright.disableCompletion": false,
+  "pyright.disableDiagnostics": false,
+  "pyright.completion.importSupport": true,
+  "pyright.completion.snippetSupport": true,
+  "pyright.organizeimports.provider": "isort",
+  "python.formatting.provider": "black",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.diagnosticMode": "openFilesOnly",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.useLibraryCodeForTypes": true,
+  "python.linting.enabled": true,
+  "python.linting.flake8Enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.ignorePatterns": [
+    ".tox",
+    ".venv",
+    ".pytest_cache",
+    "__pycache__",
+    "**/site-packages/**/*.py"
+  ],
+  // Yaml
   "yaml.schemas": {
-      "kubernetes": "/*.yaml"
+    "kubernetes": "/*.yaml"
   },
+  // Golang
   "languageserver": {
     "golang": {
       "command": "gopls",
-      "rootPatterns": ["go.mod", ".git/"],
+      "rootPatterns": [
+        "go.mod",
+        ".git/"
+      ],
       "disableWorkspaceFolders": true,
-      "filetypes": ["go"],
+      "filetypes": [
+        "go"
+      ],
       "initializationOptions": {
         "completeUnimported": true
       }
