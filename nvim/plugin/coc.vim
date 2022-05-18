@@ -38,7 +38,6 @@ function! s:show_documentation()
         call CocAction('doHover')
     endif
 endfunction
-" }}}
 
 " coc-go {{{
 
@@ -77,5 +76,6 @@ endfunction
 "     autocmd BufRead,BufNewFile * call s:disable_coc_for_type()
 "     " autocmd BufNew,BufRead *.go execute "CocDisable"
 " augroup end
+" }}}
 " }}}
 " }}}
