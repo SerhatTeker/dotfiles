@@ -1,6 +1,7 @@
 font:
   normal:
-    family: &sf_family 'SF Mono'
+    # family: &sf_family 'SF Mono'
+    family: &sf_family 'SFMono Nerd Font'
     style: Regular
   bold:
     family: *sf_family

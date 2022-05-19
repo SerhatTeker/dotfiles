@@ -1,11 +1,31 @@
 {
+  // # Core
   "coc.preferences.useQuickfixForLocations": false,
+  // ## Auto save
   // "coc.preferences.formatOnSaveFiletypes": [
   //   "python"
   // ],
   "coc.preferences.snippets.enable": true,
+  // # Diagnostics
   "diagnostic.displayByAle": false,
-  // Jedi
+  // "codeLens.enable": false,
+  // "diagnostic.virtualText": false,
+  // "diagnostic.virtualTextCurrentLineOnly": true,
+  // "diagnostic.enableMessage": "jump",
+  // ## diagnostic signs
+  /// ## default fonts
+  // "diagnostic.errorSign": "✘",
+  // "diagnostic.errorSign": "✖",
+  // "diagnostic.warningSign": "⚠",
+  // "diagnostic.infoSign": "ℹ",
+  // "diagnostic.hintSign": "➤",
+  // ### nerd fonts
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.hintSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.other": "﫠",
+  // # Python - Jedi
   // if jedi enabled 'displayByAle' should be enabled
   "jedi.enable": false,
   "jedi.startupMessage": false,
@@ -30,7 +50,7 @@
     ".pytest_cache",
     "__pycache__"
   ],
-  // Pyright
+  // # Python - Pyright
   // if pyright enabled 'displayByAle' should be disabled
   "pyright.enable": true,
   "pyright.disableCompletion": false,
@@ -55,12 +75,13 @@
     "__pycache__",
     "**/site-packages/**/*.py"
   ],
-  // Yaml
+  // # Yaml
   "yaml.schemas": {
     "kubernetes": "/*.yaml"
   },
-  // Golang
+  // # Language server
   "languageserver": {
+    // ## Golang
     "golang": {
       "command": "gopls",
       "rootPatterns": [
