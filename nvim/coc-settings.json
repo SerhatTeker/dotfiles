@@ -15,16 +15,16 @@
   // ## diagnostic signs
   /// ## default fonts
   // "diagnostic.errorSign": "✘",
-  // "diagnostic.errorSign": "✖",
-  // "diagnostic.warningSign": "⚠",
-  // "diagnostic.infoSign": "ℹ",
-  // "diagnostic.hintSign": "➤",
+  "diagnostic.errorSign": "✖",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "➤",
   // ### nerd fonts
-  "diagnostic.errorSign": "",
-  "diagnostic.warningSign": "",
-  "diagnostic.hintSign": "",
-  "diagnostic.infoSign": "",
-  "diagnostic.other": "﫠",
+  // "diagnostic.errorSign": "",
+  // "diagnostic.warningSign": "",
+  // "diagnostic.hintSign": "",
+  // "diagnostic.infoSign": "",
+  // "diagnostic.other": "﫠",
   // # Python - Jedi
   // if jedi enabled 'displayByAle' should be enabled
   "jedi.enable": false,
