@@ -128,7 +128,6 @@ error() {
 }
 # }}}
 
-
 # dep installed {{{
 # ----------------------------------------------------------------------------#
 
@@ -167,7 +166,7 @@ force_remove() {
         warn "Deleting directory ${_target}"
         rm -rf ${_target}
     elif [ -f "${_target}" ] && [ ! -L "${_target}" ];then
-        warn "WARNING: Deleting file ${_target}"
+        warn "Deleting file ${_target}"
         rm ${_target}
     else
         [ -L "${_target}" ] && unlink "${_target}"
