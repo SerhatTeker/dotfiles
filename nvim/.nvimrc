@@ -56,7 +56,7 @@ Plug 'kshenoy/vim-signature'                            " toggle, display and na
 Plug 'ThePrimeagen/harpoon'                             " Navigate defined main marks/files in workspaces
 " }}}3
 
-" Colors|Theme {{{3
+" Colors|Theme|Icons {{{3
 
 " Themes
 Plug 'joshdick/onedark.vim'
@@ -65,6 +65,8 @@ Plug 'morhetz/gruvbox'
 " Colors
 Plug 'gko/vim-coloresque'                               " css/less/sass/html color preview for vim
 Plug 'edkolev/tmuxline.vim'                             " Tmux
+" Icons
+" Plug 'ryanoasis/vim-devicons'                           " file type icons
 " }}}3
 
 " Statusbar {{{3
@@ -145,7 +147,6 @@ Plug 'stsewd/fzf-checkout.vim'      " Manage branches and tags with fzf
 Plug 'lewis6991/gitsigns.nvim'      " status info in columns
 Plug 'sindrets/diffview.nvim'       " Single tabpage interface for all git revs
 " }}}3
-"
 
 " Session {{{3
 
