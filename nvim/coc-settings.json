@@ -1,8 +1,8 @@
 {
   "coc.preferences.useQuickfixForLocations": false,
-  "coc.preferences.formatOnSaveFiletypes": [
-    "python"
-  ],
+  // "coc.preferences.formatOnSaveFiletypes": [
+  //   "python"
+  // ],
   "coc.preferences.snippets.enable": true,
   "diagnostic.displayByAle": false,
   // Jedi
