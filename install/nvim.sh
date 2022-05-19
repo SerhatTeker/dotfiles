@@ -13,6 +13,8 @@
 # Source: https://github.com/SerhatTeker/dotfiles
 #
 # Install and customize nvim
+# Default nvim version is 0.6.1. Pass $NVIM_VERSION variable to overwrite it
+# NVIM_VERSION=0.7.0 bash nvim.sh
 # ----------------------------------------------------------------------------#
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
@@ -28,6 +30,8 @@ source "${ROOT}/install/common.sh"
 
 
 DOWNLOAD_DIR=/tmp
+NVIM_VERSION="${NVIM_VERSION:-"0.6.1"}"
+
 
 exists_or_install() {
     if ! command_exists $1; then
@@ -56,20 +60,22 @@ appimage() {
     local base_url="https://github.com/neovim/neovim/releases"
     local nightly_url="${base_url}/download/nightly/nvim.appimage"
     local stable_url="${base_url}/latest/download/nvim.appimage"
-    local version="0.6.1"
-    local version_url="${base_url}/download/v${version}/nvim.appimage"
+    local version_url="${base_url}/download/v${NVIM_VERSION}/nvim.appimage"
 
     local url=${version_url}
+    local file="nvim-${NVIM_VERSION}"
 
     wget \
         ${url} \
-        --output-document "${DOWNLOAD_DIR}/nvim"
+        --output-document "${DOWNLOAD_DIR}/${file}"
 
-    chmod u+x "${DOWNLOAD_DIR}/nvim"
-    cp "${DOWNLOAD_DIR}/nvim" "${XDG_BIN_HOME}/nvim"
+    chmod u+x "${DOWNLOAD_DIR}/${file}"
+    cp "${DOWNLOAD_DIR}/${file}" "${XDG_BIN_HOME}/${file}"
+    force_remove "${XDG_BIN_HOME}/${file}" "${XDG_BIN_HOME}/nvim"
 }
 
 setup_plugins() {
+    info "Starting setup plugins"
     ${nvim_bin} +PlugInstall +qall
     ${nvim_bin} +UpdateRemotePlugins +qall
 }
@@ -89,7 +95,7 @@ nvim_os(){
 main() {
     info "Started nvim install"
 
-    is_installed nvim
+    # is_installed nvim   # Disable for now
     check_base_deps
     nvim_os
     force_remove "${DOTFILES}/nvim" "${XDG_CONFIG_HOME}/nvim" # link config. overwrites link.sh
