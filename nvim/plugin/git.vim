@@ -11,6 +11,7 @@ nnoremap <leader>gl :Git pull<CR>
 
 " Resolve merge conflicts
 nnoremap <leader>mc :Gdiffsplit!<CR>
+nnoremap <leader>gm :Gdiffsplit!<CR>
 nnoremap <leader>m2 :diffget //2<CR>
 nnoremap <leader>m3 :diffget //3<CR>
 
