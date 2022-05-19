@@ -31,6 +31,7 @@ install_apts() {
 
     sudo apt install -y \
         build-essential \
+        fontconfig \
         fonts-font-awesome \
         fonts-powerline \
         fd-find \
