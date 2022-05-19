@@ -37,12 +37,31 @@ toggle-night() {
 
 # Close annoying Chrome's Restore Popup
 # https://raspberrypi.stackexchange.com/a/89705
-chrome_restore_popup_clean() {
+chrome-clean() {
     local chrome_preferences="${XDG_CONFIG_HOME}/google-chrome/Default/Preferences"
 
     sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' ${chrome_preferences}
     sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ${chrome_preferences}
 }
+
+# Toggle Chrome mode
+chrome-toggle() {
+    # Run only in linux
+    is_linux || return 0
+    chrome-clean
+
+    local target_mode=${1?"Usage: chrome_toggle light|dark"}
+    local file="${HOME}/.local/share/applications/google-chrome.desktop"
+    local default='\/usr\/bin\/google-chrome-stable'
+    local dark='\/usr\/bin\/google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering'
+
+    if [[ ${target_mode} =~ "light" ]]; then
+        sed -i "s/${dark}/${default}/" ${file}
+    else
+        sed -i "s/${default}/${dark}/" ${file}
+    fi
+}
+
 
 # Launch Google Chrome with forced dark mode in i3
 chrome-i3() {
