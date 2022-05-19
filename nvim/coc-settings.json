@@ -37,7 +37,7 @@
   "pyright.disableDiagnostics": false,
   "pyright.completion.importSupport": true,
   "pyright.completion.snippetSupport": true,
-  "pyright.organizeimports.provider": "isort",
+  "pyright.organizeimports.provider": "pyright",
   "python.formatting.provider": "black",
   "python.analysis.autoImportCompletions": true,
   "python.analysis.autoSearchPaths": true,
