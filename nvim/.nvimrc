@@ -103,7 +103,7 @@ Plug 'andrewstuart/vim-kubernetes'
 
 " default plugin
 Plug 'plasticboy/vim-markdown'
-" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown' }
 Plug 'dkarter/bullets.vim'
 " }}}4
 
