@@ -29,19 +29,21 @@ let g:semshi#error_sign_delay = 1.5
 " number of lines second
 let g:semshi#update_delay_facto = 0.0
 
-" Custom Colors for OneDark Theme
+
+" Custom colors suitable for OneDark theme
 function! SemshiCustomHighlights()
     hi semshiBuiltin            guifg=#56B6C2
     hi semshiGlobal             guifg=NONE
-    hi semshiSelf               guifg=#E5C07B
-    hi semshiSelected           guifg=#1b1b1b guibg=#ABB2BF
+    hi semshiSelf               guifg=#e6c07b
+    hi semshiSelected           guifg=#ffffff guibg=#ABB2BF
+    hi semshiAttribute          guifg=#e06c75
 
     hi semshiParameter          guifg=#D19A66                       " Default Parameter
     hi semshiParameterUnused    guifg=#895829 gui=underline,italic
+
     " Alternative
     " hi semshiParameter          guifg=#E06C75                     " Parameter Pylance style
     " hi semshiParameterUnused    guifg=#7e1b23 gui=underline,italic
-    " }}}
 endfunction
 
 augroup semshiCustomHighlight
