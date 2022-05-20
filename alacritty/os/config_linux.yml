@@ -1,9 +1,9 @@
 font:
   normal:
     family: &ubuntu_family 'Ubuntu Mono'                        # Default
-      # family: &ubuntu_family 'Ubuntu Mono derivative Powerline'   # Powerline
     # family: &ubuntu_family 'UbuntuMono Nerd Font Mono'          # Nerd font
-    # family: &ubuntu_family 'SF Mono Powerline'
+    # family: &ubuntu_family 'Ubuntu Mono derivative Powerline'   # Powerline
+    # family: &ubuntu_family 'SFMono Nerd Font'                   # SF Mono MacOS
     style: Regular
   bold:
     family: *ubuntu_family
@@ -14,5 +14,5 @@ font:
   bold_italic:
     family: *ubuntu_family
     style: Bold Italic
-  # size: 11.0 # SF Mono
+  # size: 11.0 # SF Mono MacOS
   size: 12.0
