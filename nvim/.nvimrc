@@ -142,7 +142,6 @@ Plug 'sheerun/vim-polyglot'
 " Git {{{3
 
 Plug 'tpope/vim-fugitive'           " A Git wrapper
-Plug 'itchyny/vim-gitbranch'        " Provides the branch name
 Plug 'stsewd/fzf-checkout.vim'      " Manage branches and tags with fzf
 Plug 'lewis6991/gitsigns.nvim'      " status info in columns
 Plug 'sindrets/diffview.nvim'       " Single tabpage interface for all git revs
