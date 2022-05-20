@@ -19,6 +19,7 @@ set shortmess+=c
 " endif
 
 " Highlight the symbol and its references when holding the cursor.
+" autocmd CursorHold *\(.py\)\@<! silent call CocActionAsync('highlight')
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Add (Neo)Vim's native statusline support
