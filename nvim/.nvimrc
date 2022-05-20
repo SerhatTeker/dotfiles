@@ -86,7 +86,7 @@ Plug 'blueyed/semshi', { 'branch': 'handle-ColorScheme', 'do': ':UpdateRemotePlu
 Plug 'tmhedberg/SimpylFold'                             " Folding
 Plug 'jeetsukumaran/vim-pythonsense'                    " Navigation
 Plug 'tell-k/vim-autoflake'                             " Autoflake: remove unused imports and variables
-" Plug 'serhatteker/vim-pydocstring', { 'do': 'make install', 'for': 'python'}            " docstring
+Plug 'serhatteker/vim-pydocstring', { 'do': 'make install', 'for': 'python'}            " docstring
 Plug 'tweekmonster/django-plus.vim'                     " Django
 " }}}4
 
