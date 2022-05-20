@@ -29,102 +29,58 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
-sf_mono_nerd() {
-    local dir=/tmp/SF-Mono-Nerd-Font
 
-    git clone \
-        https://github.com/epk/SF-Mono-Nerd-Font.git \
-        --depth=1 \
-        ${dir}
-
-    # Set source and target directories
-    powerline_fonts_dir=${dir}
-
-    if is_macos; then
-      local font_dir="${HOME}/Library/Fonts"
-    else
-      local font_dir="${XDG_DATA_HOME}/fonts"
-    fi
-
-    # Create if not exist
-    mkdir -p ${font_dir}
-
-    # Copy all fonts to user fonts directory
-    echo "Copying fonts..."
-    find \
-        "${powerline_fonts_dir}" \
-        \( -name "*.[ot]tf" -or -name "*.pcf.gz" \) \
-        -type f -print0 | \
-        xargs -0 -n1 -I % cp "%" "${font_dir}/"
-
+reset_fc_cache() {
     # Reset font cache on Linux
     if which fc-cache >/dev/null 2>&1 ; then
         echo "Resetting font cache, this may take a moment..."
         fc-cache -f "${font_dir}"
     fi
-
-    echo "SF-Mono-Nerd-Font fonts installed to ${font_dir}"
 }
 
-sf_mono_powerline() {
-    local dir=/tmp/SF-Mono-Powerline
-
-    git clone \
-        https://github.com/Twixes/SF-Mono-Powerline.git \
-        --depth=1 \
-        ${dir}
-
-    # Set source and target directories
-    powerline_fonts_dir=${dir}
-
-    if is_macos; then
-      local font_dir="${HOME}/Library/Fonts"
-    else
-      local font_dir="${XDG_DATA_HOME}/fonts"
-    fi
-
-    # Create if not exist
-    mkdir -p ${font_dir}
-
-    # Copy all fonts to user fonts directory
-    echo "Copying fonts..."
+# Copy all fonts to user fonts directory
+copy_fonts() {
     find \
-        "${powerline_fonts_dir}" \
+        "${dir}" \
         \( -name "*.[ot]tf" -or -name "*.pcf.gz" \) \
         -type f -print0 | \
         xargs -0 -n1 -I % cp "%" "${font_dir}/"
-
-    # Reset font cache on Linux
-    if which fc-cache >/dev/null 2>&1 ; then
-        echo "Resetting font cache, this may take a moment..."
-        fc-cache -f "${font_dir}"
-    fi
-
-    echo "SF-Mono-Powerline fonts installed to ${font_dir}"
+    info "${name} fonts installed to ${font_dir}"
 }
 
+install_font() {
+    local name=${1}
+    local repo=${2}
+    local dir="/tmp/${1}"
 
+    [ -d ${dir} ] && rm -rf ${dir}
+    git clone ${repo} ${dir} --depth=1
+    copy_fonts
+}
 
 powerline_patched() {
     # for Debian or Ubuntu there should be a package available to install
     # $ sudo apt-get install fonts-powerline
-    local dir=/tmp/fonts
+    local dir=/tmp/power-line-fonts
 
-    git clone \
-        https://github.com/powerline/fonts.git \
-        --depth=1 \
-        ${dir}
-
+    [ -d ${dir} ] && rm -rf ${dir}
+    git clone https://github.com/powerline/fonts.git ${dir} --depth=1
     ${dir}/install.sh
 }
 
-
 main() {
-    sf_mono_nerd
-    sf_mono_powerline
-    powerline_patched
+    # Use user directory
+    if is_macos; then
+      local font_dir="${HOME}/Library/Fonts"
+    else
+      local font_dir="${XDG_DATA_HOME}/fonts"
+    fi
 
-    msg_cli blue "Fonts installed" normal
+    install_font "SF-Mono-Nerd-Font" "https://github.com/epk/SF-Mono-Nerd-Font.git"
+    # install_font "SF-Mono-Powerline" "https://github.com/Twixes/SF-Mono-Powerline.git"
+    powerline_patched
+    reset_fc_cache
+    success "Fonts installed"
 }
 
 main
