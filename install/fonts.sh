@@ -30,10 +30,10 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 source "${ROOT}/install/common.sh"
 
 
+# Reset font cache on Linux
 reset_fc_cache() {
-    # Reset font cache on Linux
-    if which fc-cache >/dev/null 2>&1 ; then
-        echo "Resetting font cache, this may take a moment..."
+    if which fc-cache >/dev/null 2>&1; then
+        info "Resetting font cache, this may take a moment..."
         fc-cache -f "${font_dir}"
     fi
 }
@@ -49,14 +49,16 @@ copy_fonts() {
 }
 
 install_font() {
-    local name=${1}
-    local repo=${2}
+    local name="${1}"
+    local repo="${2}"
     local dir="/tmp/${1}"
 
     [ -d ${dir} ] && rm -rf ${dir}
     git clone ${repo} ${dir} --depth=1
     copy_fonts
 }
+
+# Separate {{{
 
 powerline_patched() {
     # for Debian or Ubuntu there should be a package available to install
@@ -68,6 +70,20 @@ powerline_patched() {
     ${dir}/install.sh
 }
 
+# Separately
+# INFO: Deprecated: Install fonts separetaley
+main_separate() {
+    install_font "SF-Mono-Nerd-Font" "https://github.com/epk/SF-Mono-Nerd-Font.git"
+    install_font "SF-Mono-Powerline" "https://github.com/Twixes/SF-Mono-Powerline.git"
+    powerline_patched
+}
+# }}}
+
+# All together
+dotfiles_fonts() {
+    install_font "dotfiles-fonts" "https://github.com/SerhatTeker/dotfiles-fonts.git"
+}
+
 main() {
     # Use user directory
     if is_macos; then
@@ -76,9 +92,8 @@ main() {
       local font_dir="${XDG_DATA_HOME}/fonts"
     fi
 
-    install_font "SF-Mono-Nerd-Font" "https://github.com/epk/SF-Mono-Nerd-Font.git"
-    # install_font "SF-Mono-Powerline" "https://github.com/Twixes/SF-Mono-Powerline.git"
-    powerline_patched
+    dotfiles_fonts
+
     reset_fc_cache
     success "Fonts installed"
 }
