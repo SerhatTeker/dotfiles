@@ -14,7 +14,7 @@
 #
 # Install and customize nvim
 # Default nvim version is 0.6.1. Pass $NVIM_VERSION variable to overwrite it
-# NVIM_VERSION=0.7.0 bash nvim.sh
+# NVIM_VERSION=0.6.1 bash nvim.sh
 # ----------------------------------------------------------------------------#
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
@@ -30,7 +30,7 @@ source "${ROOT}/install/common.sh"
 
 
 DOWNLOAD_DIR=/tmp
-NVIM_VERSION="${NVIM_VERSION:-"0.6.1"}"
+NVIM_VERSION="${NVIM_VERSION:-"0.7.0"}"
 
 
 exists_or_install() {
