@@ -46,7 +46,7 @@ main() {
     bash "${ROOT}/macos/brew.sh"
     dark_mode_notify
 
-    sucess "Finished base ${OSTYPE}"
+    success "Finished base ${OSTYPE}"
 }
 
 main
