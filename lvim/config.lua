@@ -225,6 +225,6 @@ lvim.plugins = {
 --   log_level = vim.log.levels.DEBUG
 -- }
 
-require("null-ls").setup ({
-  debug = true
-})
+-- require("null-ls").setup ({
+--   debug = true
+-- })
