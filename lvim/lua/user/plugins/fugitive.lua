@@ -15,11 +15,6 @@ vim.api.nvim_set_keymap("n", "<leader>gm", "<cmd>Gdiffsplit!<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>m2", "<cmd>diffget //2<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>m3", "<cmd>diffget //3<cr>", opts)
 
--- Show Commits
-vim.api.nvim_set_keymap("n", "<leader>gc", "<cmd>Commits!<cr>", opts)
--- Show Buffer Commits
-vim.api.nvim_set_keymap("n", "<leader>gbc", "<cmd>BCommits!<cr>", opts)
-
 -- Git diff previous vs the current version
 -- With <!> left to right, and focus on current
 -- TIP: Therefore close with <C-W><C-O>, not :diffoff
@@ -32,7 +27,7 @@ vim.api.nvim_set_keymap("n", "<leader>HH", "<cmd>Gclog<cr>", opts)
 -- Show File History
 vim.api.nvim_set_keymap("n", "<leader>HF", "<cmd>0Gclog!<cr>", opts)
 
--- Custom {{{
+-- Custom Commands {{{
 
 -- Amend aliases
 vim.api.nvim_create_user_command("GCN", "Git commit -v --no-edit --amend", { force = true })
@@ -45,9 +40,4 @@ vim.api.nvim_create_user_command("GP", "Git push", { force = true })
   -- Push set upstream
 vim.api.nvim_create_user_command("GPSUP", ":!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD 2>/dev/null)", { force = true })
 --
--- }}}
-
--- fzf-checkout {{{
-
-vim.api.nvim_set_keymap("n", "<leader>gb", "<cmd>GBranches<cr>", opts)
--- }}}
+-- }}}:
