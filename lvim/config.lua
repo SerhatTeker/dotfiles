@@ -21,6 +21,7 @@ require("user.plugins.null-ls")
 require("user.plugins.lualine")
 require("user.plugins.bufferline")
 require("user.plugins.fugitive")
+require("user.plugins.trouble")
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- lvim.autocommands.custom_groups = {

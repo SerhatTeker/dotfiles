@@ -19,19 +19,16 @@ lvim.builtin.telescope.defaults.mappings = {
 
 local opts = { noremap = true, silent = true}
 
+-- Core
 vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>Telescope find_files<CR>", opts)
 vim.api.nvim_set_keymap("n", "<C-f>", "<CMD>Telescope live_grep<CR>", opts)
 vim.api.nvim_set_keymap("n", "<S-b>", "<CMD>Telescope buffers<CR>", opts)
 
+-- Git
+vim.api.nvim_set_keymap("n", "<leader>gb", "<CMD>Telescope git_branches<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>gc", "<CMD>Telescope git_commits<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>gcb", "<CMD>Telescope git_bcommits<CR>", opts)
+
 -- Which key
 -- Use which-key to add extra bindings with the leader-key prefix
 lvim.builtin.which_key.mappings["F"] = { "<cmd>Telescope find_files<CR>", "Files" }
-lvim.builtin.which_key.mappings["t"] = {
-  name = "+Trouble",
-  r = { "<cmd>Trouble lsp_references<cr>", "References" },
-  f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
-  d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
-  q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
-  l = { "<cmd>Trouble loclist<cr>", "LocationList" },
-  w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
-}
