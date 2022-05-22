@@ -17,8 +17,10 @@ lvim.builtin.telescope.defaults.mappings = {
   },
 }
 
+vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>Telescope find_files<CR>", { silent = true })
+
 -- Use which-key to add extra bindings with the leader-key prefix
-lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+lvim.builtin.which_key.mappings["F"] = { "<cmd>Telescope find_files<CR>", "Files" }
 lvim.builtin.which_key.mappings["t"] = {
   name = "+Trouble",
   r = { "<cmd>Trouble lsp_references<cr>", "References" },
