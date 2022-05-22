@@ -7,11 +7,12 @@ lvim.builtin.terminal.active = false
 
 -- Additional Plugins
 lvim.plugins = {
-  { "folke/tokyonight.nvim" },
+  -- Trouble
   {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
+  -- Persistence
   {
     "folke/persistence.nvim",
     event = "BufReadPre", -- this will only start session saving when an actual file was opened
@@ -23,6 +24,7 @@ lvim.plugins = {
       }
     end,
   },
+  -- Lastplace
   {
     "ethanholz/nvim-lastplace",
     event = "BufRead",
@@ -42,7 +44,7 @@ lvim.plugins = {
       require('Navigator').setup()
     end,
   },
-  -- fugitive
+  -- Fugitive
   {
     "tpope/vim-fugitive",
     cmd = {
