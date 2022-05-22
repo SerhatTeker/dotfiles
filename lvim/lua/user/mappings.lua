@@ -19,3 +19,6 @@ vim.api.nvim_create_user_command('WQ', 'wqa', { force = true })
 -- buffers
 lvim.keys.normal_mode["<S-n>"] = ":bn<CR>"
 lvim.keys.normal_mode["<S-m>"] = ":bp<CR>"
+
+-- lvim.keys.normal_mode["<C-d>"] = ":BufferClose<CR>"
+lvim.keys.normal_mode["<C-t>"] = "<CMD>NvimTreeToggle<CR>"
