@@ -3,7 +3,7 @@
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
-lvim.builtin.terminal.active = true
+lvim.builtin.terminal.active = false
 
 -- Additional Plugins
 lvim.plugins = {
@@ -18,7 +18,7 @@ lvim.plugins = {
     module = "persistence",
     config = function()
       require("persistence").setup {
-        dir = vim.fn.expand(vim.fn.stdpath "config" .. "/session/"),
+        dir = vim.fn.expand(vim.fn.stdpath "cache" .. "/session/"),
         options = { "buffers", "curdir", "tabpages", "winsize" },
       }
     end,
