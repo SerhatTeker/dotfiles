@@ -18,6 +18,7 @@ require("user.plugins.which-key")
 require("user.plugins.nvim-tree")
 require("user.plugins.null-ls")
 require("user.plugins.lualine")
+require("user.plugins.bufferline")
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- lvim.autocommands.custom_groups = {
