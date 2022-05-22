@@ -14,11 +14,11 @@ vim.keymap.set('n', ";", ":")
 -- Shortcuts for qa
 vim.api.nvim_create_user_command('Q', 'qa', { force = true })
 vim.api.nvim_create_user_command('WQ', 'wqa', { force = true })
+vim.api.nvim_create_user_command('BufCurOnly', '%bdelete|edit#|bdelete#', { force = true })
 
 
 -- buffers
 lvim.keys.normal_mode["<S-n>"] = ":bn<CR>"
 lvim.keys.normal_mode["<S-m>"] = ":bp<CR>"
-
--- lvim.keys.normal_mode["<C-d>"] = ":BufferClose<CR>"
-lvim.keys.normal_mode["<C-t>"] = "<CMD>NvimTreeToggle<CR>"
+lvim.keys.normal_mode["<C-b>d"] = ":BufferKill<CR>"
+lvim.keys.normal_mode["<C-b>c"] = ":BufCurOnly<CR>"
