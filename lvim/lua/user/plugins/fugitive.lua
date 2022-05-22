@@ -37,7 +37,6 @@ vim.api.nvim_create_user_command("GCE", "Git commit --amend --edit", { force = t
 -- Alias for old habit
 vim.api.nvim_create_user_command("GP", "Git push", { force = true })
 
-  -- Push set upstream
+-- Push set upstream
 vim.api.nvim_create_user_command("GPSUP", ":!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD 2>/dev/null)", { force = true })
---
--- }}}:
+-- }}}
