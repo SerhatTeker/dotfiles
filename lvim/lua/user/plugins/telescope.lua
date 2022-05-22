@@ -17,9 +17,13 @@ lvim.builtin.telescope.defaults.mappings = {
   },
 }
 
-vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>Telescope find_files<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<S-b>", "<CMD>Telescope buffers<CR>", { silent = true })
+local opts = { noremap = true, silent = true}
 
+vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>Telescope find_files<CR>", opts)
+vim.api.nvim_set_keymap("n", "<C-f>", "<CMD>Telescope live_grep<CR>", opts)
+vim.api.nvim_set_keymap("n", "<S-b>", "<CMD>Telescope buffers<CR>", opts)
+
+-- Which key
 -- Use which-key to add extra bindings with the leader-key prefix
 lvim.builtin.which_key.mappings["F"] = { "<cmd>Telescope find_files<CR>", "Files" }
 lvim.builtin.which_key.mappings["t"] = {
