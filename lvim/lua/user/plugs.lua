@@ -24,6 +24,15 @@ lvim.plugins = {
       }
     end,
   },
+  {
+    "tpope/vim-obsession",
+    cmd = {
+      "Obsession",
+      "Obsess",
+      "Obsession!",
+      "Obsess!",
+    },
+  },
   -- Lastplace
   {
     "ethanholz/nvim-lastplace",
