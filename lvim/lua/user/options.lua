@@ -8,6 +8,3 @@ vim.opt.cmdheight = 1
 lvim.log.level = "warn"
 lvim.format_on_save = false
 lvim.use_icons = true
-
--- ## Colorscheme
-lvim.colorscheme = "onedarker"
