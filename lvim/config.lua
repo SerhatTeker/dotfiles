@@ -10,6 +10,7 @@ an executable
 require("user.options")
 require("user.mappings")
 require("user.plugs")
+require("user.theme")
 
 require("user.plugins.navigator")
 require("user.plugins.which-key")
