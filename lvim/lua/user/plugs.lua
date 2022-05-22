@@ -3,7 +3,7 @@
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
-lvim.builtin.terminal.active = false
+lvim.builtin.terminal.active = true
 
 -- Additional Plugins
 lvim.plugins = {
@@ -42,24 +42,24 @@ lvim.plugins = {
       require('Navigator').setup()
     end,
   },
-    -- fugitive
-    {
-      "tpope/vim-fugitive",
-      cmd = {
-        "G",
-        "Git",
-        "Gdiffsplit",
-        "Gread",
-        "Gwrite",
-        "Ggrep",
-        "GMove",
-        "GDelete",
-        "GBrowse",
-        "GRemove",
-        "GRename",
-        "Glgrep",
-        "Gedit"
-      },
-      ft = {"fugitive"}
+  -- fugitive
+  {
+    "tpope/vim-fugitive",
+    cmd = {
+      "G",
+      "Git",
+      "Gdiffsplit",
+      "Gread",
+      "Gwrite",
+      "Ggrep",
+      "GMove",
+      "GDelete",
+      "GBrowse",
+      "GRemove",
+      "GRename",
+      "Glgrep",
+      "Gedit"
     },
+    ft = { "fugitive" }
+  },
 }
