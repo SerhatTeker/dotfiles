@@ -75,4 +75,10 @@ lvim.plugins = {
     },
     ft = { "fugitive" }
   },
+  {
+    "sindrets/diffview.nvim",
+    event = "BufRead",
+  },
+  -- Tokyonight
+  { "folke/tokyonight.nvim" },
 }
