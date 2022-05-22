@@ -24,6 +24,7 @@ lvim.plugins = {
       }
     end,
   },
+  -- Obsession
   {
     "tpope/vim-obsession",
     cmd = {
@@ -60,6 +61,7 @@ lvim.plugins = {
       "G",
       "Git",
       "Gdiffsplit",
+      "Gvdiffsplit",
       "Gread",
       "Gwrite",
       "Ggrep",
