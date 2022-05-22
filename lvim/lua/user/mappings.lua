@@ -1,5 +1,6 @@
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = ","
+vim.g.mapleader = ","
 -- add your own keymapping
 -- lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 -- unmap a default keymapping
