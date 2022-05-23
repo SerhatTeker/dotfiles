@@ -17,4 +17,4 @@ require("user.plugins.fugitive")
 require("user.plugins.trouble")
 -- Plugins Additional
 require("user.plugins.harpoon")
-require("user.plugins.shade")
+-- require("user.plugins.shade")

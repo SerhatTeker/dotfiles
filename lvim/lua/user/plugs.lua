@@ -111,5 +111,7 @@ lvim.plugins = {
         end,
     },
     -- Shade, dim InactiveWindow
-    { "sunjon/shade.nvim" },
+    -- INFO: Disabled, not working with sessions
+    -- https://github.com/sunjon/Shade.nvim/issues/2
+    -- { "sunjon/shade.nvim" },
 }
