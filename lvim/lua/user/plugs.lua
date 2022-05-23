@@ -44,7 +44,7 @@ lvim.plugins = {
             require('Navigator').setup()
         end,
     },
-    -- Fugitive
+    -- TPope/Fugitive
     {
         "tpope/vim-fugitive",
         cmd = {
@@ -65,6 +65,18 @@ lvim.plugins = {
         },
         ft = { "fugitive" }
     },
+    -- TPope/Repeat
+    { "tpope/vim-repeat" },
+    -- TPope/surround
+    {
+        "tpope/vim-surround",
+        keys = { "c", "d", "y" }
+        -- make sure to change the value of `timeoutlen` if it's not triggering
+        -- correctly, see https://github.com/tpope/vim-surround/issues/117
+        -- setup = function()
+        --  vim.o.timeoutlen = 500
+        -- end
+    },
     {
         "sindrets/diffview.nvim",
         event = "BufRead",
@@ -79,7 +91,6 @@ lvim.plugins = {
         config = function()
             require('trim').setup({
                 disable = { "markdown" },
-
                 patterns = {
                     [[%s/\s\+$//e]], -- remove unwanted spaces
                     [[%s/\($\n\s*\)\+\%$//]], -- trim last line
