@@ -85,7 +85,8 @@ alias vi='nvim'
 alias vs='nvim -S'
 # to remove error E138: ShaDa file exist, cannot write ShaDa file!
 alias rm-shada='rm ~/.local/share/nvim/shada/main.shada.tmp.x'
-
+alias lv='lvim'
+alias lvs='lvim -S'
 # }}}
 
 # Apps {{{
