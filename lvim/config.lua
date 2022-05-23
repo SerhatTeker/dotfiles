@@ -4,6 +4,7 @@ require("user.mappings")
 require("user.plugs")
 require("user.theme")
 -- Plugins
+require("user.plugins.alpha")
 require("user.plugins.navigator")
 require("user.plugins.which-key")
 require("user.plugins.telescope")
