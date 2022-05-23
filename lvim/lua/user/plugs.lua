@@ -7,6 +7,7 @@ lvim.builtin.terminal.active = false
 
 -- Additional Plugins
 lvim.plugins = {
+    -- # Core
     -- Trouble
     {
         "folke/trouble.nvim",
@@ -38,6 +39,7 @@ lvim.plugins = {
             })
         end,
     },
+    -- Navigator
     {
         'numToStr/Navigator.nvim',
         config = function()
@@ -83,6 +85,14 @@ lvim.plugins = {
     },
     -- Tokyonight
     { "folke/tokyonight.nvim" },
+    {
+        "folke/todo-comments.nvim",
+        event = "BufRead",
+        config = function()
+            require("todo-comments").setup()
+        end,
+    },
+    -- # Additional
     -- Harpoon
     { "ThePrimeagen/harpoon" },
     -- Trim
