@@ -89,4 +89,6 @@ lvim.plugins = {
             })
         end,
     },
+    -- Shade, dim InactiveWindow
+    { "sunjon/shade.nvim" },
 }

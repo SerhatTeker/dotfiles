@@ -3,7 +3,7 @@ require("user.options")
 require("user.mappings")
 require("user.plugs")
 require("user.theme")
--- Plugins
+-- Plugins Core
 require("user.plugins.alpha")
 require("user.plugins.navigator")
 require("user.plugins.which-key")
@@ -15,4 +15,6 @@ require("user.plugins.lualine")
 require("user.plugins.bufferline")
 require("user.plugins.fugitive")
 require("user.plugins.trouble")
+-- Plugins Additional
 require("user.plugins.harpoon")
+require("user.plugins.shade")
