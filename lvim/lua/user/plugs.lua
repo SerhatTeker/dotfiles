@@ -71,4 +71,5 @@ lvim.plugins = {
   },
   -- Tokyonight
   { "folke/tokyonight.nvim" },
+  { "ThePrimeagen/harpoon" },
 }
