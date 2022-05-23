@@ -24,17 +24,6 @@ lvim.plugins = {
       }
     end,
   },
-  -- TODO: Use 'Shatur/neovim-session-manager' instead
-  -- Obsession
-  {
-    "tpope/vim-obsession",
-    cmd = {
-      "Obsession",
-      "Obsess",
-      "Obsession!",
-      "Obsess!",
-    },
-  },
   -- Lastplace
   {
     "ethanholz/nvim-lastplace",
