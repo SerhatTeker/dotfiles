@@ -1,7 +1,7 @@
 font:
   normal:
-    family: &ubuntu_family 'Ubuntu Mono'                        # Default
-    # family: &ubuntu_family 'UbuntuMono Nerd Font Mono'          # Nerd font
+    # family: &ubuntu_family 'Ubuntu Mono'                        # Default
+    family: &ubuntu_family 'UbuntuMono Nerd Font Mono'          # Nerd font
     # family: &ubuntu_family 'Ubuntu Mono derivative Powerline'   # Powerline
     # family: &ubuntu_family 'SFMono Nerd Font'                   # SF Mono MacOS
     style: Regular

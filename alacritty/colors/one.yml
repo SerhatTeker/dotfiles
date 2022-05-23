@@ -62,4 +62,4 @@ schemes:
       cyan:       '#0184bc'
       white:      '#a0a1a7' # mono-3
 
-colors: *theme_dark
+colors: *theme_light

@@ -94,4 +94,4 @@ schemes:
       cyan:    '#427b58'
       white:   '#3c3836'
 
-colors: *theme_dark
+colors: *theme_light
