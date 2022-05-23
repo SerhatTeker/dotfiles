@@ -36,6 +36,7 @@ install_apts() {
         fonts-powerline \
         fd-find \
         ripgrep \
+        shellcheck \
         unzip
 
     # https://github.com/sharkdp/fd#on-debian
