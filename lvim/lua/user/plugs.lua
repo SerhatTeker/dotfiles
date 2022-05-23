@@ -83,8 +83,6 @@ lvim.plugins = {
         "sindrets/diffview.nvim",
         event = "BufRead",
     },
-    -- Tokyonight
-    { "folke/tokyonight.nvim" },
     {
         "folke/todo-comments.nvim",
         event = "BufRead",
@@ -93,6 +91,10 @@ lvim.plugins = {
         end,
     },
     -- # Additional
+    -- Tokyonight
+    { "folke/tokyonight.nvim" },
+    -- Gruvbox
+    { "ellisonleao/gruvbox.nvim" },
     -- Harpoon
     { "ThePrimeagen/harpoon" },
     -- Trim
