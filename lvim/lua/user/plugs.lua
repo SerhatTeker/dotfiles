@@ -24,6 +24,7 @@ lvim.plugins = {
       }
     end,
   },
+  -- TODO: Use 'Shatur/neovim-session-manager' instead
   -- Obsession
   {
     "tpope/vim-obsession",
