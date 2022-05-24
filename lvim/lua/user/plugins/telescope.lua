@@ -33,10 +33,11 @@ vim.api.nvim_set_keymap("n", "<leader>gcb", "<CMD>Telescope git_bcommits<CR>", o
 -- Use which-key to add extra bindings with the leader-key prefix
 lvim.builtin.which_key.mappings["t"] = {
     name = "Telescope",
-    p = { "<cmd>Telescope find_files<CR>", "Files" },
-    f = { "<cmd>Telescope live_grep<CR>", "Find" },
-    b = { "<cmd>Telescope buffers<CR>", "Buffers" },
-    ld = { "<cmd>Telescope lsp_definitions<CR>", "LSP Definitions" },
-    lr = { "<cmd>Telescope lsp_references<CR>", "LSP Refences" },
-    li = { "<cmd>Telescope lsp_implementations<CR>", "LSP Implementations" },
+    p = { "<CMD>Telescope find_files<CR>", "Files" },
+    f = { "<CMD>Telescope live_grep<CR>", "Find" },
+    b = { "<CMD>Telescope buffers<CR>", "Buffers" },
+    d = { "<CMD>Telescope diagnostics<CR>", "Diagnostics" },
+    ld = { "<CMD>Telescope lsp_definitions<CR>", "LSP Definitions" },
+    lr = { "<CMD>Telescope lsp_references<CR>", "LSP Refences" },
+    li = { "<CMD>Telescope lsp_implementations<CR>", "LSP Implementations" },
 }
