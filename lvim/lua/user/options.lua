@@ -15,6 +15,7 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- set to "nvim_treesitter#folde
 -- # LunarVim
 lvim.log.level = "warn"
 lvim.use_icons = true
+lvim.transparent_window = false
 -- Format files on save
 -- lvim.format_on_save = false
 lvim.format_on_save = {
