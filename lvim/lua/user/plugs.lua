@@ -5,6 +5,7 @@ lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = false
 lvim.builtin.dap.active = true -- (default: false)
 
+
 -- Additional Plugins
 lvim.plugins = {
     -- # Core
@@ -112,4 +113,9 @@ lvim.plugins = {
     -- INFO: Disabled, not working with sessions
     -- https://github.com/sunjon/Shade.nvim/issues/2
     -- { "sunjon/shade.nvim" },
+    -- SymbolsOutline
+    {
+        "simrat39/symbols-outline.nvim",
+        cmd = "SymbolsOutline",
+    },
 }
