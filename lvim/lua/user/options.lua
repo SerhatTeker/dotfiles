@@ -16,12 +16,12 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- set to "nvim_treesitter#folde
 lvim.log.level = "warn"
 lvim.use_icons = true
 -- Format files on save
+-- lvim.format_on_save = false
 lvim.format_on_save = {
     pattern = {
         "*.lua",
         "*.sh",
         "*.vim",
-        "*.go",
         "*.js",
         "*.jsx",
     },
