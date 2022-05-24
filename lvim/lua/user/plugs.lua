@@ -91,14 +91,16 @@ lvim.plugins = {
         end,
     },
     -- # Additional
+    -- ## Colorschemes
     -- Tokyonight
     { "folke/tokyonight.nvim" },
     -- Gruvbox
     { "ellisonleao/gruvbox.nvim" },
+    { 'Mofiqul/vscode.nvim' },
+    -- ## Use
     -- Harpoon
     { "ThePrimeagen/harpoon" },
     -- Trim
-
     {
         "SerhatTeker/trim.nvim",
         event = "BufWritePre",
