@@ -3,21 +3,21 @@
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 local _, actions = pcall(require, "telescope.actions")
 lvim.builtin.telescope.defaults.mappings = {
-  -- for input mode
-  i = {
-    ["<C-j>"] = actions.move_selection_next,
-    ["<C-k>"] = actions.move_selection_previous,
-    ["<C-n>"] = actions.cycle_history_next,
-    ["<C-p>"] = actions.cycle_history_prev,
-  },
-  -- for normal mode
-  n = {
-    ["<C-j>"] = actions.move_selection_next,
-    ["<C-k>"] = actions.move_selection_previous,
-  },
+    -- for input mode
+    i = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-n>"] = actions.cycle_history_next,
+        ["<C-p>"] = actions.cycle_history_prev,
+    },
+    -- for normal mode
+    n = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+    },
 }
 
-local opts = { noremap = true, silent = true}
+local opts = { noremap = true, silent = true }
 
 -- Core
 vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>Telescope find_files<CR>", opts)
@@ -31,4 +31,12 @@ vim.api.nvim_set_keymap("n", "<leader>gcb", "<CMD>Telescope git_bcommits<CR>", o
 
 -- Which key
 -- Use which-key to add extra bindings with the leader-key prefix
-lvim.builtin.which_key.mappings["F"] = { "<cmd>Telescope find_files<CR>", "Files" }
+lvim.builtin.which_key.mappings["t"] = {
+    name = "Telescope",
+    p = { "<cmd>Telescope find_files<CR>", "Files" },
+    f = { "<cmd>Telescope live_grep<CR>", "Find" },
+    b = { "<cmd>Telescope buffers<CR>", "Buffers" },
+    ld = { "<cmd>Telescope lsp_definitions<CR>", "LSP Definitions" },
+    lr = { "<cmd>Telescope lsp_references<CR>", "LSP Refences" },
+    li = { "<cmd>Telescope lsp_implementations<CR>", "LSP Implementations" },
+}
