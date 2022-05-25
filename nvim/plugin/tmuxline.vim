@@ -7,8 +7,8 @@ let g:tmuxline_preset = {
             \'c'    : '#W',
             \'win'  : '#I #W',
             \'cwin' : '#I #W',
-            \'x'    : 'w%U:d0%w',
-            \'y'    : ['%R', '%d-%m-%y'],
+            \'x'    : '%R',
+            \'y'    : ['w%U:d0%w', '%d-%m-%y'],
             \'z'    : '#h',
             \}
 
