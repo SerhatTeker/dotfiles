@@ -82,7 +82,7 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'SerhatTeker/python-syntax'                        " Syntax highliht
 " NOTE: Use blueyed fork: https://github.com/numirias/semshi/pull/111
-" Plug 'blueyed/semshi', { 'branch': 'handle-ColorScheme', 'do': ':UpdateRemotePlugins' } " Semantic syntax highliht
+Plug 'blueyed/semshi', { 'branch': 'handle-ColorScheme', 'do': ':UpdateRemotePlugins' } " Semantic syntax highliht
 Plug 'tmhedberg/SimpylFold'                             " Folding
 Plug 'jeetsukumaran/vim-pythonsense'                    " Navigation
 Plug 'tell-k/vim-autoflake'                             " Autoflake: remove unused imports and variables
