@@ -3,9 +3,9 @@ local ll = lvim.builtin.lualine
 -- # Theme {{{
 
 -- ## Custom Onedark
-local conedark = require('lualine.themes.onedark')
+-- local conedark = require('lualine.themes.onedark')
 
--- switch normal and insert mode colors
+-- -- switch normal and insert mode colors
 -- local onedark_blue = conedark.insert.a.bg
 -- local onedark_green = conedark.normal.a.bg
 
@@ -15,10 +15,12 @@ local conedark = require('lualine.themes.onedark')
 
 -- # Core {{{
 
--- # Style
+-- ## Style
 ll.style = "default"
--- Theme
-ll.options.theme = conedark
+
+-- ## Theme
+-- ll.options.theme = conedark
+
 -- ## Separators
 -- ### default
 -- ll.options.section_separators = { left = "", right = "" }
@@ -26,7 +28,6 @@ ll.options.theme = conedark
 -- ### lightline-like
 ll.options.section_separators = { left = "", right = "" }
 ll.options.component_separators = { left = "|", right = "|" }
--- # Separators
 -- }}}
 
 -- # Snippets {{{
