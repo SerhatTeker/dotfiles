@@ -1,4 +1,4 @@
--- Which Key
+-- # Which Key
 local wk = lvim.builtin.which_key
 
 wk.opts = {
@@ -18,7 +18,11 @@ wk.vopts = {
     nowait = true, -- use `nowait` when creating keymaps
 }
 
--- Persistence
+-- ## Defaults
+-- lvim.builtin.which_key.mappings["f"] = { require("lvim.core.telescope.custom-finders").find_project_files, "Find File" }
+wk.mappings["f"] = { require("lvim.lsp.utils").format, "Format" }
+
+-- ## Persistence
 -- restore the session for the current directory
 wk.mappings["S"] = {
     name = "Session",
@@ -27,5 +31,5 @@ wk.mappings["S"] = {
     Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
 }
 
--- SymbolsOutline
-lvim.builtin.which_key.mappings["o"] = { "<cmd>SymbolsOutline<CR>", "Outline" }
+-- ## SymbolsOutline
+wk.mappings["o"] = { "<cmd>SymbolsOutline<CR>", "Outline" }
