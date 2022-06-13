@@ -1,12 +1,21 @@
 -- # Colorschemes
 
+
 -- ## Neodarker
 lvim.colorscheme = "neodarker"
--- require("neodarker").setup()
--- vim.colorscheme = "neodarker"
 
 -- require("neodarker").setup()
+-- vim.cmd [[colorscheme neodarker]]
+-- vim.colorscheme = "neodarker"
 -- lvim.builtin.lualine.options.theme = "onedark"
+
+-- ## Onedark
+-- lvim.colorscheme = "onedark"
+
+-- require('onedark').setup {
+--     style = "darker"
+-- }
+-- require("onedark").load()
 
 -- ## Gruvbox
 -- lvim.colorscheme = "gruvbox"

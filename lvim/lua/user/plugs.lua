@@ -97,6 +97,7 @@ lvim.plugins = {
     { "Mofiqul/vscode.nvim" },
     -- { "ellisonleao/gruvbox.nvim" }, -- alternative gruvbox
     { "sainnhe/gruvbox-material" },
+    -- { 'navarasu/onedark.nvim' }, -- alternative onedark
     {
         "SerhatTeker/neodarker.nvim",
         config = function()
