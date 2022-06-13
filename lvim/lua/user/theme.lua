@@ -1,16 +1,24 @@
 -- # Colorscheme
+
+-- ## Onedarker
 -- lvim.colorscheme = "onedarker"
+
+-- ## Neodarker
 lvim.colorscheme = "neodarker"
 -- require("neodarker").setup()
 -- vim.colorscheme = "neodarker"
 
 -- require("neodarker").setup()
 -- lvim.builtin.lualine.options.theme = "onedark"
+
+
+-- ## Others
 -- lvim.colorscheme = "gruvbox"
 -- lvim.colorscheme = "tokyonight"
--- lvim.colorscheme = "vscode"
 
--- Vscode {{{
+-- ## Vscode {{{
+
+-- lvim.colorscheme = "vscode"
 
 -- Switching theme
 -- :lua require('vscode').change_style("light")

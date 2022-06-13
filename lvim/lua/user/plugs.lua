@@ -93,9 +93,7 @@ lvim.plugins = {
     },
     -- # Additional
     -- ## Colorschemes
-    -- Tokyonight
     { "folke/tokyonight.nvim" },
-    -- Gruvbox
     { "ellisonleao/gruvbox.nvim" },
     { 'Mofiqul/vscode.nvim' },
     {
@@ -108,7 +106,6 @@ lvim.plugins = {
                 end
             end)
         end,
-        disable = lvim.colorscheme ~= "neodarker",
     },
     -- ## Use
     -- Harpoon
