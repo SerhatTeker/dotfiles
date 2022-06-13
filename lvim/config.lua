@@ -1,8 +1,8 @@
 -- Core
 require("user.options")
 require("user.mappings")
-require("user.plugs")
 require("user.theme")
+require("user.plugs")
 -- Plugins Core
 require("user.plugins.alpha")
 require("user.plugins.navigator")
