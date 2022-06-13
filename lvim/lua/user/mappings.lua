@@ -10,19 +10,23 @@ vim.g.mapleader = ","
 
 -- one key stroke less
 -- lvim.keys.normal_mode[";"] = ":"
-vim.keymap.set('n', ";", ":")
+vim.keymap.set("n", ";", ":")
+
+-- " noh - no highlight with Esc
+-- vim.keymap.set("n", "<esc>", ":noh <CR>")
+vim.api.nvim_set_keymap("n", "<Esc>", "<CMD>noh<CR>", { expr = false, noremap = false })
 
 -- use the default vim behavior for H and L
 lvim.keys.normal_mode["<S-l>"] = false
 lvim.keys.normal_mode["<S-h>"] = false
 
 -- Shortcuts for qa
-vim.api.nvim_create_user_command('Q', 'qa', { force = true })
-vim.api.nvim_create_user_command('WQ', 'wqa', { force = true })
+vim.api.nvim_create_user_command("Q", "qa", { force = true })
+vim.api.nvim_create_user_command("WQ", "wqa", { force = true })
 
 -- Buffers
 -- command
-vim.api.nvim_create_user_command('BufCurOnly', '%bdelete|edit#|bdelete#', { force = true })
+vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { force = true })
 -- mappings
 lvim.keys.normal_mode["<S-n>"] = ":bn<CR>"
 lvim.keys.normal_mode["<S-m>"] = ":bp<CR>"
