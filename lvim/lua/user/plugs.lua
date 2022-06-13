@@ -94,8 +94,9 @@ lvim.plugins = {
     -- # Additional
     -- ## Colorschemes
     { "folke/tokyonight.nvim" },
-    { "ellisonleao/gruvbox.nvim" },
-    { 'Mofiqul/vscode.nvim' },
+    { "Mofiqul/vscode.nvim" },
+    -- { "ellisonleao/gruvbox.nvim" }, -- alternative gruvbox
+    { "sainnhe/gruvbox-material" },
     {
         "SerhatTeker/neodarker.nvim",
         config = function()

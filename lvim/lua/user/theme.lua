@@ -1,19 +1,27 @@
--- # Colorscheme
-
--- ## Onedarker
--- lvim.colorscheme = "onedarker"
+-- # Colorschemes
 
 -- ## Neodarker
-lvim.colorscheme = "neodarker"
+-- lvim.colorscheme = "neodarker"
 -- require("neodarker").setup()
 -- vim.colorscheme = "neodarker"
 
 -- require("neodarker").setup()
 -- lvim.builtin.lualine.options.theme = "onedark"
 
-
--- ## Others
+-- ## Gruvbox
 -- lvim.colorscheme = "gruvbox"
+
+-- ## Gruvbox Material
+-- NOTE: the configuration options should be placed before `colorscheme gruvbox-material`
+
+-- hard | medium | soft
+vim.api.nvim_set_var("gruvbox_material_background", "hard")
+-- material | mix | original
+vim.api.nvim_set_var("gruvbox_material_foreground", "original")
+
+lvim.colorscheme = "gruvbox-material"
+
+-- ## Tokyonight
 -- lvim.colorscheme = "tokyonight"
 
 -- ## Vscode {{{
@@ -29,7 +37,9 @@ if lvim.colorscheme ~= "vscode" then
 end
 -- }}}
 
--- Onedarker {{{
+-- ## Onedarker {{{
+
+-- lvim.colorscheme = "onedarker"
 
 -- local C = require("onedarker.palette")
 -- local colors = {
