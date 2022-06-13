@@ -1,7 +1,7 @@
 -- # Colorschemes
 
 -- ## Neodarker
--- lvim.colorscheme = "neodarker"
+lvim.colorscheme = "neodarker"
 -- require("neodarker").setup()
 -- vim.colorscheme = "neodarker"
 
@@ -15,11 +15,11 @@
 -- NOTE: the configuration options should be placed before `colorscheme gruvbox-material`
 
 -- hard | medium | soft
-vim.api.nvim_set_var("gruvbox_material_background", "hard")
--- material | mix | original
-vim.api.nvim_set_var("gruvbox_material_foreground", "original")
+-- vim.api.nvim_set_var("gruvbox_material_background", "hard")
+-- -- material | mix | original
+-- vim.api.nvim_set_var("gruvbox_material_foreground", "original")
 
-lvim.colorscheme = "gruvbox-material"
+-- lvim.colorscheme = "gruvbox-material"
 
 -- ## Tokyonight
 -- lvim.colorscheme = "tokyonight"
