@@ -2,6 +2,8 @@
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 local _, actions = pcall(require, "telescope.actions")
+local _, action_layout = pcall(require, "telescope.actions.layout")
+
 lvim.builtin.telescope.defaults.mappings = {
     -- for input mode
     i = {
@@ -9,11 +11,13 @@ lvim.builtin.telescope.defaults.mappings = {
         ["<C-k>"] = actions.move_selection_previous,
         ["<C-n>"] = actions.cycle_history_next,
         ["<C-p>"] = actions.cycle_history_prev,
+        ["?"] = action_layout.toggle_preview,
     },
     -- for normal mode
     n = {
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
+        ["?"] = action_layout.toggle_preview,
     },
 }
 
