@@ -1,7 +1,7 @@
 local ll = lvim.builtin.lualine
 
 -- ## Style
-ll.style = "default"
+ll.style = "lvim"
 
 -- # Snippets {{{
 
@@ -31,7 +31,7 @@ end
 
 -- }}}
 
--- # Sections {{{
+-- # Styles {{{
 
 -- ## Default
 if ll.style == "default" then
@@ -63,3 +63,34 @@ if ll.style == "default" then
     -- }
     -- }}}
 end
+
+if ll.style == "lvim" then
+    local components = require "lvim.core.lualine.components"
+
+    ll.sections = {
+        lualine_a = {
+            components.mode,
+        },
+        lualine_b = {
+            components.branch,
+        },
+        lualine_c = {
+            components.diff,
+            components.filename,
+            components.python_env,
+        },
+        lualine_x = {
+            components.diagnostics,
+            -- components.treesitter,
+            -- components.lsp,
+            components.filetype,
+            "fileformat",
+            "encoding",
+        },
+        lualine_y = {},
+        lualine_z = { "location" },
+    }
+    ll.tabline = {}
+    ll.extensions = { "nvim-tree" }
+end
+-- }}}
