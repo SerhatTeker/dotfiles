@@ -1,18 +1,7 @@
 local ll = lvim.builtin.lualine
 
--- # Core {{{
-
 -- ## Style
 ll.style = "default"
-
--- ## Separators
--- ### default
--- ll.options.section_separators = { left = "", right = "" }
--- ll.options.component_separators = { left = "", right = "" }
--- ### lightline-like
-ll.options.section_separators = { left = "", right = "" }
-ll.options.component_separators = { left = "|", right = "|" }
--- }}}
 
 -- # Snippets {{{
 
@@ -44,22 +33,33 @@ end
 
 -- # Sections {{{
 
-ll.sections = {
-    lualine_a = { "mode" },
-    lualine_b = { "branch", "diff" },
-    lualine_c = { "filename" },
-    -- lualine_c = { "%f" }, -- relative full filename
-    -- lualine_c = { custom_fname },
-    lualine_x = { "diagnostics" },
-    lualine_y = { "filetype", "fileformat", "encoding" },
-    lualine_z = { "location" },
-}
+-- ## Default
+if ll.style == "default" then
+    -- ### Separators
+    -- #### default
+    -- ll.options.section_separators = { left = "", right = "" }
+    -- ll.options.component_separators = { left = "", right = "" }
+    -- #### lightline-like
+    ll.options.section_separators = { left = "", right = "" }
+    ll.options.component_separators = { left = "|", right = "|" }
 
--- lvim-like lualine_b
--- ll.sections.lualine_b = {
---     { 'branch', icon = '' },
---     { "diff",
---         symbols = { added = "  ", modified = " ", removed = " " },
---     },
--- }
--- }}}
+    ll.sections = {
+        lualine_a = { "mode" },
+        lualine_b = { "branch", "diff" },
+        lualine_c = { "filename" },
+        -- lualine_c = { "%f" }, -- relative full filename
+        -- lualine_c = { custom_fname },
+        lualine_x = { "diagnostics" },
+        lualine_y = { "filetype", "fileformat", "encoding" },
+        lualine_z = { "location" },
+    }
+
+    -- ## lvim-like lualine_b
+    -- ll.sections.lualine_b = {
+    --     { 'branch', icon = '' },
+    --     { "diff",
+    --         symbols = { added = "  ", modified = " ", removed = " " },
+    --     },
+    -- }
+    -- }}}
+end
