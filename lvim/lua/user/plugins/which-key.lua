@@ -21,6 +21,7 @@ wk.vopts = {
 -- ## Defaults
 -- lvim.builtin.which_key.mappings["f"] = { require("lvim.core.telescope.custom-finders").find_project_files, "Find File" }
 wk.mappings["f"] = { require("lvim.lsp.utils").format, "Format" }
+wk.mappings["D"] = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" }
 
 -- ## Persistence
 -- restore the session for the current directory
