@@ -14,22 +14,6 @@ ll.options.section_separators = { left = "", right = "" }
 ll.options.component_separators = { left = "|", right = "|" }
 -- }}}
 
--- # Theme {{{
-
--- ## Theme
--- ll.options.theme = conedark
-
--- ## Custom Onedark
--- local conedark = require('lualine.themes.onedark')
-
--- -- switch normal and insert mode colors
--- local onedark_blue = conedark.insert.a.bg
--- local onedark_green = conedark.normal.a.bg
-
--- conedark.normal.a.bg = onedark_blue
--- conedark.insert.a.bg = onedark_green
--- }}}
-
 -- # Snippets {{{
 
 -- ## Changing filename color based on modified status
