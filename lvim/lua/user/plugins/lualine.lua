@@ -1,6 +1,23 @@
 local ll = lvim.builtin.lualine
 
+-- # Core {{{
+
+-- ## Style
+ll.style = "default"
+
+-- ## Separators
+-- ### default
+-- ll.options.section_separators = { left = "", right = "" }
+-- ll.options.component_separators = { left = "", right = "" }
+-- ### lightline-like
+ll.options.section_separators = { left = "", right = "" }
+ll.options.component_separators = { left = "|", right = "|" }
+-- }}}
+
 -- # Theme {{{
+
+-- ## Theme
+-- ll.options.theme = conedark
 
 -- ## Custom Onedark
 -- local conedark = require('lualine.themes.onedark')
@@ -11,23 +28,6 @@ local ll = lvim.builtin.lualine
 
 -- conedark.normal.a.bg = onedark_blue
 -- conedark.insert.a.bg = onedark_green
--- }}}
-
--- # Core {{{
-
--- ## Style
-ll.style = "default"
-
--- ## Theme
--- ll.options.theme = conedark
-
--- ## Separators
--- ### default
--- ll.options.section_separators = { left = "", right = "" }
--- ll.options.component_separators = { left = "", right = "" }
--- ### lightline-like
-ll.options.section_separators = { left = "", right = "" }
-ll.options.component_separators = { left = "|", right = "|" }
 -- }}}
 
 -- # Snippets {{{
