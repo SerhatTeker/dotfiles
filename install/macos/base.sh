@@ -26,6 +26,22 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 source "${ROOT}/common.sh"
 
 
+# INFO: Not using since not working inside tmux
+# Enable Touch ID for sudo
+# Separate pam module needed for tmux
+# https://github.com/fabianishere/pam_reattach
+touch_id_sudo(){
+    sudo tee /etc/pam.d/sudo &>/dev/null <<EOF
+# sudo: auth account password session
+auth       sufficient     pam_tid.so
+auth       sufficient     pam_smartcard.so
+auth       required       pam_opendirectory.so
+account    required       pam_permit.so
+password   required       pam_deny.so
+session    required       pam_permit.so
+EOF
+}
+
 dark_mode_notify() {
     ln -sf ${DOTFILES}/os/macos/bin/adapt_term_bg_macos ${XDG_BIN_HOME}
 
