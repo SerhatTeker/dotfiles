@@ -129,4 +129,8 @@ lvim.plugins = {
         "simrat39/symbols-outline.nvim",
         cmd = "SymbolsOutline",
     },
+    {
+        "nvim-treesitter/playground",
+        event = "BufRead",
+    },
 }
