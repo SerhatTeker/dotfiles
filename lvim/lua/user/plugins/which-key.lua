@@ -1,6 +1,8 @@
 -- # Which Key
 local wk = lvim.builtin.which_key
 
+wk.setup.plugins.presets.text_objects = true
+
 wk.opts = {
     mode = "n", -- NORMAL mode
     prefix = "<space>",
