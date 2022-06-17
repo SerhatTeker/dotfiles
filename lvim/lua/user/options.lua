@@ -11,6 +11,9 @@ vim.opt.softtabstop = 4 -- how many columns (=spaces) the cursor moves right whe
 vim.opt.foldenable = false -- disable folding on open
 vim.opt.foldmethod = "expr" -- folding set to "expr" for treesitter based folding
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
+-- git diff
+vim.opt.diffopt:append { "vertical" } -- internal, filler, closeoff, vertical
+
 
 -- # LunarVim
 lvim.log.level = "warn"

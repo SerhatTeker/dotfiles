@@ -19,8 +19,6 @@ vim.api.nvim_set_keymap("n", "<leader>m3", "<cmd>diffget //3<cr>", opts)
 -- With <!> left to right, and focus on current
 -- TIP: Therefore close with <C-W><C-O>, not :diffoff
 vim.api.nvim_set_keymap("n", "<leader>d", "<cmd>Gdiffsplit<cr>", opts)
--- always open diffs vertical
-vim.opt.diffopt = "vertical"
 
 -- Show History
 vim.api.nvim_set_keymap("n", "<leader>HH", "<cmd>Gclog<cr>", opts)
