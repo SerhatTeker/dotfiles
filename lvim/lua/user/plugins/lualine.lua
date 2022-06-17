@@ -73,10 +73,11 @@ if ll.style == "lvim" then
         },
         lualine_b = {
             components.branch,
+            components.diff,
         },
         lualine_c = {
-            components.diff,
-            components.filename,
+            -- components.filename,
+            { "%f%" }, -- relative path
             components.python_env,
         },
         lualine_x = {
