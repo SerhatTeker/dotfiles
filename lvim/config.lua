@@ -15,6 +15,7 @@ require("user.plugins.lualine")
 require("user.plugins.bufferline")
 require("user.plugins.fugitive")
 require("user.plugins.trouble")
+require("user.plugins.tree-sitter")
 -- Plugins Additional
 require("user.plugins.harpoon")
 -- require("user.plugins.shade")
