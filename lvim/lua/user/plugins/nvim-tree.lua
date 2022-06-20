@@ -5,7 +5,16 @@ nt.setup.view.side = "left"
 -- indent markers
 nt.setup.renderer.indent_markers.enable = true
 -- diagnostics icons
-nt.setup.diagnostics.enable = true
+nt.setup.diagnostics = {
+    enable = false,
+    show_on_dirs = false,
+    icons = {
+        hint = "",
+        info = "",
+        warning = "",
+        error = "",
+    },
+}
 
 -- Ingore/Exclude directories/files patterns
 -- https://github.com/kyazdani42/nvim-tree.lua/issues/824
