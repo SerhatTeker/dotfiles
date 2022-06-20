@@ -133,6 +133,13 @@ lvim.plugins = {
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { "p00f/nvim-ts-rainbow" },
     {
+        "windwp/nvim-ts-autotag",
+        -- event = "InsertEnter", -- INFO: not working
+        config = function()
+            require("nvim-ts-autotag").setup()
+        end,
+    },
+    {
         "nvim-treesitter/playground",
         event = "BufRead",
     },

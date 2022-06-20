@@ -8,6 +8,7 @@ ts.ensure_installed = {
     "c",
     "css",
     "go",
+    "html",
     "java",
     "javascript",
     "json",
@@ -19,6 +20,7 @@ ts.ensure_installed = {
     "yaml",
 }
 
+-- Textobjects
 ts.textobjects = {
     select = {
         enable = true,
@@ -38,9 +40,16 @@ ts.textobjects = {
     },
 }
 
+-- Rainbow
 ts.rainbow = {
     enable = true,
     disable = { "python" }, -- list of languages you want to disable the plugin for
     extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
     max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
 }
+
+-- Autotag
+ts.autotag.enable = true
+-- ts.autotag = {
+--     enable = true,
+-- }
