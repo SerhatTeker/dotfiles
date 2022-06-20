@@ -131,6 +131,7 @@ lvim.plugins = {
     },
     -- Treesitter
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    { "p00f/nvim-ts-rainbow" },
     {
         "nvim-treesitter/playground",
         event = "BufRead",
