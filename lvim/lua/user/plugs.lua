@@ -5,7 +5,6 @@ lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = false
 lvim.builtin.dap.active = true -- (default: false)
 
-
 -- Additional Plugins
 lvim.plugins = {
     -- # Core
