@@ -149,7 +149,7 @@ lvim.plugins = {
     { "p00f/nvim-ts-rainbow" },
     {
         "windwp/nvim-ts-autotag",
-        -- event = "InsertEnter", -- INFO: not working
+        event = "InsertEnter",
         config = function()
             require("nvim-ts-autotag").setup()
         end,

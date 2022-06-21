@@ -51,6 +51,3 @@ ts.rainbow = {
 
 -- Autotag
 ts.autotag.enable = true
--- ts.autotag = {
---     enable = true,
--- }
