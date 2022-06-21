@@ -84,8 +84,6 @@ if [[ "${OSTYPE}" == "linux-gnu"* ]]; then
         eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     fi
 elif [[ "${OSTYPE}" == "darwin"* ]]; then
-    # Warning: /usr/bin occurs before $HOME/.homebrew/bin in your PATH. This
-    # means that system-provided programs will be used instead of thoseprov
     if [ -d "$HOME/.homebrew/bin" ]; then
         eval "$(${HOME}/.homebrew/bin/brew shellenv)"
     fi

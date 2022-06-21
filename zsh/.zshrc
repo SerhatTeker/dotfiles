@@ -317,4 +317,18 @@ fi
 # Overrides defaults if there are any
 [ -f ${ZDOTDIR}/.zsh.local ] && source ${ZDOTDIR}/.zsh.local
 # }}}2
+
+# Homebrew {{{
+
+# NOTE: Keep it last
+# Use homebrew bins instead of system-provided
+# Warning: /usr/bin occurs before $HOME/.homebrew/bin in your PATH. This
+# means that system-provided programs will be used instead of those
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+    if [ -d "${HOME}/.homebrew/bin" ]; then
+        # export PATH="${HOME}/.homebrew/bin"     # old way prepend
+        path=("${HOME}/.homebrew/bin" $path)            # zsh way prepend
+    fi
+fi
+# }}}
 # }}}1
