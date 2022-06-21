@@ -32,6 +32,7 @@ formatters.setup {
         --By default a providers will attach to all the filetypes it supports.
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
     },
+    { command = "shfmt", filetypes = { "sh" } },
 }
 
 -- Additional linters
