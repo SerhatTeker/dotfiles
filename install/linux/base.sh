@@ -18,13 +18,11 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
 # Locate the root directory
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # shellcheck source=scripts/common.sh
 source "${ROOT}/common.sh"
-
 
 install_apts() {
     sudo apt update
@@ -37,6 +35,7 @@ install_apts() {
         fd-find \
         ripgrep \
         shellcheck \
+        shfmt \
         unzip
 
     # https://github.com/sharkdp/fd#on-debian
@@ -48,7 +47,6 @@ install_snaps() {
         multipass
 }
 
-
 # Security {{{
 
 # TODO: Check if already disabled
@@ -56,18 +54,17 @@ install_snaps() {
 disable_core_dumps() {
     local file=/etc/security/limits.conf
     printf \
-        "* hard core 0\n* soft core 0" \
-        | sudo tee -a /etc/security/limits.conf
+        "* hard core 0\n* soft core 0" |
+        sudo tee -a /etc/security/limits.conf
 
     # Make sure the Linux prevents setuid and setgid programs from dumping core to
     printf \
-        "fs.suid_dumpable=0\nkernel.core_pattern=|/bin/false" \
-        | sudo tee -a /etc/sysctl.conf
+        "fs.suid_dumpable=0\nkernel.core_pattern=|/bin/false" |
+        sudo tee -a /etc/sysctl.conf
     # Activate changes
     sudo sysctl -p /etc/sysctl.conf
 }
 # }}}
-
 
 main() {
     info "Started base ${OSTYPE}"
@@ -81,5 +78,5 @@ main() {
     success "Finished base ${OSTYPE}"
 }
 
-# main
-install_apts
+main
+# install_apts
