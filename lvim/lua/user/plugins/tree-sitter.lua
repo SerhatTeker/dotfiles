@@ -13,6 +13,7 @@ ts.ensure_installed = {
     "javascript",
     "json",
     "lua",
+    "markdown",
     "python",
     "rust",
     "typescript",
