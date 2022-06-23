@@ -25,6 +25,7 @@ wk.vopts = {
 wk.mappings["f"] = { require("lvim.lsp.utils").format, "Format" }
 wk.mappings["D"] = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" }
 
+
 -- ## Persistence
 -- restore the session for the current directory
 wk.mappings["S"] = {
@@ -36,3 +37,11 @@ wk.mappings["S"] = {
 
 -- ## SymbolsOutline
 wk.mappings["o"] = { "<cmd>SymbolsOutline<CR>", "Outline" }
+
+-- ## Project Files
+wk.mappings["F"] = {
+    require("lvim.core.telescope.custom-finders").find_project_files, "Find File"
+}
+
+-- ## Helps
+wk.mappings["h"] = { "<cmd>Telescope help_tags<cr>", "Help" }
