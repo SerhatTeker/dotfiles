@@ -21,34 +21,32 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
 # Locate the root directory
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
-
 # Link all configs
 dot_configs() {
     declare -a arr=(
-            "alacritty"
-            "bat"
-            "git"
-            "gh"
-            "httpie"
-            "i3"
-            "lsd"
-            "rg"
-            "node"
-            "nvim"
-            "rofi"
-            "tmux"
-            "zsh"
+        "alacritty"
+        "bat"
+        "git"
+        "gh"
+        "fd"
+        "httpie"
+        "i3"
+        "lsd"
+        "rg"
+        "node"
+        "nvim"
+        "rofi"
+        "tmux"
+        "zsh"
     )
 
-    for dir in "${arr[@]}"
-    do
+    for dir in "${arr[@]}"; do
         force_remove "${DOTFILES}/${dir}" "${XDG_CONFIG_HOME}/${dir}"
     done
 
@@ -90,7 +88,6 @@ containers() {
     force_remove "${DOTFILES}/kube" "${XDG_CONFIG_HOME}/kube"
     # msg_cli green "Containers linked"
 }
-
 
 main() {
     dot_configs
