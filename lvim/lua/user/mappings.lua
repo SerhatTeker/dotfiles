@@ -67,6 +67,18 @@ map("n", "<Esc>", "<CMD>noh<CR>", { expr = false, noremap = false })
 map("n", "<F3>", "<CMD>set foldmethod=marker<CR>", { silent = false })
 
 -- Packer
-map("n", "<F12>", "<CMD>PackerCompile<CR>", { silent = false })
+-- map("n", "<F12>", "<CMD>PackerCompile<CR>", { silent = false })
+map("n", "<F12>", "", {
+    silent = false,
+    noremap = true,
+    callback = function()
+        print(":PackerInstall && :PackerCompile")
+        require("packer").install()
+        require("packer").compile("profile=true")
+    end,
+    -- Since Lua function don't have a useful string representation, use the
+    -- "desc" option to document your mapping. Showing on telescope as well.
+    desc = "Runs :PackerInstall and :PackerCompile",
+})
 -- }}}
 -- }}}
