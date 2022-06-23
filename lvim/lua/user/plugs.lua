@@ -8,6 +8,20 @@ lvim.builtin.dap.active = true -- (default: false)
 -- Additional Plugins
 lvim.plugins = {
     -- # Core
+    -- ## Treesitter
+    { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    { "p00f/nvim-ts-rainbow" },
+    {
+        "windwp/nvim-ts-autotag",
+        event = "InsertEnter",
+        config = function()
+            require("nvim-ts-autotag").setup()
+        end,
+    },
+    {
+        "nvim-treesitter/playground",
+        event = "BufRead",
+    },
     -- Trouble
     {
         "folke/trouble.nvim",
@@ -90,6 +104,7 @@ lvim.plugins = {
             require("todo-comments").setup()
         end,
     },
+
     -- # Additional
     -- ## Colorschemes
     { "folke/tokyonight.nvim" },
@@ -144,7 +159,6 @@ lvim.plugins = {
             })
         end,
     },
-    -- ## Code runners
     {
         "CRAG666/code_runner.nvim",
         requires = "nvim-lua/plenary.nvim",
@@ -164,18 +178,17 @@ lvim.plugins = {
             vim.api.nvim_set_keymap("n", "<F10>", "<CMD>RunCode<CR>", { silent = false })
         end
     },
-    -- ## Treesitter
-    { 'nvim-treesitter/nvim-treesitter-textobjects' },
-    { "p00f/nvim-ts-rainbow" },
     {
-        "windwp/nvim-ts-autotag",
-        event = "InsertEnter",
+        "lukas-reineke/indent-blankline.nvim",
         config = function()
-            require("nvim-ts-autotag").setup()
-        end,
-    },
-    {
-        "nvim-treesitter/playground",
-        event = "BufRead",
+            require("indent_blankline").setup({
+                show_current_context = true,
+                -- show_current_context_start = true,
+                filetype_exclude = {
+                    "lspinfo", "packer", "checkhealth", "help", "man", "",
+                    "python", "go",
+                }
+            })
+        end
     },
 }
