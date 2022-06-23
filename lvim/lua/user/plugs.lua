@@ -144,7 +144,46 @@ lvim.plugins = {
             })
         end,
     },
-    -- Treesitter
+    -- ## Code runners
+    {
+        "CRAG666/code_runner.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            require("code_runner").setup({
+                -- choose default mode (valid term, tab, float, toggle)
+                mode = "term",
+                filetype = {
+                    python = "python3 -u",
+                    sh = "bash",
+                    typescript = "deno run",
+                    java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
+                    csharp = "cd $dir && mcs $fileName && mono $fileNameWithoutExt.exe",
+                    rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt"
+                },
+            })
+            vim.api.nvim_set_keymap("n", "<F10>", "<CMD>RunCode<CR>", { silent = false })
+        end
+    },
+    -- Sniprun
+    -- Runs part of code, Requires rust toolchain and cargo.
+    -- {
+    --     "michaelb/sniprun",
+    --     run = "bash ./install.sh",
+    --     config = function()
+    --         require("sniprun").setup({
+    --             selected_interpreters = { "Python3_original", "Lua_nvim" },
+    --             repl_enable = { "Python3_original" },
+    --             -- display = { "TerminalWithCode" },
+    --             -- display = { "Classic", "VirtualTextOK", "NvimNotify" },
+    --             display = {
+    --                 "VirtualTextOk",
+    --                 "VirtualTextErr",
+    --                 "TempFloatingWindow"
+    --             },
+    --         })
+    --     end
+    -- },
+    -- ## Treesitter
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { "p00f/nvim-ts-rainbow" },
     {
