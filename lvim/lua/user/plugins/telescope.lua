@@ -1,8 +1,31 @@
--- Telescope
--- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
--- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
-local _, actions = pcall(require, "telescope.actions")
-local _, action_layout = pcall(require, "telescope.actions.layout")
+-- # Telescope
+
+-- ## Pickers {{{
+
+-- Default lvim `hidden` not working, maybe due to `fd` version
+lvim.builtin.telescope.pickers = {
+    find_files = {
+        hidden = true,
+        find_command = {
+            "fd", "--hidden", "--type", "f", "--strip-cwd-prefix"
+        },
+    },
+    live_grep = {
+        --@usage don't include the filename in the search results
+        only_sort_text = true,
+    },
+}
+-- }}}
+
+-- ## Mappings {{{
+
+-- Core {{{
+
+-- Change Telescope navigation to use j and k for navigation and n and p for
+-- history in both input and normal mode. we use protected-mode (pcall) just in
+-- case the plugin wasn't loaded yet.
+local actions = require("telescope.actions")
+local action_layout = require("telescope.actions.layout")
 
 lvim.builtin.telescope.defaults.mappings = {
     -- for input mode
@@ -23,21 +46,23 @@ lvim.builtin.telescope.defaults.mappings = {
 
 local opts = { noremap = true, silent = true }
 
--- Core
 vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>Telescope find_files<CR>", opts)
 vim.api.nvim_set_keymap("n", "<C-f>", "<CMD>Telescope live_grep<CR>", opts)
 vim.api.nvim_set_keymap("n", "<S-b>", "<CMD>Telescope buffers<CR>", opts)
+-- }}}
 
--- Git
+-- Git {{{
+
 vim.api.nvim_set_keymap("n", "<leader>gb", "<CMD>Telescope git_branches<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>gc", "<CMD>Telescope git_commits<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>gx", "<CMD>Telescope git_bcommits<CR>", opts)
+-- }}}
 
--- Which key
--- Use which-key to add extra bindings with the leader-key prefix
+-- Which key {{{
+
 lvim.builtin.which_key.mappings["t"] = {
     name = "Telescope",
-    p = { "<CMD>Telescope find_files<CR>", "Files" },
+    p = { require("lvim.core.telescope.custom-finders").find_project_files, "Files" },
     f = { "<CMD>Telescope live_grep<CR>", "Find" },
     b = { "<CMD>Telescope buffers<CR>", "Buffers" },
     d = { "<CMD>Telescope diagnostics<CR>", "Diagnostics" },
@@ -50,3 +75,5 @@ lvim.builtin.which_key.mappings["t"] = {
     gc = { "<CMD>Telescope git_commits<CR>", "Commits" },
     gx = { "<CMD>Telescope git_bcommits<CR>", "Commits Buffer" },
 }
+-- }}}
+-- }}}
