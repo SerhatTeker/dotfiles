@@ -15,6 +15,18 @@ lvim.builtin.telescope.pickers = {
         only_sort_text = true,
     },
 }
+
+-- }}}
+
+-- ## Prefix {{{
+
+-- -- default lvim ones
+-- prompt_prefix = " ",
+-- selection_caret = " ",
+
+-- -- fzf-like
+-- lvim.builtin.telescope.defaults.prompt_prefix = "> "
+-- lvim.builtin.telescope.defaults.selection_caret = "> "
 -- }}}
 
 -- ## Mappings {{{
