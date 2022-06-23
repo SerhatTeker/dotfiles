@@ -164,25 +164,6 @@ lvim.plugins = {
             vim.api.nvim_set_keymap("n", "<F10>", "<CMD>RunCode<CR>", { silent = false })
         end
     },
-    -- Sniprun
-    -- Runs part of code, Requires rust toolchain and cargo.
-    -- {
-    --     "michaelb/sniprun",
-    --     run = "bash ./install.sh",
-    --     config = function()
-    --         require("sniprun").setup({
-    --             selected_interpreters = { "Python3_original", "Lua_nvim" },
-    --             repl_enable = { "Python3_original" },
-    --             -- display = { "TerminalWithCode" },
-    --             -- display = { "Classic", "VirtualTextOK", "NvimNotify" },
-    --             display = {
-    --                 "VirtualTextOk",
-    --                 "VirtualTextErr",
-    --                 "TempFloatingWindow"
-    --             },
-    --         })
-    --     end
-    -- },
     -- ## Treesitter
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { "p00f/nvim-ts-rainbow" },
