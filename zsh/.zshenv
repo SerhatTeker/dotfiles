@@ -77,6 +77,13 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
     fi
 fi
 
+# Rust
+if [ -d "${HOME}/rust/.cargo" ]; then
+    export RUSTUP_HOME="${HOME}/rust/.rustup"
+    export CARGO_HOME="${HOME}/rust/.cargo"
+    source "/Users/serhat/rust/.cargo/env"
+fi
+
 # Homebrew {{{
 
 if [[ "${OSTYPE}" == "linux-gnu"* ]]; then
