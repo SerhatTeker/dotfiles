@@ -95,4 +95,4 @@ main() {
     kill Dock
 }
 
-# main "$@"
+main "$@"
