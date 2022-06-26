@@ -18,19 +18,17 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
 # Locate the root directory
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # shellcheck source=scripts/common.sh
 source "${ROOT}/common.sh"
-
 
 # INFO: Not using since not working inside tmux
 # Enable Touch ID for sudo
 # Separate pam module needed for tmux
 # https://github.com/fabianishere/pam_reattach
-touch_id_sudo(){
+touch_id_sudo() {
     sudo tee /etc/pam.d/sudo &>/dev/null <<EOF
 # sudo: auth account password session
 auth       sufficient     pam_tid.so
@@ -43,22 +41,22 @@ EOF
 }
 
 dark_mode_notify() {
-    ln -sf ${DOTFILES}/os/macos/bin/adapt_term_bg_macos ${XDG_BIN_HOME}
+    ln -sf "${DOTFILES}/os/macos/bin/adapt_term_bg_macos" "${XDG_BIN_HOME}"
 
-    swiftc ${DOTFILES}/os/macos/dark-mode-notify.swift \
+    swiftc "${DOTFILES}/os/macos/dark-mode-notify.swift" \
         -o /tmp/dark-mode-notify
     sudo cp /tmp/dark-mode-notify /usr/local/bin
 
-    ln -sf ${DOTFILES}/os/macos/com.serhatteker.dark-mode-notify.plist \
-        ${HOME}/Library/LaunchAgents
+    ln -sf "${DOTFILES}/os/macos/com.serhatteker.dark-mode-notify.plist" \
+        "${HOME}/Library/LaunchAgents"
 
     launchctl load -w "${HOME}/Library/LaunchAgents/com.serhatteker.dark-mode-notify.plist"
 }
 
-
 main() {
     info "Started base ${OSTYPE}"
 
+    bash "${ROOT}/macos/defaults.sh"
     bash "${ROOT}/macos/brew.sh"
     dark_mode_notify
 

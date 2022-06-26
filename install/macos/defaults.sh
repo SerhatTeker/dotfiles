@@ -41,14 +41,14 @@ keyboard() {
     defaults write com.apple.Accessibility KeyRepeatEnabled -bool true
 
     # Set a really fast initial and subsequent key repeat
-    defaults write -g KeyRepeat -int 1          # normal minimum is 2 (30 ms)
-    defaults write -g InitialKeyRepeat -int 10  # normal minimum is 15 (225 ms)
+    defaults write -g KeyRepeat -int 1         # normal minimum is 2 (30 ms)
+    defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
 
     # Turn text completion off on touchbar (no need for that!)
     defaults write -g NSAutomaticTextCompletionEnabled -bool false
 }
 
-corners(){
+corners() {
     # Hot corners
     # Possible values:
     #  0: no-op
