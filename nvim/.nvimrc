@@ -437,6 +437,9 @@ vmap > >gv
 
 " Add behaviours {{{
 
+" Shortcut quit
+nnoremap Q :x<CR>
+
 " TODO: add up and down for slide the line
 noremap <Up> gk
 noremap <Down> gj
