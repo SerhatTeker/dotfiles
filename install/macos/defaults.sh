@@ -20,7 +20,6 @@ dock() {
     defaults write com.apple.dock "autohide" -bool "true"
     # MacBook Air
     defaults write com.apple.dock "tilesize" -int "42"
-    killall Dock
 }
 
 # TODO: find and write
@@ -72,26 +71,28 @@ corners() {
     defaults write com.apple.dock wvous-br-modifier -int 0
 }
 
-# INFO: Not used
-# TODO: find and write
 # Disable:
-# * rearrange spaces
+# * Re-arrange Spaces
 # * Group windows
 mission_control() {
-    echo
+    defaults write com.apple.dock "mru-spaces" -bool false
+    defaults write com.apple.dock expose-group-apps -bool false
 }
 
-# INFO: Not used
 desktop() {
     # Store screenshots in subfolder on desktop
-    mkdir ~/Desktop/Screenshots
-    defaults write com.apple.screencapture location ~/Desktop/Screenshots
+    local ss_dir="${HOME}/Desktop/screenshots"
+    mkdir "${ss_dir}"
+    defaults write com.apple.screencapture location "${ss_dir}"
 }
 
 main() {
     dock
     keyboard
     corners
+    mission_control
+    desktop
+    kill Dock
 }
 
-main
+# main "$@"
