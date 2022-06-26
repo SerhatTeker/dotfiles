@@ -54,10 +54,12 @@ end
 
 -- ## Keymappings {{{
 
-
 -- one key stroke less
 -- lvim.keys.normal_mode[";"] = ":"
 vim.keymap.set("n", ";", ":")
+
+-- quit
+map("n", "Q", "<cmd>x<CR>")
 
 -- " noh - no highlight with Esc
 -- vim.keymap.set("n", "<esc>", ":noh <CR>")
