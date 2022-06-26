@@ -80,5 +80,9 @@ map("n", "<F12>", "", {
     -- "desc" option to document your mapping. Showing on telescope as well.
     desc = "Runs :PackerInstall and :PackerCompile",
 })
+
+-- Tab
+map("n", "[t", "<CMD>tabnext<CR>", { silent = true })
+map("n", "]t", "<CMD>tabprevious<CR>", { silent = true })
 -- }}}
 -- }}}
