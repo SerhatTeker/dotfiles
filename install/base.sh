@@ -33,10 +33,19 @@ os_base() {
     fi
 }
 
+apps() {
+    info "Started apps installation"
+
+    local dir="${ROOT}/install"
+    bash "${dir}/apps/fd-find.sh"
+    bash "${dir}/apps/hugo.sh"
+}
+
 main() {
     info "Started base installation"
 
     os_base
+    apps
 
     local dir="${ROOT}/install"
     bash "${dir}/zsh.sh"
