@@ -2,17 +2,14 @@
 # -*- coding: utf-8 -*-
 # vim: set ft=sh et ts=4 sw=4 sts=4:
 
-
 # Install desired Gohugo to Linux or Mac ARM M1
 # Usage:
-# $ bash install-hugo
-
+# $ bash install/hugo.sh
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
 set -o nounset
 set -o pipefail
-
 
 HUGO_VERSION="0.97.0"
 
@@ -35,7 +32,7 @@ get_release() {
 }
 
 copy_bin() {
-    cp -v "${SOURCE_DIR}/hugo" ${DEST_DIR}
+    cp -v "${SOURCE_DIR}/hugo" "${DEST_DIR}"
     # with version
     # cp -v "${SOURCE_DIR}/hugo" "${DEST_DIR}/hugo_${HUGO_VERSION}"
 }
