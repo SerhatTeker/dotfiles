@@ -39,7 +39,7 @@ main() {
 
     # Ensure install
     command_exists cargo -V &&
-        success "Node installed at your system!"
+        success "Rust installed at your system!"
 }
 
 main "$@"
