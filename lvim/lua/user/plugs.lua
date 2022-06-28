@@ -5,6 +5,12 @@ lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = false
 lvim.builtin.dap.active = true -- (default: false)
 
+-- returns the require for use in `config` parameter of packer's use
+-- expects the name of the config file
+local function get_config(name)
+    return string.format('require("config/%s")', name)
+end
+
 -- Additional Plugins
 lvim.plugins = {
     -- # Core
