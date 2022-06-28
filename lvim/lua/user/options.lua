@@ -18,18 +18,6 @@ vim.opt.diffopt:append { "vertical" } -- internal, filler, closeoff, vertical
 lvim.log.level = "warn"
 lvim.use_icons = true
 lvim.transparent_window = false
--- Format files on save
--- lvim.format_on_save = false
-lvim.format_on_save = {
-    pattern = {
-        "*.go",
-        "*.js",
-        "*.jsx",
-        "*.lua",
-        "*.sh",
-        "*.vim",
-    },
-}
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "zsh",

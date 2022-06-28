@@ -12,6 +12,20 @@ vim.api.nvim_create_autocmd("CursorHold", {
 lvim.lsp.buffer_mappings.normal_mode["<leader>rn"] = { vim.lsp.buf.rename, "Rename" }
 
 -- Null-ls
+
+-- Format files on save
+-- lvim.format_on_save = false
+lvim.format_on_save = {
+    pattern = {
+        -- "*.go",
+        "*.js",
+        "*.jsx",
+        "*.lua",
+        "*.sh",
+        "*.vim",
+    },
+}
+
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
@@ -33,6 +47,7 @@ formatters.setup {
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
     },
     { command = "shfmt", filetypes = { "sh" } },
+    -- { command = "gofmt", filetypes = { "go" } },
 }
 
 -- Additional linters
