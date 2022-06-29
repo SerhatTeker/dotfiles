@@ -11,6 +11,10 @@ local function get_config(name)
     return string.format('require("config/%s")', name)
 end
 
+local function default_config(name)
+    return string.format('require("%s").setup()', name)
+end
+
 -- Additional Plugins
 lvim.plugins = {
     -- # Core
@@ -20,13 +24,22 @@ lvim.plugins = {
     {
         "windwp/nvim-ts-autotag",
         event = "InsertEnter",
-        config = function()
-            require("nvim-ts-autotag").setup()
-        end,
+        config = default_config("nvim-ts-autotag"),
     },
     {
         "nvim-treesitter/playground",
         event = "BufRead",
+    },
+
+    -- ## DAP
+    { "rcarriga/nvim-dap-ui",
+        config = default_config("dapui"),
+        requires = { "mfussenegger/nvim-dap" },
+
+    },
+    { "theHamsta/nvim-dap-virtual-text",
+        config = default_config("nvim-dap-virtual-text"),
+        requires = { "mfussenegger/nvim-dap" },
     },
     -- Trouble
     {
@@ -62,9 +75,7 @@ lvim.plugins = {
     -- Navigator
     {
         'numToStr/Navigator.nvim',
-        config = function()
-            require('Navigator').setup()
-        end,
+        config = default_config("Navigator"),
     },
     -- TPope/Fugitive
     {
@@ -106,9 +117,7 @@ lvim.plugins = {
     {
         "folke/todo-comments.nvim",
         event = "BufRead",
-        config = function()
-            require("todo-comments").setup()
-        end,
+        config = default_config("todo-comments"),
     },
 
     -- # Additional
@@ -136,9 +145,7 @@ lvim.plugins = {
     {
         "SerhatTeker/trim.nvim",
         event = "BufWritePre",
-        config = function()
-            require('trim').setup()
-        end,
+        config = default_config("trim"),
     },
     -- Shade, dim InactiveWindow
     -- INFO: Disabled, not working with sessions
@@ -221,17 +228,5 @@ lvim.plugins = {
         end,
         -- run = ":GoInstallBinaries",
         ft = { "go" },
-    },
-    -- { 'mfussenegger/nvim-dap' },
-    { 'rcarriga/nvim-dap-ui',
-        config = function()
-            require("dapui").setup()
-        end
-
-    },
-    { 'theHamsta/nvim-dap-virtual-text',
-        config = function()
-            require("nvim-dap-virtual-text").setup()
-        end
     },
 }
