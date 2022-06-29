@@ -1,7 +1,7 @@
 -- # dap install
 -- https://www.lunarvim.org/languages/python.html#debugger
-local dap_install = require("dap-install")
-dap_install.config("python", {})
+-- local dap_install = require("dap-install")
+-- dap_install.config("python", {})
 
 
 -- # dap
