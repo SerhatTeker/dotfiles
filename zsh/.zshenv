@@ -56,11 +56,6 @@ if [ -d "${XDG_LIB_HOME}/node/npm" ] ; then
     path+=("${XDG_LIB_HOME}/node/npm")
 fi
 
-# Rust
-if [ -f "${HOME}/.cargo/env" ] ; then
-    source "${HOME}/.cargo/env"
-fi
-
 # Python
 if [[ "${OSTYPE}" == "darwin"* ]]; then
     path+=("${HOME}/Library/Python/3.8/bin")
@@ -81,7 +76,7 @@ fi
 if [ -d "${HOME}/rust/.cargo" ]; then
     export RUSTUP_HOME="${HOME}/rust/.rustup"
     export CARGO_HOME="${HOME}/rust/.cargo"
-    source "/Users/serhat/rust/.cargo/env"
+    source "${HOME}/rust/.cargo/env"
 fi
 
 # Homebrew {{{
