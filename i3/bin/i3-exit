@@ -24,7 +24,7 @@ lock() {
 }
 
 all() {
-    chosen=$(echo -e "[Cancel]\nLogout\nShutdown\nReboot\nSuspend\nHibernate\nHybrid-sleep\nSuspend-then-hibernate" | rofi -dmenu -i)
+    chosen=$(echo -e "[Cancel]\nLogout\nShutdown\nReboot\nSuspend/Sleep\nHibernate\nHybrid-sleep\nSuspend-then-hibernate" | rofi -dmenu -i)
 
     # Info about some states are available here:
     # https://www.freedesktop.org/software/systemd/man/systemd-sleep.conf.html#Description
@@ -34,7 +34,7 @@ all() {
         logout-sync && systemctl poweroff
     elif [[ $chosen = "Reboot" ]]; then
         systemctl reboot
-    elif [[ $chosen = "Suspend" ]]; then
+    elif [[ $chosen = "Suspend/Sleep" ]]; then
         systemctl suspend
     elif [[ $chosen = "Hibernate" ]]; then
         systemctl hibernate
@@ -46,7 +46,7 @@ all() {
 }
 
 main() {
-    chosen=$(echo -e "[Cancel]\nLogout\nShutdown\nReboot\nSuspend" | rofi -dmenu -i)
+    chosen=$(echo -e "[Cancel]\nLogout\nShutdown\nReboot\nSuspend/Sleep" | rofi -dmenu -i)
 
     # Info about some states are available here:
     # https://www.freedesktop.org/software/systemd/man/systemd-sleep.conf.html#Description
@@ -57,7 +57,7 @@ main() {
         logout-sync && systemctl poweroff
     elif [[ $chosen = "Reboot" ]]; then
         systemctl reboot
-    elif [[ $chosen = "Suspend" ]]; then
+    elif [[ $chosen = "Suspend/Sleep" ]]; then
         systemctl suspend
     fi
 }
