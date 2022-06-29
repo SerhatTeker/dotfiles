@@ -219,7 +219,7 @@ lvim.plugins = {
             -- vim.api.nvim_exec([[ autocmd BufWritePre *.go :silent! lua require('go.format').goimport() ]], false)
             vim.api.nvim_exec([[ autocmd BufWritePre *.go :lua require('go.format').goimport() ]], false)
         end,
-        run = ":GoInstallBinaries",
+        -- run = ":GoInstallBinaries",
         ft = { "go" },
     },
     -- { 'mfussenegger/nvim-dap' },
@@ -230,7 +230,6 @@ lvim.plugins = {
 
     },
     { 'theHamsta/nvim-dap-virtual-text',
-
         config = function()
             require("nvim-dap-virtual-text").setup()
         end
