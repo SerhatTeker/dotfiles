@@ -41,7 +41,7 @@ lvim.colorscheme = "neodarker"
 -- :lua require('vscode').change_style("light")
 -- :lua require('vscode').change_style("dark")
 
-if lvim.colorscheme ~= "vscode" then
+if lvim.colorscheme == "vscode" then
     vim.g.vscode_style = "dark"
 end
 -- }}}
