@@ -1,41 +1,52 @@
 -- # Colorschemes
 
 
--- ## Neodarker
-lvim.colorscheme = "neodarker"
+-- Options
+-- lvim.colorscheme = "neodarker"   -- default
+
+lvim.colorscheme = "onedark"
+-- lvim.colorscheme = "gruvbox-material"
+-- lvim.colorscheme = "vscode"
+-- lvim.colorscheme = "tokyonight"
+
+-- ## Neodarker {{{
 
 -- require("neodarker").setup()
 -- vim.cmd [[colorscheme neodarker]]
 -- vim.colorscheme = "neodarker"
 -- lvim.builtin.lualine.options.theme = "onedark"
+-- }}}
 
--- ## Onedark
--- lvim.colorscheme = "onedark"
+-- ## Onedark {{{
 
--- require('onedark').setup {
---     style = "darker"
--- }
--- require("onedark").load()
+if lvim.colorscheme == "onedark" then
+    require('onedark').setup {
+        style = "darker"
+    }
+    require("onedark").load()
+end
+-- }}}
 
--- ## Gruvbox
+-- ## Gruvbox {{{
+
 -- lvim.colorscheme = "gruvbox"
+-- }}}
 
--- ## Gruvbox Material
+-- ## Gruvbox Material {{{
+
 -- NOTE: the configuration options should be placed before `colorscheme gruvbox-material`
+if lvim.colorscheme == "gruvbox" then
 
--- hard | medium | soft
--- vim.api.nvim_set_var("gruvbox_material_background", "hard")
--- -- material | mix | original
--- vim.api.nvim_set_var("gruvbox_material_foreground", "original")
+    -- hard | medium | soft
+    vim.api.nvim_set_var("gruvbox_material_background", "hard")
+    -- material | mix | original
+    vim.api.nvim_set_var("gruvbox_material_foreground", "original")
 
--- lvim.colorscheme = "gruvbox-material"
-
--- ## Tokyonight
--- lvim.colorscheme = "tokyonight"
+    lvim.colorscheme = "gruvbox-material"
+end
+-- }}}
 
 -- ## Vscode {{{
-
--- lvim.colorscheme = "vscode"
 
 -- Switching theme
 -- :lua require('vscode').change_style("light")
