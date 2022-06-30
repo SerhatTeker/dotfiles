@@ -34,8 +34,8 @@ end
 
 -- ## Gruvbox Material {{{
 
--- NOTE: the configuration options should be placed before `colorscheme gruvbox-material`
 local function init_gruvbox_material()
+    -- INFO: the configuration options should be placed before `colorscheme gruvbox-material`
     -- hard | medium | soft
     vim.api.nvim_set_var("gruvbox_material_background", "hard")
     -- material | mix | original
@@ -67,10 +67,8 @@ end
 -- })
 
 -- functions - changeBackground() {{{
-local function init_colorscheme(colorscheme, background)
-    print(string.format("colorscheme: %s", colorscheme))
-    print(string.format("background: %s", background))
 
+local function init_colorscheme(colorscheme, background)
     vim.opt_global.background = background
     lvim.colorscheme = colorscheme
 
@@ -92,10 +90,10 @@ local function changeBackground()
         -- TODO: Use func global colorscheme, background
         if vim.fn.has("mac") == 1 then
             local theme = vim.fn.system("defaults read -g AppleInterfaceStyle")
-            if string.find(theme, "light") then -- Yaru-light
-                init_colorscheme("onedark", "light")
-            else
+            if string.find(theme, "Dark") then -- ^Dark
                 init_colorscheme("neodarker", "dark")
+            else
+                init_colorscheme("onedark", "light")
             end
         else
             local theme = vim.fn.system("gsettings get org.gnome.desktop.interface gtk-theme")
@@ -109,6 +107,7 @@ local function changeBackground()
     end
 end
 
+-- TODO: Use global M = {}
 changeBackground()
 
 -- vim.api.nvim_create_autocmd("VimEnter", {
