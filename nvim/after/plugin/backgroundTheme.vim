@@ -41,6 +41,10 @@ endfunction
 " initialize the colorscheme for the first run
 call ChangeBackground()
 
+" Add custom command for ChangeBackground()
+command! AdaptGlobalTheme :call ChangeBackground()
+
 " change the color scheme if we receive a SigUSR1
-autocmd Signal SIGUSR1 * call ChangeBackground()
+" autocmd Signal SIGUSR1 * call ChangeBackground()
+autocmd Signal SIGUSR1 * execute AdaptGlobalTheme
 " }}}

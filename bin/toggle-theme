@@ -22,7 +22,7 @@
 # Descrtiption          : Toggle theme mode on Ubuntu 20.04 LTS and MacOS Monterey 12.3
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2022-05-10T17:37:41+0300 | 1652193461
+# Last Modified Date    : 2022-07-01T13:41:02+0300 | 1656672062
 # Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
 # and using on Ubuntu 20.04 LTS and MacOS Monterey 12.3.
 # Usage                 : $ ./toggle-theme
@@ -53,7 +53,7 @@ vim_sessions_toggle() {
                 local pix="${session}:${window}.${pane}"
 
                 tmux if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} escape ENTER"
-                tmux if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} ':call ChangeBackground()' ENTER"
+                tmux if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} ':AdaptGlobalTheme' ENTER"
             done
         done
     done

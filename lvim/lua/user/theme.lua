@@ -81,7 +81,7 @@ local function init_colorscheme(colorscheme, background)
     end
 end
 
-local function changeBackground()
+function ChangeBackground()
     if vim.fn.has("unix") == 1 then
         -- default colorscheme and background
         -- local colorscheme = "neodarker"
@@ -108,10 +108,15 @@ local function changeBackground()
 end
 
 -- TODO: Use global M = {}
-changeBackground()
+--  initiate in the beginning
+ChangeBackground()
 
--- vim.api.nvim_create_autocmd("VimEnter", {
---     pattern = "*",
---     callback = changeBackground,
--- })
+-- Add custom command for ChangeBackground()
+vim.api.nvim_create_user_command("AdaptGlobalTheme", ChangeBackground, { force = true })
+
+vim.api.nvim_create_autocmd("Signal SIGUSR1", {
+    pattern = "*",
+    -- callback = ChangeBackground,
+    command = "AdaptGlobalTheme",
+})
 -- }}}
