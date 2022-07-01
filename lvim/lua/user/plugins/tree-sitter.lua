@@ -59,6 +59,15 @@ ts.textobjects = {
             ["[]"] = "@class.outer",
         },
     },
+    swap = {
+        enable = true,
+        swap_next = {
+            ["<leader>]a"] = "@function.outer",
+        },
+        swap_previous = {
+            ["<leader>[a"] = "@function.outer",
+        },
+    },
 }
 
 -- Rainbow
