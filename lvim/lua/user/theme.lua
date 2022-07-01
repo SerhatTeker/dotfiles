@@ -1,11 +1,19 @@
 -- # Colorschemes
 
--- Options
--- lvim.colorscheme = "neodarker" -- default
--- lvim.colorscheme = "onedark"
--- lvim.colorscheme = "gruvbox-material"
--- lvim.colorscheme = "vscode"
--- lvim.colorscheme = "tokyonight"
+-- Define colorscheme if you don't want to use global theme
+local background = nil
+local colorscheme = nil
+
+-- Defaults
+-- local background = "dark"
+-- local colorscheme = "neodarker"
+
+-- Colorscheme options
+-- local colorscheme = "neodarker" -- default
+-- local colorscheme = "onedark"
+-- local colorscheme = "gruvbox-material"
+-- local colorscheme = "vscode"
+-- local colorscheme = "tokyonight"
 
 -- ## Neodarker {{{
 
@@ -13,6 +21,13 @@
 -- vim.cmd [[colorscheme neodarker]]
 -- vim.colorscheme = "neodarker"
 -- lvim.builtin.lualine.options.theme = "onedark"
+
+local function init_neodarker()
+    require("neodarker").setup()
+    -- lvim.builtin.lualine.options.theme = "neodarker"
+    lvim.builtin.lualine.options.theme = "auto"
+end
+
 -- }}}
 
 -- ## Onedark {{{
@@ -22,7 +37,8 @@ local function init_onedark()
         style = "darker"
     }
     require("onedark").load()
-    lvim.builtin.lualine.options.theme = "onedark"
+    -- lvim.builtin.lualine.options.theme = "onedark"
+    lvim.builtin.lualine.options.theme = "auto"
 end
 
 -- }}}
@@ -58,26 +74,20 @@ end
 
 -- }}}
 
--- vim.api.nvim_create_autocmd("VimEnter", {
---   pattern = "*",
---   callback = function()
---     -- let treesitter use bash highlight for zsh files as well
---     require("nvim-treesitter.highlight").attach(0, "bash")
---   end,
--- })
+-- ChangeBackground() {{{
 
--- functions - changeBackground() {{{
+local function init_colorscheme(cs, bg)
+    vim.opt_global.background = bg
+    lvim.colorscheme = cs
 
-local function init_colorscheme(colorscheme, background)
-    vim.opt_global.background = background
-    lvim.colorscheme = colorscheme
-
-    if lvim.colorscheme == "onedark" then
+    if cs == "onedark" then
         init_onedark()
-    elseif lvim.colorscheme == "gruvbox" then
+    elseif cs == "gruvbox-material" then
         init_gruvbox_material()
-    elseif lvim.colorscheme == "vscode" then
+    elseif cs == "vscode" then
         init_vscode()
+    else
+        init_neodarker()
     end
 end
 
@@ -86,26 +96,34 @@ function ChangeBackground()
         -- default colorscheme and background
         -- local colorscheme = "neodarker"
         -- local background = "dark"
-
-        -- TODO: Use func global colorscheme, background
-        if vim.fn.has("mac") == 1 then
-            local theme = vim.fn.system("defaults read -g AppleInterfaceStyle")
-            if string.find(theme, "Dark") then -- ^Dark
-                init_colorscheme("neodarker", "dark")
-            else
-                init_colorscheme("onedark", "light")
-            end
+        if colorscheme ~= nil and background ~= nil then
+            init_colorscheme(colorscheme, background)
         else
-            local theme = vim.fn.system("gsettings get org.gnome.desktop.interface gtk-theme")
-            -- if theme == "Yaru-light" then -- Not working
-            if string.find(theme, "light") then -- Yaru-light
-                init_colorscheme("onedark", "light")
+
+            -- TODO: Use func global colorscheme, background
+            if vim.fn.has("mac") == 1 then
+                local theme = vim.fn.system("defaults read -g AppleInterfaceStyle")
+                if string.find(theme, "Dark") then -- ^Dark
+                    init_colorscheme("neodarker", "dark")
+                else
+                    init_colorscheme("onedark", "light")
+                end
             else
-                init_colorscheme("neodarker", "dark")
+                local theme = vim.fn.system("gsettings get org.gnome.desktop.interface gtk-theme")
+                -- if theme == "Yaru-light" then -- Not working
+                if string.find(theme, "light") then -- Yaru-light
+                    init_colorscheme("onedark", "light")
+                else
+                    init_colorscheme("neodarker", "dark")
+                end
             end
         end
     end
 end
+
+-- }}}
+
+-- init {{{
 
 -- TODO: Use global M = {}
 --  initiate in the beginning
@@ -119,4 +137,13 @@ vim.api.nvim_create_autocmd("Signal SIGUSR1", {
     -- callback = ChangeBackground,
     command = "AdaptGlobalTheme",
 })
+
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   pattern = "*",
+--   callback = function()
+--     -- let treesitter use bash highlight for zsh files as well
+--     require("nvim-treesitter.highlight").attach(0, "bash")
+--   end,
+-- })
 -- }}}
+-- queries/python/highlights.scm
