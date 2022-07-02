@@ -21,14 +21,14 @@
 # Descrtiption          : Adapt MacOS Monterey Dark/Light Theme on terminal; alacritty, tmux, nvim.
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2022-04-23T15:41:00+0300 | 1650717660
+# Last Modified Date    : 2022-07-02T22:05:02+0300 | 1656788702
 # Notes                 : Using <neodark> as dark mode and <one> as light mode.
 # Using neodark as dark mode and one as light mode. (Alternative is Gruvbox dark/light)
 # Usage                 : $ ./adapt_term_bg_macos
 #
 # =================================================================================================
 
-# Send ChangeBackground() Signal to all vim/nvim instances in all tmux sessions
+# Send AdaptGlobalTheme Signal to all nvim instances in all tmux sessions
 vim_sessions_toggle() {
     local tmux_bin=${HOME}/.homebrew/bin/tmux   # plist not accepting relative paths
     local is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
@@ -40,7 +40,7 @@ vim_sessions_toggle() {
                 local pix="${session}:${window}.${pane}"
 
                 ${tmux_bin} if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} escape ENTER"
-                ${tmux_bin} if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} ':call ChangeBackground()' ENTER"
+                ${tmux_bin} if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} ':AdaptGlobalTheme' ENTER"
             done
         done
     done
