@@ -46,16 +46,20 @@ lvim.plugins = {
     },
     -- Persistence
     {
-        "folke/persistence.nvim",
-        event = "BufReadPre", -- this will only start session saving when an actual file was opened
-        module = "persistence",
+        "olimorris/persisted.nvim",
+        -- event = "BufReadPre", -- this will only start session saving when an actual file was opened
+        -- module = "persistence",
         config = function()
-            require("persistence").setup({
-                dir = vim.fn.expand(vim.fn.stdpath "cache" .. "/session/"),
-                options = { "buffers", "curdir", "tabpages", "winsize" },
+            local persisted = require("persisted")
+            persisted.setup({
+                save_dir = vim.fn.expand(vim.fn.stdpath "cache" .. "/session/"),
+                -- options = { "buffers", "curdir", "tabpages", "winsize" },
+                autosave = true,
+                autoload = true,
             })
         end,
     },
+
     -- Lastplace
     {
         "ethanholz/nvim-lastplace",
@@ -192,7 +196,8 @@ lvim.plugins = {
     {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
-            require("indent_blankline").setup({
+            local blankline = require("indent_blankline")
+            blankline.setup({
                 show_current_context = true,
                 -- show_current_context_start = true,
                 filetype_exclude = {

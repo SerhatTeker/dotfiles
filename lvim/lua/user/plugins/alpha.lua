@@ -1,4 +1,5 @@
 -- Alpha Dashboard
+-- INFO: Using persisted instead
 lvim.builtin.alpha.active = false
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.alpha.dashboard.section.buttons.entries = {

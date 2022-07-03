@@ -26,14 +26,14 @@ wk.mappings["f"] = { require("lvim.lsp.utils").format, "Format" }
 wk.mappings["D"] = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" }
 
 
--- ## Persistence
--- restore the session for the current directory
-wk.mappings["S"] = {
-    name = "Session",
-    c = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
-    l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
-    Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
-}
+-- -- ## Persistence
+-- -- restore the session for the current directory
+-- wk.mappings["S"] = {
+--     name = "Session",
+--     c = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
+--     l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
+--     Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
+-- }
 
 -- ## SymbolsOutline
 wk.mappings["o"] = { "<cmd>SymbolsOutline<CR>", "Outline" }
