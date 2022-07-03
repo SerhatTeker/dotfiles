@@ -1,6 +1,4 @@
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
-lvim.builtin.alpha.active = true
-lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = false
 lvim.builtin.dap.active = true -- (default: false)
@@ -52,10 +50,10 @@ lvim.plugins = {
         event = "BufReadPre", -- this will only start session saving when an actual file was opened
         module = "persistence",
         config = function()
-            require("persistence").setup {
+            require("persistence").setup({
                 dir = vim.fn.expand(vim.fn.stdpath "cache" .. "/session/"),
                 options = { "buffers", "curdir", "tabpages", "winsize" },
-            }
+            })
         end,
     },
     -- Lastplace
