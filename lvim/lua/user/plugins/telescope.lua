@@ -40,22 +40,26 @@ local actions = require("telescope.actions")
 local action_layout = require("telescope.actions.layout")
 
 lvim.builtin.telescope.defaults.mappings = {
-    -- for input mode
     i = {
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
+        ["<C-c>"] = actions.close,
         ["<C-n>"] = actions.cycle_history_next,
         ["<C-p>"] = actions.cycle_history_prev,
+        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+        ["<CR>"] = actions.select_default,
         ["?"] = action_layout.toggle_preview,
     },
     -- for normal mode
     n = {
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
-        ["?"] = action_layout.toggle_preview,
+        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+        -- ["?"] = action_layout.toggle_preview,
     },
 }
 
+-- TODO: Use global map util function
 local opts = { noremap = true, silent = true }
 
 vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>Telescope find_files<CR>", opts)
