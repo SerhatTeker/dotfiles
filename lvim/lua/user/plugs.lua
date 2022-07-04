@@ -1,7 +1,8 @@
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.notify.active = true
-lvim.builtin.terminal.active = false
 lvim.builtin.dap.active = true -- (default: false)
+lvim.builtin.terminal.active = true
+lvim.builtin.terminal.open_mapping = [[<c-e>]]
 
 -- returns the require for use in `config` parameter of packer's use
 -- expects the name of the config file
