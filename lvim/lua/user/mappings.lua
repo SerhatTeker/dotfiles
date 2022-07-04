@@ -17,17 +17,6 @@ vim.g.mapleader = ","
 -- use the default vim behavior for H and L
 lvim.keys.normal_mode["<S-l>"] = false
 lvim.keys.normal_mode["<S-h>"] = false
-
--- Buffers
--- command
-vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { force = true })
--- mappings
-lvim.keys.normal_mode["<S-n>"] = ":bn<CR>"
-lvim.keys.normal_mode["<S-m>"] = ":bp<CR>"
-lvim.keys.normal_mode["<C-b>d"] = ":BufferKill<CR>"
-lvim.keys.normal_mode["<C-b>c"] = ":BufCurOnly<CR>"
--- lvim.keys.normal_mode["<C-b>c"] = ":BufferCloseAllButCurrent<CR>"
-
 -- }}}
 
 -- # Custom {{{
@@ -37,6 +26,9 @@ lvim.keys.normal_mode["<C-b>c"] = ":BufCurOnly<CR>"
 -- Shortcuts for qa
 vim.api.nvim_create_user_command("Q", "qa", { force = true })
 vim.api.nvim_create_user_command("WQ", "wqa", { force = true })
+-- }}}
+
+-- ## Keymappings {{{
 
 -- Functional wrapper for mapping custom keybindings
 -- * mode (as in Vim modes like Normal/Insert mode)
@@ -51,9 +43,7 @@ local function map(mode, lhs, rhs, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
--- }}}
-
--- ## Keymappings {{{
+local opts = { silent = true, noremap = true }
 
 -- one key stroke less
 -- lvim.keys.normal_mode[";"] = ":"
@@ -62,12 +52,25 @@ vim.keymap.set("n", ";", ":")
 -- quit
 map("n", "Q", "<cmd>x<CR>")
 
+-- Buffers
+-- command
+vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { force = true })
+-- mappings
+map("n", "<S-n>", "<Cmd>bn<CR>", opts)
+map("n", "<S-m>", "<Cmd>bp<CR>", opts)
+map("n", "<C-b>d", "<Cmd>BufferKill<CR>", opts)
+map("n", "<C-b>c", "<Cmd>BufCurOnly<CR>", opts)
+
+-- Tab
+map("n", "[t", "<CMD>tabnext<CR>", opts)
+map("n", "]t", "<CMD>tabprevious<CR>", opts)
+
 -- " noh - no highlight with Esc
 -- vim.keymap.set("n", "<esc>", ":noh <CR>")
 map("n", "<Esc>", "<CMD>noh<CR>", { expr = false, noremap = false })
 
 -- Fold
-map("n", "<F3>", "<CMD>set foldmethod=marker<CR>", { silent = false })
+map("n", "<F3>", "<CMD>set foldmethod=marker<CR>", opts)
 
 -- Fix gx
 -- map("n", "gx", "[[<Cmd>lua require('user.utils').xdg_open_handler()<CR>]]", { desc = "xdg open" })
@@ -93,9 +96,5 @@ map("n", "<F12>", "", {
     -- "desc" option to document your mapping. Showing on telescope as well.
     desc = "Runs :PackerInstall and :PackerCompile",
 })
-
--- Tab
-map("n", "[t", "<CMD>tabnext<CR>", { silent = true })
-map("n", "]t", "<CMD>tabprevious<CR>", { silent = true })
 -- }}}
 -- }}}
