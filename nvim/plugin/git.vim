@@ -18,7 +18,7 @@ nnoremap <leader>m3 :diffget //3<CR>
 " Show Commits
 nnoremap <leader>gc :Commits!<CR>
 " Show Buffer Commits
-nnoremap <leader>gbc :BCommits!<CR>
+nnoremap <leader>gx :BCommits!<CR>
 
 " Show History
 nnoremap <silent>HH :Gclog<CR>
