@@ -137,13 +137,3 @@ vim.api.nvim_create_autocmd("Signal SIGUSR1", {
     -- callback = ChangeBackground,
     command = "AdaptGlobalTheme",
 })
-
--- vim.api.nvim_create_autocmd("VimEnter", {
---   pattern = "*",
---   callback = function()
---     -- let treesitter use bash highlight for zsh files as well
---     require("nvim-treesitter.highlight").attach(0, "bash")
---   end,
--- })
--- }}}
--- queries/python/highlights.scm
