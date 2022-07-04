@@ -27,6 +27,7 @@ lvim.keys.normal_mode["<S-m>"] = ":bp<CR>"
 lvim.keys.normal_mode["<C-b>d"] = ":BufferKill<CR>"
 lvim.keys.normal_mode["<C-b>c"] = ":BufCurOnly<CR>"
 -- lvim.keys.normal_mode["<C-b>c"] = ":BufferCloseAllButCurrent<CR>"
+
 -- }}}
 
 -- # Custom {{{
@@ -67,6 +68,16 @@ map("n", "<Esc>", "<CMD>noh<CR>", { expr = false, noremap = false })
 
 -- Fold
 map("n", "<F3>", "<CMD>set foldmethod=marker<CR>", { silent = false })
+
+-- Fix gx
+-- map("n", "gx", "[[<Cmd>lua require('user.utils').xdg_open_handler()<CR>]]", { desc = "xdg open" })
+map("n", "gx", "", {
+    silent = false,
+    callback = function()
+        require("user.utils").xdg_open_handler()
+    end,
+    desc = "xdg open"
+})
 
 -- Packer
 -- map("n", "<F12>", "<CMD>PackerCompile<CR>", { silent = false })
