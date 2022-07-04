@@ -26,3 +26,13 @@ vim.api.nvim_create_autocmd("FileType", {
         require("nvim-treesitter.highlight").attach(0, "bash")
     end,
 })
+
+-- sometimes cmdheight messing up
+vim.api.nvim_create_user_command(
+    "CHeight",
+    function()
+        -- print(string.upper(opts.args))
+        vim.opt.cmdheight = 1
+    end,
+    { force = true, nargs = 0 }
+)
