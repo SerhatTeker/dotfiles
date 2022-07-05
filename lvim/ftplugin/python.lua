@@ -19,9 +19,9 @@ dap.adapters.python = {
 
 -- Get venv bin if inside venv
 local function get_venv_bin()
-    local cwd = vim.fn.getcwd()
+    -- local cwd = vim.fn.getcwd()
     local venv = os.getenv("VIRTUAL_ENV")
-    local venv_bin = cwd .. string.format("%s/bin/python3", venv)
+    local venv_bin = string.format("%s/bin/python3", venv)
 
     if venv ~= nil then
         return venv_bin
