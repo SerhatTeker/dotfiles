@@ -2,7 +2,7 @@
 lvim.builtin.notify.active = true
 lvim.builtin.dap.active = true -- (default: false)
 lvim.builtin.terminal.active = true
-lvim.builtin.terminal.open_mapping = [[<c-e>]]
+lvim.builtin.terminal.open_mapping = [[<leader-e>]]
 
 -- returns the require for use in `config` parameter of packer's use
 -- expects the name of the config file
@@ -221,11 +221,14 @@ lvim.plugins = {
         event = "BufRead",
         config = function()
             require("spectre").setup()
-            local _map = vim.api.nvim_set_keymap
-            local _opts = { silent = true, noremap = true }
+            local map = vim.api.nvim_set_keymap
+            local opts = { silent = true, noremap = true, desc = "Search word under cursor" }
             -- _map("n", "<C-s>", [[<CMD>lua require('spectre').open()<CR>]], _opts)
             -- search current word
-            _map("n", "<C-s>", [[<Cmd>lua require('spectre').open_visual({select_word=true})<CR>]], _opts)
+            map("n", "<C-s>",
+                [[<Cmd>lua require('spectre').open_visual({select_word=true})<CR>]],
+                opts
+            )
         end,
     },
 }
