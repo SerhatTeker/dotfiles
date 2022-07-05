@@ -30,20 +30,9 @@ vim.api.nvim_create_user_command("WQ", "wqa", { force = true })
 
 -- ## Keymappings {{{
 
--- Functional wrapper for mapping custom keybindings
--- * mode (as in Vim modes like Normal/Insert mode)
--- * lhs (the custom keybinds you need)
--- * rhs (the commands or existing keybinds to customise)
--- * opts (additional options like <silent>/<noremap>, see :h map-arguments for more info on it)
-local function map(mode, lhs, rhs, opts)
-    local options = { noremap = true }
-    if opts then
-        options = vim.tbl_extend("force", options, opts)
-    end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
-
-local opts = { silent = true, noremap = true }
+local utils = require("user.utils")
+local map = utils.map
+local map_cmd = utils.map_cmd
 
 -- one key stroke less
 -- lvim.keys.normal_mode[";"] = ":"
@@ -53,24 +42,22 @@ vim.keymap.set("n", ";", ":")
 map("n", "Q", "<cmd>x<CR>")
 
 -- Buffers
--- command
 vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { force = true })
--- mappings
-map("n", "<S-n>", "<Cmd>bn<CR>", opts)
-map("n", "<S-m>", "<Cmd>bp<CR>", opts)
-map("n", "<C-b>d", "<Cmd>BufferKill<CR>", opts)
-map("n", "<C-b>c", "<Cmd>BufCurOnly<CR>", opts)
+map_cmd("<S-n>", "bn")
+map_cmd("<S-m>", "bp")
+map_cmd("<C-b>d", "BufferKill")
+map_cmd("<C-b>c", "BufCurOnly")
 
 -- Tab
-map("n", "[t", "<CMD>tabnext<CR>", opts)
-map("n", "]t", "<CMD>tabprevious<CR>", opts)
+map_cmd("[t", "tabnext")
+map_cmd("]t", "tabprevious")
 
 -- " noh - no highlight with Esc
 -- vim.keymap.set("n", "<esc>", ":noh <CR>")
-map("n", "<Esc>", "<CMD>noh<CR>", { expr = false, noremap = false })
+map_cmd("<Esc", "noh", { expr = false, noremap = false })
 
 -- Fold
-map("n", "<F3>", "<CMD>set foldmethod=marker<CR>", opts)
+map_cmd("<F3>", "set foldmethod=marker")
 
 -- Fix gx
 -- map("n", "gx", "[[<Cmd>lua require('user.utils').xdg_open_handler()<CR>]]", { desc = "xdg open" })
