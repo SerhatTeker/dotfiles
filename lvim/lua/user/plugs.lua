@@ -214,4 +214,17 @@ lvim.plugins = {
         -- run = ":GoInstallBinaries",
         ft = { "go" },
     },
+    -- Search and replace
+    {
+        "nvim-pack/nvim-spectre",
+        event = "BufRead",
+        config = function()
+            require("spectre").setup()
+            local _map = vim.api.nvim_set_keymap
+            local _opts = { silent = true, noremap = true }
+            -- _map("n", "<C-s>", [[<CMD>lua require('spectre').open()<CR>]], _opts)
+            -- search current word
+            _map("n", "<C-s>", [[<Cmd>lua require('spectre').open_visual({select_word=true})<CR>]], _opts)
+        end,
+    },
 }
