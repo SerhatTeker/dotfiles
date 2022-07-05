@@ -55,17 +55,32 @@ function M.map(mode, lhs, rhs, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+-- Turn command/function to cmd string
 function M.cmd(rhs)
     -- Turn command/function to cmd string
     -- return "<Cmd>" .. rhs .. "<CR>"
     return string.format("<Cmd>%s<CR>", rhs)
 end
 
+-- Map a cmd to key
 function M.map_cmd(lhs, rhs, opts)
     local right_side = M.cmd(rhs)
     M.map("n", lhs, right_side, opts)
 end
 
+-- Turn command/function to lua cmd string
+function M.cmd_lua(rhs)
+    -- return "<Cmd>" .. rhs .. "<CR>"
+    return string.format("[[%s]]", M.cmd(rhs))
+end
+
+-- Map a lua cmd to key
+function M.map_cmd_lua(lhs, rhs, opts)
+    local right_side = M.cmd_lua(rhs)
+    M.map("n", lhs, right_side, opts)
+end
+
 -- }}}
+-- https://google.com
 
 return M
