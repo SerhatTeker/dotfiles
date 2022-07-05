@@ -139,17 +139,7 @@ lvim.plugins = {
     -- { "ellisonleao/gruvbox.nvim" }, -- alternative gruvbox
     { "sainnhe/gruvbox-material" },
     { 'navarasu/onedark.nvim' }, -- alternative onedark
-    {
-        "SerhatTeker/neodarker.nvim",
-        config = function()
-            pcall(function()
-                if lvim and lvim.colorscheme == "neodarker" then
-                    require("neodarker").setup()
-                    lvim.builtin.lualine.options.theme = "neodarker"
-                end
-            end)
-        end,
-    },
+    { "SerhatTeker/neodarker.nvim" },
     -- ## Use
     -- Harpoon
     { "ThePrimeagen/harpoon" },
