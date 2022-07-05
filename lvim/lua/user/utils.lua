@@ -6,6 +6,8 @@ function M.load_options(options)
     end
 end
 
+-- Uri - XDG_OPEN {{{
+
 function M.open_uri(uri)
     vim.notify("opening: " .. uri, vim.log.levels.INFO)
     local task = {
@@ -32,5 +34,38 @@ function M.xdg_open_handler()
 
     M.open_uri(cword)
 end
+
+-- }}}
+
+-- Mapping {{{
+
+M.map_opts = { silent = true, noremap = true }
+
+-- Functional wrapper for mapping custom keybindings
+-- * mode (as in Vim modes like Normal/Insert mode)
+-- * lhs (the custom keybinds you need)
+-- * rhs (the commands or existing keybinds to customise)
+-- * opts (additional options like <silent>/<noremap>, see :h map-arguments for more info on it)
+function M.map(mode, lhs, rhs, opts)
+    -- local options = { noremap = true }
+    local options = M.map_opts
+    if opts then
+        options = vim.tbl_extend("force", options, opts)
+    end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
+function M.cmd(rhs)
+    -- Turn command/function to cmd string
+    -- return "<Cmd>" .. rhs .. "<CR>"
+    return string.format("<Cmd>%s<CR>", rhs)
+end
+
+function M.map_cmd(lhs, rhs, opts)
+    local right_side = M.cmd(rhs)
+    M.map("n", lhs, right_side, opts)
+end
+
+-- }}}
 
 return M
