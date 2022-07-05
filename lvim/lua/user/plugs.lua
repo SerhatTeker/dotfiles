@@ -131,7 +131,14 @@ lvim.plugins = {
             })
         end
     },
-
+    -- # Languages
+    -- ## Golang
+    {
+        "ray-x/go.nvim",
+        config = get_config("golang"),
+        -- run = ":GoInstallBinaries",
+        ft = { "go" },
+    },
     -- # Additional
     -- ## Colorschemes
     { "folke/tokyonight.nvim" },
@@ -174,6 +181,7 @@ lvim.plugins = {
             })
         end,
     },
+    -- Code runner
     {
         "CRAG666/code_runner.nvim",
         requires = "nvim-lua/plenary.nvim",
@@ -193,6 +201,7 @@ lvim.plugins = {
             vim.api.nvim_set_keymap("n", "<F10>", "<CMD>RunCode<CR>", { silent = false })
         end
     },
+    -- Indentline
     {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
@@ -206,13 +215,6 @@ lvim.plugins = {
                 }
             })
         end
-    },
-    -- Golang
-    {
-        "ray-x/go.nvim",
-        config = get_config("golang"),
-        -- run = ":GoInstallBinaries",
-        ft = { "go" },
     },
     -- Search and replace
     {
