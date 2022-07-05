@@ -1,13 +1,16 @@
--- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
+-- NOTE: After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
+-- Notify
 lvim.builtin.notify.active = true
+-- Dap
 lvim.builtin.dap.active = true -- (default: false)
+-- # Terminal
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.open_mapping = [[<leader>e]]
 
 
--- # Additional Plugins
+-- # Additional Plugins {{{
 
--- ## Helper functions
+-- ## Helper functions {{{
 
 -- returns the require for use in `config` parameter of packer's use
 -- expects the name of the config file
@@ -15,11 +18,15 @@ local function get_config(name)
     return string.format('require("user.plugins.%s")', name)
 end
 
+-- Setup with default plugin configs
 local function default_config(name)
     return string.format('require("%s").setup()', name)
 end
 
--- Additional Plugins
+-- }}}
+
+-- ## Plugins {{{
+
 lvim.plugins = {
     -- # Core
     -- ## Treesitter
@@ -236,3 +243,5 @@ lvim.plugins = {
         end,
     },
 }
+-- }}}
+-- }}}
