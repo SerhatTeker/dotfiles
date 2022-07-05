@@ -208,6 +208,7 @@ lvim.plugins = {
             })
         end
     },
+    -- Golang
     {
         "ray-x/go.nvim",
         config = get_config("golang"),
