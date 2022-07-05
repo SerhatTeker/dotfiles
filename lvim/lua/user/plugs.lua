@@ -51,16 +51,14 @@ lvim.plugins = {
         -- event = "BufReadPre", -- this will only start session saving when an actual file was opened
         -- module = "persistence",
         config = function()
-            local persisted = require("persisted")
-            persisted.setup({
+            require("persisted").setup({
                 save_dir = vim.fn.expand(vim.fn.stdpath "cache" .. "/session/"),
-                -- options = { "buffers", "curdir", "tabpages", "winsize" },
                 autosave = true,
                 autoload = true,
             })
+            vim.o.sessionoptions = "buffers,curdir,folds,tabpages,winpos,winsize"
         end,
     },
-
     -- Lastplace
     {
         "ethanholz/nvim-lastplace",
