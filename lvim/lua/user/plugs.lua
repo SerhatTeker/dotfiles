@@ -2,7 +2,12 @@
 lvim.builtin.notify.active = true
 lvim.builtin.dap.active = true -- (default: false)
 lvim.builtin.terminal.active = true
-lvim.builtin.terminal.open_mapping = [[<leader-e>]]
+lvim.builtin.terminal.open_mapping = [[<leader>e]]
+
+
+-- # Additional Plugins
+
+-- ## Helper functions
 
 -- returns the require for use in `config` parameter of packer's use
 -- expects the name of the config file
