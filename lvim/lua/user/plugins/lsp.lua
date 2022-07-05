@@ -27,13 +27,17 @@ lvim.format_on_save = {
 }
 
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
+
 local formatters = require "lvim.lsp.null-ls.formatters"
+-- default linelength
+local line_length = "99"
+
 formatters.setup {
     { command = "isort", filetypes = { "python" } },
     {
         command = "black",
         filetypes = { "python" },
-        extra_args = { "--line-length", "99" },
+        extra_args = { "--line-length", line_length },
     },
     {
         -- each formatter accepts a list of options identical to
@@ -56,7 +60,7 @@ linters.setup {
     {
         command = "flake8",
         filetypes = { "python" },
-        extra_args = { "--max-line-length", "99" },
+        extra_args = { "--max-line-length", line_length },
     },
     {
         -- each linter accepts a list of options identical to
@@ -65,7 +69,7 @@ linters.setup {
         ---@usage arguments to pass to the formatter these cannot contain
         --whitespaces, options such as `--line-width 80` become either
         --`{'--line-width', '80'}` or `{'--line-width=80'}`
-        extra_args = { "--severity", "warning" },
+        extra_args = { "--severity", "warning", "--line-width", line_length },
     },
     {
         command = "codespell",
