@@ -27,6 +27,10 @@ lvim.builtin.telescope.pickers = {
 -- -- fzf-like
 -- lvim.builtin.telescope.defaults.prompt_prefix = "> "
 -- lvim.builtin.telescope.defaults.selection_caret = "> "
+
+-- use defaults, same as fzf-like
+-- lvim.builtin.telescope.defaults.prompt_prefix = nil
+-- lvim.builtin.telescope.defaults.selection_caret = nil
 -- }}}
 
 -- ## Mappings {{{
