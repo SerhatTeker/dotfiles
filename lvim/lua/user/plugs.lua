@@ -120,7 +120,16 @@ lvim.plugins = {
     {
         "folke/todo-comments.nvim",
         event = "BufRead",
-        config = default_config("todo-comments"),
+        config = function()
+            require("todo-comments").setup({
+                keywords = {
+                    HACK = { icon = " ", color = "warning", alt = { "DEBUG" } },
+                    TEST = { icon = " ", color = "warning",
+                        alt = { "TESTING", "PASSED", "FAILED" }
+                    },
+                },
+            })
+        end
     },
 
     -- # Additional
