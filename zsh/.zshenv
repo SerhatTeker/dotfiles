@@ -142,6 +142,9 @@ export PYTHON="python${PYTHON_VERSION}"
 # Install libs in virtualenv
 export PIP_REQUIRE_VIRTUALENV=true
 
+# https://docs.python.org/3.8/using/cmdline.html?highlight=pythonpycacheprefix#envvar-PYTHONPYCACHEPREFIX
+export PYTHONPYCACHEPREFIX="${HOME}/.cache/cpython/"
+
 # Use pudb instead of pdb
 export PYTHONBREAKPOINT=pudb.set_trace
 # Alternative: use ipdb instead of pdb
