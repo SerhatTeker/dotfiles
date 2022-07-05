@@ -1,5 +1,5 @@
 autoflake==1.4                  # https://github.com/fsouza/autoflake8
-black==22.1.0                   # https://github.com/psf/black
+black==22.6.0                   # https://github.com/psf/black
 bpython==0.22.1                 # https://bpython-interpreter.org/
 bpytop==1.0.68                  # https://github.com/aristocratos/bpytop
 codespell==2.1.0                # https://pypi.org/project/codespell - lvim
