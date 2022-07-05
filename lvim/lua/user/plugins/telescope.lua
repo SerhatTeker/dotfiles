@@ -60,18 +60,21 @@ lvim.builtin.telescope.defaults.mappings = {
 }
 
 -- TODO: Use global map util function
-local opts = { noremap = true, silent = true }
+local utils = require("user.utils")
+local map_cmd = utils.map_cmd
+local cmd = utils.cmd
 
-vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>Telescope find_files<CR>", opts)
-vim.api.nvim_set_keymap("n", "<C-f>", "<CMD>Telescope live_grep<CR>", opts)
-vim.api.nvim_set_keymap("n", "<S-b>", "<CMD>Telescope buffers<CR>", opts)
+map_cmd("<C-p>", "Telescope find_files")
+map_cmd("<C-f>", "Telescope live_grep")
+map_cmd("<S-b>", "Telescope buffers")
 -- }}}
 
 -- Git {{{
+map_cmd("<leader>gb", "Telescope git_branches")
+map_cmd("<leader>gc", "Telescope git_commits")
+map_cmd("<leader>gx", "Telescope git_bcommits")
+map_cmd("<leader>gs", "Telescope git_status")
 
-vim.api.nvim_set_keymap("n", "<leader>gb", "<CMD>Telescope git_branches<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>gc", "<CMD>Telescope git_commits<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>gx", "<CMD>Telescope git_bcommits<CR>", opts)
 -- }}}
 
 -- Which key {{{
@@ -79,17 +82,17 @@ vim.api.nvim_set_keymap("n", "<leader>gx", "<CMD>Telescope git_bcommits<CR>", op
 lvim.builtin.which_key.mappings["t"] = {
     name = "Telescope",
     p = { require("lvim.core.telescope.custom-finders").find_project_files, "Files" },
-    f = { "<CMD>Telescope live_grep<CR>", "Find" },
-    b = { "<CMD>Telescope buffers<CR>", "Buffers" },
-    d = { "<CMD>Telescope diagnostics<CR>", "Diagnostics" },
+    f = { cmd("Telescope live_grep"), "Find" },
+    b = { cmd("Telescope buffers"), "Buffers" },
+    d = { cmd("Telescope diagnostics"), "Diagnostics" },
     -- LSP
-    ld = { "<CMD>Telescope lsp_definitions<CR>", "LSP Definitions" },
-    lr = { "<CMD>Telescope lsp_references<CR>", "LSP Refences" },
-    li = { "<CMD>Telescope lsp_implementations<CR>", "LSP Implementations" },
+    ld = { cmd("Telescope lsp_definitions"), "LSP Definitions" },
+    lr = { cmd("Telescope lsp_references"), "LSP Refences" },
+    li = { cmd("Telescope lsp_implementations"), "LSP Implementations" },
     -- Git
-    gb = { "<CMD>Telescope git_branches<CR>", "Branches" },
-    gc = { "<CMD>Telescope git_commits<CR>", "Commits" },
-    gx = { "<CMD>Telescope git_bcommits<CR>", "Commits Buffer" },
+    gb = { cmd("Telescope git_branches"), "Branches" },
+    gc = { cmd("Telescope git_commits"), "Commits" },
+    gx = { cmd("Telescope git_bcommits"), "Commits Buffer" },
 }
 -- }}}
 -- }}}
