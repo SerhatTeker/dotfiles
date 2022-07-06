@@ -30,3 +30,7 @@
     guitool = nvimdiff
 [difftool]
     prompt = false
+[alias]
+  skip = update-index --skip-worktree
+  unskip = update-index --no-skip-worktree
+  skipped = !git ls-files -v | grep \"^S\"
