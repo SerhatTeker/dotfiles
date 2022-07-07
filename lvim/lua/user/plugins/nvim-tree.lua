@@ -1,24 +1,16 @@
 -- Nvimtree
-local nt = lvim.builtin.nvimtree
+local nt = lvim.builtin.nvimtree.setup
 
-nt.setup.view.side = "left"
+-- side
+nt.view.side = "left" -- verbose default
 -- indent markers
-nt.setup.renderer.indent_markers.enable = true
+nt.renderer.indent_markers.enable = true
 -- diagnostics icons
-nt.setup.diagnostics = {
-    enable = false,
-    show_on_dirs = false,
-    icons = {
-        hint = "",
-        info = "",
-        warning = "",
-        error = "",
-    },
-}
+nt.diagnostics.enable = false
 
 -- Ingore/Exclude directories/files patterns
 -- https://github.com/kyazdani42/nvim-tree.lua/issues/824
-nt.setup.filters.custom = {
+nt.filters.custom = {
     ".mypy_cache",
     "__pycache__",
     ".pytest_cache",
@@ -42,7 +34,7 @@ end
 -- Disable default <C-t>
 -- Add Default ones from lvim
 -- https://github.com/LunarVim/LunarVim/blob/23df368b00bda0ed4a01fac92f7ad80998c1d34a/lua/lvim/core/nvimtree.lua#L173-L190
-lvim.builtin.nvimtree.setup.view.mappings.list = {
+nt.view.mappings.list = {
     -- defaults
     { key = { "l", "<CR>", "o" }, action = "edit", mode = "n" },
     { key = "h", action = "close_node" },
@@ -56,4 +48,4 @@ lvim.builtin.nvimtree.setup.view.mappings.list = {
 
 local lnmap = lvim.keys.normal_mode
 lnmap["<C-t>"] = "<CMD>NvimTreeToggle<CR>"
-lnmap["<leader>v"] = "<CMD>NvimTreeFindFile<CR>"
+lnmap["<leader>v"] = "<CMD>NvimTreeFindFile<CR>" -- no need since update_focused_file
