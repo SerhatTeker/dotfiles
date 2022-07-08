@@ -22,6 +22,12 @@ ts.ensure_installed = {
     "yaml",
 }
 
+-- INFO: NW | Lvim: To enable Syntax Highlighting for .tf files as well
+-- local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+-- parser_configs.hcl = {
+--     filetype = "hcl", "terraform",
+-- }
+
 -- Textobjects
 ts.textobjects = {
     select = {

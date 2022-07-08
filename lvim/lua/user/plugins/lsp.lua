@@ -23,6 +23,7 @@ lvim.format_on_save = {
         "*.lua",
         "*.sh",
         "*.vim",
+        "*.tf",
     },
 }
 
@@ -50,8 +51,9 @@ formatters.setup {
         --By default a providers will attach to all the filetypes it supports.
         filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
     },
-    { command = "shfmt", filetypes = { "sh" } },
     -- { command = "gofmt", filetypes = { "go" } },
+    { command = "shfmt", filetypes = { "sh" } },
+    { command = "fmt", filetypes = { "terraform" } },
 }
 
 -- Additional linters
