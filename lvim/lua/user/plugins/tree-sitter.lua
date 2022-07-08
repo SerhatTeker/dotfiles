@@ -8,6 +8,7 @@ ts.ensure_installed = {
     "c",
     "css",
     "go",
+    "hcl",
     "html",
     "java",
     "javascript",
