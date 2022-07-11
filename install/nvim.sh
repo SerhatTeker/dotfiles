@@ -23,15 +23,13 @@ set -o nounset
 set -o pipefail
 
 # Locate the root directory
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
-
 DOWNLOAD_DIR=/tmp
-NVIM_VERSION="${NVIM_VERSION:-"0.7.0"}"
-
+NVIM_VERSION="${NVIM_VERSION:-"0.7.2"}"
 
 exists_or_install() {
     if ! command_exists $1; then
@@ -44,7 +42,6 @@ exists_or_install() {
         fi
     fi
 }
-
 
 check_base_deps() {
     exists_or_install rg ripgrep
@@ -80,7 +77,7 @@ setup_plugins() {
     ${nvim_bin} +UpdateRemotePlugins +qall
 }
 
-nvim_os(){
+nvim_os() {
     if is_linux; then
         appimage
         local nvim_bin="${XDG_BIN_HOME}/nvim"
@@ -90,7 +87,6 @@ nvim_os(){
     fi
     setup_plugins
 }
-
 
 main() {
     info "Started nvim install"
