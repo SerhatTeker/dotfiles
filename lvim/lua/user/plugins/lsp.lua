@@ -53,7 +53,7 @@ formatters.setup {
     },
     -- { command = "gofmt", filetypes = { "go" } },
     { command = "shfmt", filetypes = { "sh" } },
-    { command = "fmt", filetypes = { "terraform" } },
+    { command = "terraform_fmt", filetypes = { "terraform", "tf" } },
 }
 
 -- Additional linters
