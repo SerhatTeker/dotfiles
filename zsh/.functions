@@ -37,11 +37,11 @@ toggle-night() {
 
 # Close annoying Chrome's Restore Popup
 # https://raspberrypi.stackexchange.com/a/89705
-chrome-clean() {
+clean-chrome() {
     local chrome_preferences="${XDG_CONFIG_HOME}/google-chrome/Default/Preferences"
 
-    sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' ${chrome_preferences}
-    sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ${chrome_preferences}
+    sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' "${chrome_preferences}"
+    sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' "${chrome_preferences}"
 }
 
 # Toggle Chrome mode
