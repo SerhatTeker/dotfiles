@@ -44,7 +44,7 @@ alias sleep='systemctl suspend'
 alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purge'
 ### maintenance
 alias update='sudo -- sh -c "apt update -y; apt list --upgradable"'
-alias update-and-upgrade='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y"'
+alias update-upgrade='sudo -- sh -c "apt update; apt upgrade -y; apt dist-upgrade -y"'
 
 ## clean
 alias clean-thrash='rm -rf ~/.local/share/Trash/*'
