@@ -457,14 +457,67 @@ dec-file() {
 # Update {{{1
 # ----------------------------------------------------------------------------#
 
+_lvim_packer_cmd() {
+    "${XDG_BIN_HOME}/lvim" --headless \
+        -c "lua require('lvim.core.log'):set_level([[warn]])" \
+        -c 'autocmd User PackerComplete quitall' \
+        -c "${1}"
+}
+
+# INFO: _configure not working currently, run manually
+# https://github.com/wbthomason/packer.nvim/issues/751
+lvim_update() {
+    return
+
+    # Packer bootstrapping, Use LunarVim one below
+    # https://github.com/wbthomason/packer.nvim#bootstrapping
+    # lvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+    # Update LunarVim
+    _lvim_packer_cmd "PackerUpdate"
+    (cd "${XDG_DATA_HOME}/lunarvim/lvim" \
+        && git pull \
+        && _lvim_packer_cmd "PackerSync")
+
+    # Update packer snapshots
+    _lvim_packer_cmd "PackerSnaphost default.json" \
+        && cp "${HOME}/.cache/lvim/snapshots/default.json" "${HOME}/dotfiles/lvim/snapshots"
+
+}
+
+update-editors() {
+    nvim +PlugUpdate +qall
+    lvim_update
+}
+
 # TODO: Add macos
-_update-all() {
-	sudo apt update
+# Update system and editors
+update-all() {
+    is_linux || exit 0 # Currently just for linux
+
+	sudo apt update \
+        && sudo apt list --upgradable
+
+    update-editors
+
+    # TODO: Add util func
+    notify-send \
+        "Updates Completed" \
+        "Your system updated successfully!" \
+        -u normal \
+        -t 7500 \
+        -i checkbox-checked-symbolic
+}
+
+# Update and upgrade all
+upgrade-all() {
+    update-all
     sudo apt upgrade -y
 
+    # TODO: Add util func
     notify-send \
-        'Updates Completed' \
-        'Your system updated successfully!' \
+        "Upgrade Completed" \
+        "Your system upgraded successfully!" \
         -u normal \
         -t 7500 \
         -i checkbox-checked-symbolic
