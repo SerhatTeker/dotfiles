@@ -45,20 +45,19 @@ _configure() {
 }
 
 configure() {
-        # INFO: _configure not working currently, run manually
-        # https://github.com/wbthomason/packer.nvim/issues/751
-        #
-        # _configure 'PackerSync'
-        # _configure 'PackerCompile'
+    # INFO: _configure not working currently, run manually
+    # https://github.com/wbthomason/packer.nvim/issues/751
+    #
+    # _configure 'PackerSync'
+    # _configure 'PackerCompile'
 
-        info "Run :PackerSync and :PackerCompile"
+    info "Run :PackerSync and :PackerCompile"
 }
-
 
 main() {
     info "Started lvim install"
 
-    # check_base_deps
+    check_base_deps
     install_lvim
     force_remove "${DOTFILES}/lvim" "${XDG_CONFIG_HOME}/lvim" # link config. overwrites link.sh
     configure
