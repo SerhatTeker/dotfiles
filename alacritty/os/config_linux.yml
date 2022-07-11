@@ -16,3 +16,10 @@ font:
     style: Bold Italic
   # size: 11.0 # SF Mono MacOS
   size: 12.0
+
+window:
+  startup_mode: Fullscreen
+  dynamic_title: true
+  padding:
+    x: 2
+    y: 2

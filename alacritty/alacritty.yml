@@ -24,10 +24,6 @@ import:
 # From os/config_{linux, macos}.yml
 # font: *sf_mono
 
-window:
-  startup_mode: Fullscreen
-  dynamic_title: true
-
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.

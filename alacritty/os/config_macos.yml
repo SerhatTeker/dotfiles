@@ -28,3 +28,8 @@ font:
   # false.
   use_thin_strokes: true
   size: 12
+
+
+window:
+  startup_mode: Fullscreen
+  dynamic_title: true
