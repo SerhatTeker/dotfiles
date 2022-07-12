@@ -1,5 +1,6 @@
 -- Core
 require("user.options")
+require("user.commands")
 require("user.mappings")
 require("user.plugs")
 require("user.theme")

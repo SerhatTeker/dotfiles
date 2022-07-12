@@ -21,13 +21,6 @@ lvim.keys.normal_mode["<S-h>"] = false
 
 -- # Custom {{{
 
--- ## Commands {{{
-
--- Shortcuts for qa
-vim.api.nvim_create_user_command("Q", "qa", { force = true })
-vim.api.nvim_create_user_command("WQ", "wqa", { force = true })
--- }}}
-
 -- ## Keymappings {{{
 
 local utils = require("user.utils")
@@ -42,7 +35,6 @@ vim.keymap.set("n", ";", ":")
 map("n", "Q", "<cmd>x<CR>")
 
 -- Buffers
-vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { force = true })
 map_cmd("<S-n>", "bn")
 map_cmd("<S-m>", "bp")
 map_cmd("<C-b>d", "BufferKill")
