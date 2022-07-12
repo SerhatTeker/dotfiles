@@ -168,6 +168,10 @@ alias rv='[ -z "$VIRTUAL_ENV" ] && deactivate && source ./.venv/bin/activate'
 alias paths='print -rl $path'
 # oldie
 alias sedpath='sed "s/ /\n/g" <<< "$path"'
+
+# local bins
+alias theme='~/.local/bin/toggle-theme'
+alias airplane='~/.local/bin/toggle-airplane'
 # }}}
 
 # VM {{{
