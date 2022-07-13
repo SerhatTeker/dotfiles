@@ -30,6 +30,15 @@ check_base_deps() {
     info "All deps exist, starting to install lvim..."
 }
 
+# Hacky and ugly way to get "PackerSnapshotDone" until PR merged
+# Add PackerSnapshotDone commit from #898 PR
+overwrite_packer() {
+    local install_path="${XDG_DATA_HOME}/lunarvim/site/pack/packer/start/packer.nvim"
+
+    git -C "${install_path}" fetch origin "pull/898/head"
+    git -C "${install_path}" cherry-pick "e070db37f5ad3733a790912cb247c1036888d473"
+}
+
 copy_snapshot() {
     local snapshot_dir="${XDG_CACHE_HOME}/lunarvim/snapshots"
 
@@ -67,6 +76,7 @@ main() {
     copy_snapshot
     install_lvim
     force_remove "${DOTFILES}/lvim" "${XDG_CONFIG_HOME}/lvim" # link config. overwrites link.sh
+    overwrite_packer
     configure
 
     success "Finished lvim install"
