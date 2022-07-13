@@ -57,7 +57,7 @@ configure() {
     #
     # _configure 'PackerSync'
 
-    info "Run :PackerSync x2"
+    info "Run :PackerSync"
 }
 
 main() {

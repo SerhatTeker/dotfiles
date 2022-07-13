@@ -12,6 +12,9 @@ lvim.builtin.terminal.open_mapping = [[<leader>e]]
 -- Disable project plugin since it messes nvim-tree setup.update_cwd
 -- https://github.com/LunarVim/LunarVim/blob/48320e5f882a911707c56baf3865f663acb39f08/lua/lvim/core/nvimtree.lua#L168-L173
 lvim.builtin.project.active = false
+-- # Alpha
+-- Using persisted instead
+lvim.builtin.alpha.active = false
 -- }}}
 
 -- # Additional Plugins {{{

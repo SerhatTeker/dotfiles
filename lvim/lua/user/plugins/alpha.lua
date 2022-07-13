@@ -1,6 +1,5 @@
 -- Alpha Dashboard
--- INFO: Using persisted instead
-lvim.builtin.alpha.active = false
+-- INFO: Disabled in plugs.lua
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.alpha.dashboard.section.buttons.entries = {
     { "SPC c", "  Current Session", "<CMD>lua require('persistence').load()<CR>" },
