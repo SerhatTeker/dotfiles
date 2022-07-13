@@ -9,7 +9,6 @@ vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { forc
 
 -- Snapshot {{{
 
-local in_headless = #vim.api.nvim_list_uis() == 0
 
 local packer = require("packer")
 
@@ -18,33 +17,30 @@ local snapshot_name = "default.json"
 local snapshot_file = join_paths(snapshot_path, snapshot_name)
 
 local function sync_done()
+    local in_headless = #vim.api.nvim_list_uis() == 0 -- TODO: Make global
+
     vim.notify("Sync Snapshot and Compile completed!", vim.log.levels.INFO, { title = "Packer Sync" })
     if in_headless then
         vim.cmd("q")
     end
 end
 
--- ## Compile {{{
-
-local function packer_compile()
-    -- Take snapshot
-    packer.compile()
-
-    -- Post snapshot, bin to sort_snapshot
-    vim.api.nvim_create_autocmd('User', {
-        pattern = 'PackerCompileDone',
-        callback = sync_done,
-    })
-end
-
-vim.api.nvim_create_user_command(
-    "Compile",
-    packer_compile,
-    { nargs = 0 }
-)
--- }}}
-
 -- ## Snapshot {{{
+
+-- Hacky and ugly way to get "PackerSnapshotDone" since PR merged
+-- Add PackerSnapshotDone commit from #898 PR
+local function overwrite_packer()
+    local install_path = join_paths(os.getenv("XDG_DATA_HOME"), "lunarvim", "site", "pack", "packer", "start", "packer.nvim")
+
+    vim.fn.system { "git", "-C", install_path, "fetch", "origin", "pull/898/head" }
+    vim.fn.system { "git", "-C", install_path, "cherry-pick", "e070db37f5ad3733a790912cb247c1036888d473" }
+
+    -- # with vim api
+    -- local fetch = "!git " .. "-C " .. install_path .. " fetch" .. " origin" .. " pull/898/head"
+    -- local cherry = "!git " .. "-C " .. install_path .. " cherry-pick " .. "e070db37f5ad3733a790912cb247c1036888d473"
+    -- vim.api.nvim_command(fetch)
+    -- vim.api.nvim_command(cherry)
+end
 
 local function sort_snapshot()
     if vim.fn.filereadable(snapshot_file) == 1 then
@@ -58,10 +54,14 @@ local function sort_snapshot()
 end
 
 local function post_snapshot()
+    vim.notify("Snapshots taken", vim.log.levels.INFO, { title = "Post Snapshot" })
     sort_snapshot()
+
     -- Copy to dotfiles
     local dotfile_path = os.getenv("HOME") .. "/dotfiles/lvim/snapshots"
     os.execute(string.format("cp %s %s", snapshot_file, dotfile_path))
+
+    sync_done()
 end
 
 local function packer_snapshot()
@@ -83,13 +83,10 @@ local function packer_snapshot()
         pattern = 'PackerSnapshotDone',
         callback = post_snapshot,
     })
+
+    overwrite_packer()
 end
 
-vim.api.nvim_create_user_command(
-    "Snapshot",
-    packer_snapshot,
-    { nargs = 0 }
-)
 -- }}}
 
 -- ## Sync {{{
