@@ -7,8 +7,7 @@ vim.api.nvim_create_user_command("WQ", "wqa", { force = true })
 -- Buffers
 vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { force = true })
 
--- Snapshot {{{
-
+-- Packer Sync and Snapshot {{{
 
 local packer = require("packer")
 
@@ -27,7 +26,7 @@ end
 
 -- ## Snapshot {{{
 
--- Hacky and ugly way to get "PackerSnapshotDone" since PR merged
+-- Hacky and ugly way to get "PackerSnapshotDone" until PR merged
 -- Add PackerSnapshotDone commit from #898 PR
 local function overwrite_packer()
     local install_path = join_paths(os.getenv("XDG_DATA_HOME"), "lunarvim", "site", "pack", "packer", "start", "packer.nvim")
