@@ -53,7 +53,6 @@ local function sort_snapshot()
 end
 
 local function post_snapshot()
-    vim.notify("Snapshots taken", vim.log.levels.INFO, { title = "Post Snapshot" })
     sort_snapshot()
 
     -- Copy to dotfiles
@@ -74,6 +73,9 @@ local function packer_snapshot()
         os.execute("rm " .. snapshot_file)
     end
 
+    -- Must be above snapshot(), 'PackerSnapshotDone' cmd comes from this commit
+    overwrite_packer()
+
     -- Take snapshot
     packer.snapshot("default.json")
 
@@ -82,8 +84,6 @@ local function packer_snapshot()
         pattern = 'PackerSnapshotDone',
         callback = post_snapshot,
     })
-
-    overwrite_packer()
 end
 
 -- }}}
