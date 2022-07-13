@@ -30,6 +30,13 @@ check_base_deps() {
     info "All deps exist, starting to install lvim..."
 }
 
+copy_snapshot() {
+    local snapshot_dir="${XDG_CACHE_HOME}/lunarvim/snapshots"
+
+    mkdir -p "${snapshot_dir}"
+    cp "${DOTFILES}/lvim/snapshots/default.json" "${snapshot_dir}"
+}
+
 # No install dependencies since installing already in install/nvim.sh
 install_lvim() {
     LV_BRANCH=rolling \
@@ -49,15 +56,15 @@ configure() {
     # https://github.com/wbthomason/packer.nvim/issues/751
     #
     # _configure 'PackerSync'
-    # _configure 'PackerCompile'
 
-    info "Run :PackerSync and :PackerCompile"
+    info "Run :PackerSync x2"
 }
 
 main() {
     info "Started lvim install"
 
     check_base_deps
+    copy_snapshot
     install_lvim
     force_remove "${DOTFILES}/lvim" "${XDG_CONFIG_HOME}/lvim" # link config. overwrites link.sh
     configure
