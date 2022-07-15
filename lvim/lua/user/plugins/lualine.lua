@@ -5,7 +5,14 @@ ll.style = "lvim"
 
 -- # Snippets {{{
 
--- ## Changing filename color based on modified status
+-- ## Changing filename color based on modified status {{{
+
+-- https://github.com/nvim-lualine/lualine.nvim/wiki/Component-snippets#changing-filename-color-based-on--modified-status
+-- Usage:
+-- require'lualine'.setup {
+--   lualine_c = {custom_fname},
+-- }
+
 local custom_fname = require('lualine.components.filename'):extend()
 local highlight = require 'lualine.highlight'
 local default_status_colors = { saved = '#228B22', modified = '#C70039' }
@@ -30,10 +37,12 @@ function custom_fname:update_status()
 end
 
 -- }}}
+-- }}}
 
 -- # Styles {{{
 
--- ## Default
+-- ## Default {{{
+
 if ll.style == "default" then
     -- ### Separators
     -- #### default
@@ -61,8 +70,10 @@ if ll.style == "default" then
     --         symbols = { added = "  ", modified = " ", removed = " " },
     --     },
     -- }
-    -- }}}
 end
+-- }}}
+
+-- ## Lvim {{{
 
 if ll.style == "lvim" then
     local components = require "lvim.core.lualine.components"
@@ -73,8 +84,9 @@ if ll.style == "lvim" then
         },
         lualine_b = {
             components.branch,
-            components.diff,
+            -- components.diff,
         },
+
         lualine_c = {
             {
                 'filename',
@@ -107,4 +119,5 @@ if ll.style == "lvim" then
     ll.tabline = {}
     ll.extensions = { "nvim-tree" }
 end
+-- }}}
 -- }}}
