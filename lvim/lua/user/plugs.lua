@@ -7,6 +7,8 @@ lvim.builtin.notify.active = true
 lvim.builtin.dap.active = true -- (default: false)
 -- # Terminal
 lvim.builtin.terminal.active = true
+-- direction = 'vertical' | 'horizontal' | 'window' | 'float',
+lvim.builtin.terminal.direction = "horizontal"
 lvim.builtin.terminal.open_mapping = [[<leader>e]]
 -- # Project
 -- Disable project plugin since it messes nvim-tree setup.update_cwd
