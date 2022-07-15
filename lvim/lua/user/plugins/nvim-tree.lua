@@ -8,6 +8,10 @@ nt.renderer.indent_markers.enable = true
 -- diagnostics icons
 nt.diagnostics.enable = false
 
+-- window picker
+-- open files in window from which last opened the tree
+nt.actions.open_file.window_picker.enable = false
+
 -- Ingore/Exclude directories/files patterns
 -- https://github.com/kyazdani42/nvim-tree.lua/issues/824
 nt.filters.custom = {
