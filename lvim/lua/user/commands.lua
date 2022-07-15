@@ -16,7 +16,7 @@ local snapshot_name = "default.json"
 local snapshot_file = join_paths(snapshot_path, snapshot_name)
 
 local function sync_done()
-    local in_headless = #vim.api.nvim_list_uis() == 0 -- TODO: Make global
+    local in_headless = #vim.api.nvim_list_uis() == 0 -- PERF: Make global
 
     vim.notify("Sync Snapshot and Compile completed!", vim.log.levels.INFO, { title = "Packer Sync" })
     if in_headless then
