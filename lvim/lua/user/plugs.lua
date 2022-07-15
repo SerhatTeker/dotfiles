@@ -73,7 +73,7 @@ lvim.plugins = {
         -- module = "persistence",
         config = function()
             require("persisted").setup({
-                save_dir = vim.fn.expand(vim.fn.stdpath "cache" .. "/session/"),
+                save_dir = join_paths(vim.fn.stdpath "cache", "session"),
                 autosave = true,
                 autoload = true,
             })
