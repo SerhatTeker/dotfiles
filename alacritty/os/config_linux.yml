@@ -22,4 +22,4 @@ window:
   dynamic_title: true
   padding:
     x: 2
-    y: 2
+    y: 0
