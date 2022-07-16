@@ -20,28 +20,30 @@ wk.vopts = {
     nowait = true, -- use `nowait` when creating keymaps
 }
 
--- ## Defaults
--- lvim.builtin.which_key.mappings["f"] = { require("lvim.core.telescope.custom-finders").find_project_files, "Find File" }
+-- ## Mappings {{{
+
+local cmd = require("user.utils").cmd
+
+-- ## Defaults {{{
+
+-- Remove usless Lvim defaults
+wk.mappings[";"] = nil
+wk.mappings["w"] = nil
+wk.mappings["q"] = nil
+wk.mappings["F"] = nil
+wk.mappings["e"] = nil -- INFO: NW
+
+-- lvim.builtin.which_key.mappings["F"] = { require("lvim.core.telescope.custom-finders").find_project_files, "Find File" }
 wk.mappings["f"] = { require("lvim.lsp.utils").format, "Format" }
-wk.mappings["D"] = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" }
-
-
--- -- ## Persistence
--- -- restore the session for the current directory
--- wk.mappings["S"] = {
---     name = "Session",
---     c = { "<cmd>lua require('persistence').load()<cr>", "Restore last session for current dir" },
---     l = { "<cmd>lua require('persistence').load({ last = true })<cr>", "Restore last session" },
---     Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
--- }
+wk.mappings["D"] = { cmd("Trouble document_diagnostics"), "Diagnostics" }
+-- }}}
 
 -- ## SymbolsOutline
-wk.mappings["o"] = { "<cmd>SymbolsOutline<CR>", "Outline" }
-
--- ## Project Files
-wk.mappings["F"] = {
-    require("lvim.core.telescope.custom-finders").find_project_files, "Find File"
-}
+wk.mappings["o"] = { cmd("SymbolsOutline"), "Outline" }
 
 -- ## Helps
-wk.mappings["h"] = { "<cmd>Telescope help_tags<cr>", "Help" }
+wk.mappings["h"] = { cmd("Telescope help_tags"), "Help" }
+
+-- Diffview
+wk.mappings["v"] = { cmd("DiffviewOpen"), "DiffviewOpen" }
+-- }}}
