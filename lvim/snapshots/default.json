@@ -42,10 +42,10 @@
     "commit": "c18e016"
   },
   "go.nvim": {
-    "commit": "0e8cc90"
+    "commit": "f073242"
   },
   "gruvbox-material": {
-    "commit": "3db6764"
+    "commit": "d60d971"
   },
   "harpoon": {
     "commit": "d3d3d22"
@@ -99,7 +99,7 @@
     "commit": "8960269"
   },
   "nvim-spectre": {
-    "commit": "a52139d"
+    "commit": "b1a084c"
   },
   "nvim-tree.lua": {
     "commit": "bdb6d4a"
@@ -117,7 +117,7 @@
     "commit": "8834375"
   },
   "nvim-ts-rainbow": {
-    "commit": "6c0b3b6"
+    "commit": "9dd019e"
   },
   "nvim-web-devicons": {
     "commit": "8d2c533"
@@ -129,7 +129,7 @@
     "commit": "00ec5ad"
   },
   "persisted.nvim": {
-    "commit": "7d3f977"
+    "commit": "0f5f24f"
   },
   "playground": {
     "commit": "ce7e4b7"
@@ -180,7 +180,7 @@
     "commit": "bf3480d"
   },
   "vscode.nvim": {
-    "commit": "652dfa7"
+    "commit": "0742e59"
   },
   "which-key.nvim": {
     "commit": "f03a259"
