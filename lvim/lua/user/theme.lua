@@ -2,23 +2,16 @@
 
 local M = {}
 
--- ## Neodarker {{{
+-- Colorschemes  {{{
 
--- require("neodarker").setup()
--- vim.cmd [[colorscheme neodarker]]
--- vim.colorscheme = "neodarker"
--- lvim.builtin.lualine.options.theme = "onedark"
-
+-- ## Neodarker
 function M.init_neodarker()
     require("neodarker").setup()
     -- lvim.builtin.lualine.options.theme = "neodarker"
     lvim.builtin.lualine.options.theme = "auto"
 end
 
--- }}}
-
--- ## Onedark {{{
-
+-- ## Onedark
 function M.init_onedark()
     require('onedark').setup {
         style = "darker"
@@ -28,15 +21,7 @@ function M.init_onedark()
     lvim.builtin.lualine.options.theme = "auto"
 end
 
--- }}}
-
--- ## Gruvbox {{{
-
--- lvim.colorscheme = "gruvbox"
--- }}}
-
--- ## Gruvbox Material {{{
-
+-- ## Gruvbox Material
 function M.init_gruvbox_material()
     -- INFO: the configuration options should be placed before `colorscheme gruvbox-material`
     -- hard | medium | soft
@@ -47,15 +32,12 @@ function M.init_gruvbox_material()
     lvim.colorscheme = "gruvbox-material"
 end
 
--- }}}
-
--- ## Vscode {{{
-
--- Switching theme
--- :lua require('vscode').change_style("light")
--- :lua require('vscode').change_style("dark")
-
+-- ## Vscode
 function M.init_vscode()
+    -- Switching theme
+    -- :lua require('vscode').change_style("light")
+    -- :lua require('vscode').change_style("dark")
+
     vim.g.vscode_style = "dark"
 end
 
