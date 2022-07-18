@@ -21,13 +21,11 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
 # Locate the root directory
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # shellcheck source=scripts/common.sh
 source "${ROOT}/common.sh"
-
 
 # Use 3.8 as default python version
 VERSION=${PYTHON_VERSION:-3.8}
@@ -42,7 +40,7 @@ INSTALL_URL="https://gist.githubusercontent.com/SerhatTeker/7d0fc99d27e9bf1d75b4
 
 install_python() {
     # Skip the function if $PYTHON_VERSION already exists
-    if command_exists ${PYTHON}; then
+    if command_exists "${PYTHON}"; then
         info "You have already ${PYTHON}"
         return
     fi
@@ -68,7 +66,7 @@ install_packages() {
         sudo apt update -y
         sudo apt install -y \
             python3-pip \
-            ${PYTHON}-venv
+            "${PYTHON}-venv"
         info "Python Linux packages installed"
     fi
 }
@@ -91,11 +89,12 @@ _install() {
 
 # Configure {{{
 
+# Disable: use rich
 pretty_errors() {
     local site_dir="$(${PYTHON} -c "import site; print(f'{site.USER_SITE}')")"
 
     ln -sf "${ROOT}/python/usercustomize.py" \
-        ${site_dir}
+        "${site_dir}"
 
     msg_cli white "Pretty errors configuration added"
 }
@@ -104,7 +103,7 @@ rich_traceback() {
     local site_dir="$(${PYTHON} -c "import site; print(f'{site.USER_SITE}')")"
     local file="${site_dir}/sitecustomize.py"
 
-    cat << EOF >> ${file}
+    cat <<EOF >>"${file}"
 from rich.traceback import install
 install(show_locals=True)
 EOF
@@ -115,8 +114,8 @@ configure_pudb() {
     local source="${DOTFILES}/python/pudb.cfg"
     local target="${XDG_CONFIG_HOME}/pudb"
 
-    mkdir -p ${target}
-    ln -sf ${source} ${target}
+    mkdir -p "${target}"
+    ln -sf "${source}" "${target}"
 
     msg_cli white "pudb configured" normal
 }
@@ -125,15 +124,15 @@ configure_ipython() {
     local source="${DOTFILES}/python/ipython_config.py"
     local target="${XDG_CONFIG_HOME}/.ipython/profile_default"
 
-    mkdir -p ${target}
-    ln -sf "${source}" ${target}
+    mkdir -p "${target}"
+    ln -sf "${source}" "${target}"
 
     msg_cli white "ipython configured" normal
 }
 
 _configure() {
     info "Python configuration started"
-    pretty_errors
+    # pretty_errors
     rich_traceback
     configure_pudb
     configure_ipython
