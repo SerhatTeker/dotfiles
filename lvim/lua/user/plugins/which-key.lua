@@ -46,4 +46,7 @@ wk.mappings["h"] = { cmd("Telescope help_tags"), "Help" }
 
 -- Diffview
 wk.mappings["v"] = { cmd("DiffviewOpen"), "DiffviewOpen" }
+
+-- Tab
+wk.mappings["n"] = { cmd("tabedit %"), "Tab New" }
 -- }}}
