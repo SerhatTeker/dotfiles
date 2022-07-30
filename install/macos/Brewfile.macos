@@ -57,6 +57,7 @@ brew "watch"
 brew "wget"
 brew "youtube-dl"
 brew "yarn"
+brew "zbar"
 # Cask
 cask "cryptomator"              # enc vault
 cask "docker"                   # docker desktop

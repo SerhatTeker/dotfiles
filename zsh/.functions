@@ -640,6 +640,26 @@ colors256() {
         printf "|\n"
 }
 # }}}
+
+# Screenshot {{{
+
+# NOTE: Condsider to separate macos and linux functions
+read-qr() {
+    local file="/tmp/screencapture.bmp"
+
+    # local command=$(command -v gsed || command -v sed)
+    # local command=$(screencapture -i $file)
+    # is_macos || command=$(maim --select $file)
+    if is_macos; then
+        screencapture -i "${file}"
+    else
+        maim --select "${file}"
+    fi
+
+    zbarimg -q --raw "${file}"
+    shred -u "${file}"
+}
+# }}}
 # }}}
 
 # Tmux {{{
