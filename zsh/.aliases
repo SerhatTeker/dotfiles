@@ -36,6 +36,9 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # System {{{
 
+## undollar
+alias '$'=''  # Copy-pasting commands with '$ ' prefix
+
 # TODO: check logout-sync cmd exists
 alias shutdown='logout-sync && sudo shutdown -h now'
 alias sleep='systemctl suspend'
