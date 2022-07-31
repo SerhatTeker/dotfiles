@@ -35,7 +35,6 @@ __is_linux() {
 }
 # }}}
 
-
 # Apps {{{1
 # ----------------------------------------------------------------------------#
 
@@ -669,15 +668,14 @@ colors256() {
 
 # NOTE: Condsider to separate macos and linux functions
 read-qr() {
-    local file="/tmp/screencapture.bmp"
+    local file="/tmp/qr.bmp"
 
-    # local command=$(command -v gsed || command -v sed)
-    # local command=$(screencapture -i $file)
-    # is_macos || command=$(maim --select $file)
-    if is_macos; then
+    if __is_macos; then
         screencapture -i "${file}"
-    else
+    elif __is_linux; then
         maim --select "${file}"
+    else
+        exit 1
     fi
 
     zbarimg -q --raw "${file}"
