@@ -12,6 +12,30 @@
 #
 # to handle more complex tasks than alias
 
+# Common {{{
+
+__is_macos() {
+    local uname="$(uname -a)"
+
+    if [[ "$uname" =~ Darwin ]]; then
+        return
+    fi
+
+    false
+}
+
+__is_linux() {
+    local uname="$(uname -a)"
+
+    if [[ "$uname" =~ Linux ]]; then
+        return
+    fi
+
+    false
+}
+# }}}
+
+
 # Apps {{{1
 # ----------------------------------------------------------------------------#
 
