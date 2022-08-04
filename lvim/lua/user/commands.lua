@@ -9,6 +9,11 @@ vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { forc
 
 -- Packer Sync and Snapshot {{{
 
+-- Automate manual packer sync, snapshot and copy to dotfiles:
+-- 1. PackerSync
+-- 2. PackerSnapshot default.json
+-- 3. jq --sort-keys . $XDG_CACHE_HOME/lunarvim/snapshots/default.json > $HOME/dotfiles/lvim/snapshots/default.json
+
 local packer = require("packer")
 
 local snapshot_path = join_paths(get_cache_dir(), "snapshots")
