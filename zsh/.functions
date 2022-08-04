@@ -525,6 +525,7 @@ update_all() {
 
 	sudo apt update \
         && sudo apt list --upgradable \
+        && omz update \
         && update-editors \
         && notify "Updates Completed" "Your system updated successfully!"
 }
