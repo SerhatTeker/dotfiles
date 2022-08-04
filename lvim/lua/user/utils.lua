@@ -81,6 +81,5 @@ function M.map_cmd_lua(lhs, rhs, opts)
 end
 
 -- }}}
--- https://google.com
 
 return M
