@@ -30,7 +30,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Completion {{{
 
-
 " <CR> {{{
 
 " You have to remap <cr> to make it confirms completion.
@@ -72,8 +71,6 @@ endif
 " Use <Tab> and <S-Tab> to navigate the completion list:
 inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
 inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
-
-let g:coc_snippet_next = '<tab>'
 " }}}
 " }}}
 

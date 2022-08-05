@@ -731,16 +731,19 @@ nnoremap <F5> :UndotreeToggle<cr>
 let g:UltiSnipsEditSplit = "vertical"
 " custom Snippets
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-" mapping <Control-Space>
-let g:UltiSnipsExpandTrigger="<C-space>"
-let g:UltiSnipsJumpForwardTrigger="<C-space>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-" alternative settings
-" let g:UltiSnipsExpandTrigger = "<c-space>"
-" let g:UltiSnipsJumpForwardTrigger = "<c-space>"
-" let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
-" let g:UltiSnipsEnableSnipMate = 0
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+let g:UltiSnipsExpandTrigger="<nop>"
+let g:ulti_expand_or_jump_res = 0
+function! <SID>ExpandSnippetOrReturn()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<CR>"
+    endif
+endfunction
+inoremap <expr> <CR> pumvisible() ? "<C-R>=<SID>ExpandSnippetOrReturn()<CR>" : "\<CR>"
 
 " }}}
 
