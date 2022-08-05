@@ -37,21 +37,6 @@ let g:bullets_set_mappings = 1
 let g:mkdp_auto_close = 0
 " }}}
 
-" deoplete {{{
-
-" using for default mappings markdown plugging
-" if g:markdown_enable_insert_mode_mappings
-inoremap <silent><buffer><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <silent><buffer><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-
-" imap <expr><TAB>
-" 	\ neosnippet#expandable_or_jumpable() ? :
-" 	\   "\<Plug>(neosnippet_expand_or_jump)" :
-" 	\ pumvisible()? "\<C-y>" :
-" 	\ <SID>check_back_space() ? "\<TAB>" :
-" 	\ deoplete#mappings#manual_complete()
-" }}}
-
 " Colors {{{
 
 " Custom syntax colorscheme {{{
