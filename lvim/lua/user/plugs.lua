@@ -96,12 +96,10 @@ lvim.plugins = {
             })
         end,
     },
-    -- Navigator
     {
         'numToStr/Navigator.nvim',
         config = default_config("Navigator"),
     },
-    -- TPope/Fugitive
     {
         "tpope/vim-fugitive",
         cmd = {
@@ -122,17 +120,10 @@ lvim.plugins = {
         },
         ft = { "fugitive" }
     },
-    -- TPope/Repeat
     { "tpope/vim-repeat" },
-    -- TPope/surround
     {
-        "tpope/vim-surround",
-        keys = { "c", "d", "y" }
-        -- make sure to change the value of `timeoutlen` if it's not triggering
-        -- correctly, see https://github.com/tpope/vim-surround/issues/117
-        -- setup = function()
-        --  vim.o.timeoutlen = 500
-        -- end
+        "kylechui/nvim-surround",
+        config = default_config("nvim-surround"),
     },
     {
         "sindrets/diffview.nvim",
