@@ -136,12 +136,7 @@ export ANSIBLE_CONFIG="${XDG_CONFIG_HOME}/ansible/ansible.cfg"
 
 # Python {{{2
 
-# TODO: Check Macos then remove OS check
-if [[ "${OSTYPE}" == "linux-gnu"* ]]; then
-    export PYTHON_VERSION=3.9
-elif [[ "${OSTYPE}" == "darwin"* ]]; then
-    export PYTHON_VERSION=3.8
-fi
+export PYTHON_VERSION=3.9
 export PYTHON="python${PYTHON_VERSION}"
 
 # Install libs in virtualenv
