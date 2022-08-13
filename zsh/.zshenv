@@ -35,70 +35,6 @@ export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 ulimit -S -c 0
 
 # ----------------------------------------------------------------------------#
-# BIN {{{1
-# ----------------------------------------------------------------------------#
-
-# Unique path dirs
-typeset -U path
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "${HOME}/bin" ] ; then
-    path+=("${HOME}/bin")
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "${HOME}/.local/bin" ] ; then
-    path+=("${HOME}/.local/bin")
-fi
-
-# Node npm modules global
-if [ -d "${XDG_LIB_HOME}/node/npm" ] ; then
-    path+=("${XDG_LIB_HOME}/node/npm")
-fi
-
-# Python
-if [[ "${OSTYPE}" == "darwin"* ]]; then
-    path+=("${HOME}/Library/Python/3.8/bin")
-fi
-
-# Golang
-[ -d "/usr/local/go/bin" ] && path+=("/usr/local/go/bin")       # linux
-[ -d "${HOME}/go/bin" ] && path+=("${HOME}/go/bin")             # $GOPATH
-
-if [[ "${OSTYPE}" == "darwin"* ]]; then
-    if command -v go >/dev/null 2>&1; then
-        # version changes path
-        path+=("$(go env GOROOT)/bin")
-    fi
-fi
-
-# Rust
-if [ -d "${HOME}/rust/.cargo" ]; then
-    export RUSTUP_HOME="${HOME}/rust/.rustup"
-    export CARGO_HOME="${HOME}/rust/.cargo"
-    source "${HOME}/rust/.cargo/env"
-fi
-
-# Homebrew {{{
-
-if [[ "${OSTYPE}" == "linux-gnu"* ]]; then
-    if [ -d "/home/linuxbrew/.linuxbrew/bin" ]; then
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-    fi
-elif [[ "${OSTYPE}" == "darwin"* ]]; then
-    if [ -d "$HOME/.homebrew/bin" ]; then
-        eval "$(${HOME}/.homebrew/bin/brew shellenv)"
-    fi
-fi
-
-export HOMEBREW_NO_ENV_HINTS=1
-# }}}
-
-# ----------------------------------------------------------------------------#
-# }}}1
-# ----------------------------------------------------------------------------#
-
-# ----------------------------------------------------------------------------#
 # ENV {{{1
 # ----------------------------------------------------------------------------#
 
@@ -136,7 +72,7 @@ export ANSIBLE_CONFIG="${XDG_CONFIG_HOME}/ansible/ansible.cfg"
 
 # Python {{{2
 
-export PYTHON_VERSION=3.9
+export PYTHON_VERSION="3.9"
 export PYTHON="python${PYTHON_VERSION}"
 
 # Install libs in virtualenv
@@ -202,6 +138,70 @@ export COLOR_LIGHTCYAN="\e[1;36m"
 export COLOR_LIGHTRED="\e[1;31m"
 export COLOR_LIGHTPURPLE="\e[1;35m"
 # }}}2
+# ----------------------------------------------------------------------------#
+# }}}1
+# ----------------------------------------------------------------------------#
+
+# ----------------------------------------------------------------------------#
+# BIN {{{1
+# ----------------------------------------------------------------------------#
+
+# Unique path dirs
+typeset -U path
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "${HOME}/bin" ] ; then
+    path+=("${HOME}/bin")
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "${HOME}/.local/bin" ] ; then
+    path+=("${HOME}/.local/bin")
+fi
+
+# Node npm modules global
+if [ -d "${XDG_LIB_HOME}/node/npm" ] ; then
+    path+=("${XDG_LIB_HOME}/node/npm")
+fi
+
+# Python
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+    path+=("${HOME}/Library/Python/${PYTHON_VERSION}/bin")
+fi
+
+# Golang
+[ -d "/usr/local/go/bin" ] && path+=("/usr/local/go/bin")       # linux
+[ -d "${HOME}/go/bin" ] && path+=("${HOME}/go/bin")             # $GOPATH
+
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+    if command -v go >/dev/null 2>&1; then
+        # version changes path
+        path+=("$(go env GOROOT)/bin")
+    fi
+fi
+
+# Rust
+if [ -d "${HOME}/rust/.cargo" ]; then
+    export RUSTUP_HOME="${HOME}/rust/.rustup"
+    export CARGO_HOME="${HOME}/rust/.cargo"
+    source "${HOME}/rust/.cargo/env"
+fi
+
+# Homebrew {{{
+
+if [[ "${OSTYPE}" == "linux-gnu"* ]]; then
+    if [ -d "/home/linuxbrew/.linuxbrew/bin" ]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
+elif [[ "${OSTYPE}" == "darwin"* ]]; then
+    if [ -d "$HOME/.homebrew/bin" ]; then
+        eval "$(${HOME}/.homebrew/bin/brew shellenv)"
+    fi
+fi
+
+export HOMEBREW_NO_ENV_HINTS=1
+# }}}
+
 # ----------------------------------------------------------------------------#
 # }}}1
 # ----------------------------------------------------------------------------#
