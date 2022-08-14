@@ -154,13 +154,6 @@ alias pib='${PYTHON} -m bpython -i'
 alias pm="${PYTHON} manage.py"
 alias pdm="${PYTHON} -m ipdb -c continue manage.py"
 # }}}
-
-# virtual environment {{{
-
-## activate virtual environment
-alias av='source ./.venv/bin/activate'
-alias sv='source ./.venv/bin/activate'
-# }}}
 # }}}
 
 # Utilities {{{
