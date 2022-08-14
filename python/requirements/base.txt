@@ -13,7 +13,7 @@ isort==5.10.1                   # https://github.com/PyCQA/isort
 jedi==0.18.1                    # https://github.com/davidhalter/jedi
 jedi-language-server==0.35.1    # https://github.com/pappasam/jedi-language-server
 pretty-errors==1.2.25           # https://github.com/onelivesleft/PrettyErrors
-pudb==2022.1                    # https://github.com/inducer/pudb
+pudb==2022.1.2                  # https://github.com/inducer/pudb
 pydocstring==0.2.1              # https://github.com/robodair/pydocstring, vim-pydocstring
 pynvim==0.4.3                   # https://github.com/neovim/pynvim
 pytest==6.2.2                   # https://github.com/pytest-dev/pytest
