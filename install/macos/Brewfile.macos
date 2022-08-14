@@ -45,6 +45,7 @@ brew "less"
 brew "ncurses"
 brew "openssl"
 brew "openssh"
+brew "postgresql"               # no native M1 psycopg2 binary yet.
 brew "protobuf"
 brew "ripgrep"
 brew "shellcheck"
