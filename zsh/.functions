@@ -404,6 +404,20 @@ ve() {
     fi
 }
 
+# Reactivate virtual environment
+rv() {
+    local venv="${1:-./.venv}"
+    local bin="${venv}/bin/activate"
+
+    # If not already in virtualenv
+    # $VIRTUAL_ENV is being set from $venv/bin/activate script
+	if [ -n "${VIRTUAL_ENV}" ]; then
+        echo "Reactivating ${venv} virtualenv..."
+        deactivate \
+            && source "${bin}"
+    fi
+}
+
 # TODO: Don't work with PIP_REQUIRE_VIRTUALENV even inside venv
 #
 # Create venv with latest pip

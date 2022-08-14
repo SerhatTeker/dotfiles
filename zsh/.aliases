@@ -160,8 +160,6 @@ alias pdm="${PYTHON} -m ipdb -c continue manage.py"
 ## activate virtual environment
 alias av='source ./.venv/bin/activate'
 alias sv='source ./.venv/bin/activate'
-## reactivate virtual environment
-alias rv='[ -z "$VIRTUAL_ENV" ] && deactivate && source ./.venv/bin/activate'
 # }}}
 # }}}
 
