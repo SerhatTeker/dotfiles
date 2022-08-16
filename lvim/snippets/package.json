@@ -9,6 +9,15 @@
       {
         "language": "python",
         "path": "./python.json"
+      },
+      {
+        "language": [
+          "shellscript",
+          "shell",
+          "sh",
+          "zsh"
+        ],
+        "path": "./shell.json"
       }
     ]
   }
