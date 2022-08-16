@@ -11,7 +11,7 @@
     "body": "breakpoint()$0",
     "description": "Debugging breakpoint"
   },
-  "Logger": {
+  "LoggerDefault": {
     "body": [
       "import logging",
       "",
@@ -20,6 +20,24 @@
       "\tformat=\"[%(asctime)s] [%(levelname)-7s] : %(message)s\",  # short",
       "\t# format=\"[%(asctime)s] [%(levelname)-7s] [%(module)s %(name)s (%(lineno)d)] : %(message)s\",  # long",
       "\tdatefmt=\"%Y-%m-%d %H:%M:%S %z\"",
+      ")",
+      "",
+      "logger = logging.getLogger(__name__)\n$0"
+    ],
+    "prefix": "logger_default",
+    "description": "print Hello, World!"
+  },
+  "Logger": {
+    "body": [
+      "import logging",
+      "",
+      "from rich.logging import RichHandler",
+      "",
+      "logging.basicConfig(",
+      "\tlevel=logging.INFO,",
+      "\tformat=\"%(message)s\",",
+      "\tdatefmt=\"%Y-%m-%d %H:%M:%S %z\",",
+      "\thandlers=[RichHandler(rich_tracebacks=True)],",
       ")",
       "",
       "logger = logging.getLogger(__name__)\n$0"
