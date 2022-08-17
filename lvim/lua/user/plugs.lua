@@ -3,13 +3,17 @@
 -- NOTE: After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 -- Notify
 lvim.builtin.notify.active = true
+
 -- Dap
 lvim.builtin.dap.active = true -- (default: false)
+
 -- # Terminal
 lvim.builtin.terminal.active = true
 -- direction = 'vertical' | 'horizontal' | 'window' | 'float',
 lvim.builtin.terminal.direction = "horizontal"
-lvim.builtin.terminal.open_mapping = [[<leader>e]]
+lvim.builtin.terminal.open_mapping = [[<c-\>]]
+-- lvim.builtin.terminal.open_mapping = [[<leader>e]]
+
 -- # Project
 -- Disable project plugin since it messes nvim-tree setup.update_cwd
 -- https://github.com/LunarVim/LunarVim/blob/48320e5f882a911707c56baf3865f663acb39f08/lua/lvim/core/nvimtree.lua#L168-L173
