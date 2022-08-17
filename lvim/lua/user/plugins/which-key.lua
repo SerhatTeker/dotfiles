@@ -31,7 +31,7 @@ wk.mappings[";"] = nil
 wk.mappings["w"] = nil
 wk.mappings["q"] = nil
 wk.mappings["F"] = nil
-wk.mappings["e"] = nil -- INFO: NW
+wk.mappings["e"] = nil -- DEBUG: NW
 
 -- lvim.builtin.which_key.mappings["F"] = { require("lvim.core.telescope.custom-finders").find_project_files, "Find File" }
 wk.mappings["f"] = { require("lvim.lsp.utils").format, "Format" }
