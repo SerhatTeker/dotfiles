@@ -22,31 +22,10 @@ local snapshot_file = join_paths(snapshot_path, snapshot_name)
 
 -- ## Snapshot {{{
 
--- Hacky and ugly way to get "PackerSnapshotDone" until PR merged
--- Add PackerSnapshotDone commit from #898 PR
-local function overwrite_packer()
-    local install_path = join_paths(os.getenv("XDG_DATA_HOME"), "lunarvim", "site", "pack", "packer", "start",
-        "packer.nvim")
-
-    vim.fn.system { "git", "-C", install_path, "fetch", "origin", "pull/898/head" }
-    vim.fn.system { "git", "-C", install_path, "cherry-pick", "e070db37f5ad3733a790912cb247c1036888d473" }
-
-    -- # with vim api
-    -- local fetch = "!git " .. "-C " .. install_path .. " fetch" .. " origin" .. " pull/898/head"
-    -- local cherry = "!git " .. "-C " .. install_path .. " cherry-pick " .. "e070db37f5ad3733a790912cb247c1036888d473"
-    -- vim.api.nvim_command(fetch)
-    -- vim.api.nvim_command(cherry)
-end
-
 local function post_snapshot()
-    vim.cmd([["5sleep"]])
-
     if vim.fn.filereadable(snapshot_file) == 1 then
         local dotfile_path = os.getenv("HOME") .. "/dotfiles/lvim/snapshots"
-        -- local tmp = join_paths(snapshot_path, "temp_default.json")
-        local cmd = "jq --sort-keys . " .. snapshot_file .. " > " .. dotfile_path .. "default.json"
-        os.execute(cmd)
-        -- os.rename(tmp, snapshot_file)
+        os.execute("jq --sort-keys . " .. snapshot_file .. " > " .. dotfile_path .. "default.json")
         vim.notify("Sync Snapshot and Compile completed!", vim.log.levels.INFO, { title = "Packer Sync" })
     else
         vim.notify("Snapshot file not found!", vim.log.levels.ERROR, { title = "post_snapshot()" })
@@ -64,13 +43,16 @@ local function packer_snapshot()
         os.execute("rm " .. snapshot_file)
     end
 
-    -- Must be above snapshot(), 'PackerSnapshotDone' cmd comes from this commit
-    -- overwrite_packer()
+    local a = require('packer.async')
+    local async = a.sync
+    local await = a.wait
 
     -- Take snapshot
-    packer.snapshot("default.json")
-
-    post_snapshot()
+    async(function()
+        await(packer.snapshot('default.json'))
+        await(post_snapshot())
+        await(a.main)
+    end)()
 end
 
 -- }}}
