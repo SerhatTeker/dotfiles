@@ -506,7 +506,7 @@ _lvim_packer_cmd() {
 # 4) lvim_snapshot
 lvim_snapshot() {
     local cache_snapshot="${XDG_CACHE_HOME}/lvim/snapshots/default.json"
-    local dotfiles_snapshot="${HOME}/dotfiles/lvim/snapshots"
+    local dotfiles_snapshot="${HOME}/dotfiles/lvim/snapshots/default.json"
 
     # _lvim_packer_cmd "PackerSnapshot default.json" # HACK: NW
     # ${PYTHON} -m json.tool "${cache_snapshot}" > "${dotfiles_snapshot}"
