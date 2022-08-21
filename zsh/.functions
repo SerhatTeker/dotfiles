@@ -500,6 +500,11 @@ _lvim_packer_cmd() {
 }
 
 # Take packer snapshot and sync it with dotfiles copy
+# INFO: Run manually
+# 1) :PackerSync
+# 2) :PackerCompile profile=true
+# 3) :PackerSnapshot default.json
+# 4) lvim_snapshot
 lvim_snapshot() {
     local cache_snapshot="${XDG_CACHE_HOME}/lvim/snapshots/default.json"
     local dotfiles_snapshot="${HOME}/dotfiles/lvim/snapshots"
