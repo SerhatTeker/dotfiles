@@ -23,12 +23,14 @@ local snapshot_file = join_paths(snapshot_path, snapshot_name)
 -- ## Snapshot {{{
 
 local function post_snapshot()
-    if vim.fn.filereadable(snapshot_file) == 1 then
-        local dotfile_path = os.getenv("HOME") .. "/dotfiles/lvim/snapshots"
-        os.execute("jq --sort-keys . " .. snapshot_file .. " > " .. dotfile_path .. "default.json")
-        vim.notify("Sync Snapshot and Compile completed!", vim.log.levels.INFO, { title = "Packer Sync" })
+    local dotfile_path = os.getenv("HOME") .. "/dotfiles/lvim/snapshots"
+
+    local is_readable = vim.fn.filereadable(snapshot_file)
+    if is_readable then
+        os.execute("jq --sort-keys . " .. snapshot_file .. " > " .. join_paths(dotfile_path, "default.json"))
+        vim.notify("Sync Snapshot and Compile completed!", vim.log.levels.INFO, { title = "Post Snapshot" })
     else
-        vim.notify("Snapshot file not found!", vim.log.levels.ERROR, { title = "post_snapshot()" })
+        vim.notify("Snapshot file not readable" .. is_readable, vim.log.levels.WARN, { title = "Post Snapshot" })
     end
 end
 
@@ -50,9 +52,11 @@ local function packer_snapshot()
     -- Take snapshot
     async(function()
         await(packer.snapshot('default.json'))
-        await(post_snapshot())
+        -- await(post_snapshot())
         await(a.main)
     end)()
+
+    post_snapshot()
 end
 
 -- }}}
