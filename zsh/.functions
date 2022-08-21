@@ -495,8 +495,7 @@ dec-file() {
 _lvim_packer_cmd() {
     "${XDG_BIN_HOME}/lvim" --headless \
         -c "lua require('lvim.core.log'):set_level([[warn]])" \
-        -c 'autocmd User PackerComplete quitall' \
-        -c "${1}"
+        "${@}"
 }
 
 # Take packer snapshot and sync it with dotfiles copy
@@ -521,8 +520,8 @@ lvim_plugins_update() {
     # lvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
     # Update/Sync plugins, then compile
-    _lvim_packer_cmd "PackerUpdate"
-    _lvim_packer_cmd "PackerCompile profile=true"
+    _lvim_packer_cmd -c 'autocmd User PackerComplete quitall' -c "PackerUpdate"
+    _lvim_packer_cmd -c "PackerCompile profile=true"
 
     lvim_snapshot
 }
@@ -530,7 +529,7 @@ lvim_plugins_update() {
 lvim_update() {
     (cd "${XDG_DATA_HOME}/lunarvim/lvim" \
         && git pull \
-        && _lvim_packer_cmd "LvimUpdate")
+        && _lvim_packer_cmd -c "LvimUpdate" +"qa")
 
     # lvim_plugins_update    HACK: NW
 }
