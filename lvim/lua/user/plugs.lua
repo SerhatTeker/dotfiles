@@ -75,37 +75,13 @@ lvim.plugins = {
     -- Persistence
     {
         "olimorris/persisted.nvim",
-        event = "BufReadPre", -- this will only start session saving when an actual file was opened
+        -- event = "BufReadPre", -- this will only start session saving when an actual file was opened
         -- module = "persistence",
         config = function()
             require("persisted").setup({
                 save_dir = vim.fn.expand(vim.fn.stdpath "cache" .. "/session/"),
                 autosave = true,
                 autoload = true,
-
-                ignored_dirs = {
-                    "/tmp",
-
-                }, -- table of dirs that are ignored when auto-saving and auto-loading
-
-                -- Saving
-                before_save = function()
-                    -- pcall(vim.cmd, "bw minimap")
-                    print("Session saving...")
-                end,
-                after_save = function()
-                    print("Session was saved!")
-                end,
-
-                -- Sourcing
-                before_source = function()
-                    print("Sourcing...")
-                end,
-                after_source = function()
-                    -- Reload the LSP servers
-                    -- vim.lsp.stop_client(vim.lsp.get_active_clients())
-                    print("Sourced...")
-                end
             })
             vim.o.sessionoptions = "buffers,curdir,folds,tabpages,winpos,winsize"
         end,
@@ -281,50 +257,3 @@ lvim.plugins = {
 }
 -- }}}
 -- }}}
-
--- local chan_id = vim.fn.sockconnect("pipe", "/tmp/nvim.pipe", { rpc = true })
--- print(chan_id)
-
--- if chan_id then
---     print("salla")
-
---     local _persisted = {
---         "olimorris/persisted.nvim",
---         event = "BufReadPre", -- this will only start session saving when an actual file was opened
---         -- module = "persistence",
---         config = function()
---             require("persisted").setup({
---                 save_dir = vim.fn.expand(vim.fn.stdpath "cache" .. "/session/"),
---                 autosave = true,
---                 autoload = true,
-
---                 ignored_dirs = {
---                     "/tmp",
-
---                 }, -- table of dirs that are ignored when auto-saving and auto-loading
-
---                 -- Saving
---                 before_save = function()
---                     -- pcall(vim.cmd, "bw minimap")
---                     print("CHAN ID: Session saving...")
---                 end,
---                 after_save = function()
---                     print("CHAN ID: Session was saved!")
---                 end,
-
---                 -- Sourcing
---                 before_source = function()
---                     print("CHAN ID: Sourcing...")
---                 end,
---                 after_source = function()
---                     -- Reload the LSP servers
---                     -- vim.lsp.stop_client(vim.lsp.get_active_clients())
---                     print("CHAN ID: Sourced...")
---                 end
---             })
---             vim.o.sessionoptions = "buffers,curdir,folds,tabpages,winpos,winsize"
---         end,
---     }
-
---     lvim.plugins = vim.tbl_extend('force', _persisted, lvim_plugins)
--- end
