@@ -509,7 +509,8 @@ lvim_snapshot() {
     local dotfiles_snapshot="${HOME}/dotfiles/lvim/snapshots"
 
     # _lvim_packer_cmd "PackerSnapshot default.json" # HACK: NW
-    ${PYTHON} -m json.tool "${cache_snapshot}" > "${dotfiles_snapshot}"
+    # ${PYTHON} -m json.tool "${cache_snapshot}" > "${dotfiles_snapshot}"
+    jq --sort-keys . "${cache_snapshot}" > "${dotfiles_snapshot}"
 }
 
 # INFO: PackerSync not working currently, run manually or via `:Sync`
