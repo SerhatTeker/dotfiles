@@ -22,6 +22,7 @@ local snapshot_file = join_paths(snapshot_path, snapshot_name)
 
 -- ## Snapshot {{{
 
+-- Run manual
 local function post_snapshot()
     local dotfile_path = os.getenv("HOME") .. "/dotfiles/lvim/snapshots"
 
@@ -56,7 +57,7 @@ local function packer_snapshot()
         await(a.main)
     end)()
 
-    post_snapshot()
+    -- post_snapshot() -- HACK: NW
 end
 
 -- }}}
