@@ -20,51 +20,19 @@ local snapshot_path = join_paths(get_cache_dir(), "snapshots")
 local snapshot_name = "default.json"
 local snapshot_file = join_paths(snapshot_path, snapshot_name)
 
-local function sync_done()
-    local in_headless = #vim.api.nvim_list_uis() == 0 -- PERF: Make global
-
-    vim.notify("Sync Snapshot and Compile completed!", vim.log.levels.INFO, { title = "Packer Sync" })
-    if in_headless then
-        vim.cmd("q")
-    end
-end
-
 -- ## Snapshot {{{
 
--- Hacky and ugly way to get "PackerSnapshotDone" until PR merged
--- Add PackerSnapshotDone commit from #898 PR
-local function overwrite_packer()
-    local install_path = join_paths(os.getenv("XDG_DATA_HOME"), "lunarvim", "site", "pack", "packer", "start", "packer.nvim")
-
-    vim.fn.system { "git", "-C", install_path, "fetch", "origin", "pull/898/head" }
-    vim.fn.system { "git", "-C", install_path, "cherry-pick", "e070db37f5ad3733a790912cb247c1036888d473" }
-
-    -- # with vim api
-    -- local fetch = "!git " .. "-C " .. install_path .. " fetch" .. " origin" .. " pull/898/head"
-    -- local cherry = "!git " .. "-C " .. install_path .. " cherry-pick " .. "e070db37f5ad3733a790912cb247c1036888d473"
-    -- vim.api.nvim_command(fetch)
-    -- vim.api.nvim_command(cherry)
-end
-
-local function sort_snapshot()
-    if vim.fn.filereadable(snapshot_file) == 1 then
-        local tmp = join_paths(snapshot_path, "temp_default.json")
-        local cmd = "jq --sort-keys . " .. snapshot_file .. " > " .. tmp
-        os.execute(cmd)
-        os.rename(tmp, snapshot_file)
-    else
-        vim.notify("Snapshot file not found!", vim.log.levels.ERROR, { title = "sort_snapshot()" })
-    end
-end
-
+-- Run manual
 local function post_snapshot()
-    sort_snapshot()
-
-    -- Copy to dotfiles
     local dotfile_path = os.getenv("HOME") .. "/dotfiles/lvim/snapshots"
-    os.execute(string.format("cp %s %s", snapshot_file, dotfile_path))
 
-    sync_done()
+    local is_readable = vim.fn.filereadable(snapshot_file)
+    if is_readable then
+        os.execute("jq --sort-keys . " .. snapshot_file .. " > " .. join_paths(dotfile_path, "default.json"))
+        vim.notify("Sync Snapshot and Compile completed!", vim.log.levels.INFO, { title = "Post Snapshot" })
+    else
+        vim.notify("Snapshot file not readable" .. is_readable, vim.log.levels.WARN, { title = "Post Snapshot" })
+    end
 end
 
 local function packer_snapshot()
@@ -78,17 +46,18 @@ local function packer_snapshot()
         os.execute("rm " .. snapshot_file)
     end
 
-    -- Must be above snapshot(), 'PackerSnapshotDone' cmd comes from this commit
-    overwrite_packer()
+    local a = require('packer.async')
+    local async = a.sync
+    local await = a.wait
 
     -- Take snapshot
-    packer.snapshot("default.json")
+    async(function()
+        await(packer.snapshot('default.json'))
+        -- await(post_snapshot())
+        await(a.main)
+    end)()
 
-    -- Post snapshot, bin to sort_snapshot
-    vim.api.nvim_create_autocmd('User', {
-        pattern = 'PackerSnapshotDone',
-        callback = post_snapshot,
-    })
+    -- post_snapshot() -- HACK: NW
 end
 
 -- }}}
