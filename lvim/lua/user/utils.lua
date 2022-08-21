@@ -24,7 +24,7 @@ function M.xdg_open_handler()
         return
     end
 
-    -- INFO: NW: getting comment char(s) as well
+    -- HACK: NW: getting comment char(s) as well
     -- local ts_utils = require "nvim-treesitter.ts_utils"
     -- local node = ts_utils.get_node_at_cursor()
     -- local uri = vim.treesitter.query.get_node_text(node, 0)
