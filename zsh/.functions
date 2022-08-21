@@ -85,7 +85,6 @@ chrome-toggle() {
     fi
 }
 
-
 # Launch Google Chrome with forced dark mode in i3
 chrome-i3() {
     local flags='--force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering'
@@ -98,7 +97,7 @@ chrome-i3() {
 # Kill and restart ActivityWatch process
 aw-reboot() {
     pkill -f aw
-    nohup ~/apps/activitywatch/aw-qt > /dev/null 2>&1 &
+    nohup ~/apps/activitywatch/aw-qt >/dev/null 2>&1 &
 }
 # }}}1
 
@@ -107,29 +106,28 @@ aw-reboot() {
 # Open DIR
 # run it in the background
 f() {
-	# if $1 empty open $HOME
-	# -w to open it in a new window
-	if [ -z "$1" ];then
-		nohup nautilus -w "$HOME" >/dev/null 2>&1 &
-	else
-		nohup nautilus -w "$1" >/dev/null 2>&1 &
-	fi
+    # if $1 empty open $HOME
+    # -w to open it in a new window
+    if [ -z "$1" ]; then
+        nohup nautilus -w "$HOME" >/dev/null 2>&1 &
+    else
+        nohup nautilus -w "$1" >/dev/null 2>&1 &
+    fi
 }
 
 # cd then ll
 cdl() {
-	builtin cd "$@" && ls -ahlF
+    builtin cd "$@" && ls -ahlF
 }
 
 # make dir then cd
-mkcd () {
-	mkdir -p "$1" && cd "$1"
+mkcd() {
+    mkdir -p "$1" && cd "$1"
 }
 
 # shortcut : cd $DIR then run nvim -s
-cv () {
+cv() {
     local dir="${1:-$HOME}"
-
 
     if [ "$dir" = "dot" ]; then
         local dir=$DOTFILES
@@ -155,8 +153,7 @@ replace_spaces() {
 
     # Replace all files in the directory
     if [[ -d ${arg} ]]; then
-        for file in ${arg}/*
-        do
+        for file in ${arg}/*; do
             mv ${file} ${file// /_}
         done
     # Single file
@@ -169,17 +166,17 @@ replace_spaces() {
 }
 
 add-file-suffix-all() {
-	find . -type f -not -name "*.$1" -exec mv "{}" "{}.$1" \;
+    find . -type f -not -name "*.$1" -exec mv "{}" "{}.$1" \;
 }
 
 delete-file-part() {
-	suffix=$1
-	delete_part="$2"
+    suffix=$1
+    delete_part="$2"
 
-	for filename in *.$suffix; do
-		[ -f "$filename" ] || continue
-		mv "$filename" "${filename//$delete_part/}"
-	done
+    for filename in *.$suffix; do
+        [ -f "$filename" ] || continue
+        mv "$filename" "${filename//$delete_part/}"
+    done
 }
 
 # move only files
@@ -196,22 +193,22 @@ mvf() {
 # Using '--quiet' with 'symbolic-ref' will not cause a fatal error (128) if
 # it's not a symbolic ref, but in a Git repo
 git-current-branch() {
-	local ref
-	ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
-	local ret=$?
-	if [[ $ret != 0 ]]; then
-		[[ $ret == 128 ]] && return  # no git repo.
-		ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
-	fi
-	echo ${ref#refs/heads/}
+    local ref
+    ref=$(command git symbolic-ref --quiet HEAD 2>/dev/null)
+    local ret=$?
+    if [[ $ret != 0 ]]; then
+        [[ $ret == 128 ]] && return # no git repo.
+        ref=$(command git rev-parse --short HEAD 2>/dev/null) || return
+    fi
+    echo ${ref#refs/heads/}
 }
 
 # sync upstream fork with local
 git-sync-fork() {
-	# Fetch all branches of remote upstream
-	# Rewrite master with upstream’s master using git rebase:
-	git fetch upstream && \
-		git rebase upstream/master
+    # Fetch all branches of remote upstream
+    # Rewrite master with upstream’s master using git rebase:
+    git fetch upstream &&
+        git rebase upstream/master
 }
 
 # Delete given local and remote branch
@@ -225,19 +222,22 @@ git-prune-branch() {
 
     # Ensure with taking prompt
     msg_cli yellow \
-        "This will delete your local and remote branch <${branch}>. Are you sure? (y/n)"  \
+        "This will delete your local and remote branch <${branch}>. Are you sure? (y/n)" \
         normal
     read -r opt
     case ${opt} in
-        y*|Y*|"") git branch -D ${branch}; git push -d ${remote} ${branch} ;;
-        n*|N*) msg_cli red "Deleting ${branch} cancelled." normal ;;
-        *) msg_cli red "Please type y/Y or n/N" normal ;;
+    y* | Y* | "")
+        git branch -D ${branch}
+        git push -d ${remote} ${branch}
+        ;;
+    n* | N*) msg_cli red "Deleting ${branch} cancelled." normal ;;
+    *) msg_cli red "Please type y/Y or n/N" normal ;;
     esac
 }
 
 # Git checkout a pull request locally
 # Usage: `$ ghpr 8` where 8 is the number of pull request
-ghpr(){
+ghpr() {
     local pr=$1
     local remote=${2:-origin}
 
@@ -253,33 +253,30 @@ ghpr(){
 
 # Download all files from a github gist url
 # Usage Example: $ ddl-gist 'https://gist.github.com/7fee6d84f2f3d16ef3628e9a4a7f57e7' ~/Downloads/gists
-ddl-gist(){
-	if [ $# -ne 2 ];
-	then
-		echo 'Failed. Syntax: $> ddl-gist GITHUB_GIST_URL DOWNLOAD_PATH'
-		return
-	fi
+ddl-gist() {
+    if [ $# -ne 2 ]; then
+        echo 'Failed. Syntax: $> ddl-gist GITHUB_GIST_URL DOWNLOAD_PATH'
+        return
+    fi
 
-	gist_url=$1
-	download_path=$2
+    gist_url=$1
+    download_path=$2
 
-	echo '[*] Getting all GIST File URLs from '$gist_url
+    echo '[*] Getting all GIST File URLs from '$gist_url
 
-	gists=`curl -ksL -H 'User-Agent: Mozilla/5.0' $gist_url  | grep '<a\ .*href=".*/raw/' | sed 's/.*a\ .*href="//' | sed 's/".*//'`
-	echo '[*] Downloading all files'
+    gists=$(curl -ksL -H 'User-Agent: Mozilla/5.0' $gist_url | grep '<a\ .*href=".*/raw/' | sed 's/.*a\ .*href="//' | sed 's/".*//')
+    echo '[*] Downloading all files'
 
-	for lines in `echo $gists | xargs -L1`;
-	do
-		if [ ! -z $lines ];
-		then
-			echo $lines
-			gistfile=`echo $lines | sed 's/.*\///'`
-			save_as=$download_path"/"$gistfile
-			echo "Downloading URL: https://gist.github.com"$lines
-			echo "to "$save_as"....."
-			wget -c -O $save_as "https://gist.github.com"$lines
-		fi
-	done
+    for lines in $(echo $gists | xargs -L1); do
+        if [ ! -z $lines ]; then
+            echo $lines
+            gistfile=$(echo $lines | sed 's/.*\///')
+            save_as=$download_path"/"$gistfile
+            echo "Downloading URL: https://gist.github.com"$lines
+            echo "to "$save_as"....."
+            wget -c -O $save_as "https://gist.github.com"$lines
+        fi
+    done
 }
 # }}}
 
@@ -287,13 +284,13 @@ ddl-gist(){
 # ----------------------------------------------------------------------------#
 
 # journal in vim
-journal(){
+journal() {
     # Show current journal
     WNUMBER=$(date +%U)
     YNUM=$(date +%y)
     echo "JOURNAL: y${YNUM}/w${WNUMBER}"
 
-	# check journal exist, if not exist create
+    # check journal exist, if not exist create
     # ~/.local/bin/journal-check
     journal-check
 }
@@ -314,11 +311,11 @@ pipg() {
 auto-venv() {
     local venv="./.venv"
 
-	if [ -z "$VIRTUAL_ENV" ]; then
-		if [ -d ${venv} ]; then
-			source ${venv}/bin/activate
-		fi
-	fi
+    if [ -z "$VIRTUAL_ENV" ]; then
+        if [ -d ${venv} ]; then
+            source ${venv}/bin/activate
+        fi
+    fi
 }
 
 _pretty_errors_venv() {
@@ -326,7 +323,7 @@ _pretty_errors_venv() {
     venv_python=$(python -c "import sys; print(f'python{sys.version_info.major}.{sys.version_info.minor}')")
     local file="${venv}/lib/${venv_python}/site-packages/usercustomize.py"
 
-    cat << EOF >> ${file}
+    cat <<EOF >>${file}
 try:
     import pretty_errors
 except ImportError:
@@ -359,13 +356,12 @@ _rich_traceback_venv() {
     venv_python=$(python -c "import sys; print(f'python{sys.version_info.major}.{sys.version_info.minor}')")
     local file="${venv}/lib/${venv_python}/site-packages/sitecustomize.py"
 
-    cat << EOF >> ${file}
+    cat <<EOF >>${file}
 from rich.traceback import install
 install(show_locals=True)
 EOF
     echo "Rich traceback added"
 }
-
 
 # Logical conditions:
 # 0. If not already in virtualenv:
@@ -381,17 +377,17 @@ EOF
 # or for a specific python version and environment name;
 # $ ve python3.9 ./.venv-diff
 ve() {
-    local py=${1:-$PYTHON}              # ${PYTHON} comes from .zshenv
+    local py=${1:-$PYTHON} # ${PYTHON} comes from .zshenv
     local venv="${2:-./.venv}"
     local bin="${venv}/bin/activate"
 
     # If not already in virtualenv
     # $VIRTUAL_ENV is being set from $venv/bin/activate script
-	if [ -z "${VIRTUAL_ENV}" ]; then
+    if [ -z "${VIRTUAL_ENV}" ]; then
         if [ ! -d ${venv} ]; then
             echo "Creating and activating virtual environment ${venv}"
             ${py} -m venv ${venv} --system-site-package
-            echo "export PYTHON=${py}" >> ${bin}    # Overwrite ${PYTHON} on .zshenv
+            echo "export PYTHON=${py}" >>${bin} # Overwrite ${PYTHON} on .zshenv
             source ${bin}
             echo "Upgrading pip"
             ${py} -m pip install --upgrade pip
@@ -411,10 +407,10 @@ rv() {
 
     # If not already in virtualenv
     # $VIRTUAL_ENV is being set from $venv/bin/activate script
-	if [ -n "${VIRTUAL_ENV}" ]; then
+    if [ -n "${VIRTUAL_ENV}" ]; then
         echo "Reactivating ${venv} virtualenv..."
-        deactivate \
-            && source "${bin}"
+        deactivate &&
+            source "${bin}"
     fi
 }
 
@@ -432,8 +428,7 @@ veo() {
 
         if ! $py -m venv ${venv} \
             --without-pip \
-            --system-site-packages
-        then
+            --system-site-packages; then
             echo "ERROR: Problem creating venv" >&2
             return 1
         else
@@ -453,7 +448,7 @@ veo() {
 # ----------------------------------------------------------------------------#
 
 myip() {
-	curl ifconfig.me
+    curl ifconfig.me
 }
 # }}}1
 
@@ -461,15 +456,15 @@ myip() {
 # ----------------------------------------------------------------------------#
 
 # get last apt-get update date
-info-update-last () {
-	ls -lt --time-style="long-iso" /var/log/apt | grep -o '\([0-9]\{2,4\}[- ]\)\{3\}[0-9]\{2\}:[0-9]\{2\}' -m 1
+info-update-last() {
+    ls -lt --time-style="long-iso" /var/log/apt | grep -o '\([0-9]\{2,4\}[- ]\)\{3\}[0-9]\{2\}:[0-9]\{2\}' -m 1
 }
 
 history-statistic() {
-	#A one-liner allows us to see our most used commands
-	history | \
-		awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | \
-		grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
+    #A one-liner allows us to see our most used commands
+    history |
+        awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' |
+        grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n10
 }
 # }}}1
 
@@ -480,20 +475,23 @@ history-statistic() {
 # must cd into dir first
 # TODO: dir agnostic
 enc-file() {
-	cat "$1" | gpg --armor --output "$1.gpg" --symmetric --cipher-algo AES256
+    cat "$1" | gpg --armor --output "$1.gpg" --symmetric --cipher-algo AES256
 }
 
 # decrypt given file
 # must cd into dir first
 # TODO: dir agnostic
 dec-file() {
-	gpg --output "$(echo $1 | cut -d '.' -f1).$(echo $1 | cut -d '.' -f2)" --decrypt "$1"
+    gpg --output "$(echo $1 | cut -d '.' -f1).$(echo $1 | cut -d '.' -f2)" --decrypt "$1"
 }
 # }}}1
 
 # Update {{{1
 # ----------------------------------------------------------------------------#
 
+# Lvim {{{
+
+# helper command for lvim operations
 _lvim_packer_cmd() {
     "${XDG_BIN_HOME}/lvim" --headless \
         -c "lua require('lvim.core.log'):set_level([[warn]])" \
@@ -501,34 +499,41 @@ _lvim_packer_cmd() {
         -c "${1}"
 }
 
-# HACK: _configure not working currently, run manually or via `:Sync`
+# Take packer snapshot and sync it with dotfiles copy
+lvim_snapshot() {
+    local cache_snapshot="${XDG_CACHE_HOME}/lvim/snapshots/default.json"
+    local dotfiles_snapshot="${HOME}/dotfiles/lvim/snapshots"
+
+    # _lvim_packer_cmd "PackerSnapshot default.json" # HACK: NW
+    ${PYTHON} -m json.tool "${cache_snapshot}" > "${dotfiles_snapshot}"
+}
+
+# INFO: PackerSync not working currently, run manually or via `:Sync`
 # https://github.com/wbthomason/packer.nvim/issues/751
 lvim_plugins_update() {
     # Packer bootstrapping, Use LunarVim one below
     # https://github.com/wbthomason/packer.nvim#bootstrapping
     # lvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
-    # Update LunarVim
+    # Update/Sync plugins, then compile
     _lvim_packer_cmd "PackerUpdate"
-    (cd "${XDG_DATA_HOME}/lunarvim/lvim" \
-        && git pull \
-        && _lvim_packer_cmd "PackerSync")
+    _lvim_packer_cmd "PackerCompile profile=true"
 
-    # Update packer snapshots
-    _lvim_packer_cmd "PackerSnaphost default.json" \
-        && cp "${HOME}/.cache/lvim/snapshots/default.json" "${HOME}/dotfiles/lvim/snapshots"
+    lvim_snapshot
 }
 
 lvim_update() {
-    cd "${XDG_DATA_HOME}/lunarvim/lvim" \
+    (cd "${XDG_DATA_HOME}/lunarvim/lvim" \
         && git pull \
-        && lvim +LvimUpdate +q
+        && _lvim_packer_cmd "LvimUpdate")
 
-    # lvim_plugins_update
+    # lvim_plugins_update    HACK: NW
 }
+# }}}
 
+# Update NeoVim and LunarVim
 update-editors() {
-    nvim +PlugUpdate +qall
+    nvim --headless +PlugUpdate +qall
     lvim_update
 }
 
@@ -537,7 +542,7 @@ update-editors() {
 update_all() {
     is_linux || exit 1 # Currently just for linux
 
-	sudo apt update \
+    sudo apt update  \
         && sudo apt list --upgradable \
         && omz update \
         && update-editors \
@@ -558,7 +563,7 @@ update_upgrade_all() {
 # General {{{
 
 command_exists() {
-	command -v "$@" >/dev/null 2>&1
+    command -v "$@" >/dev/null 2>&1
 }
 
 notify() {
@@ -573,26 +578,26 @@ notify() {
 
 # Zip Tar {{{
 
-tar-it () {
-	dirorfile="$1"
-	destination="$1.tar.gz"
+tar-it() {
+    dirorfile="$1"
+    destination="$1.tar.gz"
 
-	tar -czvf $destination $dirorfile
+    tar -czvf $destination $dirorfile
 }
 
-untar-it () {
-	file="$1"
-	filename="${file%%.*}"
+untar-it() {
+    file="$1"
+    filename="${file%%.*}"
 
-	# alternative to get the filename
-	# filename=$(basename -- "$fullfile")
-	# extension="${filename##*.}"
-	# filename="${filename%.*}"
+    # alternative to get the filename
+    # filename=$(basename -- "$fullfile")
+    # extension="${filename##*.}"
+    # filename="${filename%.*}"
 
-	tar -xzvf $file $filename
+    tar -xzvf $file $filename
 }
 
-unzip-it () {
+unzip-it() {
     zipfile="$1"
     zipdir=${1%.zip}
 
@@ -603,26 +608,26 @@ unzip-it () {
 # across — assuming you have the packages needed to extract that type of archive.
 # https://www.reddit.com/r/linux/comments/2pzgt1/comment/cn1epxc
 extract-it() {
-	if [ -f $1 ] ; then
-		case $1 in
-			*.tar)       tar xvf $1     ;;
-			*.gz)        gunzip $1      ;;
-			*.tar.gz)    tar zxvf $1    ;;
-			*.tgz)       tar zxvf $1    ;;
-			*.txz)       tar xvf $1     ;;
-			*.xz)        tar xvf $1     ;;
-			*.zip)       unzip $1       ;;
-			*.7z)        7z x $1        ;;
-			*.tar.bz2)   tar xvjf $1    ;;
-			*.tbz2)      tar xvjf $1    ;;
-			*.bz2)       bunzip2 $1     ;;
-			*.rar)       unrar x $1     ;;
-			*.Z)         uncompress $1  ;;
-			*)           echo "Unable to extract <$1>'" ;;
-		esac
-	else
-			echo "'$1' is not a valid file"
-	fi
+    if [ -f $1 ]; then
+        case $1 in
+        *.tar) tar xvf $1 ;;
+        *.gz) gunzip $1 ;;
+        *.tar.gz) tar zxvf $1 ;;
+        *.tgz) tar zxvf $1 ;;
+        *.txz) tar xvf $1 ;;
+        *.xz) tar xvf $1 ;;
+        *.zip) unzip $1 ;;
+        *.7z) 7z x $1 ;;
+        *.tar.bz2) tar xvjf $1 ;;
+        *.tbz2) tar xvjf $1 ;;
+        *.bz2) bunzip2 $1 ;;
+        *.rar) unrar x $1 ;;
+        *.Z) uncompress $1 ;;
+        *) echo "Unable to extract <$1>'" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
 }
 # }}}
 
@@ -630,22 +635,22 @@ extract-it() {
 
 # hash two files and compare their hashes
 check-hsum() {
-	echo "$(shasum -a 256 $1)"
+    echo "$(shasum -a 256 $1)"
     echo "$(shasum -a 256 $2)"
-	if [[ "$(shasum -a 256 $1 | awk '{print $1}')" == "$(shasum -a 256 $2 | awk '{print $1}')" ]]; then
-		echo "Equal"
-	else
-		echo "NOT equal"
-	fi
+    if [[ "$(shasum -a 256 $1 | awk '{print $1}')" == "$(shasum -a 256 $2 | awk '{print $1}')" ]]; then
+        echo "Equal"
+    else
+        echo "NOT equal"
+    fi
 }
 
 # hsum alternative
 ecmp() {
-	if cmp -s "$1" "$2"; then
-		echo "eq"
-	else
-		echo "neq"
-	fi
+    if cmp -s "$1" "$2"; then
+        echo "eq"
+    else
+        echo "neq"
+    fi
 }
 # }}}
 
@@ -654,28 +659,28 @@ ecmp() {
 # pick colors in a 256 color terminal
 # http://mywiki.wooledge.org/BashFAQ/037
 colors256() {
-        local c i j
+    local c i j
 
-        printf "Colors 0 to 15 for the standard 16 colors\n"
-        for ((c = 0; c < 16; c++)); do
-                printf "|%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
-        done
-        printf "|\n\n"
+    printf "Colors 0 to 15 for the standard 16 colors\n"
+    for ((c = 0; c < 16; c++)); do
+        printf "|%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
+    done
+    printf "|\n\n"
 
-        printf "Colors 16 to 231 for 256 colors\n"
-        for ((i = j = 0; c < 232; c++, i++)); do
-                printf "|"
-                ((i > 5 && (i = 0, ++j))) && printf " |"
-                ((j > 5 && (j = 0, 1)))   && printf "\b \n|"
-                printf "%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
-        done
-        printf "|\n\n"
+    printf "Colors 16 to 231 for 256 colors\n"
+    for ((i = j = 0; c < 232; c++, i++)); do
+        printf "|"
+        ((i > 5 && (i = 0, ++j))) && printf " |"
+        ((j > 5 && (j = 0, 1))) && printf "\b \n|"
+        printf "%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
+    done
+    printf "|\n\n"
 
-        printf "Greyscale 232 to 255 for 256 colors\n"
-        for ((; c < 256; c++)); do
-                printf "|%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
-        done
-        printf "|\n"
+    printf "Greyscale 232 to 255 for 256 colors\n"
+    for (( ; c < 256; c++)); do
+        printf "|%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
+    done
+    printf "|\n"
 }
 # }}}
 
@@ -703,7 +708,7 @@ read-qr() {
 
 # tmux resurrect last sessions from resurrect addon
 mux() {
-    pgrep -vx tmux > /dev/null
+    pgrep -vx tmux >/dev/null
     tmux new -d -s delete-me
     tmux run-shell "${XDG_DATA_HOME}/tmux/plugins/tmux-resurrect/scripts/restore.sh"
     tmux kill-session -t delete-me
@@ -720,8 +725,8 @@ tnew() {
     if [[ $# -eq 1 ]]; then
         local session_dir="${1}"
         # if dir consists ".", split and get first name
-        local session_name=$(echo $(basename ${session_dir}) \
-            | awk '{split($session_name, a, "."); print a[1]}')
+        local session_name=$(echo $(basename ${session_dir}) |
+            awk '{split($session_name, a, "."); print a[1]}')
         local session_window_name="main"
     else
         local session_name="${1:-new}"
@@ -748,17 +753,18 @@ bak-tmux-resurrect() {
     local resurrect_sessions="${XDG_DATA_HOME}/tmux/resurrect/sessions"
     local newest_session="$(ls -lt ${resurrect_sessions}/tmux_*.txt | head -n 1 | awk '{print $11}')"
 
-	mkdir -p "${resurrect_sessions}/bu"
-	# backup newest one
+    mkdir -p "${resurrect_sessions}/bu"
+    # backup newest one
     cp ${newest_session} "${resurrect_sessions}/bu"
     cp ${newest_session} "${resurrect_sessions}/last.txt"
 
-	# clean all backups except newest one
+    # clean all backups except newest one
     case "$1" in
-        -c|--clean) \
-            ls -lt ${resurrect_sessions}/tmux_*.txt | \
-            awk '{if(NR!=1) print $11}' | \
-            xargs -i rm {} ;;
+    -c | --clean)
+        ls -lt ${resurrect_sessions}/tmux_*.txt |
+            awk '{if(NR!=1) print $11}' |
+            xargs -i rm {}
+        ;;
     esac
 }
 # }}}
