@@ -52,4 +52,3 @@ nt.view.mappings.list = {
 
 local lnmap = lvim.keys.normal_mode
 lnmap["<C-t>"] = "<CMD>NvimTreeToggle<CR>"
-lnmap["<leader>v"] = "<CMD>NvimTreeFindFile<CR>" -- no need since update_focused_file
