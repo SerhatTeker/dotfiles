@@ -109,5 +109,10 @@
       "\treturn wrapper\n$0"
     ],
     "description": "timerun helper function"
+  },
+  "future()": {
+    "prefix": ["future", "annotations"],
+    "body": "from __future__ import annotations",
+    "description": "Future annotations"
   }
 }
