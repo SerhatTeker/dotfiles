@@ -117,6 +117,15 @@ export KINDCONFIG="${XDG_CONFIG_HOME}/kube/kind.yaml"
 export LOG_FILE="/tmp/output.log"
 # }}}
 
+# Lvim {{{
+
+# Needed for tmux session. Setting from ~/.local/bin/lvim already.
+# https://github.com/LunarVim/LunarVim/issues/1987#issuecomment-1032563301
+export LUNARVIM_RUNTIME_DIR="${XDG_DATA_HOME}/lunarvim"
+export LUNARVIM_CONFIG_DIR="${XDG_CONFIG_HOME}/lvim"
+export LUNARVIM_CACHE_DIR="${XDG_CACHE_HOME}/lvim"
+# }}}
+
 # Colors {{{2
 
 export COLOR_NONE="\e[0m"
