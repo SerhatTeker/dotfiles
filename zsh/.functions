@@ -746,10 +746,10 @@ tnew() {
         -n ${session_window_name}
 }
 
-# create dotfiles session in dotfiles dir and open saved vim session
+# create dotfiles session in dotfiles dir and open saved nvim session
 tdot() {
-    tmux new-session -d -s dotfiles -c ~/dotfiles -n main
-    tmux send-keys -t dotfiles:main "nvim -S" C-m
+    tmux new-session -d -s dotfiles -c "${HOME}/dotfiles" -n main
+    tmux send-keys -t dotfiles:main "lvim" C-m
 }
 
 # backup last tmux resurrect session and clean the rest
