@@ -42,8 +42,10 @@ lvim.builtin.telescope.pickers = {
 -- case the plugin wasn't loaded yet.
 local actions = require("telescope.actions")
 local action_layout = require("telescope.actions.layout")
+local multiopen_mappings = require('user.plugins.telescope_multiopen')
 
 lvim.builtin.telescope.defaults.mappings = {
+    -- insert mode
     i = {
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
@@ -51,15 +53,26 @@ lvim.builtin.telescope.defaults.mappings = {
         ["<C-n>"] = actions.cycle_history_next,
         ["<C-p>"] = actions.cycle_history_prev,
         ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-        ["<CR>"] = actions.select_default,
-        ["?"] = action_layout.toggle_preview,
+        -- ["<CR>"] = actions.select_default,
+        ["?"]     = action_layout.toggle_preview,
+        -- multiopen
+        ['<C-v>'] = multiopen_mappings.i['<C-v>'],
+        ['<C-s>'] = multiopen_mappings.i['<C-s>'],
+        ['<C-t>'] = multiopen_mappings.i['<C-t>'],
+        ['<CR>']  = multiopen_mappings.i['<CR>'],
+
     },
-    -- for normal mode
+    -- normal mode
     n = {
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
         ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
         -- ["?"] = action_layout.toggle_preview,
+        -- multiopen
+        ['<C-v>'] = multiopen_mappings.n['<C-v>'],
+        ['<C-s>'] = multiopen_mappings.n['<C-s>'],
+        ['<C-t>'] = multiopen_mappings.n['<C-t>'],
+        ['<CR>']  = multiopen_mappings.n['<CR>'],
     },
 }
 
