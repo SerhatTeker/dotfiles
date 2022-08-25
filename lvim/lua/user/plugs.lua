@@ -161,6 +161,12 @@ lvim.plugins = {
         -- run = ":GoInstallBinaries",
         ft = { "go" },
     },
+    -- ## Markdown
+    {
+        "jakewvincent/mkdnflow.nvim",
+        config = default_config("mkdnflow"),
+        ft = { "markdown" },
+    },
     -- # Additional
     -- ## Colorschemes
     { "folke/tokyonight.nvim" },
