@@ -167,6 +167,11 @@ lvim.plugins = {
         config = default_config("mkdnflow"),
         ft = { "markdown" },
     },
+    {
+        "ellisonleao/glow.nvim",
+        config = default_config("glow"),
+        ft = { "markdown" },
+    },
     -- # Additional
     -- ## Colorschemes
     { "folke/tokyonight.nvim" },
