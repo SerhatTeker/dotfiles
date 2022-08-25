@@ -7,6 +7,21 @@ vim.api.nvim_create_user_command("WQ", "wqa", { force = true })
 -- Buffers
 vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { force = true })
 
+-- Lvim Autocommands {{{
+
+lvim.autocommands = {
+    -- disable spell set from lvim/core/autocmds.lua
+    {
+        "FileType",
+        {
+            group = "_filetype_settings",
+            pattern = { "markdown" },
+            command = "setlocal wrap nospell",
+        },
+    },
+}
+-- }}}
+
 -- Packer Sync and Snapshot {{{
 
 -- Automate manual packer sync, snapshot and copy to dotfiles:
