@@ -5,26 +5,21 @@ root = true
 [*]
 charset = utf-8
 end_of_line = lf
+indent_style = space
+indent_size = 4
 insert_final_newline = true
 trim_trailing_whitespace = true
-indent_style = space
-indent_size = 4
 
-# explicit
-[*.{rst,ini}]
+[*.{json,yml,yaml}]
 indent_style = space
-indent_size = 4
+indent_size = 2
 
-[*.{html,css,scss,json,yml,yaml}]
+[*.{ini,toml}]
 indent_style = space
 indent_size = 2
 
 [*.md]
 trim_trailing_whitespace = false
-
-[nginx.conf]
-indent_style = space
-indent_size = 2
 
 [Makefile]
 indent_style = tab
@@ -32,13 +27,11 @@ indent_style = tab
 [*.py]
 indent_style = space
 indent_size = 4
-line_length=120
-multi_line_output=3
 
-[*.go]
+[*.{go,c}]
 indent_style = tab
 indent_size = 8
 
-[*.c]
-indent_style = tab
-indent_size = 8
+[*.{html,css,scss}]
+indent_style = space
+indent_size = 2
