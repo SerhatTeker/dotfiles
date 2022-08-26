@@ -137,16 +137,14 @@ export LANG=en_US.UTF-8
 # }}}
 
 # prompt settings {{{
-_fix_cursor() {
-    # change cursor color
-    # alternative: xterm 214 or 220
-    echo -ne '\e]12;yellow\a'
-}
-precmd_functions+=(_fix_cursor)
 
-# don't append "not found command" to history
-# https://www.zsh.org/mla/users//2014/msg00715.html
-zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
+# INFO: define from alacritty
+# _fix_cursor() {
+#     # change cursor color
+#     # alternative: xterm 214 or 220
+#     echo -ne '\e]12;yellow\a'
+# }
+# precmd_functions+=(_fix_cursor)
 # }}}
 
 # Editor {{{2
@@ -292,6 +290,11 @@ setopt HIST_REDUCE_BLANKS       # remove unnecessary blanks
 setopt INC_APPEND_HISTORY_TIME  # append command to history file immediately after execution
 setopt EXTENDED_HISTORY         # record command start time
 setopt SHARE_HISTORY            # share command history data
+
+# History
+# Don't append "not found command" to history
+# https://www.zsh.org/mla/users//2014/msg00715.html
+zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
 # }}}2
 
 # Aliases, functions and others {{{2

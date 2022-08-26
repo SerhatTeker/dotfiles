@@ -21,7 +21,7 @@ schemes:
     cursor:
       text:       CellBackground
       # cursor:     '#528bff' # syntax-cursor-color
-      cursor:      '#ffc600' # yellow
+      cursor:      '#ffc600' # orange
 
     selection:
       text:       CellForeground
@@ -46,6 +46,7 @@ schemes:
 
     cursor:
       text:       CellBackground
+      # cursor:      '#ffc600' # orange
       cursor:     '#526eff' # syntax-cursor-color
 
     selection:
@@ -62,4 +63,4 @@ schemes:
       cyan:       '#0184bc'
       white:      '#a0a1a7' # mono-3
 
-colors: *theme_dark
+colors: *theme_light
