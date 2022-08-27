@@ -707,6 +707,29 @@ read-qr() {
     shred -u "${file}"
 }
 # }}}
+
+# Message {{{
+
+msg() {
+    msg_cli white "${1}" normal
+}
+
+msg_info() {
+    msg_cli blue "INFO: ${1}" normal
+}
+
+msg_success() {
+    msg_cli green "SUCCESS: ${1}" normal
+}
+
+msg_warn() {
+    msg_cli yellow "WARNING: ${1}" normal
+}
+
+msg_error() {
+    msg_cli red "ERROR: ${1}" normal
+}
+# }}}
 # }}}
 
 # Tmux {{{
