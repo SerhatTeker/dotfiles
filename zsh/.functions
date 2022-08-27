@@ -510,7 +510,7 @@ lvim_snapshot() {
 
     # _lvim_packer_cmd "PackerSnapshot default.json" # HACK: NW
     # ${PYTHON} -m json.tool "${cache_snapshot}" > "${dotfiles_snapshot}"
-    jq --sort-keys . "${cache_snapshot}" > "${dotfiles_snapshot}"
+    jq --sort-keys . "${cache_snapshot}" >"${dotfiles_snapshot}"
 }
 
 # INFO: PackerSync not working currently, run manually or via `:Sync`
@@ -528,9 +528,9 @@ lvim_plugins_update() {
 }
 
 lvim_update() {
-    (cd "${XDG_DATA_HOME}/lunarvim/lvim" \
-        && git pull \
-        && _lvim_packer_cmd -c "LvimUpdate" +"qa")
+    (cd "${XDG_DATA_HOME}/lunarvim/lvim" &&
+        git pull &&
+        _lvim_packer_cmd -c "LvimUpdate" +"qa")
 
     # lvim_plugins_update    HACK: NW
 }
@@ -547,19 +547,19 @@ update-editors() {
 update_all() {
     is_linux || exit 1 # Currently just for linux
 
-    sudo apt update  \
-        && sudo apt list --upgradable \
-        && omz update \
-        && update-editors \
-        && notify "Updates Completed" "Your system updated successfully!"
+    sudo apt update &&
+        sudo apt list --upgradable &&
+        omz update &&
+        update-editors &&
+        notify "Updates Completed" "Your system updated successfully!"
 }
 
 # Update and upgrade all
 update_upgrade_all() {
     update-all
-    sudo apt upgrade -y \
-        && sudo apt dist-upgrade -y \
-        && notify "Upgrade Completed" "Your system upgraded successfully!"
+    sudo apt upgrade -y &&
+        sudo apt dist-upgrade -y &&
+        notify "Upgrade Completed" "Your system upgraded successfully!"
 }
 # }}}1
 
