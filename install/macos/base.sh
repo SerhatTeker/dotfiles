@@ -53,12 +53,20 @@ dark_mode_notify() {
     launchctl load -w "${HOME}/Library/LaunchAgents/com.serhatteker.dark-mode-notify.plist"
 }
 
+remap_capslock_to_esc() {
+    ln -sf "${DOTFILES}/os/macos/com.serhatteker.capslock-esc.plist" \
+        "${HOME}/Library/LaunchAgents"
+
+    launchctl load "${HOME}/Library/LaunchAgents/com.serhatteker.capslock-esc.plist"
+}
+
 main() {
     info "Started base ${OSTYPE}"
 
     bash "${ROOT}/macos/defaults.sh"
     bash "${ROOT}/macos/brew.sh"
     dark_mode_notify
+    remap_capslock_to_esc
 
     success "Finished base ${OSTYPE}"
 }
