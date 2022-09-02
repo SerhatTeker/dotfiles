@@ -623,32 +623,32 @@ unzip-it() {
     zipfile="$1"
     zipdir=${1%.zip}
 
-    unzip -d "$zipdir" "$zipfile"
+    unzip -d "${zipdir}" "${zipfile}"
 }
 
 # Typing extract-it followed by a filename will extract most archives you come
 # across — assuming you have the packages needed to extract that type of archive.
 # https://www.reddit.com/r/linux/comments/2pzgt1/comment/cn1epxc
 extract-it() {
-    if [ -f $1 ]; then
-        case $1 in
-        *.tar) tar xvf $1 ;;
-        *.gz) gunzip $1 ;;
-        *.tar.gz) tar zxvf $1 ;;
-        *.tgz) tar zxvf $1 ;;
-        *.txz) tar xvf $1 ;;
-        *.xz) tar xvf $1 ;;
-        *.zip) unzip $1 ;;
-        *.7z) 7z x $1 ;;
-        *.tar.bz2) tar xvjf $1 ;;
-        *.tbz2) tar xvjf $1 ;;
-        *.bz2) bunzip2 $1 ;;
-        *.rar) unrar x $1 ;;
-        *.Z) uncompress $1 ;;
-        *) echo "Unable to extract <$1>'" ;;
+    if [ -f "${1}" ]; then
+        case "${1}" in
+        *.tar) tar xvf "${1}" ;;
+        *.tar.gz) tar zxvf "${1}" ;;
+        *.gz) gunzip "${1}" ;;
+        *.tgz) tar zxvf "${1}" ;;
+        *.txz) tar xvf "${1}" ;;
+        *.xz) tar xvf "${1}" ;;
+        *.zip) unzip "${1}" ;;
+        *.7z) 7z x "${1}" ;;
+        *.tar.bz2) tar xvjf "${1}" ;;
+        *.tbz2) tar xvjf "${1}" ;;
+        *.bz2) bunzip2 "${1}" ;;
+        *.rar) unrar x "${1}" ;;
+        *.Z) uncompress "${1}" ;;
+        *) echo "Unable to extract <${1}>'" ;;
         esac
     else
-        echo "'$1' is not a valid file"
+        echo "<${1}> is not a valid file"
     fi
 }
 # }}}
