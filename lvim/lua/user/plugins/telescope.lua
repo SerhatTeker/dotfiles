@@ -102,6 +102,7 @@ lvim.builtin.which_key.mappings["t"] = {
     f = { cmd("Telescope live_grep"), "Find" },
     b = { cmd("Telescope buffers"), "Buffers" },
     d = { cmd("Telescope diagnostics"), "Diagnostics" },
+    c = { cmd("Telescope colorscheme"), "Colorscheme" },
     -- LSP
     ld = { cmd("Telescope lsp_definitions"), "LSP Definitions" },
     lr = { cmd("Telescope lsp_references"), "LSP Refences" },
