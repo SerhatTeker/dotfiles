@@ -366,8 +366,9 @@ bar {
 # Custom Keys {{{
 
 # Bind CapsLock to Escape
-exec_always xmodmap -e "clear lock" # disable caps lock switch
-exec_always xmodmap -e "keysym Caps_Lock = Escape" # set caps_lock as escape
+exec_always xmodmap -e "clear lock"                 # disable caps lock switch
+exec_always xmodmap -e "keysym Caps_Lock = Escape"  # set caps_lock as escape
+exec_always setxkbmap -option caps:escape           # k2 issue: not working with xmodmap
 # }}}
 
 # Startup {{{
