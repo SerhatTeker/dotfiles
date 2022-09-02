@@ -66,6 +66,12 @@ disable_core_dumps() {
 }
 # }}}
 
+fix_k2_f_keys() {
+    echo "options hid_apple fnmode=2" | sudo tee /etc/modprobe.d/hid_apple.conf
+    sudo update-initramfs -u -k all
+    warn "Reboot needed: reboot the system when convenient"
+}
+
 main() {
     info "Started base ${OSTYPE}"
 
@@ -74,6 +80,7 @@ main() {
     disable_core_dumps
     bash "${ROOT}/install/brew.sh"
     bash "${ROOT}/install/linux/i3.sh"
+    fix_k2_f_keys
 
     success "Finished base ${OSTYPE}"
 }
