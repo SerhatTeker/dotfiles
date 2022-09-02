@@ -589,7 +589,8 @@ tar-it() {
     dirorfile="$1"
     destination="$1.tar.gz"
 
-    tar -czvf $destination $dirorfile
+    tar -czvf "${destination}" "${dirorfile}"
+
 }
 
 untar-it() {
@@ -601,7 +602,21 @@ untar-it() {
     # extension="${filename##*.}"
     # filename="${filename%.*}"
 
-    tar -xzvf $file $filename
+    tar -xzvf "${file}" "${filename}"
+}
+
+zip-it() {
+    local input="${1}"
+    local output="${1%%.*}.zip"
+
+    if [[ -d "${input}" ]]; then
+        zip -r "${output}" "${input}"
+    elif [[ -f "${input}" ]]; then
+        zip "${output}" "${input}"
+    else
+        echo "${input} is not valid"
+        return 1
+    fi
 }
 
 unzip-it() {
