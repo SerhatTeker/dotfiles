@@ -19,20 +19,17 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
 # Locate the root directory
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# shellcheck source=scripts/common.sh
+# shellcheck disable=SC1090
 source "${ROOT}/install/common.sh"
-
 
 # Export main environment variables for ZSH
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 export ZSH="${XDG_DATA_HOME}/zsh/.oh-my-zsh"
 
-DOT_ZSH="${DOTFILES}/zsh"    # Alias for dotfiles zsh
-
+DOT_ZSH="${DOTFILES}/zsh" # Alias for dotfiles zsh
 
 # Install {{{
 
@@ -69,7 +66,6 @@ setup_shell() {
         return
     fi
 
-
     # Test for the right location of the "shells" file
     if [ -f /etc/shells ]; then
         shells_file=/etc/shells
@@ -93,9 +89,9 @@ setup_shell() {
 
     # We're going to change the default shell, so back up the current one
     if [ -n "$SHELL" ]; then
-        echo "$SHELL" > ~/.shell.pre-oh-my-zsh
+        echo "$SHELL" >~/.shell.pre-oh-my-zsh
     else
-        grep "^$USER:" /etc/passwd | awk -F: '{print $7}' > ~/.shell.pre-oh-my-zsh
+        grep "^$USER:" /etc/passwd | awk -F: '{print $7}' >~/.shell.pre-oh-my-zsh
     fi
 
     echo "Changing your shell to $zsh..."
@@ -110,9 +106,9 @@ setup_shell() {
     # be prompted for the password either way, so this shouldn't cause any issues.
     #
     if user_can_sudo; then
-        sudo -k chsh -s "$zsh" "$USER"  # -k forces the password prompt
+        sudo -k chsh -s "$zsh" "$USER" # -k forces the password prompt
     else
-        chsh -s "$zsh" "$USER"          # run chsh normally
+        chsh -s "$zsh" "$USER" # run chsh normally
     fi
 
     # Check if the shell change was successful
@@ -131,18 +127,18 @@ set_zdotdir() {
     # Set global ZDOTDIR
     # Hacky ugly way to fix tmux behavior
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" | \
+        echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" |
             sudo tee -a /etc/zsh/zshenv
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         # TODO: Implement
-        echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" | \
+        echo "export ZDOTDIR=\"\$HOME/.config/zsh\"" |
             sudo tee -a /etc/zshenv
     else
         echo "No install configuration for ${OSTYPE}"
         exit 1
     fi
 
-	msg_cli green "Succesfully set \$ZDOTDIR" normal
+    msg_cli green "Succesfully set \$ZDOTDIR" normal
 }
 # }}}
 
@@ -151,14 +147,14 @@ set_zdotdir() {
 # Create XDG_CONFIG_HOME link
 link_xdg() {
     force_remove "${DOT_ZSH}" "${XDG_CONFIG_HOME}/zsh"
-	msg_cli blue "Zsh dotfiles linked to XDG_CONFIG_HOME" normal
+    msg_cli blue "Zsh dotfiles linked to XDG_CONFIG_HOME" normal
 }
 
 # Create personal soft links
 link_personal() {
-    if [ -f ${SYSBAK}/zsh/.private.zsh ]; then
-        ln -sf ${SYSBAK}/zsh/.private.zsh ${ZDOTDIR}/.private.zsh
-	    msg_cli blue "Linked personal files" normal
+    if [ -f "${SYSBAK}/zsh/.private.zsh" ]; then
+        ln -sf "${SYSBAK}/zsh/.private.zsh" "${ZDOTDIR}/.private.zsh"
+        msg_cli blue "Linked personal files" normal
     fi
 }
 # }}}
@@ -167,7 +163,7 @@ link_personal() {
 
 install_oh-my-zsh() {
     # Fresh install: Remove if exists
-    if [[ -d "${ZSH}" ]];then
+    if [[ -d "${ZSH}" ]]; then
         rm -rf "${ZSH}"
     fi
 
@@ -175,7 +171,7 @@ install_oh-my-zsh() {
         https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh \
         -P /tmp
 
-#   --unattended: sets both CHSH and RUNZSH to 'no'
+    #   --unattended: sets both CHSH and RUNZSH to 'no'
     ZSH="${ZSH}" sh /tmp/install.sh --unattended
 }
 
@@ -183,45 +179,44 @@ install_oh-my-zsh() {
 
 # Install custom plugins
 custom_plugins() {
-	msg_cli blue "Installing custom plugins" normal
+    msg_cli blue "Installing custom plugins" normal
 
     ZSH_CUSTOM="${ZSH}/custom"
 
     # zsh-syntax-highlighting custom plugin
     # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-        ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git clone "https://github.com/zsh-users/zsh-syntax-highlighting.git" \
+        "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
 
     # zsh-autosuggestions
     # https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh
-    git clone https://github.com/zsh-users/zsh-autosuggestions \
-        ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone "https://github.com/zsh-users/zsh-autosuggestions" \
+        "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 
     # cd-gitroot
     # https://github.com/mollifier/cd-gitroot
-    git clone https://github.com/mollifier/cd-gitroot.git \
-        ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/cd-gitroot
+    git clone "https://github.com/mollifier/cd-gitroot.git" \
+        "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/cd-gitroot"
 
     # zsh-completions
     # https://github.com/zsh-users/zsh-completions
-    git clone https://github.com/zsh-users/zsh-completions \
-        ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+    git clone "https://github.com/zsh-users/zsh-completions" \
+        "${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions"
 }
 
 # Install custom themes
 custom_themes() {
-	msg_cli blue "Installing custom themes" normal
-    for theme in "simple" "gallois"
-    do
-        ln -sf ${DOT_ZSH}/oh-my-zsh/custom/themes/${theme}-custom.zsh-theme \
-            ${ZSH}/custom/themes
+    msg_cli blue "Installing custom themes" normal
+    for theme in "simple" "gallois"; do
+        ln -sf "${DOT_ZSH}/oh-my-zsh/custom/themes/${theme}-custom.zsh-theme" \
+            "${ZSH}/custom/themes"
     done
 }
 
 # Link custom completions
 custom_completions() {
     mkdir -p "${ZSH}/completions"
-    ln -sf ${DOT_ZSH}/oh-my-zsh/completions/* "${ZSH}/completions"
+    ln -sf "${DOT_ZSH}/oh-my-zsh/completions/"* "${ZSH}/completions"
 }
 # }}}
 # }}}
