@@ -41,8 +41,7 @@ ulimit -S -c 0
 # Dotfiles {{{
 
 # NeoVim
-# TODO: Move it to $XDG_CONFIG_HOME
-export MYNVIMRC="$HOME/dotfiles/nvim/.nvimrc"
+export MYNVIMRC="${XDG_CONFIG_HOME}/nvim/.nvimrc"
 # Bat
 export BAT_CONFIG_PATH="${XDG_CONFIG_HOME}/bat/bat.conf"
 # Ripgrep
