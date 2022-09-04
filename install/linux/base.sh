@@ -24,6 +24,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck source=scripts/common.sh
 source "${ROOT}/common.sh"
 
+# Applications {{{
+
 install_apts() {
     sudo apt update
 
@@ -46,6 +48,7 @@ install_snaps() {
     sudo snap install \
         multipass
 }
+# }}}
 
 # Security {{{
 
@@ -66,11 +69,18 @@ disable_core_dumps() {
 }
 # }}}
 
+# System programs modification {{{
+
 fix_k2_f_keys() {
     echo "options hid_apple fnmode=2" | sudo tee /etc/modprobe.d/hid_apple.conf
     sudo update-initramfs -u -k all
     warn "Reboot needed: reboot the system when convenient"
 }
+
+disable_bell_sound() {
+    sudo sed -i '/set bell-style none/s/^#*\s*//g' /etc/inputrc
+}
+# }}}
 
 main() {
     info "Started base ${OSTYPE}"
@@ -81,6 +91,7 @@ main() {
     bash "${ROOT}/install/brew.sh"
     bash "${ROOT}/install/linux/i3.sh"
     fix_k2_f_keys
+    disable_bell_sound
 
     success "Finished base ${OSTYPE}"
 }
