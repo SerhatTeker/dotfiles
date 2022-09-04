@@ -35,6 +35,7 @@ install_apts() {
         fonts-font-awesome \
         fonts-powerline \
         fd-find \
+        imagemagick \
         ripgrep \
         shellcheck \
         shfmt \
