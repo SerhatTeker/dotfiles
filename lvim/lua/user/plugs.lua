@@ -167,6 +167,7 @@ lvim.plugins = {
         config = default_config("mkdnflow"),
         ft = { "markdown" },
     },
+    -- ### Markdown Preview
     {
         "ellisonleao/glow.nvim",
         config = default_config("glow"),
@@ -180,25 +181,24 @@ lvim.plugins = {
     { "sainnhe/gruvbox-material" },
     { 'navarasu/onedark.nvim' }, -- alternative onedark
     { "SerhatTeker/neodarker.nvim" },
-    -- ## Use
-    -- Harpoon
+    -- ## Harpoon
     { "ThePrimeagen/harpoon" },
-    -- Trim
+    -- ## Trim
     {
         "SerhatTeker/trim.nvim",
         event = "BufWritePre",
         config = default_config("trim"),
     },
-    -- Shade, dim InactiveWindow
+    -- ## Shade, dim InactiveWindow
     -- INFO: Disabled, not working with sessions
     -- https://github.com/sunjon/Shade.nvim/issues/2
     -- { "sunjon/shade.nvim" },
-    -- SymbolsOutline
+    -- ## SymbolsOutline
     {
         "simrat39/symbols-outline.nvim",
         config = default_config("symbols-outline"),
     },
-    -- Color highlighter colorizer
+    -- ## Color highlighter colorizer
     {
         "norcalli/nvim-colorizer.lua",
         config = function()
@@ -214,7 +214,7 @@ lvim.plugins = {
             })
         end,
     },
-    -- Code runner
+    -- ## Code runner
     {
         "CRAG666/code_runner.nvim",
         requires = "nvim-lua/plenary.nvim",
@@ -234,7 +234,7 @@ lvim.plugins = {
             vim.api.nvim_set_keymap("n", "<F10>", "<CMD>RunCode<CR>", { silent = false })
         end
     },
-    -- Indentline
+    -- ## Indentline
     {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
@@ -249,7 +249,7 @@ lvim.plugins = {
             })
         end
     },
-    -- Search and replace
+    -- ## Search and replace
     {
         "nvim-pack/nvim-spectre",
         event = "BufRead",
@@ -265,12 +265,17 @@ lvim.plugins = {
             )
         end,
     },
-    -- Editorconfig
+    -- ## Editorconfig
     -- -- HACK: NW: https://github.com/wbthomason/packer.nvim/issues/1008#issuecomment-1211492255
     -- {
     --     "gpanders/editorconfig.nvim",
     --     config = default_config("editorconfig"),
     -- },
+    -- ## Zen Mode
+    {
+        "folke/zen-mode.nvim",
+        config = default_config("zen-mode"),
+    }
 }
 -- }}}
 -- }}}
