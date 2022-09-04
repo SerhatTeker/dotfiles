@@ -21,7 +21,7 @@ set -o pipefail
 # Locate the root directory
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# shellcheck source=scripts/common.sh
+# shellcheck disable=SC1090
 source "${ROOT}/common.sh"
 
 # Applications {{{
