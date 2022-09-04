@@ -183,6 +183,22 @@ delete-file-part() {
 mvf() {
     find $1 -maxdepth 1 -type f -exec mv {} $2 \;
 }
+
+# Comment a line in a file matching a (regex) pattern
+uncomment() {
+    local pattern="${1}"
+    local file="${2}"
+
+    sed -i "/${pattern}/s/^#*\s*//g" "${file}"
+}
+
+# Uncomment a line in a file matching a (regex) pattern
+comment() {
+    local pattern="${1}"
+    local file="${2}"
+
+    sed -i "/${pattern}/s/^/#/g" "${file}"
+}
 # }}}1
 
 # Git {{{1
