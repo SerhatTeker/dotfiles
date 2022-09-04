@@ -42,7 +42,7 @@ install_apts() {
         unzip
 
     # https://github.com/sharkdp/fd#on-debian
-    force_remove "$(which fdfind)" "${XDG_BIN_HOME}/fd" # link bin
+    force_remove "$(where fdfind)" "${XDG_BIN_HOME}/fd" # link bin
 }
 
 install_snaps() {
@@ -56,7 +56,6 @@ install_snaps() {
 # TODO: Check if already disabled
 # https://www.cyberciti.biz/faq/disable-core-dumps-in-linux-with-systemd-sysctl
 disable_core_dumps() {
-    local file=/etc/security/limits.conf
     printf \
         "* hard core 0\n* soft core 0" |
         sudo tee -a /etc/security/limits.conf
