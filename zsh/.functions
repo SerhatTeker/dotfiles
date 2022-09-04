@@ -181,7 +181,7 @@ delete-file-part() {
 
 # move only files
 mvf() {
-    find $1 -maxdepth 1 -type f -exec mv {} $2 \;
+    find "${1}" -maxdepth 1 -type f -exec mv {} "${2}"  \;
 }
 
 # Comment a line in a file matching a (regex) pattern
