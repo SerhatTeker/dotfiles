@@ -19,12 +19,12 @@
 #
 #
 # File                  : toggle-theme
-# Descrtiption          : Toggle theme mode on Ubuntu 20.04 LTS and MacOS Monterey 12.3
+# Descrtiption          : Toggle theme mode on Ubuntu 22.04 LTS and MacOS Monterey 12
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2022-07-01T13:41:02+0300 | 1656672062
+# Last Modified Date    : 2022-09-06T00:05:48+0300 | 1662411948
 # Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
-# and using on Ubuntu 20.04 LTS and MacOS Monterey 12.3.
+# and using on Ubuntu 22.04 LTS and MacOS Monterey 12.
 # Usage                 : $ ./toggle-theme
 #
 # or pass theme flag to use the specific theme:
@@ -39,7 +39,6 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
 # Terminal {{{
 
 # Send ChangeBackground() Signal to all vim/nvim instances in all tmux sessions
@@ -48,8 +47,8 @@ vim_sessions_toggle() {
         | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
 
     for session in $(tmux list-sessions -F '#S'); do
-        for window in $(tmux list-windows -t $session -F '#{window_index}'); do
-            for pane in $(tmux list-panes -t $session:$window -F '#P'); do
+        for window in $(tmux list-windows -t "${session}"  -F '#{window_index}'); do
+            for pane in $(tmux list-panes -t "${session}:${window}" -F '#P'); do
                 local pix="${session}:${window}.${pane}"
 
                 tmux if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} escape ENTER"
@@ -74,16 +73,16 @@ alacritty_toggle() {
 
 # i3 rofi
 rofi_toggle() {
-    local file="${XDG_CONFIG_HOME}/rofi/config"
+    local file="${XDG_CONFIG_HOME}/rofi/config.rasi"
 
     # only for linux
     is_linux || return
 
     # Not using gruvbox now, but possible in future.
     if [[ ${target_mode} =~ "light" ]]; then
-        ${sed_bin} -i 's/dark/light/g' "${file}"
+        ${sed_bin} -i 's/gruvbox-dark/gruvbox-light/g' "${file}"
     else
-        ${sed_bin} -i 's/light/dark/g' "${file}"
+        ${sed_bin} -i 's/gruvbox-light/gruvbox-dark/g' "${file}"
     fi
 
     # restart i3 config
@@ -111,9 +110,9 @@ macos_toggle() {
 
 os_toggle() {
     if is_macos; then
-        macos_toggle ${target_mode}
+        macos_toggle "${target_mode}"
     else
-        gtk_toggle ${target_mode}
+        gtk_toggle "${target_mode}"
     fi
 }
 # }}}
@@ -147,8 +146,8 @@ reopen_chrome() {
 close_restore_popup() {
     local chrome_preferences="${XDG_CONFIG_HOME}/google-chrome/Default/Preferences"
 
-    sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' ${chrome_preferences}
-    sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ${chrome_preferences}
+    sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' "${chrome_preferences}"
+    sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' "${chrome_preferences}"
 }
 
 chrome_toggle() {
@@ -162,9 +161,9 @@ chrome_toggle() {
     local dark='\/usr\/bin\/google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering'
 
     if [[ ${target_mode} =~ "light" ]]; then
-        sed -i "s/${dark}/${default}/" ${file}
+        sed -i "s/${dark}/${default}/" "${file}"
     else
-        sed -i "s/${default}/${dark}/" ${file}
+        sed -i "s/${default}/${dark}/" "${file}"
     fi
 }
 # }}}
@@ -195,7 +194,7 @@ is_different_os() {
 # Main {{{
 
 display_usage() {
-    cat << EOF
+    cat <<EOF
     Toggle the theme for developer workflow from one mode to another
 Usages:
 
@@ -211,32 +210,35 @@ EOF
 }
 
 error_arg() {
-    echo "Unknown argument(s) passed! <$@>"
+    echo "Unknown argument(s) passed! <${@}>"
     display_usage
     exit 1
 }
 
 main() {
     local sed_bin=$(command -v gsed || command -v sed) # MacOS sed is pain, use gsed
-    local target_mode="dark"    # Default theme mode is dark
+    local target_mode="dark"                           # Default theme mode is dark
 
     # No mode flag. Default usage
     if [[ "$#" -eq 0 ]]; then
         # Check current mode and set target_mode
         if is_linux; then
-            local theme=$(gsettings get org.gnome.desktop.interface gtk-theme)
-            [[ ${theme} =~ "dark" ]] && local target_mode="light"
+            local theme="$(gsettings get org.gnome.desktop.interface gtk-theme)"
+            [[ "${theme}" =~ "dark" ]] && local target_mode="light"
         else
             local theme="$(defaults read -g AppleInterfaceStyle)"
-            [[ ${theme} =~ "Dark" ]] && local target_mode="light"
+            [[ "${theme}" =~ "Dark" ]] && local target_mode="light"
         fi
     # If theme mode passed use it
     elif [[ "$#" -eq 1 ]]; then
         case $1 in
-            -d|--dark|d|dark) local target_mode="dark" ;;
-            -l|--light|l|light) local target_mode="light" ;;
-            -h|--help) display_usage; exit 0 ;;
-            *) error_arg "$@" ;;
+        -d | --dark | d | dark) local target_mode="dark" ;;
+        -l | --light | l | light) local target_mode="light" ;;
+        -h | --help)
+            display_usage
+            exit 0
+            ;;
+        *) error_arg "$@" ;;
         esac
     else
         error_arg "$@"
@@ -245,12 +247,11 @@ main() {
     os_toggle
     vim_sessions_toggle
     alacritty_toggle
-    rofi_toggle         # Run only for linux
-    chrome_toggle       # Run only for linux
+    rofi_toggle   # Run only for linux
+    chrome_toggle # Run only for linux
 
     echo "Switched to ${target_mode} mode"
 }
 # }}}
-
 
 main "$@"
