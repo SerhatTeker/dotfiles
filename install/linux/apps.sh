@@ -9,15 +9,14 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
 # Locate the root directory
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
 defaults() {
-    :
+    mkdir -p "${APPS}"
 }
 
 # TODO: write
@@ -25,7 +24,6 @@ install_obsidian() {
     # https://github.com/obsidianmd/obsidian-releases
     :
 }
-
 
 main() {
     install_obsidian

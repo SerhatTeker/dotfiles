@@ -66,7 +66,7 @@ install_packages() {
         sudo apt update -y
         sudo apt install -y \
             python3-pip \
-            "${PYTHON}-venv"
+            python3-venv
         info "Python Linux packages installed"
     fi
 }

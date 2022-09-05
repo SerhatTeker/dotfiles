@@ -74,7 +74,7 @@ alacritty_toggle() {
 
 # i3 rofi
 rofi_toggle() {
-    local file="${HOME}/dotfiles/rofi/config"
+    local file="${XDG_CONFIG_HOME}/rofi/config"
 
     # only for linux
     is_linux || return

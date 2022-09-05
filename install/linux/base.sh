@@ -31,18 +31,22 @@ install_apts() {
 
     sudo apt install -y \
         build-essential \
+        curl \
         fontconfig \
         fonts-font-awesome \
         fonts-powerline \
         fd-find \
+        git \
+        gnome-tweaks \
         imagemagick \
+        libfuse2 \
         ripgrep \
         shellcheck \
         shfmt \
         unzip
 
     # https://github.com/sharkdp/fd#on-debian
-    force_remove "$(where fdfind)" "${XDG_BIN_HOME}/fd" # link bin
+    force_remove "$(which fdfind)" "${XDG_BIN_HOME}/fd" # link bin
 }
 
 install_snaps() {
@@ -97,4 +101,3 @@ main() {
 }
 
 main
-# install_apts

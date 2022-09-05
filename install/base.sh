@@ -36,9 +36,12 @@ os_base() {
 apps() {
     info "Started apps installation"
 
+    mkdir -p "${HOME}/apps"
+
     local dir="${ROOT}/install"
     bash "${dir}/apps/fd-find.sh"
     bash "${dir}/apps/hugo.sh"
+    bash "${dir}/apps/yubico.sh"
 }
 
 main() {

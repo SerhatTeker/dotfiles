@@ -21,10 +21,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
 # Locate the root directory
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
-
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # ----------------------------------------------------------------------------#
 # Environments and default directories {{{
@@ -32,19 +30,18 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # Create default HOME directories if not exists
 __create_home_dirs() {
-	declare -a arr=(
-		".config"
-		".cache"
-		".local/bin"
+    declare -a arr=(
+        ".config"
+        ".cache"
+        ".local/bin"
         ".local/share"
         ".local/lib"
-		"dotfiles"
-		"system-bak"
-		"Private"
-	)
+        "dotfiles"
+        "system-bak"
+        "Private"
+    )
 
-	for dir in "${arr[@]}"
-	do
+    for dir in "${arr[@]}"; do
         mkdir -p "${HOME}/${dir}"
     done
 }
@@ -60,6 +57,7 @@ export XDG_LIB_HOME="${HOME}/.local/lib"
 export DOTFILES="${HOME}/dotfiles"
 export SYSBAK="${HOME}/system-bak"
 export PRIVATE="${HOME}/Private"
+export APPS="${HOME}/apps"
 
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 # ----------------------------------------------------------------------------#
@@ -103,8 +101,8 @@ is_different_os() {
 # Message helpers {{{
 
 abort() {
-  printf "%s\n" "$@" >&2
-  exit 1
+    printf "%s\n" "$@" >&2
+    exit 1
 }
 
 msg() {
@@ -132,7 +130,7 @@ error() {
 # ----------------------------------------------------------------------------#
 
 is_installed() {
-    if command_exists $1;then
+    if command_exists $1; then
         warn "$1 already installed! If you want to re-install it, first uninstall it!"
         exit 0
     fi
@@ -162,10 +160,10 @@ force_remove() {
     local _source=$1
     local _target=$2
 
-    if [ -d "${_target}" ] && [ ! -L "${_target}" ];then
+    if [ -d "${_target}" ] && [ ! -L "${_target}" ]; then
         warn "Deleting directory ${_target}"
         rm -rf ${_target}
-    elif [ -f "${_target}" ] && [ ! -L "${_target}" ];then
+    elif [ -f "${_target}" ] && [ ! -L "${_target}" ]; then
         warn "Deleting file ${_target}"
         rm ${_target}
     else
@@ -194,9 +192,15 @@ make_forced() {
             "${FMT_YELLOW}" "${FMT_RESET}"
         read -r opt
         case ${opt} in
-            y*|Y*|"") export NO_INTERACTIVE=1 ; return ;;
-            n*|N*) msg_cli red "Installing cancelled." normal ; exit 0 ;;
-            *) error_forced ;;
+        y* | Y* | "")
+            export NO_INTERACTIVE=1
+            return
+            ;;
+        n* | N*)
+            msg_cli red "Installing cancelled." normal
+            exit 0
+            ;;
+        *) error_forced ;;
         esac
     fi
 }
@@ -211,40 +215,38 @@ make_forced() {
 # ----------------------------------------------------------------------------#
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh
 
-
 # Make sure important variables exist if not already defined
 #
 # $USER is defined by login(1) which is not always executed (e.g. containers)
 # POSIX: https://pubs.opengroup.org/onlinepubs/009695299/utilities/id.html
 USER=${USER:-$(id -u -n)}
 
-
 command_exists() {
-	command -v "$@" >/dev/null 2>&1
+    command -v "$@" >/dev/null 2>&1
 }
 
 user_can_sudo() {
-	# Check if sudo is installed
-	command_exists sudo || return 1
-	# The following command has 3 parts:
-	#
-	# 1. Run `sudo` with `-v`. Does the following:
-	#    • with privilege: asks for a password immediately.
-	#    • without privilege: exits with error code 1 and prints the message:
-	#      Sorry, user <username> may not run sudo on <hostname>
-	#
-	# 2. Pass `-n` to `sudo` to tell it to not ask for a password. If the
-	#    password is not required, the command will finish with exit code 0.
-	#    If one is required, sudo will exit with error code 1 and print the
-	#    message:
-	#    sudo: a password is required
-	#
-	# 3. Check for the words "may not run sudo" in the output to really tell
-	#    whether the user has privileges or not. For that we have to make sure
-	#    to run `sudo` in the default locale (with `LANG=`) so that the message
-	#    stays consistent regardless of the user's locale.
-	#
-	! LANG= sudo -n -v 2>&1 | grep -q "may not run sudo"
+    # Check if sudo is installed
+    command_exists sudo || return 1
+    # The following command has 3 parts:
+    #
+    # 1. Run `sudo` with `-v`. Does the following:
+    #    • with privilege: asks for a password immediately.
+    #    • without privilege: exits with error code 1 and prints the message:
+    #      Sorry, user <username> may not run sudo on <hostname>
+    #
+    # 2. Pass `-n` to `sudo` to tell it to not ask for a password. If the
+    #    password is not required, the command will finish with exit code 0.
+    #    If one is required, sudo will exit with error code 1 and print the
+    #    message:
+    #    sudo: a password is required
+    #
+    # 3. Check for the words "may not run sudo" in the output to really tell
+    #    whether the user has privileges or not. For that we have to make sure
+    #    to run `sudo` in the default locale (with `LANG=`) so that the message
+    #    stays consistent regardless of the user's locale.
+    #
+    ! LANG= sudo -n -v 2>&1 | grep -q "may not run sudo"
 }
 
 # The [ -t 1 ] check only works when the function is not called from
@@ -252,64 +254,64 @@ user_can_sudo() {
 # function at the top level to always return false when stdout is not
 # a tty.
 if [ -t 1 ]; then
-	is_tty() {
-		true
-	}
+    is_tty() {
+        true
+    }
 else
-	is_tty() {
-		false
-	}
+    is_tty() {
+        false
+    }
 fi
 
 # Adapted from code and information by Anton Kochkov (@XVilka)
 # Source: https://gist.github.com/XVilka/8346728
 supports_truecolor() {
-	case "$COLORTERM" in
-	truecolor|24bit) return 0 ;;
-	esac
+    case "$COLORTERM" in
+    truecolor | 24bit) return 0 ;;
+    esac
 
-	case "$TERM" in
-	iterm           |\
-	tmux-truecolor  |\
-	linux-truecolor |\
-	xterm-truecolor |\
-	screen-truecolor) return 0 ;;
-	esac
+    case "$TERM" in
+    iterm | \
+        tmux-truecolor | \
+        linux-truecolor | \
+        xterm-truecolor | \
+        screen-truecolor) return 0 ;;
+    esac
 
-	return 1
+    return 1
 }
 
 fmt_underline() {
-	is_tty && printf '\033[4m%s\033[24m\n' "$*" || printf '%s\n' "$*"
+    is_tty && printf '\033[4m%s\033[24m\n' "$*" || printf '%s\n' "$*"
 }
 
 # shellcheck disable=SC2016 # backtick in single-quote
 fmt_code() {
-	is_tty && printf '`\033[2m%s\033[22m`\n' "$*" || printf '`%s`\n' "$*"
+    is_tty && printf '`\033[2m%s\033[22m`\n' "$*" || printf '`%s`\n' "$*"
 }
 
 fmt_error() {
-	printf '%sError: %s%s\n' "${FMT_BOLD}${FMT_RED}" "$*" "$FMT_RESET" >&2
+    printf '%sError: %s%s\n' "${FMT_BOLD}${FMT_RED}" "$*" "$FMT_RESET" >&2
 }
 
 setup_color() {
-	# Only use colors if connected to a terminal
-	if ! is_tty; then
-		FMT_RED=""
-		FMT_GREEN=""
-		FMT_YELLOW=""
-		FMT_BLUE=""
-		FMT_BOLD=""
-		FMT_RESET=""
-		return
-	fi
+    # Only use colors if connected to a terminal
+    if ! is_tty; then
+        FMT_RED=""
+        FMT_GREEN=""
+        FMT_YELLOW=""
+        FMT_BLUE=""
+        FMT_BOLD=""
+        FMT_RESET=""
+        return
+    fi
 
-	FMT_RED=$(printf '\033[31m')
-	FMT_GREEN=$(printf '\033[32m')
-	FMT_YELLOW=$(printf '\033[33m')
-	FMT_BLUE=$(printf '\033[34m')
-	FMT_BOLD=$(printf '\033[1m')
-	FMT_RESET=$(printf '\033[0m')
+    FMT_RED=$(printf '\033[31m')
+    FMT_GREEN=$(printf '\033[32m')
+    FMT_YELLOW=$(printf '\033[33m')
+    FMT_BLUE=$(printf '\033[34m')
+    FMT_BOLD=$(printf '\033[1m')
+    FMT_RESET=$(printf '\033[0m')
 }
 # ----------------------------------------------------------------------------#
 # }}}
@@ -328,7 +330,6 @@ COLOR_MAGENTA=$(tput setaf 5)
 COLOR_WHITE=$(tput setaf 15)
 COLOR_RESET=$(tput sgr0)
 
-
 msg_cli() {
     if [ $# -ge 2 ]; then
         local _color=${1:-white}
@@ -336,20 +337,20 @@ msg_cli() {
         local type=${3:-normal}
 
         case $_color in
-            b|blue) color=${COLOR_BLUE} ;;
-            g|green) color=${COLOR_GREEN} ;;
-            r|red) color=${COLOR_RED} ;;
-            y|yellow) color=${COLOR_YELLOW} ;;
-            c|cyan) color=${COLOR_CYAN} ;;
-            m|magenta) color=${COLOR_MAGENTA} ;;
-            w|white) color=${COLOR_WHITE} ;;
-            *) color=${COLOR_WHITE} ;;
+        b | blue) color=${COLOR_BLUE} ;;
+        g | green) color=${COLOR_GREEN} ;;
+        r | red) color=${COLOR_RED} ;;
+        y | yellow) color=${COLOR_YELLOW} ;;
+        c | cyan) color=${COLOR_CYAN} ;;
+        m | magenta) color=${COLOR_MAGENTA} ;;
+        w | white) color=${COLOR_WHITE} ;;
+        *) color=${COLOR_WHITE} ;;
         esac
 
         case $type in
-            h|header) _center_text "${color}" "${message}" ;;
-            n|normal) echo -e "${color}${message}${COLOR_RESET}" ;;
-            *) echo -e "${color}${message}${COLOR_RESET}" ;;
+        h | header) _center_text "${color}" "${message}" ;;
+        n | normal) echo -e "${color}${message}${COLOR_RESET}" ;;
+        *) echo -e "${color}${message}${COLOR_RESET}" ;;
         esac
     else
         local message=${1:?Message needed!}
@@ -385,11 +386,11 @@ _center_text() {
     printf '%s%*.*s %s %*.*s%s\n' \
         "${color}" \
         0 \
-        "$(((print_width-2-text_width)/2))" \
+        "$(((print_width - 2 - text_width) / 2))" \
         "${padding}" \
         "${text}" \
         0 \
-        "$(((print_width-1-text_width)/2))" \
+        "$(((print_width - 1 - text_width) / 2))" \
         "${padding}" \
         "${COLOR_RESET}"
 }

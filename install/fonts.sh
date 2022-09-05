@@ -22,13 +22,11 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
 # Locate the root directory
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
-
 
 # Reset font cache on Linux
 reset_fc_cache() {
@@ -43,7 +41,7 @@ copy_fonts() {
     find \
         "${dir}" \
         \( -name "*.[ot]tf" -or -name "*.pcf.gz" \) \
-        -type f -print0 | \
+        -type f -print0 |
         xargs -0 -n1 -I % cp "%" "${font_dir}/"
     info "${name} fonts installed to ${font_dir}"
 }
@@ -87,10 +85,11 @@ dotfiles_fonts() {
 main() {
     # Use user directory
     if is_macos; then
-      local font_dir="${HOME}/Library/Fonts"
+        local font_dir="${HOME}/Library/Fonts"
     else
-      local font_dir="${XDG_DATA_HOME}/fonts"
+        local font_dir="${XDG_DATA_HOME}/fonts"
     fi
+    mkdir -p "${font_dir}"
 
     dotfiles_fonts
 

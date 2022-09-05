@@ -11,6 +11,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+# TODO: Add old version as list
 HUGO_VERSION="0.97.0"
 
 SOURCE_DIR="/tmp/hugo_release"
