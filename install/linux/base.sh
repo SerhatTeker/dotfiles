@@ -50,8 +50,8 @@ install_apts() {
 }
 
 install_snaps() {
-    sudo snap install \
-        multipass
+    # sudo snap install multipass # TODO: full.sh
+    sudo snap remove firefox # Snap Firefox suks
 }
 # }}}
 
