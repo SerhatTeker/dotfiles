@@ -24,22 +24,22 @@ set -o pipefail
 # Locate the root directory
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# shellcheck source=scripts/common.sh
+# shellcheck disable=1091
 source "${ROOT}/common.sh"
 
-# Use 3.8 as default python version
-VERSION=${PYTHON_VERSION:-3.8}
+# Use 3.9 as default python version
+VERSION=${PYTHON_VERSION:-3.9}
 PYTHON="python${VERSION}"
 
 # New python installation version
-_INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:-3.8.13}
+_INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:-3.9.13}
+# INSTALL_URL="https://git.io/JLQFl" # WARNING: Github deprecated git.io
 INSTALL_URL="https://gist.githubusercontent.com/SerhatTeker/7d0fc99d27e9bf1d75b4435a38a89fe9/raw/install-python"
-# INSTALL_URL="https://git.io/JLQFl"    # WARNING: Github deprecated git.io
 
 # Install {{{
 
-install_python() {
-    # Skip the function if $PYTHON_VERSION already exists
+# TODO: Run it manually on full.sh
+install_specific_python_version() {
     if command_exists "${PYTHON}"; then
         info "You have already ${PYTHON}"
         return
@@ -54,7 +54,22 @@ install_python() {
             wget -O - ${INSTALL_URL} | bash
 
         success "Python installed!"
-        ${PYTHON} --version --version
+        "${PYTHON}" --version --version
+    fi
+}
+
+check_python3() {
+    # NOTE: Use default python3 on the OS.
+    # Skip the function if $PYTHON_VERSION already exists
+    if command_exists python3; then
+        info "You have already ${PYTHON}"
+        return
+    fi
+
+    if is_macos; then
+        # Installing on MacOS complicated
+        error "You should install python3 on MacOS manually!"
+        exit 1
     fi
 }
 
@@ -79,9 +94,9 @@ install_reqirements() {
     success "Global user packages installed"
 }
 
-_install() {
+main_install() {
     info "Python install started"
-    install_python
+    check_python3
     install_packages
     install_reqirements
 }
@@ -92,10 +107,7 @@ _install() {
 # Disable: use rich
 pretty_errors() {
     local site_dir="$(${PYTHON} -c "import site; print(f'{site.USER_SITE}')")"
-
-    ln -sf "${ROOT}/python/usercustomize.py" \
-        "${site_dir}"
-
+    ln -sf "${ROOT}/python/usercustomize.py" "${site_dir}"
     msg_cli white "Pretty errors configuration added"
 }
 
@@ -107,6 +119,7 @@ rich_traceback() {
 from rich.traceback import install
 install(show_locals=True)
 EOF
+
     msg_cli white "Rich traceback added" normal
 }
 
@@ -130,19 +143,18 @@ configure_ipython() {
     msg_cli white "ipython configured" normal
 }
 
-_configure() {
+main_configure() {
     info "Python configuration started"
-    # pretty_errors
     rich_traceback
     configure_pudb
     configure_ipython
-    success "Python ${PYTHON} configured"
+    success "Python3 configured"
 }
 # }}}
 
 main() {
-    _install
-    _configure
+    main_install
+    main_configure
 }
 
-main
+main "${@}"
