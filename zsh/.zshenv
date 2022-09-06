@@ -194,9 +194,10 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
 fi
 
 # Rust
+export RUSTUP_HOME="${HOME}/rust/.rustup"
+export CARGO_HOME="${HOME}/rust/.cargo"
+
 if [ -d "${HOME}/rust/.cargo" ]; then
-    export RUSTUP_HOME="${HOME}/rust/.rustup"
-    export CARGO_HOME="${HOME}/rust/.cargo"
     source "${HOME}/rust/.cargo/env"
 fi
 
