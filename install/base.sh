@@ -40,8 +40,9 @@ apps() {
 
     local dir="${ROOT}/install"
     bash "${dir}/apps/fd-find.sh"
-    bash "${dir}/apps/hugo.sh"
     bash "${dir}/apps/yubico.sh"
+    bash "${dir}/apps/alacritty.sh"
+    # bash "${dir}/apps/hugo.sh" # NOTE: full.sh
     # bash "${dir}/apps/spotify.sh" # NOTE: full.sh
 }
 
@@ -55,7 +56,7 @@ main() {
     bash "${dir}/zsh.sh"
     bash "${dir}/link.sh"
     bash "${dir}/tmux.sh"
-    bash "${dir}/languages/python.sh"
+    bash "${dir}/languages/python.sh" # NOTE: full.sh
     bash "${dir}/languages/node.sh"
     bash "${dir}/languages/golang.sh"
     bash "${dir}/languages/rust.sh"
