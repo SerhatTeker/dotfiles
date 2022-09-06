@@ -39,7 +39,6 @@ apps() {
     mkdir -p "${HOME}/apps"
 
     local dir="${ROOT}/install"
-    bash "${dir}/apps/fd-find.sh"
     bash "${dir}/apps/yubico.sh"
     bash "${dir}/apps/alacritty.sh"
     # bash "${dir}/apps/hugo.sh" # NOTE: full.sh
