@@ -23,11 +23,20 @@ set -o pipefail
 # Locate the root directory
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# shellcheck source=scripts/common.sh
+# shellcheck disable=1091
 source "${ROOT}/common.sh"
 
+APP="rush"
+
+# TODO: Add selecting "Option 1" by default
+# Install rust for macOS, Linux, or another Unix-like OS
 _install() {
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+}
+
+check_rights() {
+    rustup override set stable
+    rustup update stable
 }
 
 main() {
@@ -36,10 +45,10 @@ main() {
     export CARGO_HOME="${_RUST}/.cargo"
     # Install
     command_exists cargo -V || _install
-
+    check_rights
     # Ensure install
     command_exists cargo -V &&
-        success "Rust installed at your system!"
+        success "${APP} installed at your system"
 }
 
 main "$@"
