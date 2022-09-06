@@ -21,14 +21,25 @@ set -o pipefail
 # Locate the root directory
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# shellcheck disable=SC1090
+# shellcheck disable=1091
 source "${ROOT}/common.sh"
+
+livepatch() {
+    # First attach the token
+    read -rsp "Enter your Ubuntu Advantage Token: " token
+    echo
+    [[ -z "${token}" ]] && return
+
+    sudo ua attach "${token}"
+    # Enable livepatch
+    sudo ua enable livepatch
+    # Ensure that the Livepatch service is working properly
+    canonical-livepatch status --verbose
+}
 
 # Applications {{{
 
 install_apts() {
-    sudo apt update
-
     sudo apt install -y \
         build-essential \
         curl \
@@ -88,7 +99,9 @@ disable_bell_sound() {
 
 main() {
     info "Started base ${OSTYPE}"
+    sudo apt update
 
+    livepatch
     install_apts
     install_snaps
     disable_core_dumps
