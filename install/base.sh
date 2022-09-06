@@ -21,7 +21,7 @@ set -o pipefail
 # Locate the root directory
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# shellcheck source=scripts/common.sh
+# shellcheck disable=1091
 source "${ROOT}/install/common.sh"
 
 # TODO: Add bash-language-server install
@@ -42,6 +42,7 @@ apps() {
     bash "${dir}/apps/fd-find.sh"
     bash "${dir}/apps/hugo.sh"
     bash "${dir}/apps/yubico.sh"
+    # bash "${dir}/apps/spotify.sh" # NOTE: full.sh
 }
 
 main() {
