@@ -19,11 +19,10 @@ set -o nounset
 set -o pipefail
 
 # Locate the root directory
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# shellcheck source=scripts/common.sh
+# shellcheck disable=1091
 source "${ROOT}/install/common.sh"
-
 
 install_tmux() {
     # if tmux already installed skip
@@ -40,16 +39,11 @@ install_tmux() {
     fi
 }
 
-# INFO: No need this function: auto installing tpm and plugins from .tmux.conf
-# Install tmux tpm plugin manager
-tpm() {
-    target="${XDG_DATA_HOME}/tmux/plugins"
-
-    mkdir -p ${target}
-
-    git clone \
-        https://github.com/tmux-plugins/tpm \
-        "${target}/tpm/tpm"
+# Install tmux tpm and plugins
+plugins() {
+    local target="${XDG_DATA_HOME}/tmux/plugins"
+    mkdir -p "${target}"
+    git clone https://github.com/tmux-plugins/tpm "${target}/tpm/tpm"
 
     # Reload TMUX environment so TPM is sourced:
     tmux source "${XDG_CONFIG_HOME}/tmux/tmux.conf"
@@ -60,7 +54,8 @@ tpm() {
 
 main() {
     install_tmux
-    force_remove "${DOTFILES}/tmux" "${XDG_CONFIG_HOME}/tmux"   # link config. overwrites link.sh
+    force_remove "${DOTFILES}/tmux" "${XDG_CONFIG_HOME}/tmux" # link config. overwrites link.sh
+    plugins
 }
 
 main "$@"
