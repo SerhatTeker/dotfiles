@@ -22,9 +22,10 @@ set -o pipefail
 # Locate the root directory
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# shellcheck source=scripts/common.sh
+# shellcheck disable=1091
 source "${ROOT}/dotfiles/install/common.sh"
 
+# TODO: Add base/full separation
 main() {
     info "Started installation"
 
