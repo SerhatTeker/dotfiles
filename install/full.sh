@@ -27,9 +27,9 @@ source "${ROOT}/install/common.sh"
 # TODO: Add bash-language-server install
 os_base() {
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        bash "${ROOT}/install/linux/base.sh"
+        bash "${ROOT}/install/linux/full.sh"
     elif [[ "$OSTYPE" == "darwin"* ]]; then
-        bash "${ROOT}/install/macos/base.sh"
+        bash "${ROOT}/install/macos/full.sh"
     fi
 }
 
@@ -39,8 +39,9 @@ apps() {
     mkdir -p "${HOME}/apps"
 
     local dir="${ROOT}/install"
-    bash "${dir}/apps/yubico.sh"
-    bash "${dir}/apps/alacritty.sh"
+    bash "${dir}/apps/aw.sh"
+    bash "${dir}/apps/hugo.sh"
+    bash "${dir}/apps/spotify.sh"
 }
 
 main() {
@@ -50,14 +51,11 @@ main() {
     apps
 
     local dir="${ROOT}/install"
-    bash "${dir}/zsh.sh"
-    bash "${dir}/link.sh"
-    bash "${dir}/tmux.sh"
-    bash "${dir}/languages/node.sh"
-    bash "${dir}/languages/rust.sh"
-    bash "${dir}/fonts.sh"
+    bash "${dir}/languages/python.sh"
+    bash "${dir}/languages/golang.sh"
+    bash "${dir}/nvim.sh"
 
-    success "Finished base installation"
+    success "Finished full installation"
 }
 
 main
