@@ -286,6 +286,15 @@ lvim.plugins = {
             return vim.fn.filereadable(join_paths(aw_path, "aw-qt"))
         end,
     },
+    -- ## Leap, fast motions
+    {
+        "ggandor/leap.nvim",
+        config = function()
+            require("leap").set_default_keymaps()
+            -- Verbose mapping to overwrite default lvim which-key
+            vim.keymap.set("n", "s", "<Plug>(leap-forward)", { remap = false })
+        end,
+    },
 }
 -- }}}
 -- }}}
