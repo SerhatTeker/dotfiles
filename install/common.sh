@@ -21,7 +21,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-# Locate the root directory
+# shellcheck disable=2034
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # ----------------------------------------------------------------------------#
