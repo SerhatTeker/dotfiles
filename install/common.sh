@@ -204,8 +204,16 @@ make_forced() {
         esac
     fi
 }
-
 # }}}
+
+# If given file exists (regardless of type: node, directory, socket etc.)
+# take a backup with time attached in UTC ISO8601 format
+bakup_old() {
+    local current="${1}"
+    if [[ -e "${current}" ]]; then
+        mv "${current}" "${current}.$(date -u '+%Y_%m_%dT%H_%M_%S').old"
+    fi
+}
 # ----------------------------------------------------------------------------#
 # }}}
 # ----------------------------------------------------------------------------#
