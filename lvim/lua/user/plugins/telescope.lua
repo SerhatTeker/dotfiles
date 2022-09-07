@@ -111,6 +111,7 @@ lvim.builtin.which_key.mappings["t"] = {
     gb = { cmd("Telescope git_branches"), "Branches" },
     gc = { cmd("Telescope git_commits"), "Commits" },
     gx = { cmd("Telescope git_bcommits"), "Commits Buffer" },
+    gs = { cmd("Telescope git_status"), "Status Files" },
 }
 -- }}}
 -- }}}
