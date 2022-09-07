@@ -58,12 +58,14 @@ bins() {
     local source=${HOME}/dotfiles/bin
     local target=${HOME}/.local/bin
 
-    ln -sf ${source}/* ${target}
-    # msg_cli green "Bin files linked to ${target}"
+    ln -sf "${source}/"* "${target}"
 }
 
 dot_gnu() {
-    [ -f "${SYSBAK}/.gnupg" ] || return 0
+    [[ -d "${PRIVATE}/.gnupg" ]] || {
+        warn ".gnupg directory not on the OS"
+        return 0
+    }
 
     local source="${SYSBAK}/.gnupg"
     local target="${HOME}/.gnupg"
@@ -73,20 +75,33 @@ dot_gnu() {
     chmod -R o-rx "${target}"
     # make symlink available only to current user
     chmod 700 "${target}"
-    # msg_cli green ".gnupg linked"
 }
 
-# TODO: Check if true
+dot_ssh() {
+    [[ -d "${PRIVATE}/.ssh" ]] || {
+        warn ".ssh directory not on the OS"
+        return 0
+    }
+
+    local source="${SYSBAK}/.ssh"
+    local target="${HOME}/.ssh"
+
+    force_remove "${source}" "${target}"
+    # make directory unreadable by others
+    chmod -R o-rx "${target}"
+    # make symlink available only to current user
+    chmod 700 "${target}"
+}
+
 # other stuff
 home_others() {
     force_remove "${DOTFILES}/ctags/.ctags" "${HOME}/.ctags"
-    force_remove "${DOTFILES}/etc/.sqliterc" "${HOME}/.sqliterc"
-    # msg_cli green ".gnupg linked"
+    force_remove "${DOTFILES}/reldb/.sqliterc" "${HOME}/.sqliterc"
 }
 
+# TODO: full.sh . Link after docker&k8s installed
 containers() {
     force_remove "${DOTFILES}/kube" "${XDG_CONFIG_HOME}/kube"
-    # msg_cli green "Containers linked"
 }
 
 main() {
