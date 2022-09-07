@@ -50,6 +50,7 @@ install_apts() {
         git \
         gnome-tweaks \
         imagemagick \
+        jq \
         libfuse2 \
         ripgrep \
         shellcheck \
