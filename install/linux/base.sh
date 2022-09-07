@@ -54,6 +54,7 @@ install_apts() {
         ripgrep \
         shellcheck \
         shfmt \
+        universal-ctags \
         unzip
 
     # https://github.com/sharkdp/fd#on-debian
