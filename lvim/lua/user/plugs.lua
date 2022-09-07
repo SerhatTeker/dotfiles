@@ -275,7 +275,17 @@ lvim.plugins = {
     {
         "folke/zen-mode.nvim",
         config = default_config("zen-mode"),
-    }
+    },
+
+    -- ## Activity tracking
+    -- ActivityWatch watcher: https://docs.activitywatch.net/en/latest/watchers.html
+    {
+        "ActivityWatch/aw-watcher-vim",
+        cond = function()
+            local aw_path = os.getenv("HOME") .. "/apps/activitywatch"
+            return vim.fn.filereadable(join_paths(aw_path, "aw-qt"))
+        end,
+    },
 }
 -- }}}
 -- }}}
