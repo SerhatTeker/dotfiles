@@ -25,13 +25,17 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "${ROOT}/common.sh"
 
 livepatch() {
-    # First attach the token
-    read -rsp "Enter your Ubuntu Advantage Token: " token
-    echo
-    [[ -z "${token}" ]] && return
+    # Check whether UBUNTU_TOKEN on the environment
+    local token="${UBUNTU_TOKEN}"
+    # If token no on the environment, try to get from user input
+    if [[ -z "${token}" ]]; then
+        read -rsp "Enter your Ubuntu Advantage Token: " token
+        echo
+        # if no token provided exit enabling livepatch
+        [[ -z "${token}" ]] && return
+    fi
 
     sudo ua attach "${token}"
-    # Enable livepatch
     sudo ua enable livepatch
     # Ensure that the Livepatch service is working properly
     canonical-livepatch status --verbose
@@ -58,8 +62,9 @@ install_apts() {
         universal-ctags \
         unzip
 
-    # https://github.com/sharkdp/fd#on-debian
-    force_remove "$(which fdfind)" "${XDG_BIN_HOME}/fd" # link bin
+    # Link the binary: since # The binary is called `fdfind` as the binary name `fd`
+    # is already used by another package. https://github.com/sharkdp/fd#on-debian
+    force_remove "$(which fdfind)" "${XDG_BIN_HOME}/fd"
 }
 
 install_snaps() {
