@@ -22,21 +22,13 @@ set -o pipefail
 # Locate the root directory
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# shellcheck source=scripts/common.sh
+# shellcheck disable=1091
 source "${ROOT}/install/common.sh"
 
+# Nvim is needed
 check_base_deps() {
     command_exists nvim || bash "${ROOT}/install/nvim.sh"
     info "All deps exist, starting to install lvim..."
-}
-
-# Hacky and ugly way to get "PackerSnapshotDone" until PR merged
-# Add PackerSnapshotDone commit from #898 PR
-overwrite_packer() {
-    local install_path="${XDG_DATA_HOME}/lunarvim/site/pack/packer/start/packer.nvim"
-
-    git -C "${install_path}" fetch origin "pull/898/head"
-    git -C "${install_path}" cherry-pick "e070db37f5ad3733a790912cb247c1036888d473"
 }
 
 copy_snapshot() {
@@ -57,13 +49,12 @@ _configure() {
     "${XDG_BIN_HOME}/lvim" --headless \
         -c "lua require('lvim.core.log'):set_level([[warn]])" \
         -c 'autocmd User PackerComplete quitall' \
-        -c "$1"
+        -c "${1}"
 }
 
 configure() {
     # INFO: _configure not working currently, run manually
     # https://github.com/wbthomason/packer.nvim/issues/751
-    #
     # _configure 'PackerSync'
 
     info "Run :PackerSync"
@@ -76,7 +67,6 @@ main() {
     copy_snapshot
     install_lvim
     force_remove "${DOTFILES}/lvim" "${XDG_CONFIG_HOME}/lvim" # link config. overwrites link.sh
-    overwrite_packer
     configure
 
     success "Finished lvim install"
