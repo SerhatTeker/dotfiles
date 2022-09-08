@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+
+# Stdout in ISO-8601 format
+# https://en.wikipedia.org/wiki/ISO_8601
+#
+# Date	                2022-02-13
+# Date and time in UTC	2022-02-13T18:43:51+00:00
+#                       2022-02-13T18:43:51Z
+#                       20220213T184351Z
+# Week	                2022-W06
+# Week with weekday	    2022-W06-7
+# Date without year	    --02-13
+# Ordinal date	        2022-044
+
+
+# date -Iseconds        # not working on macos
+date -u '+%Y-%m-%dT%H:%M:%S%z'
