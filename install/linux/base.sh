@@ -46,6 +46,7 @@ livepatch() {
 install_apts() {
     sudo apt install -y \
         build-essential \
+        bat \
         curl \
         fontconfig \
         fonts-font-awesome \
@@ -66,6 +67,9 @@ install_apts() {
     # Link the binary: since # The binary is called `fdfind` as the binary name `fd`
     # is already used by another package. https://github.com/sharkdp/fd#on-debian
     force_remove "$(which fdfind)" "${XDG_BIN_HOME}/fd"
+
+    # https://github.com/sharkdp/bat#on-ubuntu-using-apt
+    force_remove "/usr/bin/batcat" "${XDG_BIN_HOME}/bat"
 }
 
 install_snaps() {
