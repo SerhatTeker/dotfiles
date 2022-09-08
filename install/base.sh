@@ -55,6 +55,8 @@ main() {
     bash "${dir}/tmux.sh"
     bash "${dir}/languages/node.sh"
     bash "${dir}/languages/rust.sh"
+    bash "${dir}/nvim.sh"
+    bash "${dir}/lvim.sh"
     bash "${dir}/fonts.sh"
 
     success "Finished base installation"
