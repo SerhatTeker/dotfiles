@@ -14,7 +14,7 @@ set -o pipefail
 # Locate the root directory
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# shellcheck source=scripts/common.sh
+# shellcheck disable=1091
 source "${ROOT}/common.sh"
 
 brew_deps() {
@@ -38,25 +38,12 @@ brew_install() {
 }
 
 brew_bundle() {
-    local type="${1:-min}"
-
-    brew bundle install --file="${ROOT}/Brewfile" # minimal base
-    case ${type} in
-    -m | --minimal | m | min | minimal)
-        echo
-        ;;
-    -f | --full | f | full)
-        brew bundle install --file="${ROOT}/linux/Brewfile.linux" # linux tools
-        ;;
-    *)
-        echo "Unkown flag <$1>"
-        ;;
-    esac
+    brew bundle install --file="${ROOT}/linux/Brewfile.linux"
 }
 
 brew_main() {
     brew_install
-    brew_bundle "$@"
+    brew_bundle
 }
 
-brew_main "$@"
+brew_main
