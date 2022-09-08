@@ -24,7 +24,7 @@ set -o pipefail
 # Locate the root directory
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# shellcheck source=scripts/common.sh
+# shellcheck disable=1091
 source "${ROOT}/install/common.sh"
 
 # Link all configs
@@ -49,14 +49,12 @@ dot_configs() {
     for dir in "${arr[@]}"; do
         force_remove "${DOTFILES}/${dir}" "${XDG_CONFIG_HOME}/${dir}"
     done
-
-    # msg_cli green "Dotfiles configs linked to ${XDG_CONFIG_HOME}"
 }
 
 # Link all bins
 bins() {
-    local source=${HOME}/dotfiles/bin
-    local target=${HOME}/.local/bin
+    local source="${DOTFILES}/bin"
+    local target="${XDG_BIN_HOME}"
 
     ln -sf "${source}/"* "${target}"
 }
