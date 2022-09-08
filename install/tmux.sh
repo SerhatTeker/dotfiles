@@ -28,6 +28,11 @@ install_tmux() {
     # if tmux already installed skip
     command_exists tmux && return
 
+    is_linux && {
+        sudo apt install tmux
+        return 0
+    }
+
     # install with brew but check brew installed first
     if ! command_exists brew; then
         msg_cli red "brew not installed, first you need to install brew!" normal

@@ -59,6 +59,7 @@ install_apts() {
         ripgrep \
         shellcheck \
         shfmt \
+        tmux \
         universal-ctags \
         unzip
 
@@ -112,7 +113,6 @@ main() {
     install_apts
     install_snaps
     disable_core_dumps
-    bash "${ROOT}/install/brew.sh"
     bash "${ROOT}/install/linux/i3.sh"
     fix_k2_f_keys
     disable_bell_sound

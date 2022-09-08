@@ -51,9 +51,9 @@ main() {
     apps
 
     local dir="${ROOT}/install"
+    bash "${ROOT}/install/brew.sh"
     bash "${dir}/languages/python.sh"
     bash "${dir}/languages/golang.sh"
-    bash "${dir}/nvim.sh"
 
     success "Finished full installation"
 }
