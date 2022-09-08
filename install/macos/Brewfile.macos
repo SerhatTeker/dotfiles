@@ -73,6 +73,7 @@ cask "spotify"
 cask "telegram"
 cask "visual-studio-code"
 cask "vlc"
+cask "yubico-authenticator"
 cask "zoom"
 # Optional
 # brew "vagrant"                  # not compatible with M1

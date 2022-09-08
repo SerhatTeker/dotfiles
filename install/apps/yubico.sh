@@ -48,6 +48,10 @@ remove_source() {
 install_dep() {
     if is_linux; then
         sudo apt insall pcscd
+    else
+        # https://developers.yubico.com/yubioath-desktop
+        # https://github.com/Homebrew/homebrew-cask-drivers/blob/master/Casks/yubico-authenticator.rb
+        brew install --cask yubico-authenticator
     fi
 }
 
