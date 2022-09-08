@@ -49,15 +49,22 @@ main() {
     os_base
     apps
 
-    local dir="${ROOT}/install"
-    bash "${dir}/zsh.sh"
-    bash "${dir}/link.sh"
-    bash "${dir}/tmux.sh"
-    bash "${dir}/languages/node.sh"
-    bash "${dir}/languages/rust.sh"
-    bash "${dir}/nvim.sh"
-    bash "${dir}/lvim.sh"
-    bash "${dir}/fonts.sh"
+    local install_root="${ROOT}/install"
+
+    declare -a installs=(
+        "zsh.sh"
+        "link.sh"
+        "tmux.sh"
+        "languages/node.sh"
+        "languages/rust.sh"
+        "nvim.sh"
+        "lvim.sh"
+        "fonts.sh"
+    )
+
+    for install in "${installs[@]}"; do
+        bash "${install_root}/${install}"
+    done
 
     success "Finished base installation"
 }
