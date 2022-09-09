@@ -19,15 +19,22 @@
 # https://github.com/ohmyzsh/ohmyzsh/issues/7332#issuecomment-593308026
 skip_global_compinit=1
 
+# XDG directories
 # https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
 # User directories
 export XDG_CONFIG_HOME="${HOME}/.config"
-export XDG_CACHE_HOME="${HOME}/.cache"
-# User local
 export XDG_BIN_HOME="${HOME}/.local/bin"
-export XDG_LIB_HOME="${HOME}/.local/lib"
 export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_LIB_HOME="${HOME}/.local/lib"
+# Aliases for XDG directories
+export XCONFIG="${XDG_CONFIG_HOME}"
+export XBIN="${XDG_BIN_HOME}"
+export XDATA="${XDG_DATA_HOME}"
+export XCACHE="${XDG_CACHE_HOME}"
+export XLIB="${XDG_LIB_HOME}"
 
+# Zsh root
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
 # Disable coredumps for systemd
