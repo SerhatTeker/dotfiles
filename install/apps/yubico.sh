@@ -26,7 +26,7 @@ SOURCE_DIR="/tmp/${APP}_release"
 DEST_DIR="${APPS}/${APP}"
 
 # Get OS and ARCH
-if [[ "${OSTYPE}" == "darwin"* ]]; then
+if is_macos; then
     OS_ARCH="mac"
 else
     OS_ARCH="linux"
@@ -40,26 +40,35 @@ get_release() {
     tar -xvzf "${SOURCE_DIR}/${TAR}" -C "${DEST_DIR}"
 }
 
-# Remove tmp source dir
-remove_source() {
-    rm -rf ${SOURCE_DIR}
+install_desktop() {
+    local file="${DEST_DIR}/com.yubico.authenticator.desktop"
+
+    # Use full paths
+    sed -e -i "s#Exec.*#Exec=${DEST_DIR}/authenticator#" "${file}"
+    sed -e -i "s#Icon.*#Exec=${DEST_DIR}/com.yubico.yubioath.png#" "${file}"
+
+    # Install
+    sudo desktop-file-install "${file}"
+    sudo update-desktop-database
 }
 
-install_dep() {
-    if is_linux; then
-        sudo apt insall pcscd
-    else
-        # https://developers.yubico.com/yubioath-desktop
-        # https://github.com/Homebrew/homebrew-cask-drivers/blob/master/Casks/yubico-authenticator.rb
-        brew install --cask yubico-authenticator
-    fi
+linux() {
+    sudo apt insall pcscd
+    get_release
+    install_desktop
+}
+
+macos() {
+    brew install --cask yubico-authenticator
 }
 
 main() {
     mkdir -pv "${SOURCE_DIR}" "${DEST_DIR}"
-    install_dep
-    get_release
-    remove_source
+    if is_linux; then
+        linux
+    else
+        macos
+    fi
 }
 
 main
