@@ -182,7 +182,7 @@ alias unix='unix-print'
 alias ncal='ncal -w'
 # disk usage
 alias space='du -hx --max-depth=1'
-alias space-sorted='f() {du -hx --max-depth=1 "$1" | sort -hr | head}; f'
+alias space-sorted='f() {du -hx --max-depth=1 "$1" | sort -hr}; f'
 # symstem in ASCII art terminal
 ## take screenshot
 alias nfs='neofetch -S'
