@@ -54,6 +54,7 @@ install_apts() {
         fd-find \
         git \
         gnome-tweaks \
+        htop \
         imagemagick \
         jq \
         libfuse2 \
