@@ -14,7 +14,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "${ROOT}/common.sh"
 
 APP="bitwarden-cli"
-VERSION="1.21.1"
+VERSION="1.22.1"
 
 SOURCE_DIR="/tmp/${APP}_release"
 DEST_DIR="${XDG_BIN_HOME}"
