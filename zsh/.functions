@@ -500,6 +500,16 @@ enc-file() {
 dec-file() {
     gpg --output "$(echo $1 | cut -d '.' -f1).$(echo $1 | cut -d '.' -f2)" --decrypt "$1"
 }
+
+# TODO: Add MacOS
+# Clearn
+clear-clipboard() {
+    __is_linux && {
+        xclip -i /dev/null
+        touch /tmp/blank &&
+            xclip -selection clipboard /tmp/blank
+    }
+}
 # }}}1
 
 # Update {{{1
