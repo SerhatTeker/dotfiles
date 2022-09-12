@@ -59,38 +59,6 @@ bins() {
     ln -sf "${source}/"* "${target}"
 }
 
-dot_gnu() {
-    [[ -d "${PRIVATE}/.gnupg" ]] || {
-        warn ".gnupg directory not on the OS"
-        return 0
-    }
-
-    local source="${SYSBAK}/.gnupg"
-    local target="${HOME}/.gnupg"
-
-    force_remove "${source}" "${target}"
-    # make directory unreadable by others
-    chmod -R o-rx "${target}"
-    # make symlink available only to current user
-    chmod 700 "${target}"
-}
-
-dot_ssh() {
-    [[ -d "${PRIVATE}/.ssh" ]] || {
-        warn ".ssh directory not on the OS"
-        return 0
-    }
-
-    local source="${SYSBAK}/.ssh"
-    local target="${HOME}/.ssh"
-
-    force_remove "${source}" "${target}"
-    # make directory unreadable by others
-    chmod -R o-rx "${target}"
-    # make symlink available only to current user
-    chmod 700 "${target}"
-}
-
 # other stuff
 home_others() {
     force_remove "${DOTFILES}/ctags/.ctags" "${HOME}/.ctags"
@@ -105,7 +73,6 @@ containers() {
 main() {
     dot_configs
     bins
-    dot_gnu
     home_others
     containers
 
