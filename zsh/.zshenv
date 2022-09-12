@@ -169,12 +169,12 @@ export GPG_TTY="$(tty)"
 # Unique path dirs
 typeset -U path
 
-# set PATH so it includes user's private bin if it exists
+# set PATH so it includes user's bin if it exists
 if [ -d "${HOME}/bin" ] ; then
     path+=("${HOME}/bin")
 fi
 
-# set PATH so it includes user's private bin if it exists
+# set PATH so it includes user's bin if it exists
 if [ -d "${HOME}/.local/bin" ] ; then
     path+=("${HOME}/.local/bin")
 fi
