@@ -280,8 +280,8 @@ complete -C $(which aws_completer) aws
 
 # !!! Warning !!!
 # History settings should be after `source $ZSH/oh-my-zsh.sh`
-HISTFILE=${XDG_DATA_HOME}/zsh/.zsh_history
-HISTSIZE=1000000    # 1M
+HISTFILE="${XDG_DATA_HOME}/zsh/.zsh_history"
+HISTSIZE=1000000                # 1M
 SAVEHIST=$HISTSIZE
 
 setopt HIST_IGNORE_ALL_DUPS     # ignore duplicated commands history list

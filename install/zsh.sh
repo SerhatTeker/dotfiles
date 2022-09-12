@@ -152,8 +152,10 @@ link_xdg() {
 
 # Create personal soft links
 link_personal() {
-    if [ -f "${SYSBAK}/zsh/.private.zsh" ]; then
-        ln -sf "${SYSBAK}/zsh/.private.zsh" "${ZDOTDIR}/.private.zsh"
+    local source_file="${PRIVATE}/${HOST/.*/}/zsh/.private.zsh"
+
+    if [ -f "${source_file}" ]; then
+        ln -sf "${source_file}" "${ZDOTDIR}/.private.zsh"
         msg_cli blue "Linked personal files" normal
     fi
 }
