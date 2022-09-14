@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+
+# Second Monitor Management
+# Adjusts displays after plug in or plug out second monitor
+#
+# Main laptop display is eDP-1 1980x1080, landscape
+# Second monitor is DP-1 or HDMI-1 or HDMI-2, landscape
+#
+# laptop|left eDP-1
+# monitor|right DP-1
+# monitor|right HDMI-1
+# monitor|right HDMI-2
+#
+# Manual set:
+# $ xrandr --output eDP-1 --auto --primary
+# $ xrandr --output DP-1|HDMI-1|HMDI-2 --auto --right-of eDP-1
+
+# Check xrandr bin exists
+command -v xrandr >/dev/null 2>&1 || {
+    echo "ERROR: xrandr bin does not present on the host!"
+    exit 1
+}
+
+# Find current monitors
+dp="$(xrandr --query | grep "^DP.* connected" | grep -Ev "^eDP-1" | awk '{print $1}')"
+hdmi="$(xrandr --query | grep "^HDMI.* connected" | grep -Ev "^eDP-1" | awk '{print $1}')"
+
+# Verbose setting primary monitor
+xrandr --output "eDP-1" --auto --primary
+# Alternative to --auto:
+# Reset pos and frame buffer size in case second monitor was previously connected
+# xrandr --output eDP-1 --auto --scale 1x1 --pos 0x0 --fb 3840x2160 --primary
+
+# If both hdmi and dp connected, choose HDMI over DP
+if [[ ! "${hdmi}" = "" ]]; then
+    echo "External monitor is on ${hdmi}"
+    xrandr --output "${hdmi}" --auto --right-of "eDP-1" # External monitor is on the right
+elif [[ ! "${dp}" = "" ]]; then
+    echo "External monitor is on ${dp}"
+    xrandr --output "${dp}" --auto --right-of "eDP-1" # External monitor is on the right
+else
+    echo "NO External monitor is connected"
+
+    # Ensure workspaces on primary|laptop monitor
+    declare -a outputs=(
+        "DP-1"
+        "HMDI-1"
+        "HMDI-2"
+    )
+    for output in "${outputs[@]}"; do
+        xrandr --output "${output}" --off
+    done
+fi

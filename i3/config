@@ -126,12 +126,6 @@ bindsym $mod+space exec --no-startup-id rofi -show drun                         
 bindsym $mod+Shift+w exec --no-startup-id rofi -show window                         # only windows
 # }}}
 
-# Monitors {{{
-
-set $monitor_left DP-1
-set $monitor_right eDp-1
-# }}}
-
 # Workspaces {{{
 
 # Define names for default workspaces for which we configure key bindings later on.
@@ -209,6 +203,17 @@ for_window [class="^Spotify Premium$"] border none
 for_window [class="^Signal"] border none
 for_window [class="^Telegram"] border none
 # }}}
+# }}}
+
+# Monitors {{{
+
+exec --no-startup-id ~/.config/i3/bin/screenm
+
+# move focused workspace between monitors
+# windows are called "containers", and monitors are called "outputs".
+# no need to press Shift
+bindsym $mod+Ctrl+greater move workspace to output right
+bindsym $mod+Ctrl+less move workspace to output left
 # }}}
 
 # Layouts {{{
