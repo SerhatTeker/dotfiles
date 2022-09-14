@@ -42,10 +42,14 @@ apps() {
     bash "${dir}/apps/yubico.sh"
     bash "${dir}/apps/bitwarden-cli.sh"
     bash "${dir}/apps/alacritty.sh"
+    # rclone
+    curl https://rclone.org/install.sh | sudo bash
 }
 
 main() {
     info "Started base installation"
+
+    sudo -v # Get sudo beforehand
 
     os_base
     apps
