@@ -63,7 +63,8 @@ install_apts() {
         shfmt \
         tmux \
         universal-ctags \
-        unzip
+        unzip \
+        xrandr
 
     # Link the binary: since # The binary is called `fdfind` as the binary name `fd`
     # is already used by another package. https://github.com/sharkdp/fd#on-debian
