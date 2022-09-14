@@ -3,13 +3,6 @@
 ## Vim template
 Session.vim
 
-### Swap
-[._]*.s[a-v][a-z]
-[._]*.sw[a-p]
-[._]s[a-v][a-z]
-[._]sw[a-p]
-
-
 ## VisualStudioCode template
 .vscode/*
 !.vscode/settings.json
