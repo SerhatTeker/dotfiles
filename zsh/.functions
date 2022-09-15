@@ -141,6 +141,11 @@ cv() {
     # builtin cd "$@" && nvim -S
 }
 
+# shortcut : cd $DIR then run lvim
+cl() {
+    cd "${1}" && lvim
+}
+
 # }}}1
 
 # Files {{{1
