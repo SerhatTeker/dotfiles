@@ -8,13 +8,16 @@ bufferline.options = {
     -- background highlight doesn't appear in the middle
     -- alternatives:  right aligned => ▕ ▐ ,  left aligned => ▍
     -- icon = "▐ ",
-    -- icon = "▕ ▐ ",
     -- icon = "▍",
     -- icon = "▎",
-    -- icon = "|",
+    -- icon = "▕ ▐ ",
     indicator = {
         style = "icon",
         icon = "",
+        -- icon = "▐ ",
+        -- icon = "▍",
+        -- icon = "▎",
+        -- icon = "▕ ▐ ",
     },
 }
 
