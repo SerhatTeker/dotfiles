@@ -122,7 +122,7 @@ cdl() {
 
 # make dir then cd
 mkcd() {
-    mkdir -p "$1" && cd "$1"
+    mkdir -p "${1}" && cd "$1" || return 1
 }
 
 # shortcut : cd $DIR then run nvim -s
