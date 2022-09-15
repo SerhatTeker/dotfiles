@@ -125,15 +125,14 @@ mkcd() {
     mkdir -p "${1}" && cd "$1" || return 1
 }
 
-# shortcut : cd $DIR then run nvim -s
+# alias : cd $DIR then run nvim -s
 cv() {
     local dir="${1:-$HOME}"
 
+    # Define and use shortcut alias
     if [ "$dir" = "dot" ]; then
         local dir=$DOTFILES
-        echo "dir dot"
     elif [ "$dir" = "bak" ]; then
-        echo "dir bak"
         local dir=$SYSTEM_BAK
     fi
 
@@ -141,7 +140,7 @@ cv() {
     # builtin cd "$@" && nvim -S
 }
 
-# shortcut : cd $DIR then run lvim
+# alias : cd $DIR then run lvim
 cl() {
     cd "${1}" && lvim
 }
