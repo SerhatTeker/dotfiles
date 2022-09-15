@@ -16,7 +16,7 @@ set.foldmethod = "expr" -- folding set to "expr" for treesitter based folding
 set.foldexpr = "nvim_treesitter#foldexpr()" -- set to "nvim_treesitter#foldexpr()" for treesitter based folding
 -- git diff
 set.diffopt:append { "vertical" } -- internal, filler, closeoff, vertical
-set.fillchars = set.fillchars + 'diff:╱'
+set.fillchars = set.fillchars + 'diff: ' -- alternatives: ─ ⣿ ░
 -- }}}
 
 -- # LunarVim {{{
