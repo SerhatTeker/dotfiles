@@ -85,12 +85,12 @@ chrome-toggle() {
     fi
 }
 
-# Launch Google Chrome with forced dark mode in i3
-chrome-i3() {
-    local flags='--force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering'
+# Launch Google Chrome with forced dark mode
+chrome-dark() {
     nohup \
-        i3-msg \
-        "workspace 2; exec google-chrome-stable ${flags}" \
+        google-chrome-stable \
+        --force-dark-mode \
+        --enable-features=WebUIDarkMode,CSSColorSchemeUARendering \
         >/dev/null 2>&1 &
 }
 
