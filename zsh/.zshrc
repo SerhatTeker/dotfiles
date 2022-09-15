@@ -150,13 +150,14 @@ export LANG=en_US.UTF-8
 # Editor {{{2
 
 # Preferred editor for local and remote sessions
-# use nvim
-# if not exists use vim
-if hash nvim 2>/dev/null; then
+if hash lvim 2>/dev/null; then
+    export EDITOR="$(which lvim)"
+elif hash nvim 2>/dev/null; then
     export EDITOR='nvim'
 elif hash vim 2>/dev/null; then
     export EDITOR='vim'
 fi
+export SUDO_EDITOR="${EDITOR}"
 
 # SSH different editor choice
 # if [[ -n $SSH_CONNECTION ]]; then
