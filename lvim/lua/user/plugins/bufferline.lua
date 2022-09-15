@@ -28,12 +28,4 @@ bufferline.highlights = {
     buffer_selected = {
         bold = true,
     },
-    tab_selected = {
-        fg = {
-            attribute = "fg",
-            -- highlight = "Pmenu"
-            highlight = "BufferLineBufferSelected"
-        },
-        bold = true,
-    },
 }
