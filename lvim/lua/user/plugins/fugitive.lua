@@ -1,4 +1,4 @@
-local opts = { noremap = true, silent = true}
+local opts = { noremap = true, silent = true }
 
 -- Status
 vim.api.nvim_set_keymap("n", "ss", "<cmd>G<cr>", opts)
@@ -18,7 +18,7 @@ vim.api.nvim_set_keymap("n", "<leader>m3", "<cmd>diffget //3<cr>", opts)
 -- Git diff previous vs the current version
 -- With <!> left to right, and focus on current
 -- TIP: Therefore close with <C-W><C-O>, not :diffoff
-vim.api.nvim_set_keymap("n", "<leader>d", "<cmd>Gdiffsplit<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>d", "<cmd>Gdiffsplit!<cr>", opts)
 
 -- Show History
 vim.api.nvim_set_keymap("n", "<leader>HH", "<cmd>Gclog<cr>", opts)
@@ -36,5 +36,6 @@ vim.api.nvim_create_user_command("GCE", "Git commit --amend --edit", { force = t
 vim.api.nvim_create_user_command("GP", "Git push", { force = true })
 
 -- Push set upstream
-vim.api.nvim_create_user_command("GPSUP", ":!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD 2>/dev/null)", { force = true })
+vim.api.nvim_create_user_command("GPSUP",
+    ":!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD 2>/dev/null)", { force = true })
 -- }}}
