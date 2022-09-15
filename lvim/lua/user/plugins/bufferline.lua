@@ -1,32 +1,36 @@
-local bl = lvim.builtin.bufferline
+local bufferline = lvim.builtin.bufferline
 
-bl.options = {
+bufferline.options = {
+    buffer_close_icon = "",
+    close_icon = "",
     -- Indicator
     -- U+2589 ▐ Right half block, this character is right aligned so the
     -- background highlight doesn't appear in the middle
     -- alternatives:  right aligned => ▕ ▐ ,  left aligned => ▍
-    -- indicator_icon = "▐ ",
-    -- indicator_icon = "▕ ▐ ",
-    -- indicator_icon = "▍",
-    -- indicator_icon = "▎",
-    indicator_icon = "",
-    buffer_close_icon = "",
-    close_icon = "",
+    -- icon = "▐ ",
+    -- icon = "▕ ▐ ",
+    -- icon = "▍",
+    -- icon = "▎",
+    -- icon = "|",
+    indicator = {
+        style = "icon",
+        icon = "",
+    },
 }
 
-bl.highlights = {
+bufferline.highlights = {
     background = {
-        gui = "italic",
+        italic = true,
     },
     buffer_selected = {
-        gui = "bold",
+        bold = true,
     },
     tab_selected = {
-        guifg = {
+        fg = {
             attribute = "fg",
             -- highlight = "Pmenu"
             highlight = "BufferLineBufferSelected"
         },
-        gui = "bold",
+        bold = true,
     },
 }
