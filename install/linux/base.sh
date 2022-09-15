@@ -58,6 +58,8 @@ install_apts() {
         imagemagick \
         jq \
         libfuse2 \
+        redshift \
+        redshift-gtk \
         ripgrep \
         shellcheck \
         shfmt \
