@@ -22,7 +22,7 @@
 # Descrtiption          : Toggle theme mode on Ubuntu 22.04 LTS and MacOS Monterey 12
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2022-09-06T00:05:48+0300 | 1662411948
+# Last Modified Date    : 2022-09-16T00:37:52+0300 | 1663277872
 # Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
 # and using on Ubuntu 22.04 LTS and MacOS Monterey 12.
 # Usage                 : $ ./toggle-theme
@@ -94,8 +94,10 @@ rofi_toggle() {
 
 gtk_toggle() {
     if [[ ${target_mode} =~ "light" ]]; then
+        gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
         gsettings set org.gnome.desktop.interface gtk-theme "Yaru-light"
     else
+        gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
         gsettings set org.gnome.desktop.interface gtk-theme "Yaru-dark"
     fi
 }
