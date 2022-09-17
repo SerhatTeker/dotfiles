@@ -395,5 +395,5 @@ exec --no-startup-id udiskie
 
 # Custom/Local
 exec --no-startup-id "/home/$USER/apps/activitywatch/aw-qt"     # activity tracking
-exec --no-startup-id "/home/$USER/.local/bin/toggle-airplane"   # Desktop mode with ethernet
+# exec --no-startup-id "/home/$USER/.local/bin/toggle-airplane"   # Desktop mode with ethernet
 # }}}
