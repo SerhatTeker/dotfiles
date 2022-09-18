@@ -41,6 +41,7 @@ apps() {
     local dir="${ROOT}/install"
     bash "${dir}/apps/yubico.sh"
     bash "${dir}/apps/bitwarden-cli.sh"
+    bash "${dir}/apps/gopass.sh"
     bash "${dir}/apps/alacritty.sh"
     # rclone
     curl https://rclone.org/install.sh | sudo bash
