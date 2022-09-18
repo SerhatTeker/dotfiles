@@ -22,7 +22,7 @@ brew "git"
 brew "git-crypt"
 brew "glib"
 brew "gopass"                   # https://github.com/gopasspw/gopass
-brew "gnupg2"
+# brew "gnupg2"                 # Takes hours. Use alternative, like docker.
 brew "gnu-tar"
 brew "gnu-time"
 brew "gnu-which"
