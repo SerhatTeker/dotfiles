@@ -623,6 +623,7 @@ tar-it() {
 
 }
 
+# DEBUG: Fix working with source files
 untar-it() {
     file="$1"
     filename="${file%%.*}"
