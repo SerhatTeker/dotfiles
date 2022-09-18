@@ -45,6 +45,7 @@ livepatch() {
 
 install_apts() {
     sudo apt install -y \
+        age \
         build-essential \
         bat \
         curl \
