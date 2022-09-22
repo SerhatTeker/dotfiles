@@ -39,12 +39,22 @@ end
 
 -- ## Lvim {{{
 
+local mode = {
+    function()
+        -- return "  "
+        return " "
+    end,
+    padding = { left = 0, right = 0 },
+    color = {},
+    cond = nil,
+}
+
 if ll.style == "lvim" then
     local components = require "lvim.core.lualine.components"
 
     ll.sections = {
         lualine_a = {
-            components.mode,
+            mode,
         },
         lualine_b = {
             components.branch,
