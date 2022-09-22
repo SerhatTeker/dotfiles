@@ -175,7 +175,6 @@ lvim.plugins = {
     },
     -- # Additional
     -- ## Colorschemes
-    { "folke/tokyonight.nvim" },
     { "Mofiqul/vscode.nvim" },
     -- { "ellisonleao/gruvbox.nvim" }, -- alternative gruvbox
     { "sainnhe/gruvbox-material" },
