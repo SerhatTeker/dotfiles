@@ -25,20 +25,21 @@ set -o pipefail
 # Locate the root directory
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# shellcheck source=scripts/common.sh
+# shellcheck disable=1091
 source "${ROOT}/install/common.sh"
 
 DOWNLOAD_DIR=/tmp
-NVIM_VERSION="${NVIM_VERSION:-"0.7.2"}"
+# NVIM_VERSION="${NVIM_VERSION:-"0.7.2"}"   # stable
+NVIM_VERSION="${NVIM_VERSION:-"nightly"}"
 
 exists_or_install() {
-    if ! command_exists $1; then
+    if ! command_exists "${1}"; then
         if is_linux; then
-            sudo apt install $2
+            sudo apt install "${2}"
         else
             command_exists brew || warn "You need Homebrew to install rg"
             bash "${ROOT}/install/brew.sh"
-            brew install $2
+            brew install "${2}"
         fi
     fi
 }
@@ -55,15 +56,25 @@ check_base_deps() {
 # Use appimage, more compact and easier.
 appimage() {
     local base_url="https://github.com/neovim/neovim/releases"
-    local nightly_url="${base_url}/download/nightly/nvim.appimage"
-    local stable_url="${base_url}/latest/download/nvim.appimage"
-    local version_url="${base_url}/download/v${NVIM_VERSION}/nvim.appimage"
+    local nightly_url="${base_url}/download/nightly"
+    local stable_url="${base_url}/latest/download"
+    local version_url="${base_url}/download/v${NVIM_VERSION}"
 
-    local url=${version_url}
+    # Nightly version
+    if [ "$NVIM_VERSION" == "nightly" ]; then
+        local url="${nightly_url}/nvim.appimage"
+    # Stable version
+    elif [ "$NVIM_VERSION" == "stable" ]; then
+        local url="${stable_url}/nvim.appimage"
+    # Specific version
+    else
+        local url="${version_url}/nvim.appimage"
+    fi
+
     local file="nvim-${NVIM_VERSION}"
 
     wget \
-        ${url} \
+        "${url}" \
         --output-document "${DOWNLOAD_DIR}/${file}"
 
     chmod u+x "${DOWNLOAD_DIR}/${file}"
@@ -77,12 +88,22 @@ setup_plugins() {
     ${nvim_bin} +UpdateRemotePlugins +qall
 }
 
+macos_brew() {
+    # Nightly version
+    if [ "$NVIM_VERSION" == "nightly" ]; then
+        brew install --HEAD neovim
+    # Stable version
+    else
+        brew install neovim
+    fi
+}
+
 nvim_os() {
     if is_linux; then
         appimage
         local nvim_bin="${XDG_BIN_HOME}/nvim"
     else
-        exists_or_install nvim neovim
+        macos_brew
         local nvim_bin="${HOME}/.homebrew/nvim"
     fi
     setup_plugins
@@ -91,7 +112,11 @@ nvim_os() {
 main() {
     info "Started nvim install"
 
-    # is_installed nvim   # Disable for now
+    # If nvim bin already exists quit
+    if command_exists "nvim"; then
+        return
+    fi
+
     check_base_deps
     nvim_os
     force_remove "${DOTFILES}/nvim" "${XDG_CONFIG_HOME}/nvim" # link config. overwrites link.sh

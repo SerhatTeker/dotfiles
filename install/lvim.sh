@@ -40,6 +40,7 @@ copy_snapshot() {
 
 # No install dependencies since installing already in install/nvim.sh
 install_lvim() {
+    # Require Neovim 0.8+
     LV_BRANCH=rolling \
         bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/rolling/utils/installer/install.sh) \
         --no-install-dependencies
