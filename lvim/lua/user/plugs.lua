@@ -234,21 +234,6 @@ lvim.plugins = {
             vim.api.nvim_set_keymap("n", "<F10>", "<CMD>RunCode<CR>", { silent = false })
         end
     },
-    -- ## Indentline
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        config = function()
-            local blankline = require("indent_blankline")
-            blankline.setup({
-                show_current_context = true,
-                -- show_current_context_start = true,
-                filetype_exclude = {
-                    "lspinfo", "packer", "checkhealth", "help", "man", "",
-                    "python", "go",
-                }
-            })
-        end
-    },
     -- ## Search and replace
     {
         "nvim-pack/nvim-spectre",
@@ -281,7 +266,6 @@ lvim.plugins = {
     -- ActivityWatch watcher: https://docs.activitywatch.net/en/latest/watchers.html
     {
         "ActivityWatch/aw-watcher-vim",
-        opt = true,
         cond = function()
             return vim.fn.filereadable(os.getenv("HOME") .. "/apps/activitywatch/aw-qt") ~= 0
         end

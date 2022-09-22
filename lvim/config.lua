@@ -7,6 +7,7 @@ require("user.theme").setup()
 -- Plugins Core
 require("user.plugins.bufferline")
 require("user.plugins.fugitive")
+require("user.plugins.indentline")
 require("user.plugins.navigator")
 require("user.plugins.nvim-tree")
 require("user.plugins.lsp")
