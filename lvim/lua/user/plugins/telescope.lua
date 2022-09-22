@@ -2,20 +2,53 @@
 
 -- ## Pickers {{{
 
--- Default lvim `hidden` not working, maybe due to `fd` version
-lvim.builtin.telescope.pickers = {
+-- NOTE: WORKS
+-- lvim.builtin.telescope.defaults.pickers.find_files = {
+--     hidden = true,
+--     find_command = {
+--         "fd", "--hidden", "--type", "f", "--strip-cwd-prefix"
+--     },
+-- }
+
+custom_pickers = {
     find_files = {
         hidden = true,
-        find_command = {
-            "fd", "--hidden", "--type", "f", "--strip-cwd-prefix"
-        },
     },
     live_grep = {
         --@usage don't include the filename in the search results
         only_sort_text = true,
     },
+    grep_string = {
+        only_sort_text = true,
+    },
+    buffers = {
+        previewer = false,
+        initial_mode = "normal",
+    },
+    planets = {
+        show_pluto = true,
+        show_moon = true,
+    },
+    git_files = {
+        hidden = true,
+        show_untracked = true,
+    },
+    lsp_references = {
+        initial_mode = "normal",
+    },
+    lsp_definitions = {
+        initial_mode = "normal",
+    },
+    lsp_declarations = {
+        initial_mode = "normal",
+    },
+    lsp_implementations = {
+        initial_mode = "normal",
+    },
 }
 
+lvim.builtin.telescope.defaults.pickers = custom_pickers
+lvim.builtin.telescope.pickers = custom_pickers
 -- }}}
 
 -- ## Prefix {{{
@@ -75,6 +108,7 @@ lvim.builtin.telescope.defaults.mappings = {
         ['<CR>']  = multiopen_mappings.n['<CR>'],
     },
 }
+
 
 -- TODO: Use global map util function
 local utils = require("user.utils")
