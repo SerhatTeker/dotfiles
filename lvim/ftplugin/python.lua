@@ -72,6 +72,13 @@ dap.configurations.python = {
             remoteRoot = "/";
         } };
     },
+    {
+        type = "python",
+        request = "launch",
+        name = "Django",
+        program = vim.fn.getcwd() .. "/manage.py",
+        args = { "runserver", "8000", "--noreload" },
+    },
 }
 
 -- # dapui
