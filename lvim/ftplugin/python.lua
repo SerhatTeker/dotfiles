@@ -61,6 +61,17 @@ dap.configurations.python = {
         -- pythonPath = python_path_default();
         pythonPath = get_venv_bin;
     },
+    -- https://neovim.discourse.group/t/debugpy-nvim-dap-in-a-docker-container-help-getting-this-to-work/501/7
+    {
+        type = "generic_remote",
+        name = "Generic remote",
+        request = "attach",
+        pathMappings = { {
+            -- Update this as needed
+            localRoot = vim.fn.getcwd();
+            remoteRoot = "/";
+        } };
+    },
 }
 
 -- # dapui
