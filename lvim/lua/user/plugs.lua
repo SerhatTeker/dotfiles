@@ -71,6 +71,7 @@ lvim.plugins = {
     {
         "folke/trouble.nvim",
         cmd = "TroubleToggle",
+
     },
     -- Persistence
     {
@@ -280,10 +281,11 @@ lvim.plugins = {
     -- ActivityWatch watcher: https://docs.activitywatch.net/en/latest/watchers.html
     {
         "ActivityWatch/aw-watcher-vim",
+        opt = true,
         cond = function()
-            local aw_path = os.getenv("HOME") .. "/apps/activitywatch"
-            return vim.fn.filereadable(join_paths(aw_path, "aw-qt"))
-        end,
+            return vim.fn.filereadable(os.getenv("HOME") .. "/apps/activitywatch/aw-qt") ~= 0
+        end
+
     },
     -- ## Leap, fast motions
     {
