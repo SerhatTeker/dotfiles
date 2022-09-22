@@ -2,15 +2,7 @@
 
 -- ## Pickers {{{
 
--- NOTE: WORKS
--- lvim.builtin.telescope.defaults.pickers.find_files = {
---     hidden = true,
---     find_command = {
---         "fd", "--hidden", "--type", "f", "--strip-cwd-prefix"
---     },
--- }
-
-custom_pickers = {
+local custom_pickers = {
     find_files = {
         hidden = true,
     },
