@@ -17,6 +17,8 @@ set.foldexpr = "nvim_treesitter#foldexpr()" -- set to "nvim_treesitter#foldexpr(
 -- git diff
 set.diffopt:append { "vertical" } -- internal, filler, closeoff, vertical
 set.fillchars = set.fillchars + 'diff: ' -- alternatives: ─ ⣿ ░
+-- time
+set.timeoutlen = 500
 -- }}}
 
 -- # LunarVim {{{
