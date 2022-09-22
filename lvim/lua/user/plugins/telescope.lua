@@ -45,22 +45,26 @@ lvim.builtin.telescope.pickers = custom_pickers
 
 -- ## Prefix {{{
 
--- -- default lvim ones
--- prompt_prefix = " ",
--- selection_caret = " ",
+-- use defaults, same as fzf-like
+lvim.builtin.telescope.defaults.prompt_prefix = nil
+lvim.builtin.telescope.defaults.selection_caret = nil
 
 -- -- fzf-like
 -- lvim.builtin.telescope.defaults.prompt_prefix = "> "
 -- lvim.builtin.telescope.defaults.selection_caret = "> "
 
--- use defaults, same as fzf-like
-lvim.builtin.telescope.defaults.prompt_prefix = nil
-lvim.builtin.telescope.defaults.selection_caret = nil
+-- -- default lvim ones
+-- prompt_prefix = " ",
+-- selection_caret = " ",
 -- }}}
 
 -- ## Mappings {{{
 
--- Core {{{
+local utils = require("user.utils")
+local map_cmd = utils.map_cmd
+local cmd = utils.cmd
+
+-- Default mappings {{{
 
 -- Change Telescope navigation to use j and k for navigation and n and p for
 -- history in both input and normal mode. we use protected-mode (pcall) just in
@@ -100,12 +104,9 @@ lvim.builtin.telescope.defaults.mappings = {
         ['<CR>']  = multiopen_mappings.n['<CR>'],
     },
 }
+-- }}}
 
-
--- TODO: Use global map util function
-local utils = require("user.utils")
-local map_cmd = utils.map_cmd
-local cmd = utils.cmd
+-- Custome mappings {{{
 
 map_cmd("<C-p>", "Telescope find_files")
 map_cmd("<C-f>", "Telescope live_grep")
@@ -113,11 +114,11 @@ map_cmd("<S-b>", "Telescope buffers")
 -- }}}
 
 -- Git {{{
+
 map_cmd("<leader>gb", "Telescope git_branches")
 map_cmd("<leader>gc", "Telescope git_commits")
 map_cmd("<leader>gx", "Telescope git_bcommits")
 map_cmd("<leader>gs", "Telescope git_status")
-
 -- }}}
 
 -- Which key {{{
