@@ -52,19 +52,28 @@ end
 dap.configurations.python = {
     {
         -- The first three options are required by nvim-dap
-        type = "python"; -- the type here established the link to the adapter definition: `dap.adapters.python`
-        request = "launch";
-        name = "Launch file";
+        name = "Launch File",
+        type = "python", -- the type here established the link to the adapter definition: `dap.adapters.python`
+        request = "launch",
 
         -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-        program = "${file}"; -- This configuration will launch the current file if used.
+        program = "${file}", -- This configuration will launch the current file if used.
         -- pythonPath = python_path_default();
-        pythonPath = get_venv_bin;
+        pythonPath = get_venv_bin,
+    },
+    {
+        name = "Python Attach",
+        type = "python",
+        request = "attach",
+        connect = {
+            host = "127.0.0.1",
+            port = 5678,
+        },
     },
     -- https://neovim.discourse.group/t/debugpy-nvim-dap-in-a-docker-container-help-getting-this-to-work/501/7
     {
+        name = "Generic Remote",
         type = "generic_remote",
-        name = "Generic remote",
         request = "attach",
         pathMappings = { {
             -- Update this as needed
@@ -73,9 +82,9 @@ dap.configurations.python = {
         } };
     },
     {
+        name = "Django Launch",
         type = "python",
         request = "launch",
-        name = "Django",
         program = vim.fn.getcwd() .. "/manage.py",
         args = { "runserver", "8000", "--noreload" },
     },
