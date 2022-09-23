@@ -255,11 +255,9 @@ lvim.plugins = {
         end,
     },
     -- ## Editorconfig
-    -- -- HACK: NW: https://github.com/wbthomason/packer.nvim/issues/1008#issuecomment-1211492255
-    -- {
-    --     "gpanders/editorconfig.nvim",
-    --     config = default_config("editorconfig"),
-    -- },
+    {
+        "gpanders/editorconfig.nvim",
+    },
     -- ## Zen Mode
     {
         "folke/zen-mode.nvim",
