@@ -60,7 +60,6 @@ lvim.plugins = {
         "nvim-treesitter/playground",
         event = "BufRead",
     },
-
     -- ## DAP
     { "rcarriga/nvim-dap-ui",
         config = default_config("dapui"),
@@ -71,27 +70,27 @@ lvim.plugins = {
         config = default_config("nvim-dap-virtual-text"),
         requires = { "mfussenegger/nvim-dap" },
     },
-    -- Trouble
+    -- ## Trouble
     {
         "folke/trouble.nvim",
         cmd = "TroubleToggle",
 
     },
-    -- Persistence
+    -- ## Persistence
     {
         "olimorris/persisted.nvim",
         -- event = "BufReadPre", -- this will only start session saving when an actual file was opened
         -- module = "persistence",
         config = function()
             require("persisted").setup({
-                save_dir = vim.fn.expand(vim.fn.stdpath "cache" .. "/session/"),
+                save_dir = vim.fn.expand(vim.fn.stdpath("cache") .. "/session/"),
                 autosave = true,
                 autoload = true,
             })
             vim.o.sessionoptions = "buffers,curdir,folds,tabpages,winpos,winsize"
         end,
     },
-    -- Lastplace
+    -- ## Lastplace
     {
         "ethanholz/nvim-lastplace",
         event = "BufRead",
@@ -263,7 +262,6 @@ lvim.plugins = {
         "folke/zen-mode.nvim",
         config = default_config("zen-mode"),
     },
-
     -- ## Activity tracking
     -- ActivityWatch watcher: https://docs.activitywatch.net/en/latest/watchers.html
     {
