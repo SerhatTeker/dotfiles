@@ -2,12 +2,6 @@
 # -*- coding: utf-8 -*-
 # vim: set ft=sh et ts=4 sw=4 sts=4:
 
-# Install desired yubico desktop beta  to Linux or Mac ARM M1
-# https://www.yubico.com/products/yubico-authenticator/yubico-authenticator-desktop-beta/
-#
-# Usage:
-# $ bash install/apps/yubico.sh
-
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
 set -o nounset
