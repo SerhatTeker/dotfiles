@@ -18,8 +18,12 @@ set -o pipefail
 dock() {
     # Autohide the Dock when the mouse is out
     defaults write com.apple.dock "autohide" -bool "true"
+
     # MacBook Air
     defaults write com.apple.dock "tilesize" -int "42"
+
+    # Don't show recent apps in the Dock
+    defaults write com.apple.dock show-recents -bool false
 }
 
 # TODO: find and write
@@ -86,13 +90,36 @@ desktop() {
     defaults write com.apple.screencapture location "${ss_dir}"
 }
 
+finder() {
+    # Show the full path at the bottom of Finder
+    defaults write com.apple.finder ShowPathbar -bool true
+
+    # Show all file extensions
+    defaults write -g AppleShowAllExtensions -bool true
+
+    # Unhide the ~/Library folder
+    chflags nohidden ~/Library
+}
+
+# See the changes
+see_changes() {
+    killall Dock
+    killall Finder
+    killall SystemUIServer
+}
+
 main() {
+    # Quit System Preferences so it doesn't override settings
+    osascript -e 'tell application "System Preferences" to quit'
+
     dock
     keyboard
     corners
     mission_control
     desktop
-    kill Dock
+    finder
+
+    see_changes
 }
 
 main "$@"
