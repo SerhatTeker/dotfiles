@@ -170,6 +170,10 @@ alias sedpath='sed "s/ /\n/g" <<< "$path"'
 # local bins
 alias theme='~/.local/bin/toggle-theme'
 alias airplane='~/.local/bin/toggle-airplane'
+
+# disk usage
+alias space='du -hx -d 1'
+alias space-sorted='f() {du -hx -d 1 "$1" | sort -hr}; f'
 # }}}
 
 # VM {{{
@@ -184,9 +188,6 @@ alias umatrix='unimatrix -a -f -b -s 96 -l m'
 alias matrix='gnome-terminal --full-screen -- /bin/bash -c "unimatrix -a -f -b -s 96 -l m;read"'
 alias unix='unix-print'
 alias ncal='ncal -w'
-# disk usage
-alias space='du -hx --max-depth=1'
-alias space-sorted='f() {du -hx --max-depth=1 "$1" | sort -hr}; f'
 # symstem in ASCII art terminal
 ## take screenshot
 alias nfs='neofetch -S'
