@@ -67,6 +67,7 @@ icons:
 # A list of globs to ignore when listing.
 # ignore-globs:
 #   - .git
+#   - .venv
 
 # == Indicators ==
 # Whether to add indicator characters to certain listed files.
