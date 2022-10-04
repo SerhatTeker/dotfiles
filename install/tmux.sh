@@ -48,7 +48,7 @@ install_tmux() {
 plugins() {
     local target="${XDG_DATA_HOME}/tmux/plugins"
     mkdir -p "${target}"
-    git clone https://github.com/tmux-plugins/tpm "${target}/tpm/tpm"
+    git clone https://github.com/tmux-plugins/tpm "${target}/tpm"
 
     # Reload TMUX environment so TPM is sourced:
     tmux source "${XDG_CONFIG_HOME}/tmux/tmux.conf"
