@@ -21,7 +21,7 @@ DEST_DIR="${XDG_BIN_HOME}"
 
 # Get OS and ARCH
 if [[ "${OSTYPE}" == "darwin"* ]]; then
-    OS_ARCH="mac"
+    OS_ARCH="macos"
 else
     OS_ARCH="linux"
 fi
