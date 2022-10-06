@@ -1,0 +1,30 @@
+# vim: syntax=ruby filetype=ruby
+# MacOS Base
+# Brew
+brew "age"
+brew "bat"
+brew "bitwarden-cli"
+brew "curl"
+brew "fd"                       # https://github.com/sharkdp/fd
+brew "fzf"
+brew "gh"
+brew "gnu-time"
+brew "gnu-which"
+brew "gnu-sed"
+brew "htop"
+brew "httpie"
+brew "jq"
+brew "lsd"
+brew "openssl"
+brew "openssh"
+brew "ripgrep"
+brew "shellcheck"
+brew "shfmt"
+brew "tmux"
+brew "tree"
+brew "watch"
+brew "wget"
+# Cask
+cask "google-chrome"
+cask "iterm2"
+cask "yubico-authenticator"
