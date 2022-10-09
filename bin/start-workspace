@@ -17,32 +17,30 @@
 
 
 # Set Session Name
-PROJECT_PATH="$1"
+PROJECT_PATH="${1}"
 
 # If $PROJECT_PATH given use it otherwise use $PWD
-if [ -z $PROJECT_PATH ];then
+if [ -z "$PROJECT_PATH" ];then
     PROJECT_PATH="$PWD"
 else
     # use absolute path
-    PROJECT_PATH="$(readlink -f ${PROJECT_PATH})"
+    PROJECT_PATH="$(readlink -f "${PROJECT_PATH}")"
 fi
 
 # Check Session arg given. Use it, otherwise use PROJECT_PATH basename
 if [ -z "$2" ];then
-    SESSION=$(basename $PROJECT_PATH)
+    SESSION="$(basename "${PROJECT_PATH}")"
     # if dir consists ".", split and get first name
-    SESSION=$(echo ${SESSION} | awk '{split($SESSION, a, "."); print a[1]}')
+    SESSION="${SESSION/.*/}"
 else
     SESSION="$2"
 fi
 
 MAIN_WINDOW=0
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    SESSIONEXISTS=$(tmux list-sessions | grep -x ${SESSION})
+    SESSIONEXISTS="$(tmux list-sessions | grep -x "${SESSION}")"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    # TODO: Check for MacOS
-    # SESSIONEXISTS=$(tmux list-sessions | ggrep -x ${SESSION})
-    :
+    SESSIONEXISTS="$(tmux list-sessions | grep "${SESSION}")"
 else
     echo "${OSTYPE} not implemented."
     exit 1
@@ -51,20 +49,20 @@ fi
 # Only create tmux session if it doesn't already exist
 if [ "${SESSIONEXISTS}" = "" ];then
     # Start New Session with our name
-    tmux new-session -d -s ${SESSION} -c $PROJECT_PATH -n "main"
+    tmux new-session -d -s "${SESSION}" -c "${PROJECT_PATH}" -n "main"
 
     WINDOW=${MAIN_WINDOW}
     # auto-venv comes from functions: $HOME/.functions.
-    tmux send-keys -t ${SESSION}:${WINDOW} "auto-venv" C-m "C-l"
-    tmux send-keys -t ${SESSION}:${WINDOW} "nvim -S" C-m
+    tmux send-keys -t "${SESSION}:${WINDOW}" "auto-venv" C-m "C-l"
+    tmux send-keys -t "${SESSION}:${WINDOW}" "nvim -S" C-m
 
   # Create 2 additional windows
   #{session_name}:#{window_index}.#{pane_index}
   # sessionname:0.4
   for WINDOW in 1 2
   do
-      tmux new-window -t ${SESSION}:${WINDOW} -n "shell" -c $PROJECT_PATH
-      tmux send-keys -t ${SESSION}:${WINDOW} "auto-venv" C-m "C-l"
+      tmux new-window -t "${SESSION}:${WINDOW}" -n "shell" -c "$PROJECT_PATH"
+      tmux send-keys -t "${SESSION}:${WINDOW}" "auto-venv" C-m "C-l"
       # New Pane
       # tmux split-window -t ${SESSION}:${WINDOW} -h -c $PROJECT_PATH
       # tmux send-keys -t ${SESSION}:${WINDOW}.1 "auto-venv" C-m "C-l"
@@ -76,6 +74,6 @@ else
 fi
 
 # Attach Session, on the main window
-tmux attach-session -t ${SESSION}:${MAIN_WINDOW}
+tmux attach-session -t "${SESSION}:${MAIN_WINDOW}"
 # Return to main vim window
-tmux select-window -t ${SESSION}:${MAIN_WINDOW}
+tmux select-window -t "${SESSION}:${MAIN_WINDOW}"
