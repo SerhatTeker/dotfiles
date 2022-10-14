@@ -86,7 +86,7 @@ mission_control() {
 desktop() {
     # Store screenshots in subfolder on desktop
     local ss_dir="${HOME}/Desktop/screenshots"
-    mkdir "${ss_dir}"
+    mkdir -p "${ss_dir}"
     defaults write com.apple.screencapture location "${ss_dir}"
 }
 
