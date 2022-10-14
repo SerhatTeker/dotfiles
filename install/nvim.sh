@@ -110,8 +110,8 @@ appimage() {
 
 setup_plugins() {
     info "Starting setup plugins"
-    ${nvim_bin} +PlugInstall +qall
-    ${nvim_bin} +UpdateRemotePlugins +qall
+    nvim +PlugInstall +qall
+    nvim +UpdateRemotePlugins +qall
 }
 
 macos_brew() {
@@ -124,6 +124,10 @@ macos_brew() {
     fi
 }
 
+link_configs() {
+    force_remove "${DOTFILES}/nvim" "${XDG_CONFIG_HOME}/nvim" # link config. overwrites link.sh
+}
+
 nvim_os() {
     if is_linux; then
         if [[ "$(uname -m)" == "aarch64" ]]; then
@@ -131,25 +135,22 @@ nvim_os() {
         else
             appimage
         fi
-        local nvim_bin="${XDG_BIN_HOME}/nvim"
     else
         macos_brew
-        local nvim_bin="${HOME}/.homebrew/nvim"
     fi
-    setup_plugins
 }
 
 main() {
     info "Started nvim install"
 
     # If nvim bin already exists quit
-    if command_exists "nvim"; then
-        return
+    if ! command_exists "nvim"; then
+        check_base_deps
+        nvim_os
     fi
 
-    check_base_deps
-    nvim_os
-    force_remove "${DOTFILES}/nvim" "${XDG_CONFIG_HOME}/nvim" # link config. overwrites link.sh
+    setup_plugins
+    link_configs
 
     success "Finished nvim install"
 }
