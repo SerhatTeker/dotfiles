@@ -151,6 +151,7 @@ alias kgao='kubectl get all -A > /tmp/output.log ; nvim /tmp/output.log'
 
 alias p='${PYTHON}'
 alias pp='${PYTHON} -m pip'
+alias p3='python3'
 
 # Interactive
 alias pi='${PYTHON} -m IPython -i'
