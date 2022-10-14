@@ -15,7 +15,7 @@
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
-# set -o nounset
+set -o nounset
 set -o pipefail
 
 # Locate the root directory
@@ -49,13 +49,14 @@ apps() {
     local dir="${ROOT}/install"
     bash "${dir}/apps/alacritty.sh"
 
-    apps_pc "${dir}"
+    # apps_pc "${dir}"
+
     # rclone
     curl https://rclone.org/install.sh | sudo bash
 }
 
 git_skip_os_depend() {
-    # Skip alacritty whic made from toggle-theme bin
+    # Skip alacritty which made from toggle-theme bin
     git update-index --skip-worktree \
         "${ROOT}/alacritty/alacritty.yml" \
         "${ROOT}/alacritty/colors/gruvbox.yml" \
@@ -71,7 +72,6 @@ main() {
     apps
 
     local install_root="${ROOT}/install"
-
     declare -a installs=(
         "zsh.sh"
         "link.sh"
