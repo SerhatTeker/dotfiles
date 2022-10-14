@@ -28,11 +28,11 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "${ROOT}/common.sh"
 
 # Use 3.9 as default python version
-VERSION=${PYTHON_VERSION:-3.9}
+VERSION=${PYTHON_VERSION:-3.8}
 PYTHON="python${VERSION}"
 
 # New python installation version
-_INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:-3.9.13}
+_INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:-3.8.15}
 # INSTALL_URL="https://git.io/JLQFl" # WARNING: Github deprecated git.io
 INSTALL_URL="https://gist.githubusercontent.com/SerhatTeker/7d0fc99d27e9bf1d75b4435a38a89fe9/raw/install-python"
 
