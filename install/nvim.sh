@@ -29,8 +29,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "${ROOT}/install/common.sh"
 
 DOWNLOAD_DIR=/tmp
-# NVIM_VERSION="${NVIM_VERSION:-"0.7.2"}"   # stable
-NVIM_VERSION="${NVIM_VERSION:-"nightly"}"
+NVIM_VERSION="${NVIM_VERSION:-"0.8.0"}" # stable
+# NVIM_VERSION="${NVIM_VERSION:-"nightly"}"
 
 exists_or_install() {
     if ! command_exists "${1}"; then
@@ -51,6 +51,32 @@ check_base_deps() {
     command_exists python3 || bash "${ROOT}/install/languages/python.sh"
 
     info "All deps exist, starting to install nvim..."
+}
+
+# There is no Appimage currently. We need to build it from source
+# https://github.com/neovim/neovim/pull/15542
+aarch64_linux() {
+    # Install deps
+    sudo apt install \
+        ninja-build \
+        gettext \
+        libtool \
+        libtool-bin \
+        autoconf \
+        automake \
+        cmake \
+        g++ \
+        pkg-config \
+        unzip \
+        curl \
+        doxygen
+
+    # https://github.com/neovim/neovim/wiki/Building-Neovim#quick-start
+    # install dir
+    local dir="/tmp/neovim"
+    git clone https://github.com/neovim/neovim "${dir}"
+    (cd "${dir}" && git checkout stable && make CMAKE_BUILD_TYPE=RelWithDebInfo)
+    (cd "${dir}" && sudo make install)
 }
 
 # Use appimage, more compact and easier.
@@ -100,7 +126,11 @@ macos_brew() {
 
 nvim_os() {
     if is_linux; then
-        appimage
+        if [[ "$(uname -m)" == "aarch64" ]]; then
+            aarch64_linux
+        else
+            appimage
+        fi
         local nvim_bin="${XDG_BIN_HOME}/nvim"
     else
         macos_brew
