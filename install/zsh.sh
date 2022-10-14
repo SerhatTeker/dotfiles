@@ -152,7 +152,8 @@ link_xdg() {
 
 # Create personal soft links
 link_personal() {
-    local source_file="${PRIVATE}/${HOST/.*/}/zsh/.private.zsh"
+    local hostname="$(hostname)"
+    local source_file="${PRIVATE}/${hostname/.*/}/zsh/.private.zsh"
 
     if [ -f "${source_file}" ]; then
         ln -sf "${source_file}" "${ZDOTDIR}/.private.zsh"
@@ -225,7 +226,7 @@ custom_completions() {
 
 # Must be run with -f|--force flag or taking user approval
 main() {
-    is_installed zsh
+    # is_installed zsh
 
     # Install
     install_zsh
