@@ -27,12 +27,12 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck disable=1091
 source "${ROOT}/common.sh"
 
-# Use 3.9 as default python version
-VERSION=${PYTHON_VERSION:-3.8}
+# Use default python3 as base. You can choose specific minor versions: VERSION=${PYTHON_VERSION:-3.8}
+VERSION="3"
 PYTHON="python${VERSION}"
 
 # New python installation version
-_INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:-3.8.15}
+_INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:-3.9.15}
 # INSTALL_URL="https://git.io/JLQFl" # WARNING: Github deprecated git.io
 INSTALL_URL="https://gist.githubusercontent.com/SerhatTeker/7d0fc99d27e9bf1d75b4435a38a89fe9/raw/install-python"
 
@@ -86,7 +86,7 @@ install_packages() {
     fi
 }
 
-install_reqirements() {
+install_requirements() {
     PIP_REQUIRE_VIRTUALENV=false \
         ${PYTHON} -m pip install --user \
         -r "${ROOT}/python/requirements/base.txt"
@@ -98,7 +98,7 @@ main_install() {
     info "Python install started"
     check_python3
     install_packages
-    install_reqirements
+    install_requirements
 }
 # }}}
 
