@@ -21,7 +21,7 @@ SOURCE_DIR="/tmp/${APP}_release"
 main() {
     mkdir -pv "${SOURCE_DIR}"
 
-    if macos; then
+    if is_macos; then
         brew install gopass
     # TODO: Add linux arm as well
     # Linux amd64
