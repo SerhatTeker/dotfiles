@@ -93,6 +93,8 @@ base_install() {
 }
 
 main() {
+    info "Started VM $(uname -m)"
+
     base_install
 
     declare -a installs=(
@@ -109,6 +111,8 @@ main() {
     for install in "${installs[@]}"; do
         bash "${ROOT}/install/${install}"
     done
+
+    success "Started VM $(uname -m)"
 }
 
 main
