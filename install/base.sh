@@ -15,7 +15,7 @@
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
-set -o nounset
+# set -o nounset
 set -o pipefail
 
 # Locate the root directory
@@ -33,18 +33,33 @@ os_base() {
     fi
 }
 
+# TODO: Check for whether VM or PC
+apps_pc() {
+    local dir="${1}"
+    bash "${dir}/apps/yubico.sh"
+    bash "${dir}/apps/bitwarden-cli.sh"
+    # bash "${dir}/apps/gopass.sh" # INFO: disabled since gnupg dep is pain
+}
+
 apps() {
     info "Started apps installation"
 
     mkdir -p "${HOME}/apps"
 
     local dir="${ROOT}/install"
-    bash "${dir}/apps/yubico.sh"
-    bash "${dir}/apps/bitwarden-cli.sh"
-    bash "${dir}/apps/gopass.sh"
     bash "${dir}/apps/alacritty.sh"
+
+    apps_pc "${dir}"
     # rclone
     curl https://rclone.org/install.sh | sudo bash
+}
+
+git_skip_os_depend() {
+    # Skip alacritty whic made from toggle-theme bin
+    git update-index --skip-worktree \
+        "${ROOT}/alacritty/alacritty.yml" \
+        "${ROOT}/alacritty/colors/gruvbox.yml" \
+        "${ROOT}/alacritty/colors/one.yml"
 }
 
 main() {
