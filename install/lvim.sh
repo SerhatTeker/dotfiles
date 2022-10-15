@@ -25,6 +25,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck disable=1091
 source "${ROOT}/install/common.sh"
 
+LVIM_VERSION="stable"
+
 # Nvim is needed
 check_base_deps() {
     command_exists nvim || bash "${ROOT}/install/nvim.sh"
@@ -40,11 +42,24 @@ copy_snapshot() {
 
 # No install dependencies since installing already in install/nvim.sh
 install_lvim() {
-    # Require Neovim 0.8+
-    LV_BRANCH=rolling \
-        bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/rolling/utils/installer/install.sh) \
-        --no-install-dependencies
+    local install_url="https://raw.githubusercontent.com/lunarvim/lunarvim/rolling/utils/installer/install.sh"
+
+    # Stable version
+    # Require Neovim 0.8.0
+    if [ "$LVIM_VERSION" == "stable" ]; then
+        LV_BRANCH=rolling \
+            bash <(curl -s "${install_url}") \
+            --no-install-dependencies
+    # Nightly version
+    # Require Neovim 0.9.0
+    elif [ "$LVIM_VERSION" == "nightly" ]; then
+        LV_BRANCH=rolling \
+            bash <(curl -s "${install_url}") \
+            --no-install-dependencies
+    fi
 }
+
+# Configure {{{
 
 _configure() {
     "${XDG_BIN_HOME}/lvim" --headless \
@@ -60,6 +75,7 @@ configure() {
 
     info "Run :PackerSync"
 }
+# }}}
 
 main() {
     info "Started lvim install"
