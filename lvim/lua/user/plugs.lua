@@ -25,6 +25,9 @@ lvim.builtin.alpha.active = false
 
 -- # Illuminate
 lvim.builtin.illuminate.active = true -- verbose
+
+-- # Breadcrumbs
+lvim.builtin.breadcrumbs.active = false
 -- }}}
 
 -- # Additional Plugins {{{
@@ -280,6 +283,10 @@ lvim.plugins = {
             vim.keymap.set("n", "s", "<Plug>(leap-forward)", { remap = false })
         end,
     },
+    {
+        "jamestthompson3/nvim-remote-containers",
+        -- config = default_config("zen-mode"),
+    }
 }
 -- }}}
 -- }}}
