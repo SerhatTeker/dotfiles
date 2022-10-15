@@ -28,26 +28,26 @@ source "${ROOT}/common.sh"
 
 APP="rush"
 
-# TODO: Add selecting "Option 1" by default
 # Install rust for macOS, Linux, or another Unix-like OS
 _install() {
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-}
-
-check_rights() {
-    rustup override set stable
-    rustup update stable
+    # Disable confirmation and go with Option 1
+    curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
 }
 
 main() {
     local _RUST="${HOME}/rust"
     export RUSTUP_HOME="${_RUST}/.rustup"
     export CARGO_HOME="${_RUST}/.cargo"
-    # Install
+
+    # Install if not present
     command_exists cargo -V || _install
-    check_rights
+
+    # check_rights
+    "${CARGO_HOME}/.cargo/bin/rustup" override set stable
+    "${CARGO_HOME}/.cargo/bin/rustup" update stable
+
     # Ensure install
-    command_exists cargo -V &&
+    command_exists "${CARGO_HOME}/.cargo/bin/cargo" -V &&
         success "${APP} installed at your system"
 }
 
