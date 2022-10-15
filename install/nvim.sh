@@ -57,19 +57,19 @@ check_base_deps() {
 # https://github.com/neovim/neovim/pull/15542
 aarch64_linux() {
     # Install deps
-    sudo apt install \
-        ninja-build \
-        gettext \
-        libtool \
-        libtool-bin \
+    sudo apt install -y \
         autoconf \
         automake \
         cmake \
-        g++ \
-        pkg-config \
-        unzip \
         curl \
-        doxygen
+        doxygen \
+        g++ \
+        gettext \
+        libtool \
+        libtool-bin \
+        ninja-build \
+        pkg-config \
+        unzip
 
     # https://github.com/neovim/neovim/wiki/Building-Neovim#quick-start
     # install dir
