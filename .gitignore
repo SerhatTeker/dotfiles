@@ -71,3 +71,6 @@ tmux/resurrect
 
 # GH
 hosts.yml
+
+# httpie
+httpie/version_info.json
