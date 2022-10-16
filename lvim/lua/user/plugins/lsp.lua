@@ -78,7 +78,7 @@ lvim.format_on_save = {
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 -- default linelength
-local line_length = "99"
+local line_length = "120"
 
 formatters.setup {
     { command = "isort", filetypes = { "python" } },
