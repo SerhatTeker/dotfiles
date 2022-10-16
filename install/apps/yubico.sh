@@ -58,8 +58,10 @@ linux() {
     install_desktop
 }
 
+# FIX: No yubico-auth cask
 macos() {
-    brew install --cask yubico-authenticator
+    # brew install --cask yubico-authenticator
+    echo
 }
 
 main() {

@@ -16,7 +16,6 @@
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
-set -o nounset
 set -o pipefail
 
 # Locate the root directory
@@ -29,8 +28,7 @@ source "${ROOT}/dotfiles/install/common.sh"
 main() {
     info "Started installation"
 
-    local dir="${ROOT}/install"
-    bash "${dir}/base.sh"
+    bash "${ROOT}/install/base.sh"
 
     success "Finished installation. Go build something!"
 }

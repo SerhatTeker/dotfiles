@@ -63,8 +63,8 @@ remap_capslock_to_esc() {
 main() {
     info "Started base ${OSTYPE}"
 
-    bash "${ROOT}/macos/defaults.sh"
-    bash "${ROOT}/macos/brew.sh"
+    bash "${ROOT}/install/macos/defaults.sh"
+    bash "${ROOT}/install/macos/brew.sh"
     dark_mode_notify
     remap_capslock_to_esc
 

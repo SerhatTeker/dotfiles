@@ -12,10 +12,8 @@
 # Source: https://github.com/SerhatTeker/dotfiles
 #
 # ----------------------------------------------------------------------------#
-#
-# Bash safeties: exit on error, no unset variables, pipelines can't hide errors
+
 set -o errexit
-set -o nounset
 set -o pipefail
 
 # Locate the root directory
@@ -26,9 +24,9 @@ source "${ROOT}/common.sh"
 
 livepatch() {
     # Check whether UBUNTU_TOKEN on the environment
-    local token="${UBUNTU_TOKEN}"
+    # local token="${UBUNTU_TOKEN}"
     # If token no on the environment, try to get from user input
-    if [[ -z "${token}" ]]; then
+    if [[ -z "${UBUNTU_TOKEN}" ]]; then
         read -rsp "Enter your Ubuntu Advantage Token: " token
         echo
         # if no token provided exit enabling livepatch

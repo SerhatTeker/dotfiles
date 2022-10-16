@@ -15,7 +15,6 @@
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
-set -o nounset
 set -o pipefail
 
 # Locate the root directory
@@ -71,11 +70,11 @@ main() {
     os_base
     apps
 
-    local install_root="${ROOT}/install"
     declare -a installs=(
         "zsh.sh"
         "link.sh"
         "tmux.sh"
+        "languages/python.sh"
         "languages/node.sh"
         "languages/rust.sh"
         "nvim.sh"
@@ -84,7 +83,7 @@ main() {
     )
 
     for install in "${installs[@]}"; do
-        bash "${install_root}/${install}"
+        bash "${ROOT}/install/${install}"
     done
 
     success "Finished base installation"
