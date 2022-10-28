@@ -87,8 +87,9 @@ lvim.plugins = {
         config = function()
             require("persisted").setup({
                 save_dir = vim.fn.expand(vim.fn.stdpath("cache") .. "/session/"),
-                autosave = true,
-                autoload = true,
+                branch_separator = "@@", -- string used to separate session directory name from branch name
+                autosave = true, -- automatically save session files when exiting Neovim
+                autoload = true, -- automatically load the session for the cwd on Neovim startup
             })
             vim.o.sessionoptions = "buffers,curdir,folds,tabpages,winpos,winsize"
         end,
