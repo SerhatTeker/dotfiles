@@ -110,7 +110,7 @@ lvim.builtin.telescope.defaults.mappings = {
 
 map_cmd("<C-p>", "Telescope find_files")
 map_cmd("<C-f>", "Telescope live_grep")
-map_cmd("<S-b>", "Telescope buffers")
+map_cmd("<S-b>", "Telescope buffers initial_mode=insert")
 -- }}}
 
 -- Git {{{
