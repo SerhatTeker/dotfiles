@@ -49,4 +49,38 @@ wk.mappings["v"] = { cmd("DiffviewOpen"), "DiffviewOpen" }
 
 -- Tab
 wk.mappings["n"] = { cmd("tabedit %"), "Tab New" }
+
+-- TODO: Append references instead of adding all of them
+-- LSP
+wk.mappings["l"] = {
+    name = "LSP",
+    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+    f = { require("lvim.lsp.utils").format, "Format" },
+    i = { "<cmd>LspInfo<cr>", "Info" },
+    I = { "<cmd>Mason<cr>", "Mason Info" },
+    -- diagnostic
+    dd = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
+    dw = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+    j = {
+        vim.diagnostic.goto_next,
+        "Next Diagnostic",
+    },
+    k = {
+        vim.diagnostic.goto_prev,
+        "Prev Diagnostic",
+    },
+    --
+    d = { cmd("Telescope lsp_definitions"), "Definitions" },
+    r = { cmd("Telescope lsp_references"), "Refences" },
+    m = { cmd("Telescope lsp_implementations"), "Implementations" },
+    x = { vim.lsp.buf.rename, "Rename" },
+    l = { vim.lsp.codelens.run, "CodeLens Action" },
+    q = { vim.diagnostic.setloclist, "Quickfix" },
+    s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
+    S = {
+        "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+        "Workspace Symbols",
+    },
+    e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
+}
 -- }}}
