@@ -28,6 +28,17 @@ ts.ensure_installed = {
 --     filetype = "hcl", "terraform",
 -- }
 
+-- Incremental Selection (it may work with fn-c-space on Macos)
+ts.incremental_selection = {
+    enable = true,
+    keymaps = {
+        init_selection = '<c-space>',
+        node_incremental = '<c-space>',
+        scope_incremental = '<c-s>',
+        node_decremental = '<c-backspace>',
+    },
+}
+
 -- Textobjects
 ts.textobjects = {
     select = {
