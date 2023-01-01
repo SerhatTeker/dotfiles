@@ -1,8 +1,6 @@
 -- Core {{{
 
 -- NOTE: After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
--- # Notify
-lvim.builtin.notify.active = true
 
 -- # Dap
 lvim.builtin.dap.active = true -- (default: false)
