@@ -22,7 +22,7 @@
 # Descrtiption          : Toggle theme mode on Ubuntu 22.04 LTS and MacOS Monterey 12
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2022-09-16T00:37:52+0300 | 1663277872
+# Last Modified Date    : 2023-02-13T01:34:41+0300 | 1676241281
 # Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
 # and using on Ubuntu 22.04 LTS and MacOS Monterey 12.
 # Usage                 : $ ./toggle-theme
@@ -32,6 +32,11 @@
 # $ ./toggle-theme -l|--light|l|light
 # Dark mode
 # $ ./toggle-theme -d|--dark|d|dark
+#
+#
+# Note to MacOS
+# May need to add your terminal (e.g. Alacritty) in accessibility:
+# Privacy & Security > Accessibility
 # =================================================================================================
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
@@ -44,7 +49,7 @@ set -o pipefail
 # Send ChangeBackground() Signal to all vim/nvim instances in all tmux sessions
 vim_sessions_toggle() {
     local is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-        | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+        | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?l?vim?x?)(diff)?$'"
 
     for session in $(tmux list-sessions -F '#S'); do
         for window in $(tmux list-windows -t "${session}"  -F '#{window_index}'); do

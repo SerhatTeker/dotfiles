@@ -21,22 +21,26 @@
 # Descrtiption          : Adapt MacOS Monterey Dark/Light Theme on terminal; alacritty, tmux, nvim.
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2022-07-02T22:05:02+0300 | 1656788702
+# Last Modified Date    : 2023-02-13T01:34:41+0300 | 1676241281
 # Notes                 : Using <neodark> as dark mode and <one> as light mode.
 # Using neodark as dark mode and one as light mode. (Alternative is Gruvbox dark/light)
 # Usage                 : $ ./adapt_term_bg_macos
 #
+#
+# Note to MacOS
+# May need to add your terminal (e.g. Alacritty) in accessibility:
+# Privacy & Security > Accessibility
 # =================================================================================================
 
 # Send AdaptGlobalTheme Signal to all nvim instances in all tmux sessions
 vim_sessions_toggle() {
     local tmux_bin=${HOME}/.homebrew/bin/tmux   # plist not accepting relative paths
     local is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-        | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+        | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?l?vim?x?)(diff)?$'"
 
-    for session in `${tmux_bin} list-sessions -F '#S'`; do
-        for window in `${tmux_bin} list-windows -t ${session} -F '#{window_index}'`; do
-            for pane in `${tmux_bin} list-panes -t ${session}:${window} -F '#P'`; do
+    for session in $(tmux list-sessions -F '#S'); do
+        for window in $(tmux list-windows -t "${session}"  -F '#{window_index}'); do
+            for pane in $(tmux list-panes -t "${session}:${window}" -F '#P'); do
                 local pix="${session}:${window}.${pane}"
 
                 ${tmux_bin} if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} escape ENTER"
