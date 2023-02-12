@@ -50,14 +50,25 @@ dark_mode_notify() {
     ln -sf "${DOTFILES}/os/macos/com.serhatteker.dark-mode-notify.plist" \
         "${HOME}/Library/LaunchAgents"
 
-    launchctl load -w "${HOME}/Library/LaunchAgents/com.serhatteker.dark-mode-notify.plist"
+    if launchctl list | grep -q "dark-mode-notify"; then
+        # launchctl unload -w "${HOME}/Library/LaunchAgents/com.serhatteker.dark-mode-notify.plist"  # Legacy syntax
+        launchctl bootout "gui/$(id -u)" "${HOME}/Library/LaunchAgents/com.serhatteker.dark-mode-notify.plist"  # New syntax
+    fi
+
+    # launchctl load -w "${HOME}/Library/LaunchAgents/com.serhatteker.dark-mode-notify.plist"  # Legacy syntax
+    launchctl bootstrap "gui/$(id -u)" "${HOME}/Library/LaunchAgents/com.serhatteker.dark-mode-notify.plist"  # New syntax
 }
 
 remap_capslock_to_esc() {
     ln -sf "${DOTFILES}/os/macos/com.serhatteker.capslock-esc.plist" \
         "${HOME}/Library/LaunchAgents"
 
-    launchctl load "${HOME}/Library/LaunchAgents/com.serhatteker.capslock-esc.plist"
+    if launchctl list | grep -q "capslock-esc"; then
+        launchctl bootout "gui/$(id -u)" "${HOME}/Library/LaunchAgents/com.serhatteker.capslock-esc.plist"
+    fi
+
+    # launchctl load "${HOME}/Library/LaunchAgents/com.serhatteker.capslock-esc.plist"
+    launchctl bootstrap "gui/$(id -u)" "${HOME}/Library/LaunchAgents/com.serhatteker.capslock-esc.plist"
 }
 
 main() {
