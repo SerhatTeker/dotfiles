@@ -32,6 +32,10 @@ function M.init_gruvbox_material()
     lvim.colorscheme = "gruvbox-material"
 end
 
+function M.init_gruvbox()
+    lvim.colorscheme = "gruvbox"
+end
+
 -- ## Vscode
 function M.init_vscode()
     -- Switching theme
@@ -51,6 +55,8 @@ local function init_colorscheme(cs, bg)
 
     if cs == "onedark" then
         M.init_onedark()
+    elseif cs == "gruvbox" then
+        M.init_gruvbox()
     elseif cs == "gruvbox-material" then
         M.init_gruvbox_material()
     elseif cs == "vscode" then
