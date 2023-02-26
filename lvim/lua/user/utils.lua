@@ -8,10 +8,10 @@ end
 
 -- Uri - XDG_OPEN {{{
 
-function M.open_uri(uri)
+function M.open_uri(uri, opener)
     vim.notify("opening: " .. uri, vim.log.levels.INFO)
     local task = {
-        command = "xdg-open",
+        command = opener, -- e.g. xdg-open
         args = { uri },
     }
     local Job = require "plenary.job"
@@ -19,9 +19,15 @@ function M.open_uri(uri)
 end
 
 function M.xdg_open_handler()
-    if vim.fn.executable "xdg-open" ~= 1 then
-        vim.notify("xdg-open was not found", vim.log.levels.WARN)
-        return
+    local opener
+    if vim.fn.has("macunix") == 1 then
+        opener = "open"
+    elseif vim.fn.has("unix") == 1 then
+        if vim.fn.executable "xdg-open" ~= 1 then
+            vim.notify("xdg-open was not found", vim.log.levels.WARN)
+            return
+        end
+        opener = "xdg-open"
     end
 
     -- HACK: NW: getting comment char(s) as well
@@ -32,7 +38,7 @@ function M.xdg_open_handler()
 
     local cword = vim.fn.expand("<cWORD>")
 
-    M.open_uri(cword)
+    M.open_uri(cword, opener)
 end
 
 -- }}}
