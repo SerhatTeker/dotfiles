@@ -82,7 +82,10 @@ key_bindings:
 font:
   normal:
     # family: &sf_family 'SF Mono'
-    family: &sf_family 'SFMono Nerd Font'
+    # family: &sf_family 'SFMono Nerd Font'
+    # family: &sf_family 'BerkeleyMonoTrial Nerd Font'
+    # style: Regular
+    family: &sf_family 'JetBrainsMono Nerd Font Mono'
     style: Regular
   bold:
     family: *sf_family
