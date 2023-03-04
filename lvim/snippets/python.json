@@ -11,6 +11,11 @@
     "body": "breakpoint()$0",
     "description": "Debugging breakpoint"
   },
+  "pudb breakpoint": {
+    "prefix": "bpp",
+    "body": "from pudb.remote import set_trace; set_trace(term_size=(200, 60), host=\"0.0.0.0\", port=6900)$0",
+    "description": "pudb debug breakpoint"
+  },
   "LoggerDefault": {
     "prefix": "logger_default",
     "body": [
