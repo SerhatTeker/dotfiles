@@ -52,7 +52,7 @@ Plug 'PhilRunninger/nerdtree-visual-selection'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-unimpaired'
 Plug 'easymotion/vim-easymotion'                        " motions on speed
-Plug 'kshenoy/vim-signature'                            " toggle, display and navigate marks
+" Plug 'kshenoy/vim-signature'                            " toggle, display and navigate marks
 Plug 'ThePrimeagen/harpoon'                             " Navigate defined main marks/files in workspaces
 " }}}3
 
