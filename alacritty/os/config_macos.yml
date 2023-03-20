@@ -84,10 +84,10 @@ font:
     # family: &font_family 'SF Mono'
     # family: &font_family 'SFMono Nerd Font'
     # JetBrainsMono
-    # offsets 0 & size: 12
+    # offsets 0 & size: 12/13
     # family: &font_family 'JetBrainsMono Nerd Font Mono'
     # Berkeley Mono
-    # offset y: 1 & size: 13
+    # offset y: 2 & size: 13
     # family: &font_family 'BerkeleyMonoTrial Nerd Font'
     # family: &font_family 'Berkeley Mono'
     family: &font_family 'BerkeleyMono Nerd Font'
@@ -105,7 +105,7 @@ font:
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
   offset:
     x: 0
-    y: 1
+    y: 2
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increase the x offset to move the glyph to
   # the right, increase the y offset to move the glyph upward.
