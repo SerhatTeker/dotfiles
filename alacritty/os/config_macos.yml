@@ -1,6 +1,3 @@
-# Send ESC (\x1b) before characters when alt is pressed.
-alt_send_esc: false
-
 # https://github.com/alacritty/alacritty/issues/62#issuecomment-347552058
 key_bindings:
   - { key: A,         mods: Alt,       chars: "\x1ba"                       }
@@ -85,12 +82,13 @@ font:
     # family: &font_family 'SFMono Nerd Font'
     # JetBrainsMono
     # offsets 0 & size: 12/13
-    # family: &font_family 'JetBrainsMono Nerd Font Mono'
+    family: &font_family 'JetBrainsMono Nerd Font Mono'
     # Berkeley Mono
     # offset y: 2 & size: 13
     # family: &font_family 'BerkeleyMonoTrial Nerd Font'
     # family: &font_family 'Berkeley Mono'
-    family: &font_family 'BerkeleyMono Nerd Font'
+    # family: &font_family 'BerkeleyMono Nerd Font'
+    # family: &font_family 'BerkeleyMonoVariable Nerd Font'
     style: Regular
   bold:
     family: *font_family
@@ -105,7 +103,7 @@ font:
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
   offset:
     x: 0
-    y: 2
+    y: 0
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increase the x offset to move the glyph to
   # the right, increase the y offset to move the glyph upward.
@@ -133,3 +131,5 @@ use_thin_strokes: true
 window:
   startup_mode: Fullscreen
   dynamic_title: true
+  # Send ESC (\x1b) before characters when alt is pressed.
+  alt_send_esc: false
