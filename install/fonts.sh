@@ -32,7 +32,7 @@ source "${ROOT}/install/common.sh"
 reset_fc_cache() {
     if which fc-cache >/dev/null 2>&1; then
         info "Resetting font cache, this may take a moment..."
-        fc-cache -f "${font_dir}"
+        fc-cache -f -v
     fi
 }
 
