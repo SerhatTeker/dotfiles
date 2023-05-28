@@ -50,7 +50,12 @@ end
 lvim.plugins = {
     -- # Core
     -- ## Treesitter
-    { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        -- after = "nvim-treesitter",
+        requires = "nvim-treesitter/nvim-treesitter",
+        commit = "f5f13206ec33e55b16c8e1a9dec301e8bead4835",
+    },
     -- { "p00f/nvim-ts-rainbow" },
     { "HiPhish/nvim-ts-rainbow2" },
     {

@@ -39,7 +39,7 @@ ts.incremental_selection = {
     },
 }
 
--- Textobjects
+-- -- Textobjects
 ts.textobjects = {
     select = {
         enable = true,
