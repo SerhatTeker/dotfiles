@@ -1,0 +1,48 @@
+{
+  "header 3": {
+    "prefix": "3",
+    "body": [
+      "### ${0}"
+    ],
+    "description": "Add header level 3"
+  },
+  "header 4": {
+    "prefix": "4",
+    "body": [
+      "#### ${0}"
+    ],
+    "description": "Add header level 4"
+  },
+  "journal": {
+    "prefix": "journal",
+    "body": [
+      "${CURRENT_DATE} ${CURRENT_MONTH_NAME_SHORT} | ${CURRENT_DAY_NAME_SHORT} | ",
+      "",
+      "### Preview",
+      "",
+      "",
+      "### Imbox",
+      "",
+      "- [ ]",
+      "",
+      "### memento",
+      "",
+      "###",
+      "",
+      "${0}"
+    ],
+    "description": "Journal Start Elements"
+  },
+  "meta": {
+    "prefix": "meta",
+    "body": [
+      "- time : ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}+03:00 | ${CURRENT_SECONDS_UNIX}",
+      "- rate : ${1:6}/10",
+      "- tags : ${2}",
+      "- link : ${3}",
+      "",
+      "${0}"
+    ],
+    "description": "Journal Start Elements"
+  }
+}
