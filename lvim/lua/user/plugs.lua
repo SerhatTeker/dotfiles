@@ -174,9 +174,26 @@ lvim.plugins = {
         ft = { "go" },
     },
     -- ## Markdown
+
+    -- ## Zettelkasten
+    -- Replace with telekasten
+    -- {
+    --     "jakewvincent/mkdnflow.nvim",
+    --     config = default_config("mkdnflow"),
+    --     ft = { "markdown" },
+    -- },
     {
-        "jakewvincent/mkdnflow.nvim",
-        config = default_config("mkdnflow"),
+        'renerocksai/telekasten.nvim',
+        requires = {'nvim-telescope/telescope.nvim'},
+        -- config = default_config("telekasten"),
+        config = function()
+            -- Attach to certain Filetypes, add special configuration for `html`
+            -- Use `background` for everything else.
+            require('telekasten').setup({
+                home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here
+            })
+
+        end,
         ft = { "markdown" },
     },
     -- ### Markdown Preview
@@ -226,6 +243,9 @@ lvim.plugins = {
 
         end,
     },
+    { "mfussenegger/nvim-dap-python" },
+    { "nvim-neotest/neotest" },
+    { "nvim-neotest/neotest-python" },
     -- ## Code runner
     {
         "CRAG666/code_runner.nvim",
