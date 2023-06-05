@@ -18,6 +18,10 @@
           "zsh"
         ],
         "path": "./shell.json"
+      },
+      {
+        "language": "markdown",
+        "path": "./markdown.json"
       }
     ]
   }
