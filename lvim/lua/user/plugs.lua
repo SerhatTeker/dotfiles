@@ -217,7 +217,6 @@ lvim.plugins = {
         event = "BufWritePre",
         config = function()
             require("trim").setup({
-                -- disable md file EOF trim
                 disable = {"markdown"},
             })
         end,
