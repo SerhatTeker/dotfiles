@@ -215,7 +215,12 @@ lvim.plugins = {
     {
         "SerhatTeker/trim.nvim",
         event = "BufWritePre",
-        config = default_config("trim"),
+        config = function()
+            require("trim").setup({
+                -- disable md file EOF trim
+                disable = {"markdown"},
+            })
+        end,
     },
     -- ## Shade, dim InactiveWindow
     -- INFO: Disabled, not working with sessions
