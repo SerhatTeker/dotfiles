@@ -2,14 +2,18 @@
   "header 3": {
     "prefix": "3",
     "body": [
-      "### ${0}"
+      "###",
+      "",
+      "${0}"
     ],
     "description": "Add header level 3"
   },
   "header 4": {
     "prefix": "4",
     "body": [
-      "#### ${0}"
+      "####",
+      "",
+      "${0}"
     ],
     "description": "Add header level 4"
   },
