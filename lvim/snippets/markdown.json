@@ -40,7 +40,7 @@
   "meta": {
     "prefix": "meta",
     "body": [
-      "",
+      "\n",
       "- time : ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}+03:00 | ${CURRENT_SECONDS_UNIX}",
       "- rate : ${1:6}/10",
       "- tags : ${2}",
