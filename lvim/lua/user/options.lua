@@ -45,3 +45,17 @@ vim.api.nvim_create_user_command(
     { force = true, nargs = 0 }
 )
 -- }}}
+
+-- Spell
+vim.api.nvim_create_user_command(
+    'ToggleSpell',
+    function()
+        if vim.opt.spell._value == true then
+            vim.opt.spell = false
+        else
+            vim.opt.spelllang = 'en_us'
+            vim.opt.spell = true
+        end
+    end,
+    { force = true, nargs = 0 }
+)
