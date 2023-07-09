@@ -60,5 +60,8 @@ map("n", "gx", "", {
     end,
     desc = "xdg open"
 })
+
+-- Spell
+map_cmd("<F7>", "ToggleSpell")
 -- }}}
 -- }}}
