@@ -671,6 +671,11 @@ map <F12> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 let g:markdown_enable_spell_checking = 0
 let g:markdown_enable_mappings = 0
 let g:markdown_enable_conceal = 0
+
+" iamcco/markdown-preview.nvim
+" set default theme (dark or light)
+" By default the theme is define according to the preferences of the system
+let g:mkdp_theme = 'light'
 " }}}
 
 " FOLDING {{{
