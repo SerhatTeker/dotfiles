@@ -41,8 +41,8 @@ map_cmd("<C-b>d", "BufferKill")
 map_cmd("<C-b>c", "BufCurOnly")
 
 -- Tab
-map_cmd("[t", "tabnext")
-map_cmd("]t", "tabprevious")
+map_cmd("]t", "tabnext")
+map_cmd("[t", "tabprevious")
 
 -- " noh - no highlight with Esc
 -- vim.keymap.set("n", "<esc>", ":noh <CR>")
