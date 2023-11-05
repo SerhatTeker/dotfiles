@@ -51,6 +51,13 @@ map_cmd("<Esc", "noh", { expr = false, noremap = false })
 -- Fold
 map_cmd("<F3>", "set foldmethod=marker")
 
+-- Lines
+-- Visual linewise up and down by default (and use gj gk to go quicker)
+map("n", "<Up>", "gj")
+map("n", "<Down>", "gj")
+map("n", "j", "gj")
+map("n", "k", "gk")
+
 -- Fix gx
 -- map("n", "gx", "[[<Cmd>lua require('user.utils').xdg_open_handler()<CR>]]", { desc = "xdg open" })
 map("n", "gx", "", {
