@@ -198,9 +198,12 @@ lvim.plugins = {
     },
     -- ### Markdown Preview
     {
-        "ellisonleao/glow.nvim",
-        config = default_config("glow"),
-        ft = { "markdown" },
+        "iamcco/markdown-preview.nvim",
+        run = function()
+          vim.fn["mkdp#util#install"]()
+        end,
+        ft = "markdown",
+        cmd = { "MarkdownPreview" },
     },
     -- # Additional
     -- ## Colorschemes
