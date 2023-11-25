@@ -12,7 +12,6 @@ set -o nounset
 set -o pipefail
 
 # TODO: Add old version as list
-HUGO_VERSION="0.97.0"
 
 SOURCE_DIR="/tmp/hugo_release"
 DEST_DIR="${HOME}/.local/bin"
@@ -24,31 +23,37 @@ else
     OS_ARCH="Linux-64bit"
 fi
 
-HUGO_TAR="hugo_extended_${HUGO_VERSION}_${OS_ARCH}.tar.gz"
-DOWNLOAD_URL="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_TAR}"
 
-get_release() {
+version_0_97() {
+    HUGO_VERSION="0.97.0"
+    HUGO_TAR="hugo_extended_${HUGO_VERSION}_${OS_ARCH}.tar.gz"
+    DOWNLOAD_URL="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_TAR}"
+
     wget "${DOWNLOAD_URL}" -O "${SOURCE_DIR}/${HUGO_TAR}"
     tar -xvzf "${SOURCE_DIR}/${HUGO_TAR}" -C "${SOURCE_DIR}"
-}
 
-copy_bin() {
     cp -v "${SOURCE_DIR}/hugo" "${DEST_DIR}"
-    # with version
-    # cp -v "${SOURCE_DIR}/hugo" "${DEST_DIR}/hugo_${HUGO_VERSION}"
-}
 
-# Remove tmp source dir
-remove_source() {
+    rm -rf ${SOURCE_DIR}
+}
+version_0_81() {
+    HUGO_VERSION="0.81.0"
+    HUGO_TAR="hugo_extended_${HUGO_VERSION}_${OS_ARCH}.tar.gz"
+    DOWNLOAD_URL="https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_TAR}"
+
+    wget "${DOWNLOAD_URL}" -O "${SOURCE_DIR}/${HUGO_TAR}"
+    tar -xvzf "${SOURCE_DIR}/${HUGO_TAR}" -C "${SOURCE_DIR}"
+
+    cp -v "${SOURCE_DIR}/hugo" "${DEST_DIR}/hugo_${HUGO_VERSION}"
+
     rm -rf ${SOURCE_DIR}
 }
 
 main() {
     mkdir -pv ${SOURCE_DIR}
 
-    get_release
-    copy_bin
-    remove_source
+    version_0_97
+    version_0_81
 }
 
 main
