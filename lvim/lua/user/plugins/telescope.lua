@@ -109,7 +109,7 @@ lvim.builtin.telescope.defaults.mappings = {
 -- Custome mappings {{{
 
 map_cmd("<C-p>", "Telescope find_files")
-map_cmd("<C-f>", "Telescope live_grep")
+-- map_cmd("<C-f>", "Telescope live_grep")
 map_cmd("<S-b>", "Telescope buffers initial_mode=insert")
 -- }}}
 
@@ -141,4 +141,28 @@ lvim.builtin.which_key.mappings["t"] = {
     gs = { cmd("Telescope git_status"), "Status Files" },
 }
 -- }}}
+
+-- Extension {{{
+
+-- https://github.com/nvim-telescope/telescope-live-grep-args.nvim
+local lga_actions = require("telescope-live-grep-args.actions")
+
+lvim.builtin.telescope.extensions.live_grep_args = {
+    auto_quoting = true,     -- enable/disable auto-quoting
+    -- define mappings, e.g.
+    mappings = {
+        -- extend mappings
+        i = {
+            ["<C-k>"] = lga_actions.quote_prompt(),
+            ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+        },
+    },
+
+    map_cmd("<C-f>", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
+
+    -- ... also accepts theme settings, for example:
+    -- theme = "dropdown", -- use dropdown theme
+    -- theme = { }, -- use own theme spec
+    -- layout_config = { mirror=true }, -- mirror preview pane
+}
 -- }}}
