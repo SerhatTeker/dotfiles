@@ -319,7 +319,11 @@ lvim.plugins = {
     {
         "jamestthompson3/nvim-remote-containers",
         -- config = default_config("zen-mode"),
-    }
+    },
+    {
+        "github/copilot.vim",
+        config = get_config("copilot"),
+    },
 }
 -- }}}
 -- }}}
