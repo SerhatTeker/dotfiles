@@ -158,7 +158,7 @@ lvim.builtin.telescope.extensions.live_grep_args = {
         },
     },
 
-    map_cmd("<C-f>", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
+    vim.keymap.set("n", "<C-f>", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 
     -- ... also accepts theme settings, for example:
     -- theme = "dropdown", -- use dropdown theme
