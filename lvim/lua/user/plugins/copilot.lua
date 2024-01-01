@@ -1,7 +1,14 @@
--- vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
--- vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
-vim.keymap.set('i', '<C-L>', '<Plug>(copilot-accept-word)')
+vim.keymap.set('i', '<C-L>', 'copilot#Accept("<CR>")', {
+    silent = true,
+    noremap = true,
+    expr = true,
+    replace_keycodes = false
+})
+vim.g.copilot_no_tab_map = true
+
+-- vim.keymap.set('i', '<C-L>', '<Plug>(copilot-accept-word)')
+
 vim.g.copilot_filetypes = {
     ["*"] = false,
     ["go"] = true,
@@ -13,4 +20,4 @@ vim.g.copilot_filetypes = {
     ["typescript"] = true,
 }
 
-vim.cmd[[highlight CopilotSuggestion guifg=#555555 ctermfg=8]]
+vim.cmd [[highlight CopilotSuggestion guifg=#555555 ctermfg=8]]

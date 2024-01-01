@@ -323,7 +323,39 @@ lvim.plugins = {
         "nvim-telescope/telescope-live-grep-args.nvim",
         requires = { "nvim-telescope/telescope.nvim" },
     },
+    {
+        "github/copilot.vim",
+        config = get_config("copilot"),
+    },
+    -- {
+    --     "zbirenbaum/copilot.lua",
+    --     cmd = "Copilot",
+    --     event = "InsertEnter",
+    --     config = function()
+    --         require("copilot").setup({
+    --             -- suggestion = { enabled = false },
+    --             -- panel = { enabled = false },
+    --             filetypes = {
+    --                 go = true,
+    --                 python = true,
+    --                 lua = true,
+    --                 rust = true,
+    --                 c = true,
+    --                 javascript = true,
+    --                 typescript = true,
+    --                 ["*"] = false, -- disable for all other filetypes and ignore default `filetypes`
+    --             },
+    --         })
+    --     end,
+    -- },
+    -- {
+    --     "zbirenbaum/copilot-cmp",
+    --     after = { "copilot.lua" },
+    --     config = function()
+    --         require("copilot_cmp").setup({})
+    --     end,
+    -- },
+    -- https://github.com/nvim-telescope/telescope-live-grep-args.nvim
 }
 -- }}}
 -- }}}
---
