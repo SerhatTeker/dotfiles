@@ -153,19 +153,18 @@ cl() {
 # Replace whitespaces with underscores`_` in filename(s)
 # Provide directory or single filename
 replace_spaces() {
-    local arg=$1
+    local arg="${1}"
 
-    # Replace all files in the directory
-    if [[ -d ${arg} ]]; then
-        for file in ${arg}/*; do
-            mv ${file} ${file// /_}
-        done
     # Single file
-    elif [[ -f ${arg} ]]; then
-        mv ${arg} ${arg// /_}
+    if [[ -f "${arg}" ]]; then
+        mv "${arg}" "${arg// /_}"
+    # Replace all files in the directory
+    elif [[ -d "${arg}" ]]; then
+        for file in "${arg}"/*; do
+            mv "${file}" "${file// /_}"
+        done
     else
-        echo "Provided ${arg} is not valid"
-        exit 1
+        msg_cli red "Provided ${arg} is not valid"
     fi
 }
 
