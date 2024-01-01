@@ -323,7 +323,11 @@ lvim.plugins = {
         "nvim-telescope/telescope-live-grep-args.nvim",
         requires = { "nvim-telescope/telescope.nvim" },
     },
+    -- Github Copilot
+    {
+        "github/copilot.vim",
+        config = get_config("copilot"),
+    },
 }
 -- }}}
 -- }}}
---
