@@ -43,6 +43,7 @@ local function default_config(name)
     return string.format('require("%s").setup()', name)
 end
 
+-- local os_home = os.getenv("HOME")
 -- }}}
 
 -- ## Plugins {{{
@@ -68,12 +69,14 @@ lvim.plugins = {
         event = "BufRead",
     },
     -- ## DAP
-    { "rcarriga/nvim-dap-ui",
+    {
+        "rcarriga/nvim-dap-ui",
         config = default_config("dapui"),
         requires = { "mfussenegger/nvim-dap" },
 
     },
-    { "theHamsta/nvim-dap-virtual-text",
+    {
+        "theHamsta/nvim-dap-virtual-text",
         config = default_config("nvim-dap-virtual-text"),
         requires = { "mfussenegger/nvim-dap" },
     },
@@ -92,8 +95,8 @@ lvim.plugins = {
             require("persisted").setup({
                 save_dir = vim.fn.expand(vim.fn.stdpath("cache") .. "/session/"),
                 branch_separator = "@@", -- string used to separate session directory name from branch name
-                autosave = true, -- automatically save session files when exiting Neovim
-                autoload = true, -- automatically load the session for the cwd on Neovim startup
+                autosave = true,         -- automatically save session files when exiting Neovim
+                autoload = true,         -- automatically load the session for the cwd on Neovim startup
             })
             vim.o.sessionoptions = "buffers,curdir,folds,tabpages,winpos,winsize"
         end,
@@ -158,7 +161,9 @@ lvim.plugins = {
                     -- NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
                     -- # Custom
                     HACK = { icon = " ", color = "warning", alt = { "DEBUG" } },
-                    TEST = { icon = " ", color = "warning",
+                    TEST = {
+                        icon = " ",
+                        color = "warning",
                         alt = { "TESTING", "PASSED", "FAILED" }
                     },
                 },
@@ -184,7 +189,7 @@ lvim.plugins = {
     -- },
     {
         'renerocksai/telekasten.nvim',
-        requires = {'nvim-telescope/telescope.nvim'},
+        requires = { 'nvim-telescope/telescope.nvim' },
         -- config = default_config("telekasten"),
         config = function()
             -- Attach to certain Filetypes, add special configuration for `html`
@@ -192,7 +197,6 @@ lvim.plugins = {
             require('telekasten').setup({
                 home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here
             })
-
         end,
         ft = { "markdown" },
     },
@@ -200,7 +204,7 @@ lvim.plugins = {
     {
         "iamcco/markdown-preview.nvim",
         run = function()
-          vim.fn["mkdp#util#install"]()
+            vim.fn["mkdp#util#install"]()
         end,
         ft = "markdown",
         cmd = { "MarkdownPreview" },
@@ -210,7 +214,7 @@ lvim.plugins = {
     { "Mofiqul/vscode.nvim" },
     { "ellisonleao/gruvbox.nvim" }, -- alternative gruvbox
     { "sainnhe/gruvbox-material" },
-    { 'navarasu/onedark.nvim' }, -- alternative onedark
+    { 'navarasu/onedark.nvim' },    -- alternative onedark
     { "SerhatTeker/neodarker.nvim" },
     -- ## Harpoon
     { "ThePrimeagen/harpoon" },
@@ -220,7 +224,8 @@ lvim.plugins = {
         event = "BufWritePre",
         config = function()
             require("trim").setup({
-                disable = {"markdown"},
+                disable = { "markdown", "python" },
+                trim_last_line = false,
             })
         end,
     },
@@ -240,14 +245,13 @@ lvim.plugins = {
             -- Attach to certain Filetypes, add special configuration for `html`
             -- Use `background` for everything else.
             require('colorizer').setup({
-                'css';
-                'scss';
-                'javascript';
+                'css',
+                'scss',
+                'javascript',
                 html = {
-                    mode = 'foreground';
+                    mode = 'foreground',
                 },
             })
-
         end,
     },
     { "mfussenegger/nvim-dap-python" },
@@ -316,19 +320,12 @@ lvim.plugins = {
             vim.keymap.set("n", "s", "<Plug>(leap-forward)", { remap = false })
         end,
     },
-    {
-        "jamestthompson3/nvim-remote-containers",
-        -- config = default_config("zen-mode"),
-    },
-    {
-        "github/copilot.vim",
-        config = get_config("copilot"),
-    },
     -- https://github.com/nvim-telescope/telescope-live-grep-args.nvim
     {
         "nvim-telescope/telescope-live-grep-args.nvim",
-        requires = {"nvim-telescope/telescope.nvim"},
+        requires = { "nvim-telescope/telescope.nvim" },
     },
 }
 -- }}}
 -- }}}
+--
