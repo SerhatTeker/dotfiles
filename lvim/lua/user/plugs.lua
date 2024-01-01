@@ -42,8 +42,6 @@ end
 local function default_config(name)
     return string.format('require("%s").setup()', name)
 end
-
--- local os_home = os.getenv("HOME")
 -- }}}
 
 -- ## Plugins {{{
