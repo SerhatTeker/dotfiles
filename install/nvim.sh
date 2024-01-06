@@ -29,8 +29,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "${ROOT}/install/common.sh"
 
 DOWNLOAD_DIR=/tmp
-NVIM_VERSION="${NVIM_VERSION:-"0.8.0"}" # stable
-# NVIM_VERSION="${NVIM_VERSION:-"nightly"}"
+NVIM_VERSION="${NVIM_VERSION:-"stable"}" # current stable 0.9.5
+# NVIM_VERSION="${NVIM_VERSION:-"0.8.0"}"  # needed for LunarVim v1.2
 
 exists_or_install() {
     if ! command_exists "${1}"; then
