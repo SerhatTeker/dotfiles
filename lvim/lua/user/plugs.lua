@@ -149,24 +149,7 @@ lvim.plugins = {
     {
         "folke/todo-comments.nvim",
         event = "BufRead",
-        config = function()
-            require("todo-comments").setup({
-                keywords = {
-                    -- # Defaults
-                    -- TODO = { icon = " ", color = "info" },
-                    -- WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-                    -- PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-                    -- NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
-                    -- # Custom
-                    HACK = { icon = " ", color = "warning", alt = { "DEBUG" } },
-                    TEST = {
-                        icon = " ",
-                        color = "warning",
-                        alt = { "TESTING", "PASSED", "FAILED" }
-                    },
-                },
-            })
-        end
+        config = default_config("todo-comments"),
     },
     -- # Languages
     -- ## Golang
@@ -325,45 +308,21 @@ lvim.plugins = {
         "nvim-telescope/telescope-live-grep-args.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" },
     },
---     -- Github Copilot
---     {
---         "github/copilot.vim",
---         config = get_config("copilot"),
---     },
---     -- ChatGPT API
---     {
---         "jackMort/ChatGPT.nvim",
---         config = function()
---             -- local os_home = vim.fn.expand("$HOME")
---             local _model = "gpt-4"
---             require("chatgpt").setup({
---                 api_key_cmd = 0,
---                 openai_params = {
---                     -- model = "gpt-3.5-turbo",
---                     model = _model,
---                     frequency_penalty = 0,
---                     presence_penalty = 0,
---                     max_tokens = 3000,
---                     temperature = 0,
---                     top_p = 1,
---                     n = 1,
---                 },
---                 openai_edit_params = {
---                     model = _model,
---                     frequency_penalty = 0,
---                     presence_penalty = 0,
---                     temperature = 0,
---                     top_p = 1,
---                     n = 1,
---                 },
---             })
---         end,
---         requires = {
---             "MunifTanjim/nui.nvim",
---             "nvim-lua/plenary.nvim",
---             "nvim-telescope/telescope.nvim"
---         }
---     },
+    -- -- Github Copilot
+    -- {
+    --     "github/copilot.vim",
+    --     config = get_config("copilot"),
+    -- },
+    -- -- ChatGPT API
+    -- {
+    --     "jackMort/ChatGPT.nvim",
+    --     config = default_config("chatgpt"),
+    --     requires = {
+    --         "MunifTanjim/nui.nvim",
+    --         "nvim-lua/plenary.nvim",
+    --         "nvim-telescope/telescope.nvim"
+    --     }
+    -- },
 }
 -- }}}
 -- }}}
