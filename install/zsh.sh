@@ -8,7 +8,7 @@
 #                           / /\__ \ | | |_\__ \ | | |
 #                          /___|___/_| |_(_)___/_| |_|
 #
-# Author: Serhat Teker <serhat.teker@gmail.com>
+# Author: Serhat Teker <me@serhatteker.com>
 # Source: https://github.com/SerhatTeker/dotfiles
 #
 # Install and customize zsh

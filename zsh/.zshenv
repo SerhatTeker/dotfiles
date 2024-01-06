@@ -5,7 +5,7 @@
 #                         _ / /\__ \ | | |  __/ | | \ V /
 #                        (_)___|___/_| |_|\___|_| |_|\_/
 #
-# Author: Serhat Teker <serhat.teker@gmail.com>
+# Author: Serhat Teker <me@serhatteker.com>
 # Source: https://github.com/SerhatTeker/dotfiles
 # License: https://github.com/SerhatTeker/dotfiles/LICENSE
 #

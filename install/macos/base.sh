@@ -8,7 +8,7 @@
 #                        | |_) | (_| \__ \  __/_\__ \ | | |
 #                        |_.__/ \__,_|___/\___(_)___/_| |_|
 #
-# Author: Serhat Teker <serhat.teker@gmail.com>
+# Author: Serhat Teker <me@serhatteker.com>
 # Source: https://github.com/SerhatTeker/dotfiles
 #
 # ----------------------------------------------------------------------------#

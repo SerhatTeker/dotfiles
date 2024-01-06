@@ -4,7 +4,7 @@
 " | | | |  __/ (_) | (_| | (_| | |  |   < _\ V /| | | | | | |
 " |_| |_|\___|\___/ \__,_|\__,_|_|  |_|\_(_)\_/ |_|_| |_| |_|
 "
-" Author: Serhat Teker <serhat.teker@gmail.com>
+" Author: Serhat Teker <me@serhatteker.com>
 " Source: https://github.com/SerhatTeker/dotfiles
 "
 " Custom Colorscheme Based on onedark.vim
