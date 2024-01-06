@@ -1,46 +1,21 @@
 -- # Telescope
 
--- ## Pickers {{{
+-- ## Defaults {{{
 
-local custom_pickers = {
-    find_files = {
-        hidden = true,
+lvim.builtin.telescope.defaults = {
+    winblend = 10, -- transparency, 0 opaque, 100 fully transparent
+    sorting_strategy = "descending",
+    layout_strategy = "horizontal",
+    show_line = false,
+    layout_config = {
+        height = 0.90,
+        width = 0.90,
+        prompt_position = "bottom",
+        preview_width = 0.55,
+        mirror = false,
     },
-    live_grep = {
-        --@usage don't include the filename in the search results
-        only_sort_text = true,
-    },
-    grep_string = {
-        only_sort_text = true,
-    },
-    buffers = {
-        previewer = false,
-        initial_mode = "normal",
-    },
-    planets = {
-        show_pluto = true,
-        show_moon = true,
-    },
-    git_files = {
-        hidden = true,
-        show_untracked = true,
-    },
-    lsp_references = {
-        initial_mode = "normal",
-    },
-    lsp_definitions = {
-        initial_mode = "normal",
-    },
-    lsp_declarations = {
-        initial_mode = "normal",
-    },
-    lsp_implementations = {
-        initial_mode = "normal",
-    },
+    vertical = { mirror = false },
 }
-
-lvim.builtin.telescope.defaults.pickers = custom_pickers
-lvim.builtin.telescope.pickers = custom_pickers
 -- }}}
 
 -- ## Prefix {{{
@@ -148,7 +123,7 @@ lvim.builtin.which_key.mappings["t"] = {
 local lga_actions = require("telescope-live-grep-args.actions")
 
 lvim.builtin.telescope.extensions.live_grep_args = {
-    auto_quoting = true,     -- enable/disable auto-quoting
+    auto_quoting = true, -- enable/disable auto-quoting
     -- define mappings, e.g.
     mappings = {
         -- extend mappings
