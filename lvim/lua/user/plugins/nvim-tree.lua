@@ -38,17 +38,17 @@ end
 -- Disable default <C-t>
 -- Add Default ones from lvim
 -- https://github.com/LunarVim/LunarVim/blob/23df368b00bda0ed4a01fac92f7ad80998c1d34a/lua/lvim/core/nvimtree.lua#L173-L190
-nt.view.mappings.list = {
-    -- defaults
-    { key = { "l", "<CR>", "o" }, action = "edit", mode = "n" },
-    { key = "h", action = "close_node" },
-    { key = "v", action = "vsplit" },
-    { key = "C", action = "cd" },
-    { key = "gtf", action = "telescope_find_files", action_cb = telescope_find_files },
-    { key = "gtg", action = "telescope_live_grep", action_cb = telescope_live_grep },
-    -- disable <C-t>
-    { key = "<C-t>", action = "" },
-}
+-- nt.view.mappings.list = {
+--     -- defaults
+--     { key = { "l", "<CR>", "o" }, action = "edit", mode = "n" },
+--     { key = "h", action = "close_node" },
+--     { key = "v", action = "vsplit" },
+--     { key = "C", action = "cd" },
+--     { key = "gtf", action = "telescope_find_files", action_cb = telescope_find_files },
+--     { key = "gtg", action = "telescope_live_grep", action_cb = telescope_live_grep },
+--     -- disable <C-t>
+--     { key = "<C-t>", action = "" },
+-- }
 
 local lnmap = lvim.keys.normal_mode
 lnmap["<C-t>"] = "<CMD>NvimTreeToggle<CR>"
