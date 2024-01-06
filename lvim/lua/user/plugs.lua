@@ -48,43 +48,43 @@ end
 
 lvim.plugins = {
 --     -- # Core
---     -- ## Treesitter
---     {
---         "nvim-treesitter/nvim-treesitter-textobjects",
---         -- after = "nvim-treesitter",
---         requires = "nvim-treesitter/nvim-treesitter",
---         commit = "f5f13206ec33e55b16c8e1a9dec301e8bead4835",
---     },
---     -- { "p00f/nvim-ts-rainbow" },
---     { "HiPhish/nvim-ts-rainbow2" },
---     {
---         "windwp/nvim-ts-autotag",
---         event = "InsertEnter",
---         config = default_config("nvim-ts-autotag"),
---     },
---     {
---         "nvim-treesitter/playground",
---         event = "BufRead",
---     },
---     -- ## DAP
---     {
---         "rcarriga/nvim-dap-ui",
---         config = default_config("dapui"),
---         requires = { "mfussenegger/nvim-dap" },
+    -- { "p00f/nvim-ts-rainbow" },
+    { "HiPhish/nvim-ts-rainbow2" },
+    {
+        "windwp/nvim-ts-autotag",
+        event = "InsertEnter",
+        config = default_config("nvim-ts-autotag"),
+    },
+    -- -- ## Treesitter
+    -- {
+    --     "nvim-treesitter/nvim-treesitter-textobjects",
+    --     -- after = "nvim-treesitter",
+    --     requires = "nvim-treesitter/nvim-treesitter",
+    --     commit = "f5f13206ec33e55b16c8e1a9dec301e8bead4835",
+    -- },
+    -- {
+    --     "nvim-treesitter/playground",
+    --     event = "BufRead",
+    -- },
+    -- -- ## DAP
+    -- {
+    --     "rcarriga/nvim-dap-ui",
+    --     config = default_config("dapui"),
+    --     requires = { "mfussenegger/nvim-dap" },
+    -- },
+    -- {
+    --     "theHamsta/nvim-dap-virtual-text",
+    --     config = default_config("nvim-dap-virtual-text"),
+    --     requires = { "mfussenegger/nvim-dap" },
+    -- },
+    --
+    -- ## Trouble
+    {
+        "folke/trouble.nvim",
+        cmd = "TroubleToggle",
 
---     },
---     {
---         "theHamsta/nvim-dap-virtual-text",
---         config = default_config("nvim-dap-virtual-text"),
---         requires = { "mfussenegger/nvim-dap" },
---     },
---     -- ## Trouble
---     {
---         "folke/trouble.nvim",
---         cmd = "TroubleToggle",
-
---     },
---     -- ## Persistence
+    },
+    -- ## Persistence
     {
         "olimorris/persisted.nvim",
         -- event = "BufReadPre", -- this will only start session saving when an actual file was opened
@@ -177,27 +177,6 @@ lvim.plugins = {
         ft = { "go" },
     },
     -- ## Markdown
-
-    -- ## Zettelkasten
-    -- Replace with telekasten
-    -- {
-    --     "jakewvincent/mkdnflow.nvim",
-    --     config = default_config("mkdnflow"),
-    --     ft = { "markdown" },
-    -- },
---     {
---         'renerocksai/telekasten.nvim',
---         requires = { 'nvim-telescope/telescope.nvim' },
---         -- config = default_config("telekasten"),
---         config = function()
---             -- Attach to certain Filetypes, add special configuration for `html`
---             -- Use `background` for everything else.
---             require('telekasten').setup({
---                 home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here
---             })
---         end,
---         ft = { "markdown" },
---     },
     -- ### Markdown Preview
     {
         "iamcco/markdown-preview.nvim",
@@ -207,7 +186,30 @@ lvim.plugins = {
         ft = "markdown",
         cmd = { "MarkdownPreview" },
     },
+    -- ## Zettelkasten
+    --
+    -- Replace with telekasten
+    -- {
+    --     "jakewvincent/mkdnflow.nvim",
+    --     config = default_config("mkdnflow"),
+    --     ft = { "markdown" },
+    -- },
+    -- {
+    --     'renerocksai/telekasten.nvim',
+    --     requires = { 'nvim-telescope/telescope.nvim' },
+    --     -- config = default_config("telekasten"),
+    --     config = function()
+    --         -- Attach to certain Filetypes, add special configuration for `html`
+    --         -- Use `background` for everything else.
+    --         require('telekasten').setup({
+    --             home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here
+    --         })
+    --     end,
+    --     ft = { "markdown" },
+    -- },
+    --
     -- # Additional
+    --
     -- ## Colorschemes
     { "Mofiqul/vscode.nvim" },
     { "ellisonleao/gruvbox.nvim" }, -- alternative gruvbox
@@ -300,15 +302,15 @@ lvim.plugins = {
         "folke/zen-mode.nvim",
         config = default_config("zen-mode"),
     },
---     -- ## Activity tracking
---     -- ActivityWatch watcher: https://docs.activitywatch.net/en/latest/watchers.html
---     {
---         "ActivityWatch/aw-watcher-vim",
---         cond = function()
---             return vim.fn.filereadable(os.getenv("HOME") .. "/apps/activitywatch/aw-qt") ~= 0
---         end
+    -- -- ## Activity tracking
+    -- -- ActivityWatch watcher: https://docs.activitywatch.net/en/latest/watchers.html
+    -- {
+    --     "ActivityWatch/aw-watcher-vim",
+    --     cond = function()
+    --         return vim.fn.filereadable(os.getenv("HOME") .. "/apps/activitywatch/aw-qt") ~= 0
+    --     end
 
---     },
+    -- },
     -- ## Leap, fast motions
     {
         "ggandor/leap.nvim",

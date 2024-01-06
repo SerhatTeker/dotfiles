@@ -45,9 +45,11 @@ lvim.lsp.installer.setup.ensure_installed = {
 -- end
 -- }}}
 
+-- FIXME: Fix this later
 -- Show line diagnostics only for line during CursorHold
 -- https://github.com/LunarVim/LunarVim/issues/1712
-lvim.lsp.diagnostics.virtual_text = false
+-- lvim.lsp.diagnostics.virtual_text = false
+-- lvim.lsp.diagnostics.config{{ virtual_text = false}}
 vim.api.nvim_create_autocmd("CursorHold", {
     pattern = "*",
     command = "lua vim.diagnostic.open_float(0,{scope='line'})",
