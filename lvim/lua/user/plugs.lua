@@ -48,13 +48,6 @@ end
 
 lvim.plugins = {
     -- # Core
-    -- ## Treesitter
-    {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        -- after = "nvim-treesitter",
-        requires = "nvim-treesitter/nvim-treesitter",
-        commit = "f5f13206ec33e55b16c8e1a9dec301e8bead4835",
-    },
     -- { "p00f/nvim-ts-rainbow" },
     { "HiPhish/nvim-ts-rainbow2" },
     {
@@ -62,22 +55,29 @@ lvim.plugins = {
         event = "InsertEnter",
         config = default_config("nvim-ts-autotag"),
     },
-    {
-        "nvim-treesitter/playground",
-        event = "BufRead",
-    },
-    -- ## DAP
-    {
-        "rcarriga/nvim-dap-ui",
-        config = default_config("dapui"),
-        requires = { "mfussenegger/nvim-dap" },
-
-    },
-    {
-        "theHamsta/nvim-dap-virtual-text",
-        config = default_config("nvim-dap-virtual-text"),
-        requires = { "mfussenegger/nvim-dap" },
-    },
+    -- -- ## Treesitter
+    -- {
+    --     "nvim-treesitter/nvim-treesitter-textobjects",
+    --     -- after = "nvim-treesitter",
+    --     requires = "nvim-treesitter/nvim-treesitter",
+    --     commit = "f5f13206ec33e55b16c8e1a9dec301e8bead4835",
+    -- },
+    -- {
+    --     "nvim-treesitter/playground",
+    --     event = "BufRead",
+    -- },
+    -- -- ## DAP
+    -- {
+    --     "rcarriga/nvim-dap-ui",
+    --     config = default_config("dapui"),
+    --     requires = { "mfussenegger/nvim-dap" },
+    -- },
+    -- {
+    --     "theHamsta/nvim-dap-virtual-text",
+    --     config = default_config("nvim-dap-virtual-text"),
+    --     requires = { "mfussenegger/nvim-dap" },
+    -- },
+    --
     -- ## Trouble
     {
         "folke/trouble.nvim",
@@ -99,20 +99,20 @@ lvim.plugins = {
             vim.o.sessionoptions = "buffers,curdir,folds,tabpages,winpos,winsize"
         end,
     },
-    -- ## Lastplace
-    {
-        "ethanholz/nvim-lastplace",
-        event = "BufRead",
-        config = function()
-            require("nvim-lastplace").setup({
-                lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-                lastplace_ignore_filetype = {
-                    "gitcommit", "gitrebase", "svn", "hgcommit",
-                },
-                lastplace_open_folds = true,
-            })
-        end,
-    },
+    -- -- ## Lastplace
+    -- {
+    --     "ethanholz/nvim-lastplace",
+    --     event = "BufRead",
+    --     config = function()
+    --         require("nvim-lastplace").setup({
+    --             lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+    --             lastplace_ignore_filetype = {
+    --                 "gitcommit", "gitrebase", "svn", "hgcommit",
+    --             },
+    --             lastplace_open_folds = true,
+    --         })
+    --     end,
+    -- },
     {
         'numToStr/Navigator.nvim',
         config = default_config("Navigator"),
@@ -149,24 +149,7 @@ lvim.plugins = {
     {
         "folke/todo-comments.nvim",
         event = "BufRead",
-        config = function()
-            require("todo-comments").setup({
-                keywords = {
-                    -- # Defaults
-                    -- TODO = { icon = " ", color = "info" },
-                    -- WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-                    -- PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-                    -- NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
-                    -- # Custom
-                    HACK = { icon = " ", color = "warning", alt = { "DEBUG" } },
-                    TEST = {
-                        icon = " ",
-                        color = "warning",
-                        alt = { "TESTING", "PASSED", "FAILED" }
-                    },
-                },
-            })
-        end
+        config = default_config("todo-comments"),
     },
     -- # Languages
     -- ## Golang
@@ -177,37 +160,39 @@ lvim.plugins = {
         ft = { "go" },
     },
     -- ## Markdown
-
+    -- ### Markdown Preview
+    {
+        "iamcco/markdown-preview.nvim",
+        build = function()
+            vim.fn["mkdp#util#install"]()
+        end,
+        ft = "markdown",
+        cmd = { "MarkdownPreview" },
+    },
     -- ## Zettelkasten
+    --
     -- Replace with telekasten
     -- {
     --     "jakewvincent/mkdnflow.nvim",
     --     config = default_config("mkdnflow"),
     --     ft = { "markdown" },
     -- },
-    {
-        'renerocksai/telekasten.nvim',
-        requires = { 'nvim-telescope/telescope.nvim' },
-        -- config = default_config("telekasten"),
-        config = function()
-            -- Attach to certain Filetypes, add special configuration for `html`
-            -- Use `background` for everything else.
-            require('telekasten').setup({
-                home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here
-            })
-        end,
-        ft = { "markdown" },
-    },
-    -- ### Markdown Preview
-    {
-        "iamcco/markdown-preview.nvim",
-        run = function()
-            vim.fn["mkdp#util#install"]()
-        end,
-        ft = "markdown",
-        cmd = { "MarkdownPreview" },
-    },
+    -- {
+    --     'renerocksai/telekasten.nvim',
+    --     requires = { 'nvim-telescope/telescope.nvim' },
+    --     -- config = default_config("telekasten"),
+    --     config = function()
+    --         -- Attach to certain Filetypes, add special configuration for `html`
+    --         -- Use `background` for everything else.
+    --         require('telekasten').setup({
+    --             home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here
+    --         })
+    --     end,
+    --     ft = { "markdown" },
+    -- },
+    --
     -- # Additional
+    --
     -- ## Colorschemes
     { "Mofiqul/vscode.nvim" },
     { "ellisonleao/gruvbox.nvim" }, -- alternative gruvbox
@@ -258,7 +243,7 @@ lvim.plugins = {
     -- ## Code runner
     {
         "CRAG666/code_runner.nvim",
-        requires = "nvim-lua/plenary.nvim",
+        dependencies = "nvim-lua/plenary.nvim",
         config = function()
             require("code_runner").setup({
                 -- choose default mode (valid term, tab, float, toggle)
@@ -300,15 +285,15 @@ lvim.plugins = {
         "folke/zen-mode.nvim",
         config = default_config("zen-mode"),
     },
-    -- ## Activity tracking
-    -- ActivityWatch watcher: https://docs.activitywatch.net/en/latest/watchers.html
-    {
-        "ActivityWatch/aw-watcher-vim",
-        cond = function()
-            return vim.fn.filereadable(os.getenv("HOME") .. "/apps/activitywatch/aw-qt") ~= 0
-        end
+    -- -- ## Activity tracking
+    -- -- ActivityWatch watcher: https://docs.activitywatch.net/en/latest/watchers.html
+    -- {
+    --     "ActivityWatch/aw-watcher-vim",
+    --     cond = function()
+    --         return vim.fn.filereadable(os.getenv("HOME") .. "/apps/activitywatch/aw-qt") ~= 0
+    --     end
 
-    },
+    -- },
     -- ## Leap, fast motions
     {
         "ggandor/leap.nvim",
@@ -321,47 +306,23 @@ lvim.plugins = {
     -- https://github.com/nvim-telescope/telescope-live-grep-args.nvim
     {
         "nvim-telescope/telescope-live-grep-args.nvim",
-        requires = { "nvim-telescope/telescope.nvim" },
+        dependencies = { "nvim-telescope/telescope.nvim" },
     },
-    -- Github Copilot
-    {
-        "github/copilot.vim",
-        config = get_config("copilot"),
-    },
-    -- ChatGPT API
-    {
-        "jackMort/ChatGPT.nvim",
-        config = function()
-            -- local os_home = vim.fn.expand("$HOME")
-            local _model = "gpt-4"
-            require("chatgpt").setup({
-                api_key_cmd = 0,
-                openai_params = {
-                    -- model = "gpt-3.5-turbo",
-                    model = _model,
-                    frequency_penalty = 0,
-                    presence_penalty = 0,
-                    max_tokens = 3000,
-                    temperature = 0,
-                    top_p = 1,
-                    n = 1,
-                },
-                openai_edit_params = {
-                    model = _model,
-                    frequency_penalty = 0,
-                    presence_penalty = 0,
-                    temperature = 0,
-                    top_p = 1,
-                    n = 1,
-                },
-            })
-        end,
-        requires = {
-            "MunifTanjim/nui.nvim",
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim"
-        }
-    },
+    -- -- Github Copilot
+    -- {
+    --     "github/copilot.vim",
+    --     config = get_config("copilot"),
+    -- },
+    -- -- ChatGPT API
+    -- {
+    --     "jackMort/ChatGPT.nvim",
+    --     config = default_config("chatgpt"),
+    --     requires = {
+    --         "MunifTanjim/nui.nvim",
+    --         "nvim-lua/plenary.nvim",
+    --         "nvim-telescope/telescope.nvim"
+    --     }
+    -- },
 }
 -- }}}
 -- }}}

@@ -1,20 +1,20 @@
 -- Nvimtree
-local nt = lvim.builtin.nvimtree.setup
+local nt_setup = lvim.builtin.nvimtree.setup
 
 -- side
-nt.view.side = "left" -- verbose default
+nt_setup.view.side = "left" -- verbose default
 -- indent markers
-nt.renderer.indent_markers.enable = true
+nt_setup.renderer.indent_markers.enable = true
 -- diagnostics icons
-nt.diagnostics.enable = false
+nt_setup.diagnostics.enable = false
 
 -- window picker
 -- open files in window from which last opened the tree
-nt.actions.open_file.window_picker.enable = false
+nt_setup.actions.open_file.window_picker.enable = false
 
 -- Ingore/Exclude directories/files patterns
 -- https://github.com/kyazdani42/nvim-tree.lua/issues/824
-nt.filters.custom = {
+nt_setup.filters.custom = {
     ".mypy_cache",
     "__pycache__",
     ".pytest_cache",
@@ -24,31 +24,49 @@ nt.filters.custom = {
     "\\.cache",
 }
 
--- Keymaps
+-- # Keymaps {{{
 
---- mappings list
-local function telescope_find_files(_)
-    require("lvim.core.nvimtree").start_telescope "find_files"
+-- ## Disable nvim-tree default <C-t> and map <C-t> to Tree Toggle {{{
+
+-- ### custom on_attach  {{{
+local function on_attach(bufnr)
+    local api = require "nvim-tree.api"
+
+    local function telescope_find_files(_)
+        require("lvim.core.nvimtree").start_telescope "find_files"
+    end
+
+    local function telescope_live_grep(_)
+        require("lvim.core.nvimtree").start_telescope "live_grep"
+    end
+
+    local function opts(desc)
+        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    end
+
+    api.config.mappings.default_on_attach(bufnr)
+
+    local useful_keys = {
+        ["l"] = { api.node.open.edit, opts "Open" },
+        ["o"] = { api.node.open.edit, opts "Open" },
+        ["<CR>"] = { api.node.open.edit, opts "Open" },
+        ["v"] = { api.node.open.vertical, opts "Open: Vertical Split" },
+        ["h"] = { api.node.navigate.parent_close, opts "Close Directory" },
+        ["C"] = { api.tree.change_root_to_node, opts "CD" },
+        ["gtg"] = { telescope_live_grep, opts "Telescope Live Grep" },
+        ["gtf"] = { telescope_find_files, opts "Telescope Find File" },
+        ["<C-t>"] = vim.keymap.set("n", "<C-t>", api.tree.toggle, opts("Open")),
+    }
+
+    require("lvim.keymappings").load_mode("n", useful_keys)
 end
 
-local function telescope_live_grep(_)
-    require("lvim.core.nvimtree").start_telescope "live_grep"
-end
+nt_setup.on_attach = on_attach
+-- }}}
 
--- Disable default <C-t>
--- Add Default ones from lvim
--- https://github.com/LunarVim/LunarVim/blob/23df368b00bda0ed4a01fac92f7ad80998c1d34a/lua/lvim/core/nvimtree.lua#L173-L190
-nt.view.mappings.list = {
-    -- defaults
-    { key = { "l", "<CR>", "o" }, action = "edit", mode = "n" },
-    { key = "h", action = "close_node" },
-    { key = "v", action = "vsplit" },
-    { key = "C", action = "cd" },
-    { key = "gtf", action = "telescope_find_files", action_cb = telescope_find_files },
-    { key = "gtg", action = "telescope_live_grep", action_cb = telescope_live_grep },
-    -- disable <C-t>
-    { key = "<C-t>", action = "" },
-}
+local utils = require("user.utils")
+local map_cmd = utils.map_cmd
 
-local lnmap = lvim.keys.normal_mode
-lnmap["<C-t>"] = "<CMD>NvimTreeToggle<CR>"
+map_cmd("<C-t>", "NvimTreeToggle")
+-- }}}
+-- }}}

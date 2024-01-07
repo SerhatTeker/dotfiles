@@ -2,7 +2,6 @@
 
 -- generic LSP settings {{{
 
-
 -- -- make sure server will always be installed even if the server is in skipped_servers list
 lvim.lsp.installer.setup.ensure_installed = {
     -- "sumeko_lua",
@@ -45,19 +44,26 @@ lvim.lsp.installer.setup.ensure_installed = {
 -- end
 -- }}}
 
--- Show line diagnostics only for line during CursorHold
--- https://github.com/LunarVim/LunarVim/issues/1712
-lvim.lsp.diagnostics.virtual_text = false
-vim.api.nvim_create_autocmd("CursorHold", {
-    pattern = "*",
-    command = "lua vim.diagnostic.open_float(0,{scope='line'})",
-})
+-- Diagnostic {{{
+
+-- https://github.com/LunarVim/LunarVim/issues/4413#issuecomment-1803255679
+-- You can view the diagnostic at the cursor with gl or <Leader>le.
+-- List of all diagnostics in the current buffer/file: <Leader>ld.
+-- List of all diagnostics in the LSP's workspace/project <Leader>lw.
+vim.diagnostic.config({ virtual_text = false })
+
+-- -- Show line diagnostics only for line during CursorHold
+-- -- https://github.com/LunarVim/LunarVim/issues/1712
+-- vim.api.nvim_create_autocmd("CursorHold", {
+--     pattern = "*",
+--     command = "lua vim.diagnostic.open_float(0,{scope='line'})",
+-- })
+-- }}}
 
 -- Mappings
 lvim.lsp.buffer_mappings.normal_mode["<leader>rn"] = { vim.lsp.buf.rename, "Rename" }
 
 -- Null-ls {{{
-
 
 -- Format files on save
 -- lvim.format_on_save = false
