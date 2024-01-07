@@ -70,5 +70,8 @@ map("n", "gx", "", {
 
 -- Spell
 map_cmd("<F7>", "ToggleSpell")
+
+-- Toggle list chars
+map_cmd("<F5>", "set list! list?")
 -- }}}
 -- }}}
