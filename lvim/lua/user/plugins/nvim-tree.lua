@@ -26,18 +26,19 @@ nt.filters.custom = {
 
 -- Keymaps
 
---- mappings list
-local function telescope_find_files(_)
-    require("lvim.core.nvimtree").start_telescope "find_files"
-end
-
-local function telescope_live_grep(_)
-    require("lvim.core.nvimtree").start_telescope "live_grep"
-end
-
 -- Disable default <C-t>
 -- Add Default ones from lvim
 -- https://github.com/LunarVim/LunarVim/blob/23df368b00bda0ed4a01fac92f7ad80998c1d34a/lua/lvim/core/nvimtree.lua#L173-L190
+--
+-- --- mappings list
+-- local function telescope_find_files(_)
+--     require("lvim.core.nvimtree").start_telescope "find_files"
+-- end
+--
+-- local function telescope_live_grep(_)
+--     require("lvim.core.nvimtree").start_telescope "live_grep"
+-- end
+--
 -- nt.view.mappings.list = {
 --     -- defaults
 --     { key = { "l", "<CR>", "o" }, action = "edit", mode = "n" },
@@ -50,5 +51,4 @@ end
 --     { key = "<C-t>", action = "" },
 -- }
 
-local lnmap = lvim.keys.normal_mode
-lnmap["<C-t>"] = "<CMD>NvimTreeToggle<CR>"
+lvim.keys.normal_mode["<C-t>"] = "<CMD>NvimTreeToggle<CR>"
