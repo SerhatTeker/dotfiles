@@ -2,6 +2,7 @@
     editor = nvim
     # Already default. http://git-scm.com/docs/gitignore#_description
     # excludesFile = $HOME/.config/git/ignore
+    pager = delta
 [credential]
     helper = cache --timeout=3600
 # [commit]
