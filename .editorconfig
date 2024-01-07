@@ -11,11 +11,9 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.{json,yml,yaml}]
-indent_style = space
 indent_size = 2
 
 [*.{ini,toml}]
-indent_style = space
 indent_size = 2
 
 [*.md]
@@ -25,7 +23,6 @@ trim_trailing_whitespace = false
 indent_style = tab
 
 [*.py]
-indent_style = space
 indent_size = 4
 
 [*.{go,c}]
@@ -33,5 +30,4 @@ indent_style = tab
 indent_size = 8
 
 [*.{html,css,scss}]
-indent_style = space
 indent_size = 2
