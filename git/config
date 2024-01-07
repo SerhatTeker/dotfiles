@@ -23,6 +23,11 @@
     # annotated and reachable (an ancestor) from the pushed commits
     followTags = true
     verbose = true
+    # >= 2.38.0
+    # https://git-scm.com/docs/git-push/2.38.0#Documentation/git-push.txt-pushautoSetupRemote
+    autoSetupRemote = true
+    # https://git-scm.com/docs/git-push/2.38.0#Documentation/git-push.txt-pushdefault
+    default = upstream
 [diff]
     tool = nvimdiff
     guitool = nvimdiff
