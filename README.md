@@ -2,20 +2,23 @@
 
 My personal dotfiles.
 
-**Warning:** If you want to give these dotfiles a try, you should first fork
-this repository, review the code, and remove things you don’t want or need.
-Don’t use my settings unless you know what that entails.
+> [!NOTE]  
+> Always WIP.
+> 
+> If you want to give these dotfiles a try, you should first fork
+> this repository, review the code, and remove things you don’t want or need.
+> Don’t use my settings unless you know what that entails.
 
-**Warning:** WIP README and install scripts.
 
 ## Screenshots
 
-
-![Nvim](./images/nvim.png "Nvim")
+![LunarVim](https://user-images.githubusercontent.com/29136904/191624942-3d75ef87-35cf-434d-850e-3e7cd5ce2ad0.png)
 
 <details>
 
 <summary>Show More Screenshot</summary>
+
+![Nvim](./images/nvim.png "Nvim")
 
 ![tmux](./images/tmux.png "tmux")
 
