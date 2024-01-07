@@ -2,12 +2,11 @@
 
 My personal dotfiles.
 
-> [!NOTE]  
-> Always WIP.
-> 
-> If you want to give these dotfiles a try, you should first fork
-> this repository, review the code, and remove things you don’t want or need.
-> Don’t use my settings unless you know what that entails.
+Always WIP.
+
+If you want to give these dotfiles a try, you should first fork
+this repository, review the code, and remove things you don’t want or need.
+Don’t use my settings *AS IS* unless you know what that entails.
 
 
 ## Screenshots
@@ -28,30 +27,30 @@ My personal dotfiles.
 
 </details>
 
-## BASE
 
+## On a new machine
 
-### Post Install Script
+```bash
+# Base `install.sh` will call all necessary install scripts.
+# It will check OS (Macos or Linux)
+$ bash install.sh
 
-- Install related `ssh keys`
+# generate and add new SSH key
+# https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
+# open LunarVim. Lazy.nvim will automatically install all plugins
+$ lunarvim
+```
 
-## MACOS
+### Post Install
 
+#### MacOS
 
-### Post Install Script
+There is no need to do  anything. All covered by `install.sh` script.
 
-- Install *SF Mono* font (TODO: Add fonts to dotfiles)
-- Install **Yubico** from appstore (TODO: include in script)
-  https://www.yubico.com/products/yubico-authenticator/#h-download-yubico-authenticator
+#### Linux
 
-
-## LINUX
-
-
-### Gnome Terminal
-
-Use Tango colorschme with custom background:
+For Gnome Terminal, use Tango colorschme with custom background:
 
 - Text and Background Color: Tango Dark
 - Custom Background : `#0B0B0B`
