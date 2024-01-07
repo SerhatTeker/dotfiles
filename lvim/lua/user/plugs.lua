@@ -203,12 +203,12 @@ lvim.plugins = {
     { "ThePrimeagen/harpoon" },
     -- ## Trim
     {
-        "SerhatTeker/trim.nvim",
+        "cappyzawa/trim.nvim",
         event = "BufWritePre",
         config = function()
             require("trim").setup({
-                disable = { "markdown", "python" },
-                trim_last_line = false,
+                disable = { "markdown" },
+                -- trim_last_line = false,
             })
         end,
     },
@@ -277,9 +277,7 @@ lvim.plugins = {
         end,
     },
     -- ## Editorconfig
-    {
-        "gpanders/editorconfig.nvim",
-    },
+    { "gpanders/editorconfig.nvim" },
     -- ## Zen Mode
     {
         "folke/zen-mode.nvim",
