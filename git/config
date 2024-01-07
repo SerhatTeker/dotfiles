@@ -13,7 +13,7 @@
 [merge]
     ff = false
     tool = nvimdiff
-    # conflictstyle = diff3
+	conflictStyle = zdiff3
 [mergetool]
     prompt = false
 [pull]
@@ -37,3 +37,5 @@
   skip = update-index --skip-worktree
   unskip = update-index --no-skip-worktree
   skipped = !git ls-files -v | grep \"^S\"
+[branch]
+	sort = -committerdate
