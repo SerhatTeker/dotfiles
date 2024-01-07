@@ -1,6 +1,6 @@
 # Add my 'web' type.
---type-add
-web:*.{html,css,js}*
+--type-add=web:*.{html,css,js,jsx,tsx}
+--type-add=media:*.{gif,png,jpg}
 
 # Disable for vim :Files
 # --color=always
@@ -14,7 +14,10 @@ web:*.{html,css,js}*
 # sensitively otherwise.
 --smart-case
 
+# Ignore
 --glob=!.git/*
+--glob=!*.pdf
+--type-not=media
 
 # all ignore-related filtering with the --no-ignore flag
 # --no-ignore
