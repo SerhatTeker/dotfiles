@@ -147,12 +147,13 @@ main() {
     if ! command_exists "nvim"; then
         check_base_deps
         nvim_os
+        setup_plugins
+        link_configs
+
+        success "Finished nvim install"
+    else
+        warn "Nvim already exists. You can delete it and run the script again."
     fi
-
-    setup_plugins
-    link_configs
-
-    success "Finished nvim install"
 }
 
 main "$@"
