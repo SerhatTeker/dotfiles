@@ -38,6 +38,8 @@
   skip = update-index --skip-worktree
   unskip = update-index --no-skip-worktree
   skipped = !git ls-files -v | grep \"^S\"
+  rm-merged = !git branch --format '%(refname:short) %(upstream:track)' | awk ' $2 == \"[gone]\" { print $1 }' | xargs -r git branch -D
+  sync = !git switch develop && git pull && git rm-merged
 [branch]
 	sort = -committerdate
 # DELTA
