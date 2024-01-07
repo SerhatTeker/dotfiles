@@ -39,3 +39,16 @@
   skipped = !git ls-files -v | grep \"^S\"
 [branch]
 	sort = -committerdate
+# DELTA
+# In order to temporarily disable delta
+# $ git -c core.pager=less diff
+[delta]
+    # https://dandavison.github.io/delta/configuration.html
+    hyperlinks = true
+    line-numbers = true
+    navigate = true
+    syntax-theme = Monokai Extended
+[diff]
+    colorMoved = default
+[interactive]
+    diffFilter = delta --color-only

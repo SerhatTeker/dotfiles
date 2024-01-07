@@ -8,6 +8,7 @@ brew "curl"
 brew "fd"                       # https://github.com/sharkdp/fd
 brew "fzf"
 brew "gh"
+brew "git-delta"
 brew "gnu-time"
 brew "gnu-which"
 brew "gnu-sed"
