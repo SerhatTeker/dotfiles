@@ -220,6 +220,7 @@ lvim.plugins = {
     {
         "simrat39/symbols-outline.nvim",
         config = default_config("symbols-outline"),
+        -- https://github.com/simrat39/symbols-outline.nvim?tab=readme-ov-file#default-keymaps
     },
     -- ## Color highlighter colorizer
     {
