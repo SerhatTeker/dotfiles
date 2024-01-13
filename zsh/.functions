@@ -304,9 +304,30 @@ ddl-gist() {
 
 # journal in vim
 journal() {
+	# macos default bins are crap
+    local date_cmd=date
+
+    if [[ "${OSTYPE}" == "darwin"* ]]; then
+        date_cmd=gdate
+    fi
+
+    # Robustly check for command availability
+    if ! command -v "${date_cmd}" >/dev/null 2>&1; then
+        echo "Error: '${date_cmd}' command not found. Please install it or adjust the script."
+        exit 1
+    fi
+
     # Show current journal
-    WNUMBER=$(date +%U)
-    YNUM=$(date +%y)
+
+    # * %U week number of year, with Sunday as first day of week (00..53)
+    # * %W week number of year, with Monday as first day of week (00..53)
+    # * %V ISO week number, with Monday as first day of week (01..53)
+    #
+    # # ISO week date
+    # https://en.wikipedia.org/wiki/ISO_week_date
+    WNUMBER="$(${date_cmd} +%V)"
+    YNUM="$(${date_cmd} +%y)"
+
     echo "JOURNAL: y${YNUM}/w${WNUMBER}"
 
     # check journal exist, if not exist create

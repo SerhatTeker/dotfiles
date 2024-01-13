@@ -220,6 +220,7 @@ elif [[ "${OSTYPE}" == "darwin"* ]]; then
     fi
 fi
 
+export HOMEBREW_NO_AUTO_UPDATE=1  # the downgraded formula is not overwritten
 export HOMEBREW_NO_ENV_HINTS=1
 # }}}
 
