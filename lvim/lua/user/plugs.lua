@@ -57,13 +57,11 @@ lvim.plugins = {
         event = "InsertEnter",
         config = default_config("nvim-ts-autotag"),
     },
-    -- -- ## Treesitter
-    -- {
-    --     "nvim-treesitter/nvim-treesitter-textobjects",
-    --     -- after = "nvim-treesitter",
-    --     requires = "nvim-treesitter/nvim-treesitter",
-    --     commit = "f5f13206ec33e55b16c8e1a9dec301e8bead4835",
-    -- },
+    -- ## Treesitter
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+    },
     -- {
     --     "nvim-treesitter/playground",
     --     event = "BufRead",
