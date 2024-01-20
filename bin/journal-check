@@ -82,7 +82,7 @@ fi
 # Dates
 DATE=$($_date '+%Y-%m-%d')
 ## nums
-WNUM=$($_date +%U)
+WNUM=$($_date +%V)
 DAY=$($_date +%d)
 MNAME=$($_date +%b)
 # # MNAME_UPPER="$(echo $MNAME | tr [a-z] [A-Z])"
