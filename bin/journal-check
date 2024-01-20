@@ -76,6 +76,18 @@ else
     _sed=sed
 fi
 
+# Robustly check for command availability
+# date
+if ! command -v "${_date}" >/dev/null 2>&1; then
+    echo "Error: '${_date}' command not found. Please install it or adjust the script."
+    exit 1
+fi
+# sed
+if ! command -v "${_sed}" >/dev/null 2>&1; then
+    echo "Error: '${_sed}' command not found. Please install it or adjust the script."
+    exit 1
+fi
+
 # Variables {{{
 
 # TODO: Use FIRST_SUN as $DATE
