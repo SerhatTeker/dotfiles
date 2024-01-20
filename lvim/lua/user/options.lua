@@ -17,6 +17,11 @@ set.foldexpr = "nvim_treesitter#foldexpr()" -- set to "nvim_treesitter#foldexpr(
 -- git diff
 set.diffopt:append { "vertical" } -- internal, filler, closeoff, vertical
 set.fillchars = set.fillchars + 'diff: ' -- alternatives: ─ ⣿ ░
+-- listchars
+set.listchars = { eol = "§", tab = "¤›", extends = "»", precedes = "«", nbsp = "‡", trail = "-", space = "␣" }
+-- Default: eol:§,tab:¤›,extends:»,precedes:«,nbsp:‡,trail:-,space:␣"
+-- Alt1:    eol:$,extends:»,precedes:«,nbsp:‡,space:␣
+-- Alt2:    eol:¬,,tab:»/,extends:»,precedes:«,nbsp:‡
 -- time
 set.timeoutlen = 500
 -- }}}
@@ -59,3 +64,5 @@ vim.api.nvim_create_user_command(
     end,
     { force = true, nargs = 0 }
 )
+
+
