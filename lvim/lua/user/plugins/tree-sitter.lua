@@ -58,6 +58,15 @@ ts.textobjects = {
         },
         -- include_surrounding_whitespace = true,
     },
+    lsp_interop = {
+        enable = true,
+        border = 'none',
+        floating_preview_opts = {},
+        peek_definition_code = {
+            ["<leader>df"] = "@function.outer",
+            ["<leader>dF"] = "@class.outer",
+        },
+    },
     move = {
         enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist
