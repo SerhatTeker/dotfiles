@@ -1,0 +1,22 @@
+{
+  "add_pytest": {
+    "type": "chat",
+    "opts": {
+      "template": "Implement {{argument}} tests with pytest for the following code.\n\nCode:\n```{{filetype}}\n{{input}}\n```\n\nTests:\n```{{filetype}}",
+      "strategy": "append",
+      "params": {
+        "model": "gpt-4",
+        "stop": [
+          "```"
+        ]
+      }
+    },
+    "args": {
+      "argument": {
+        "type": "string",
+        "optional": "true",
+        "default": "unit"
+      }
+    }
+  }
+}
