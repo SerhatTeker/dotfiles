@@ -4,20 +4,20 @@ local wk = lvim.builtin.which_key
 wk.setup.plugins.presets.text_objects = true
 
 wk.opts = {
-    mode = "n", -- NORMAL mode
+    mode = "n",     -- NORMAL mode
     prefix = "<space>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
+    buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
+    nowait = true,  -- use `nowait` when creating keymaps
 }
 wk.vopts = {
-    mode = "v", -- VISUAL mode
+    mode = "v",     -- VISUAL mode
     prefix = "<space>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
+    buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
+    nowait = true,  -- use `nowait` when creating keymaps
 }
 
 -- ## Mappings {{{
@@ -52,7 +52,9 @@ wk.mappings["n"] = { cmd("tabedit %"), "Tab New" }
 
 -- TODO: Append references instead of adding all of them
 -- LSP
-wk.mappings["R"] = { cmd("Telescope lsp_references"), "Refences" }
+
+wk.mappings["r"] = { cmd("Telescope lsp_references"), "Refences" }
+-- wk.mappings["R"] = { cmd("Telescope lsp_references theme=get_dropdown"), "Refences" }
 
 wk.mappings["l"] = {
     name = "LSP",
