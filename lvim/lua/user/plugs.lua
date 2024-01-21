@@ -303,7 +303,8 @@ lvim.plugins = {
             vim.keymap.set("n", "s", "<Plug>(leap-forward)", { remap = false })
         end,
     },
-    -- ### Code analysis & navigation plugin for Neovim. Exploring LSP and Treesitter symbols
+    -- ### Navigator
+    -- Code analysis & navigation. Exploring LSP and Treesitter symbols.
     {
         "ray-x/navigator.lua",
         config = function()
