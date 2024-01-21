@@ -293,7 +293,8 @@ lvim.plugins = {
     --     end
 
     -- },
-    -- ## Leap, fast motions
+    -- ## Navigation
+    -- ### Leap, fast motions
     {
         "ggandor/leap.nvim",
         config = function()
@@ -302,17 +303,37 @@ lvim.plugins = {
             vim.keymap.set("n", "s", "<Plug>(leap-forward)", { remap = false })
         end,
     },
-    -- https://github.com/nvim-telescope/telescope-live-grep-args.nvim
+    -- ### Code analysis & navigation plugin for Neovim. Exploring LSP and Treesitter symbols
+    {
+        "ray-x/navigator.lua",
+        config = function()
+            require("navigator").setup({
+                lsp = {
+                    enable = false,
+                }
+                -- diagnostic_virtual_text = false,
+            })
+        end,
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            {
+                "ray-x/guihua.lua",
+                build = "cd lua/fzy && make",
+            },
+        },
+    },
+    --- ### Tekescope Live Grep Arg Modif
     {
         "nvim-telescope/telescope-live-grep-args.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" },
     },
-    -- -- Github Copilot
+    -- ## AI
+    -- ### Github Copilot
     -- {
     --     "github/copilot.vim",
     --     config = get_config("copilot"),
     -- },
-    -- ChatGPT API
+    -- ### ChatGPT API
     {
         "jackMort/ChatGPT.nvim",
         event = "VeryLazy",
@@ -357,6 +378,7 @@ lvim.plugins = {
             "nvim-telescope/telescope.nvim"
         }
     },
+
 }
 -- }}}
 -- }}}
