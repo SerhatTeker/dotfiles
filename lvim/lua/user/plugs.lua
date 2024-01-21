@@ -272,6 +272,7 @@ lvim.plugins = {
     },
     -- ### Navigator
     -- Code analysis & navigation. Exploring LSP and Treesitter symbols.
+    -- keymaps: https://github.com/ray-x/navigator.lua?tab=readme-ov-file#default-keymaps
     {
         "ray-x/navigator.lua",
         config = function()
