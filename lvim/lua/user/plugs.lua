@@ -275,14 +275,7 @@ lvim.plugins = {
     -- keymaps: https://github.com/ray-x/navigator.lua?tab=readme-ov-file#default-keymaps
     {
         "ray-x/navigator.lua",
-        config = function()
-            require("navigator").setup({
-                lsp = {
-                    enable = false,
-                }
-                -- diagnostic_virtual_text = false,
-            })
-        end,
+        config = get_config("navigation"),
         dependencies = {
             "neovim/nvim-lspconfig",
             {
@@ -310,6 +303,7 @@ lvim.plugins = {
     --         })
     --     end,
     -- },
+
     -- ## AI
     -- ### Github Copilot
     -- {
