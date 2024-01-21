@@ -99,24 +99,6 @@ lvim.plugins = {
             vim.o.sessionoptions = "buffers,curdir,folds,tabpages,winpos,winsize"
         end,
     },
-    -- -- ## Lastplace
-    -- {
-    --     "ethanholz/nvim-lastplace",
-    --     event = "BufRead",
-    --     config = function()
-    --         require("nvim-lastplace").setup({
-    --             lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-    --             lastplace_ignore_filetype = {
-    --                 "gitcommit", "gitrebase", "svn", "hgcommit",
-    --             },
-    --             lastplace_open_folds = true,
-    --         })
-    --     end,
-    -- },
-    {
-        'numToStr/Navigator.nvim',
-        config = default_config("Navigator"),
-    },
     {
         "tpope/vim-fugitive",
         cmd = {
@@ -303,6 +285,11 @@ lvim.plugins = {
             vim.keymap.set("n", "s", "<Plug>(leap-forward)", { remap = false })
         end,
     },
+    -- ### Navigate between neovim and terminal multiplexer
+    {
+        'numToStr/Navigator.nvim',
+        config = default_config("Navigator"),
+    },
     -- ### Navigator
     -- Code analysis & navigation. Exploring LSP and Treesitter symbols.
     {
@@ -328,6 +315,20 @@ lvim.plugins = {
         "nvim-telescope/telescope-live-grep-args.nvim",
         dependencies = { "nvim-telescope/telescope.nvim" },
     },
+    -- -- ### Lastplace
+    -- {
+    --     "ethanholz/nvim-lastplace",
+    --     event = "BufRead",
+    --     config = function()
+    --         require("nvim-lastplace").setup({
+    --             lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+    --             lastplace_ignore_filetype = {
+    --                 "gitcommit", "gitrebase", "svn", "hgcommit",
+    --             },
+    --             lastplace_open_folds = true,
+    --         })
+    --     end,
+    -- },
     -- ## AI
     -- ### Github Copilot
     -- {
