@@ -3,18 +3,35 @@
 -- ## Defaults {{{
 
 lvim.builtin.telescope.defaults = {
-    winblend = 10, -- transparency, 0 opaque, 100 fully transparent
+    theme = "cursor",
     sorting_strategy = "descending",
     layout_strategy = "horizontal",
     show_line = false,
+    winblend = 10, -- transparency, 0 opaque, 100 fully transparent
+
     layout_config = {
-        height = 0.90,
         width = 0.90,
+        height = 0.90,
+        preview_cutoff = 120,
         prompt_position = "bottom",
-        preview_width = 0.55,
-        mirror = false,
+        horizontal = {
+            preview_width = function(_, cols, _)
+                return math.floor(cols * 0.6)
+            end,
+        },
+        vertical = {
+            width = 0.9,
+            height = 0.95,
+            preview_height = 0.5,
+        },
+
+        flex = {
+            horizontal = {
+                preview_width = 0.9,
+            },
+        },
     },
-    vertical = { mirror = false },
+
 }
 -- }}}
 
