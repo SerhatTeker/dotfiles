@@ -52,6 +52,8 @@ wk.mappings["n"] = { cmd("tabedit %"), "Tab New" }
 
 -- TODO: Append references instead of adding all of them
 -- LSP
+wk.mappings["R"] = { cmd("Telescope lsp_references"), "Refences" }
+
 wk.mappings["l"] = {
     name = "LSP",
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
