@@ -223,26 +223,6 @@ lvim.plugins = {
     { "mfussenegger/nvim-dap-python" },
     { "nvim-neotest/neotest" },
     { "nvim-neotest/neotest-python" },
-    -- ## Code runner
-    {
-        "CRAG666/code_runner.nvim",
-        dependencies = "nvim-lua/plenary.nvim",
-        config = function()
-            require("code_runner").setup({
-                -- choose default mode (valid term, tab, float, toggle)
-                mode = "term",
-                filetype = {
-                    python = "python3 -u",
-                    sh = "bash",
-                    typescript = "deno run",
-                    java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
-                    csharp = "cd $dir && mcs $fileName && mono $fileNameWithoutExt.exe",
-                    rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt"
-                },
-            })
-            vim.api.nvim_set_keymap("n", "<F10>", "<CMD>RunCode<CR>", { silent = false })
-        end
-    },
     -- ## Search and replace
     {
         "nvim-pack/nvim-spectre",
