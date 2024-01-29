@@ -121,6 +121,11 @@ alias gtf='git ls-tree -r $(git_current_branch) --name-only'
 # Stash
 alias gstu='git stash -u'
 alias gstum='git stash save -u -m'
+# Switch
+alias gs='git switch'
+alias gsc='git switch --create'
+alias gsd='git switch develop'
+alias gsm='git switch $(git_main_branch)'
 # }}}
 
 # tmux {{{
