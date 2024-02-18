@@ -318,17 +318,24 @@ journal() {
     fi
 
     # Show current journal
-
+    #
     # * %U week number of year, with Sunday as first day of week (00..53)
     # * %W week number of year, with Monday as first day of week (00..53)
     # * %V ISO week number, with Monday as first day of week (01..53)
-    #
-    # # ISO week date
-    # https://en.wikipedia.org/wiki/ISO_week_date
-    WNUMBER="$(${date_cmd} +%V)"
+    # TODO: Must be a script or func
+    WNUM="$(date +%U)"
+    WNUM=$((WNUM + 1)) # Sunday wnum issue
     YNUM="$(${date_cmd} +%y)"
 
-    echo "JOURNAL: y${YNUM}/w${WNUMBER}"
+    # Handle week number rollover
+	if [[ $WNUM -gt 52 ]]; then
+		WNUM=1
+		YNUM=$((YNUM + 1))
+	fi
+    # ensures at least two digits
+    WNUM=$(printf "%02d" $WNUM)
+
+    echo "JOURNAL: y${YNUM}/w${WNUM}"
 
     # check journal exist, if not exist create
     # ~/.local/bin/journal-check

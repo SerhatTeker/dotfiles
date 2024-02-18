@@ -94,7 +94,8 @@ fi
 # Dates
 DATE=$($_date '+%Y-%m-%d')
 ## nums
-WNUM=$($_date +%V)
+WNUM=$($_date +%U)
+WNUM=$((WNUM + 01)) # Sunday wnum issue
 DAY=$($_date +%d)
 MNAME=$($_date +%b)
 # # MNAME_UPPER="$(echo $MNAME | tr [a-z] [A-Z])"
@@ -103,6 +104,14 @@ MNUM=$($_date +%m)
 YNUM=$($_date +%y)
 YNUMF=$($_date +%Y)
 QNAME="Q$((($($_date -d "-1 month" +%-m)-1)/3+1 ))"
+
+# TODO: Must be a script or func
+# Handle week number rollover
+if [[ $WNUM -gt 52 ]]; then
+    WNUM=1
+    YNUM=$((YNUM + 1))
+fi
+WNUM=$(printf "%02d" $WNUM)
 # }}}
 
 # Manual Test {{{
