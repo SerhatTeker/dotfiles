@@ -7,6 +7,11 @@ vim.api.nvim_create_user_command("WQ", "wqa", { force = true })
 -- Buffers
 vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { force = true })
 
+
+-- Git
+-- Changes have been made in your current branch that are not yet in the develop branch
+vim.api.nvim_create_user_command("DiffviewUpstream", "DiffviewOpen upstream/develop...HEAD", { force = true })
+
 -- Lvim Autocommands {{{
 
 lvim.autocommands = {
