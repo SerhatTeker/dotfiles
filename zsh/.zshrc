@@ -295,7 +295,10 @@ setopt SHARE_HISTORY            # share command history data
 # History
 # Don't append "not found command" to history
 # https://www.zsh.org/mla/users//2014/msg00715.html
-zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
+zshaddhistory() {  whence ${${(z)1}[1]} >/dev/null || return 2 }
+# or return 1
+# zshaddhistory() { whence ${${(z)1}[1]} >| /dev/null || return 1 }
+
 # }}}2
 
 # Aliases, functions and others {{{2
@@ -335,4 +338,57 @@ if [[ "${OSTYPE}" == "darwin"* ]]; then
     fi
 fi
 # }}}
+
+# Additional Envs {{{2
+#
+# Useful shorthand environment variables
+
+_date_cmd() {
+    local date_cmd=date
+
+    # macos default bins are crap
+    if [[ "${OSTYPE}" == "darwin"* ]]; then
+        date_cmd=gdate
+    fi
+
+    # Robustly check for command availability
+    if ! command -v "${date_cmd}" >/dev/null 2>&1; then
+        echo "Error: '${date_cmd}' command not found. Please install it or adjust the script."
+        exit 1
+    fi
+
+    echo "${date_cmd}"
+}
+
+_get_wnum() {
+    local date_cmd=$(_date_cmd)
+    local WNUM=$($date_cmd +%U)
+    WNUM=$((WNUM + 1))
+    if [[ $WNUM -gt 52 ]]; then
+        WNUM=1
+    fi
+
+    printf "%02d" "${WNUM}"
+}
+
+_get_ynum() {
+    local date_cmd=$(_date_cmd)
+
+    local WNUM=$($_get_wnum)
+    local YNUM="$($date_cmd +%y)"
+    if [[ $WNUM -gt 52 ]]; then
+		YNUM=$((YNUM + 1))
+    fi
+
+    printf "%02d" "${YNUM}"
+}
+
+# TODO: Use these vars and remove repetitive func/vars in other files, e.g. functions
+#
+# Week and year number
+export WNUM=$(_get_wnum)
+export YNUM=$(_get_ynum)
+# Week day number
+export WDAYNUM="$(printf "%02d" $(date +%w))"
+# }}}2
 # }}}1
