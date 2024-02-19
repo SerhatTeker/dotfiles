@@ -20,7 +20,7 @@
   "journal": {
     "prefix": "journal",
     "body": [
-      "## ${CURRENT_DATE} ${CURRENT_MONTH_NAME_SHORT} | ${CURRENT_DAY_NAME_SHORT} | ",
+      "## ${CURRENT_DATE} ${CURRENT_MONTH_NAME_SHORT} | ${CURRENT_DAY_NAME_SHORT} | ${SYS_WDAYNUM}",
       "",
       "### Preview",
       "",
