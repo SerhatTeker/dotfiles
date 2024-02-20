@@ -270,20 +270,20 @@ lvim.plugins = {
         'numToStr/Navigator.nvim',
         config = default_config("Navigator"),
     },
-    -- ### Navigator
-    -- Code analysis & navigation. Exploring LSP and Treesitter symbols.
-    -- keymaps: https://github.com/ray-x/navigator.lua?tab=readme-ov-file#default-keymaps
-    {
-        "ray-x/navigator.lua",
-        config = get_config("navigation"),
-        dependencies = {
-            "neovim/nvim-lspconfig",
-            {
-                "ray-x/guihua.lua",
-                build = "cd lua/fzy && make",
-            },
-        },
-    },
+    -- -- ### Navigator
+    -- -- Code analysis & navigation. Exploring LSP and Treesitter symbols.
+    -- -- keymaps: https://github.com/ray-x/navigator.lua?tab=readme-ov-file#default-keymaps
+    -- {
+    --     "ray-x/navigator.lua",
+    --     config = get_config("navigation"),
+    --     dependencies = {
+    --         "neovim/nvim-lspconfig",
+    --         {
+    --             "ray-x/guihua.lua",
+    --             build = "cd lua/fzy && make",
+    --         },
+    --     },
+    -- },
     --- ### Tekescope Live Grep Arg Modif
     {
         "nvim-telescope/telescope-live-grep-args.nvim",
