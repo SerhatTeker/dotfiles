@@ -151,28 +151,6 @@ lvim.plugins = {
         ft = "markdown",
         cmd = { "MarkdownPreview" },
     },
-    -- ## Zettelkasten
-    --
-    -- Replace with telekasten
-    -- {
-    --     "jakewvincent/mkdnflow.nvim",
-    --     config = default_config("mkdnflow"),
-    --     ft = { "markdown" },
-    -- },
-    -- {
-    --     'renerocksai/telekasten.nvim',
-    --     requires = { 'nvim-telescope/telescope.nvim' },
-    --     -- config = default_config("telekasten"),
-    --     config = function()
-    --         -- Attach to certain Filetypes, add special configuration for `html`
-    --         -- Use `background` for everything else.
-    --         require('telekasten').setup({
-    --             home = vim.fn.expand("~/zettelkasten"), -- Put the name of your notes directory here
-    --         })
-    --     end,
-    --     ft = { "markdown" },
-    -- },
-    --
     -- # Additional
     --
     -- ## Colorschemes
