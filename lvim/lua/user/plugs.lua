@@ -176,11 +176,10 @@ lvim.plugins = {
     -- # Additional
     --
     -- ## Colorschemes
-    { "Mofiqul/vscode.nvim" },
-    { "ellisonleao/gruvbox.nvim" }, -- alternative gruvbox
-    { "sainnhe/gruvbox-material" },
-    { 'navarasu/onedark.nvim' },    -- alternative onedark
     { "SerhatTeker/neodarker.nvim" },
+    { "ellisonleao/gruvbox.nvim" },
+    { 'navarasu/onedark.nvim' },    -- alternative onedark
+    { "Mofiqul/vscode.nvim" },
     -- ## Harpoon
     { "ThePrimeagen/harpoon" },
     -- ## Trim
