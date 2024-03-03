@@ -22,7 +22,7 @@
 # Descrtiption          : Toggle theme mode on Ubuntu 22.04 LTS and MacOS Monterey 12
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2023-02-19T00:25:26+0300 | 1676755526
+# Last Modified Date    : 2024-03-03T12:22:44+03:00 | 1709457764
 # Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
 # and using on Ubuntu 22.04 LTS and MacOS Monterey 12.
 # Usage                 : $ ./toggle-theme
@@ -44,35 +44,49 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-# Terminal {{{
+# Check OS {{{
+# Helper functions
 
-# Send ChangeBackground() Signal to all vim/nvim instances in all tmux sessions
-vim_sessions_toggle() {
-    local is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-        | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?l?vim?x?)(diff)?$'"
+is_linux() {
+    local uname="$(uname -a)"
+    [[ "$uname" =~ Linux ]] && return
+    false
+}
 
-    local is_lvim="ps -o state= -o comm= -t '#{pane_tty}' \
-        | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?vim?x?)(diff)?$'"
+is_macos() {
+    local uname="$(uname -a)"
+    [[ "$uname" =~ Darwin ]] && return
+    false
+}
 
-    for session in $(tmux list-sessions -F '#S'); do
-        for window in $(tmux list-windows -t "${session}"  -F '#{window_index}'); do
-            for pane in $(tmux list-panes -t "${session}:${window}" -F '#P'); do
-                local pix="${session}:${window}.${pane}"
+is_different_os() {
+    if is_linux && is_macos; then
+        echo "OSTYPE: ${OSTYPE} is not implemented"
+        exit 1
+    fi
+}
+# }}}
 
-                tmux if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} escape ENTER"
-                tmux if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} ':AdaptGlobalTheme' ENTER"
+# General {{{
 
-                tmux if-shell -t "${pix}" "${is_lvim}" "send-keys -t ${pix} escape ENTER"
-                tmux if-shell -t "${pix}" "${is_lvim}" "send-keys -t ${pix} ':AdaptGlobalTheme' ENTER"
-            done
-        done
+nvim_toggle() {
+    local nvr_bin=$(command -v nvr)
+    local server_list=$($nvr_bin --serverlist)
+
+    for addr in ${server_list}; do
+        if [[ ${target_mode} =~ "light" ]]; then
+            ${nvr_bin} --servername "${addr}" -c "set background=light"
+            ${nvr_bin} --servername "${addr}" -c "AdaptGlobalTheme"
+        else
+            ${nvr_bin} --servername "${addr}" -c "AdaptGlobalTheme"
+        fi
     done
 }
 
 alacritty_toggle() {
     local theme_path="${HOME}/dotfiles/alacritty/colors"
 
-    # Not using gruvbox now, but possible in future.
+    # Rotating between gruvbox and one
     if [[ ${target_mode} =~ "light" ]]; then
         ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path}/one.yml"
         ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path}/gruvbox.yml"
@@ -82,14 +96,23 @@ alacritty_toggle() {
     fi
 }
 
-# i3 rofi
+tmux_toggle() {
+    local file="${HOME}/dotfiles/tmux/tmux.conf"
+
+    if [[ ${target_mode} =~ "light" ]]; then
+        ${sed_bin} -i 's/dark.conf/light.conf/g' "${file}"
+    else
+        ${sed_bin} -i 's/light.conf/dark.conf/g' "${file}"
+    fi
+
+    ${tmux_bin} source "${file}"
+}
+
+# i3 rofi - only for linux
 rofi_toggle() {
     local file="${XDG_CONFIG_HOME}/rofi/config.rasi"
 
-    # only for linux
-    is_linux || return
-
-    # Not using gruvbox now, but possible in future.
+    # Rotating between gruvbox and one
     if [[ ${target_mode} =~ "light" ]]; then
         ${sed_bin} -i 's/gruvbox-dark/gruvbox-light/g' "${file}"
     else
@@ -98,35 +121,6 @@ rofi_toggle() {
 
     # restart i3 config
     i3-msg restart
-}
-# }}}
-
-# OS Toggle {{{
-
-gtk_toggle() {
-    if [[ ${target_mode} =~ "light" ]]; then
-        gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
-        gsettings set org.gnome.desktop.interface gtk-theme "Yaru-light"
-    else
-        gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-        gsettings set org.gnome.desktop.interface gtk-theme "Yaru-dark"
-    fi
-}
-
-macos_toggle() {
-    if [[ ${target_mode} == "light" ]]; then
-        osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" >/dev/null
-    elif [[ ${target_mode} == "dark" ]]; then
-        osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" >/dev/null
-    fi
-}
-
-os_toggle() {
-    if is_macos; then
-        macos_toggle "${target_mode}"
-    else
-        gtk_toggle "${target_mode}"
-    fi
 }
 # }}}
 
@@ -164,10 +158,7 @@ close_restore_popup() {
 }
 
 chrome_toggle() {
-    # Run only in linux
-    is_linux || return 0
     close_restore_popup
-    # reopen_chrome
 
     local file="${HOME}/.local/share/applications/google-chrome.desktop"
     local default='\/usr\/bin\/google-chrome-stable'
@@ -181,28 +172,37 @@ chrome_toggle() {
 }
 # }}}
 
-# Check OS {{{
-# Helper functions
+# OS Toggle {{{
 
-is_linux() {
-    local uname="$(uname -a)"
-    [[ "$uname" =~ Linux ]] && return
-    false
+gtk_toggle() {
+    if [[ ${target_mode} =~ "light" ]]; then
+        gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
+        gsettings set org.gnome.desktop.interface gtk-theme "Yaru-light"
+    else
+        gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+        gsettings set org.gnome.desktop.interface gtk-theme "Yaru-dark"
+    fi
 }
 
-is_macos() {
-    local uname="$(uname -a)"
-    [[ "$uname" =~ Darwin ]] && return
-    false
+macos_toggle() {
+    if [[ ${target_mode} == "light" ]]; then
+        osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = false" >/dev/null
+    elif [[ ${target_mode} == "dark" ]]; then
+        osascript -l JavaScript -e "Application('System Events').appearancePreferences.darkMode = true" >/dev/null
+    fi
 }
 
-is_different_os() {
-    if is_linux && is_macos; then
-        echo "OSTYPE: ${OSTYPE} is not implemented"
-        exit 1
+os_toggle() {
+    if is_macos; then
+        macos_toggle "${target_mode}"
+    else
+        gtk_toggle "${target_mode}"
+        rofi_toggle
+        chrome_toggle
     fi
 }
 # }}}
+
 
 # Main {{{
 
@@ -230,7 +230,8 @@ error_arg() {
 
 main() {
     local sed_bin=$(command -v gsed || command -v sed) # MacOS sed is pain, use gsed
-    local target_mode="dark"                           # Default theme mode is dark
+    local tmux_bin=$(command -v tmux)
+    local target_mode="dark" # Default theme mode is dark
 
     # No mode flag. Default usage
     if [[ "$#" -eq 0 ]]; then
@@ -258,10 +259,9 @@ main() {
     fi
 
     os_toggle
-    vim_sessions_toggle
     alacritty_toggle
-    rofi_toggle   # Run only for linux
-    chrome_toggle # Run only for linux
+    tmux_toggle
+    nvim_toggle
 
     echo "Switched to ${target_mode} mode"
 }
