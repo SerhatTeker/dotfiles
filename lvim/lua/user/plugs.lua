@@ -155,8 +155,18 @@ lvim.plugins = {
     --
     -- ## Colorschemes
     { "SerhatTeker/neodarker.nvim" },
-    { "ellisonleao/gruvbox.nvim" },
-    { 'navarasu/onedark.nvim' },    -- alternative onedark
+    {
+        "ellisonleao/gruvbox.nvim",
+        priority = 1000, -- make sure to load this before all the other start plugins
+        config = function()
+            -- change_background()
+            require("gruvbox").setup({
+                contrast = "hard"
+            })
+            -- vim.cmd([[colorscheme gruvbox]])
+        end,
+    },
+    { 'navarasu/onedark.nvim' }, -- alternative onedark
     { "Mofiqul/vscode.nvim" },
     -- ## Harpoon
     { "ThePrimeagen/harpoon" },

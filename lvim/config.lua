@@ -3,7 +3,7 @@ require("user.options")
 require("user.commands")
 require("user.mappings")
 require("user.plugs")
--- require("user.theme").setup()
+require("user.theme").setup()
 -- Plugins Core
 require("user.plugins.bufferline")
 require("user.plugins.fugitive")

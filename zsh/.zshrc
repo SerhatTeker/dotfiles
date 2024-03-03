@@ -343,7 +343,7 @@ fi
 #
 # Useful shorthand environment variables
 
-_date_cmd() {
+_get_date_cmd() {
     local date_cmd=date
 
     # macos default bins are crap
@@ -360,35 +360,35 @@ _date_cmd() {
     echo "${date_cmd}"
 }
 
+date_cmd=$(_get_date_cmd)
+
 _get_wnum() {
-    local date_cmd=$(_date_cmd)
-    local WNUM=$($date_cmd +%U)
-    WNUM=$((WNUM + 1))
-    if [[ $WNUM -gt 52 ]]; then
-        WNUM=1
+    local wnum=$($date_cmd +%U)
+    if [[ $wnum -gt 52 ]]; then
+        wnum=1
     fi
 
-    printf "%02d" "${WNUM}"
+    printf "%02d" "${wnum}"
 }
 
 _get_ynum() {
-    local date_cmd=$(_date_cmd)
-
-    local WNUM=$($_get_wnum)
-    local YNUM="$($date_cmd +%y)"
-    if [[ $WNUM -gt 52 ]]; then
-		YNUM=$((YNUM + 1))
+    local wnum=$($_get_wnum)
+    local ynum="$($date_cmd +%y)"
+    if [[ $ynum -gt 52 ]]; then
+		YNUM=$((ynum + 1))
     fi
 
-    printf "%02d" "${YNUM}"
+    printf "%02d" "${ynum}"
 }
-
+#
 # TODO: Use these vars and remove repetitive func/vars in other files, e.g. functions
 #
 # Week and year number
 export WNUM=$(_get_wnum)
 export YNUM=$(_get_ynum)
 # Week day number
-export WDAYNUM="$(printf "%02d" $(date +%w))"
+export WDAYNUM=$(printf "%02d" "${wdaynum}")
+# Unix times
+export UNIX_MILISEC=$($date_cmd +%s)
 # }}}2
 # }}}1
