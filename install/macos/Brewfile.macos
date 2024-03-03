@@ -29,6 +29,7 @@ brew "kustomize"
 brew "kubectx"
 brew "less"
 brew "ncurses"
+brew "nvr"                      # Neovim remote. Control nvim processes using `nvr` command-line tool.
 brew "postgresql"               # no native M1 psycopg2 binary yet.
 brew "telnet"
 brew "terraform"

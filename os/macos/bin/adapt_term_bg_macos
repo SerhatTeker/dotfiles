@@ -32,33 +32,23 @@
 # Privacy & Security > Accessibility
 # =================================================================================================
 
-# Send AdaptGlobalTheme Signal to all nvim instances in all tmux sessions
-vim_sessions_toggle() {
-    local tmux_bin="${HOME}/.homebrew/bin/tmux"   # plist not accepting relative paths
-    local is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
-        | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+nvim_toggle() {
+    local nvr_bin=$(command -v nvr)
+    local server_list=$($nvr_bin --serverlist)
 
-    local is_lvim="ps -o state= -o comm= -t '#{pane_tty}' \
-        | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?vim?x?)(diff)?$'"
-
-    for session in $(tmux list-sessions -F '#S'); do
-        for window in $(tmux list-windows -t "${session}"  -F '#{window_index}'); do
-            for pane in $(tmux list-panes -t "${session}:${window}" -F '#P'); do
-                local pix="${session}:${window}.${pane}"
-
-                ${tmux_bin} if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} escape ENTER"
-                ${tmux_bin} if-shell -t "${pix}" "${is_vim}" "send-keys -t ${pix} ':AdaptGlobalTheme' ENTER"
-
-                ${tmux_bin} if-shell -t "${pix}" "${is_lvim}" "send-keys -t ${pix} escape ENTER"
-                ${tmux_bin} if-shell -t "${pix}" "${is_lvim}" "send-keys -t ${pix} ':AdaptGlobalTheme' ENTER"
-            done
-        done
+    for addr in ${server_list}; do
+        if [[ ${target_mode} =~ "light" ]]; then
+            ${nvr_bin} --servername "${addr}" -c "set background=light"
+            ${nvr_bin} --servername "${addr}" -c "AdaptGlobalTheme"
+        else
+            ${nvr_bin} --servername "${addr}" -c "AdaptGlobalTheme"
+        fi
     done
 }
 
 alacritty_toggle() {
     local theme_path_main="${HOME}/dotfiles/alacritty/colors"
-    local sed_bin=${HOME}/.homebrew/bin/gsed    # macos sed is pain and plist not accepting relative paths
+    local sed_bin=${HOME}/.homebrew/bin/gsed # macos sed is pain and plist not accepting relative paths
 
     # Not using gruvbox now, but possible in future.
     if [[ ${target_mode} =~ "light" ]]; then
@@ -71,8 +61,8 @@ alacritty_toggle() {
 }
 
 tmux_toggle() {
-    local tmux_bin="${HOME}/.homebrew/bin/tmux"   # plist not accepting relative paths
-    local sed_bin=${HOME}/.homebrew/bin/gsed    # macos sed is pain and plist not accepting relative paths
+    local tmux_bin="${HOME}/.homebrew/bin/tmux" # plist not accepting relative paths
+    local sed_bin="${HOME}/.homebrew/bin/gsed"    # macos sed is pain and plist not accepting relative paths
 
     local file="${HOME}/dotfiles/tmux/tmux.conf"
 
@@ -85,7 +75,6 @@ tmux_toggle() {
     ${tmux_bin} source "${file}"
 }
 
-
 main() {
     theme_mode="$(defaults read -g AppleInterfaceStyle)"
     if [[ ${theme_mode} =~ "Dark" ]]; then
@@ -96,7 +85,7 @@ main() {
 
     alacritty_toggle
     tmux_toggle
-    vim_sessions_toggle
+    nvim_toggle
 
     echo "Adapted to ${target_mode} mode"
 }

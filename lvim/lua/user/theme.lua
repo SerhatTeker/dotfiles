@@ -35,7 +35,6 @@ function M.change_background()
         vim.o.background = "light"
     end
 end
-
 -- }}}
 
 function M.setup()
@@ -53,16 +52,6 @@ function M.setup()
     --     callback = M.change_background,
     --     -- command = "AdaptGlobalTheme",
     -- })
-
-    -- -- Create a new signal handler
-    -- local uv = vim.uv
-    -- local signal = uv.new_signal()
-    -- -- Define a handler function
-    -- uv.signal_start(signal, "sigint", function(signal)
-    --   print("got " .. signal .. ", shutting down")
-    --     M.change_background()
-    --   os.exit(1)
-    -- end)
 end
 
 return M
