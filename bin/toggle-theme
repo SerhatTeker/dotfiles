@@ -22,7 +22,7 @@
 # Descrtiption          : Toggle theme mode on Ubuntu 22.04 LTS and MacOS Monterey 12
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2023-02-19T00:25:26+0300 | 1676755526
+# Last Modified Date    : 2024-03-03T12:22:44+03:00 | 1709457764
 # Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
 # and using on Ubuntu 22.04 LTS and MacOS Monterey 12.
 # Usage                 : $ ./toggle-theme
@@ -72,7 +72,7 @@ vim_sessions_toggle() {
 alacritty_toggle() {
     local theme_path="${HOME}/dotfiles/alacritty/colors"
 
-    # Not using gruvbox now, but possible in future.
+    # Rotating between gruvbox and one
     if [[ ${target_mode} =~ "light" ]]; then
         ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path}/one.yml"
         ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path}/gruvbox.yml"
@@ -82,6 +82,18 @@ alacritty_toggle() {
     fi
 }
 
+tmux_toggle() {
+    local file="${HOME}/dotfiles/tmux/tmux.conf"
+
+    if [[ ${target_mode} =~ "light" ]]; then
+        ${sed_bin} -i 's/dark.conf/light.conf/g' "${file}"
+    else
+        ${sed_bin} -i 's/light.conf/dark.conf/g' "${file}"
+    fi
+
+    ${tmux_bin} source "${file}"
+}
+
 # i3 rofi
 rofi_toggle() {
     local file="${XDG_CONFIG_HOME}/rofi/config.rasi"
@@ -89,7 +101,7 @@ rofi_toggle() {
     # only for linux
     is_linux || return
 
-    # Not using gruvbox now, but possible in future.
+    # Rotating between gruvbox and one
     if [[ ${target_mode} =~ "light" ]]; then
         ${sed_bin} -i 's/gruvbox-dark/gruvbox-light/g' "${file}"
     else
@@ -230,6 +242,7 @@ error_arg() {
 
 main() {
     local sed_bin=$(command -v gsed || command -v sed) # MacOS sed is pain, use gsed
+    local tmux_bin=$(command -v tmux)
     local target_mode="dark"                           # Default theme mode is dark
 
     # No mode flag. Default usage
@@ -260,6 +273,7 @@ main() {
     os_toggle
     vim_sessions_toggle
     alacritty_toggle
+    tmux_toggle
     rofi_toggle   # Run only for linux
     chrome_toggle # Run only for linux
 

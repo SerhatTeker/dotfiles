@@ -70,6 +70,22 @@ alacritty_toggle() {
     fi
 }
 
+tmux_toggle() {
+    local tmux_bin="${HOME}/.homebrew/bin/tmux"   # plist not accepting relative paths
+    local sed_bin=${HOME}/.homebrew/bin/gsed    # macos sed is pain and plist not accepting relative paths
+
+    local file="${HOME}/dotfiles/tmux/tmux.conf"
+
+    if [[ ${target_mode} =~ "light" ]]; then
+        ${sed_bin} -i 's/dark.conf/light.conf/g' "${file}"
+    else
+        ${sed_bin} -i 's/light.conf/dark.conf/g' "${file}"
+    fi
+
+    ${tmux_bin} source "${file}"
+}
+
+
 main() {
     theme_mode="$(defaults read -g AppleInterfaceStyle)"
     if [[ ${theme_mode} =~ "Dark" ]]; then
@@ -79,6 +95,7 @@ main() {
     fi
 
     alacritty_toggle
+    tmux_toggle
     vim_sessions_toggle
 
     echo "Adapted to ${target_mode} mode"
