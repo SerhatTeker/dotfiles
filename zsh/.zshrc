@@ -387,7 +387,7 @@ _get_ynum() {
 export WNUM=$(_get_wnum)
 export YNUM=$(_get_ynum)
 # Week day number
-export WDAYNUM=$(printf "%02d" "${wdaynum}")
+export WDAYNUM=$(printf "%02d" $($date_cmd +%w))
 # Unix times
 export UNIX_MILISEC=$($date_cmd +%s)
 # }}}2
