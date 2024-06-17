@@ -15,6 +15,7 @@ ts.ensure_installed = {
     "json",
     "lua",
     "markdown", -- experimental
+    "markdown_inline",
     "python",
     "rust",
     "typescript",
