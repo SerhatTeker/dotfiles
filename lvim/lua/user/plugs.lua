@@ -290,7 +290,62 @@ lvim.plugins = {
     --         })
     --     end,
     -- },
-
+    -- ### Obsidian
+    {
+        "epwalsh/obsidian.nvim",
+        version = "*", -- recommended, use latest release instead of latest commit
+        lazy = true,
+        -- ft = "markdown",
+        -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+        event = {
+            "BufReadPre " .. vim.fn.expand("$OBSIDIAN") .. "/**.md",
+            "BufNewFile " .. vim.fn.expand("$OBSIDIAN") .. "/**.md",
+        },
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+        opts = {
+            workspaces = {
+                {
+                    name = "main",
+                    path = os.getenv("OBSIDIAN"),
+                },
+            },
+            notes_subdir = "imbox",
+            new_notes_location = "notes_subdir",
+            disable_frontmatter = true,
+            templates = {
+                subdir = "templates",
+                date_format = "%Y-%m-%d",
+                time_format = "%H:%M:%S",
+                -- A map for custom variables, the key should be the variable and the value a function
+                substitutions = {
+                    date_iso = function()
+                        return os.date("%Y-%m-%dT%H:%M:%S%z", os.time())
+                    end,
+                },
+            },
+            -- key mappings, below are the defaults
+            mappings = {
+                -- overrides the 'gf' mapping to work on markdown/wiki links within your vault
+                ["gf"] = {
+                    action = function()
+                        return require("obsidian").util.gf_passthrough()
+                    end,
+                    opts = { noremap = false, expr = true, buffer = true },
+                },
+            },
+            completion = {
+                nvim_cmp = true,
+                min_chars = 2,
+            },
+            -- Optional, determines how certain commands open notes. The valid options are:
+            -- 1. "current" (the default) - to always open in the current window
+            -- 2. "vsplit" - to open in a vertical split if there's not already a vertical split
+            -- 3. "hsplit" - to open in a horizontal split if there's not already a horizontal split
+            open_notes_in = "current",
+        },
+    },
     -- ## AI
     -- ### Github Copilot
     -- {
@@ -342,7 +397,6 @@ lvim.plugins = {
             "nvim-telescope/telescope.nvim"
         }
     },
-
 }
 -- }}}
 -- }}}
