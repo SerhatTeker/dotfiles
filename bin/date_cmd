@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+
+# Check if the OS is macOS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Use gdate if available, otherwise print a warning
+    if command -v gdate &> /dev/null; then
+        gdate "$@"
+    else
+        echo "gdate is not installed. Please install coreutils using 'brew install coreutils'."
+        exit 1
+    fi
+else
+    # Use date for other OS types
+    date "$@"
+fi

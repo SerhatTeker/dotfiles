@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+
+
+main() {
+    printf "%d" "$(date_cmd +%s)"
+}
+
+main

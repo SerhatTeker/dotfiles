@@ -100,7 +100,7 @@ MNAME=$($_date +%b)
 MNAME_UPPER="$(echo $MNAME | tr a-z A-Z)"
 MNUM=$($_date +%m)
 YNUMF=$($_date +%Y)
-QNAME="Q$((($($_date -d "-1 month" +%-m)-1)/3+1 ))"
+QNAME="$(qnum)"
 # }}}
 
 # Manual Test {{{
