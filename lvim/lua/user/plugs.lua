@@ -320,9 +320,15 @@ lvim.plugins = {
                 time_format = "%H:%M:%S",
                 -- A map for custom variables, the key should be the variable and the value a function
                 substitutions = {
-                    date_iso = function()
+                    time_iso = function()
                         return os.date("%Y-%m-%dT%H:%M:%S%z", os.time())
                     end,
+                    date_journal = function()
+                        local cmo = require("user.utils").cmd_output
+
+                        return string.format("y%s:w%s:d%s", cmo("ynum"), cmo("wnum"), cmo("wday"))
+                    end,
+
                 },
             },
             -- key mappings, below are the defaults
