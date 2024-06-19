@@ -16,4 +16,5 @@
 
 
 # date -Iseconds        # not working on macos
-date '+%Y-%m-%dT%H:%M:%S%z'
+# date '+%Y-%m-%dT%H:%M:%S%z'
+gdate -Iseconds

@@ -343,52 +343,14 @@ fi
 #
 # Useful shorthand environment variables
 
-_get_date_cmd() {
-    local date_cmd=date
-
-    # macos default bins are crap
-    if [[ "${OSTYPE}" == "darwin"* ]]; then
-        date_cmd=gdate
-    fi
-
-    # Robustly check for command availability
-    if ! command -v "${date_cmd}" >/dev/null 2>&1; then
-        echo "Error: '${date_cmd}' command not found. Please install it or adjust the script."
-        exit 1
-    fi
-
-    echo "${date_cmd}"
-}
-
-date_cmd=$(_get_date_cmd)
-
-_get_wnum() {
-    local wnum=$($date_cmd +%U)
-    if [[ $wnum -gt 52 ]]; then
-        wnum=1
-    fi
-
-    printf "%02d" "${wnum}"
-}
-
-_get_ynum() {
-    local wnum=$($_get_wnum)
-    local ynum="$($date_cmd +%y)"
-    if [[ $ynum -gt 52 ]]; then
-		YNUM=$((ynum + 1))
-    fi
-
-    printf "%02d" "${ynum}"
-}
-#
 # TODO: Use these vars and remove repetitive func/vars in other files, e.g. functions
 #
 # Week and year number
-export WNUM=$(_get_wnum)
-export YNUM=$(_get_ynum)
+export WNUM=$(wnum)
+export YNUM=$(ynum)
 # Week day number
-export WDAYNUM=$(printf "%02d" $($date_cmd +%w))
+export WDAYNUM=$(wday)
 # Unix times
-export UNIX_MILISEC=$($date_cmd +%s)
+export UNIX_MILISEC=$(timestamp)
 # }}}2
 # }}}1
