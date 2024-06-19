@@ -1,5 +1,22 @@
 local M = {}
 
+
+-- Executes a shell command and captures its output.
+--
+-- @param cmd (string): The shell command to execute.
+-- @returns (string or nil): The captured output of the command as a string,
+--   or nil if the command failed to execute or the handle could not be created.
+function M.cmd_output(cmd)
+    local handle = io.popen(cmd)
+    if handle then
+        local result = handle:read("*a")
+        handle:close()
+        return result
+    end
+
+    return nil
+end
+
 function M.load_options(options)
     for k, v in pairs(options) do
         vim.opt[k] = v
