@@ -185,11 +185,13 @@ lvim.plugins = {
     -- INFO: Disabled, not working with sessions
     -- https://github.com/sunjon/Shade.nvim/issues/2
     -- { "sunjon/shade.nvim" },
-    -- ## SymbolsOutline
+    --
+    -- ## Symbols Outline
     {
-        "simrat39/symbols-outline.nvim",
-        config = default_config("symbols-outline"),
-        -- https://github.com/simrat39/symbols-outline.nvim?tab=readme-ov-file#default-keymaps
+        "hedyhli/outline.nvim",
+        lazy = true,
+        cmd = { "Outline", "OutlineOpen" },
+        opts = {},
     },
     -- ## Color highlighter colorizer
     {
