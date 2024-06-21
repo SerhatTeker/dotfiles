@@ -38,8 +38,8 @@ wk.mappings["f"] = { require("lvim.lsp.utils").format, "Format" }
 wk.mappings["D"] = { cmd("Trouble document_diagnostics"), "Diagnostics" }
 -- }}}
 
--- ## SymbolsOutline
-wk.mappings["o"] = { cmd("SymbolsOutline"), "Outline" }
+-- ## Symbols Outline
+wk.mappings["o"] = { cmd("Outline"), "Outline" }
 
 -- ## Helps
 wk.mappings["h"] = { cmd("Telescope help_tags"), "Help" }
