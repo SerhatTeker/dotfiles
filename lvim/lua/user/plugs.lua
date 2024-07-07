@@ -405,6 +405,60 @@ lvim.plugins = {
             "nvim-telescope/telescope.nvim"
         }
     },
+    -- ## Folding
+    {
+        "kevinhwang91/nvim-ufo",
+        dependencies = {
+            "kevinhwang91/promise-async",
+            -- @NOTE: need neovim 0.10.0
+            --
+            -- "luukvbaal/statuscol.nvim",
+            -- opts = function()
+            --     local builtin = require("statuscol.builtin")
+            --     return {
+            --         setopt = true,
+            --         -- override the default list of segments with:
+            --         -- number-less fold indicator, then signs, then line number & separator
+            --         segments = {
+            --             { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+            --             { text = { "%s" },             click = "v:lua.ScSa" },
+            --             {
+            --                 text = { builtin.lnumfunc, " " },
+            --                 condition = { true, builtin.not_empty },
+            --                 click = "v:lua.ScLa",
+            --             },
+            --         },
+            --     }
+            -- end,
+        },
+        event = "BufReadPost",
+        opts = {
+            close_fold_kinds_for_ft = { "imports", "comment" },
+            provider_selector = function(bufnr, filetype, buftype)
+                return { "treesitter", "indent" }
+            end
+        },
+        init = function()
+            -- opts.
+            -- override default ones from options.
+            vim.o.foldcolumn = "1" -- '0' is not bad
+            vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+            vim.o.foldlevelstart = 99
+            vim.o.foldenable = true
+            -- mappigs
+            vim.keymap.set("n", "zR", function()
+                require("ufo").openAllFolds()
+            end)
+            vim.keymap.set("n", "zM", function()
+                require("ufo").closeAllFolds()
+            end)
+        end,
+    },
+    -- Folding preview, by default h and l keys are used.
+    -- On first press of h key, when cursor is on a closed fold, the preview will be shown.
+    -- On second press the preview will be closed and fold will be opened.
+    -- When preview is opened, the l key will close it and open fold. In all other cases these keys will work as usual.
+    { "anuvyklack/fold-preview.nvim", dependencies = "anuvyklack/keymap-amend.nvim", config = true },
 }
 -- }}}
 -- }}}
