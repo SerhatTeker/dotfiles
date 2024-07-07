@@ -6,6 +6,18 @@ function M.init_gruvbox()
     lvim.colorscheme = "gruvbox"
 end
 
+function M.init_neodarker()
+    lvim.colorscheme = "neodarker"
+end
+
+function M.init_onedark()
+    lvim.colorscheme = "onedark"
+    require("onedark").setup {
+        style = "darker"
+    }
+    require("onedark").load()
+end
+
 function M.change_background()
     if vim.fn.has("unix") ~= 1 then
         vim.notify("OS should bu UNIX", vim.log.levels.ERROR, { title = "OS Type Error" })
@@ -39,6 +51,8 @@ end
 
 function M.setup()
     M.init_gruvbox()
+    -- M.init_neodarker()
+    -- M.init_onedark()
 
     --  initiate in the beginning
     M.change_background()
