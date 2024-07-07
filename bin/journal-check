@@ -66,128 +66,53 @@ set -o pipefail
 # %Z     alphabetic time zone abbreviation (e.g., EDT)
 # }}}
 
-# TODO: Find a better way
-# is_macos bin/base
-if is_macos;then
-    _date=gdate
-    _sed=gsed
-else
-    _date=date
-    _sed=sed
-fi
-
-# Robustly check for command availability
-# date
-if ! command -v "${_date}" >/dev/null 2>&1; then
-    echo "Error: '${_date}' command not found. Please install it or adjust the script."
-    exit 1
-fi
-# sed
-if ! command -v "${_sed}" >/dev/null 2>&1; then
-    echo "Error: '${_sed}' command not found. Please install it or adjust the script."
-    exit 1
-fi
 
 # Variables {{{
 
 # TODO: Use FIRST_SUN as $DATE
 # Dates
-DATE=$($_date '+%Y-%m-%d')
+DATE=$(date_cmd +%Y-%m-%d)
 ## nums
-DAY=$($_date +%d)
-MNAME=$($_date +%b)
+DAY=$(date_cmd +%d)
+MNAME=$(date_cmd +%b)
 # # MNAME_UPPER="$(echo $MNAME | tr [a-z] [A-Z])"
-MNAME_UPPER="$(echo $MNAME | tr a-z A-Z)"
-MNUM=$($_date +%m)
-YNUMF=$($_date +%Y)
+MNAME_UPPER="$(echo "${MNAME}" | tr a-z A-Z)"
+MNUM=$(date_cmd +%m)
+YNUMF=$(date_cmd +%Y)
 QNAME="$(qnum)"
-# }}}
-
-# Manual Test {{{
-
-_test_base() {
-	TEST_DATE=2019-03-04
-	# DATE=$TEST_DATE
-
-    DRAFT="$JOURNAL/content/journal/draft.md"
-    FILENAME="$JOURNAL/content/journal/$YNUMF/m$MNUM/w$WNUM.md"
-    WFILE="$(find "$JOURNAL" -wholename $FILENAME)"
-
-	if [[ -e "$WFILE" ]]; then
-		echo "$WFILE exists"
-    else
-		echo "$WFILE NOT exists"
-    fi
-
-	echo "FILENAME: $FILENAME"
-	echo "WFILE: $WFILE"
-}
-
-# Journal specific
-_test_journal() {
-    FIRST_SUN=$($_date +%y-%m-%d)
-    # check today is sunday
-    if [[ $($_date +%w -d $DATE) -gt 0 ]]; then
-        # FIRST_SUN=$($_date +%y-%m-%d -d "last sunday")
-        FIRST_SUN=$($_date +%y-%m-%d -d "$DATE -$($_date -d $DATE +%u) days")
-    fi
-
-    # $_date to change
-    ## 11 Jan | Sun | 0
-    CDATE=2021-01-11
-
-    for i in {0..6}
-    do
-        NEXT_DATE=$($_date "+%d %b" -d "$FIRST_SUN + $i day")
-        NEXT_CDATE=$($_date "+%d %b" -d "$CDATE + $i day")
-        echo "s/$NEXT_CDATE/$NEXT_DATE/" $FILENAME
-    done
-}
-
-# test $_date
-_test_date_cmd() {
-    DATE=$($_date '+%Y-%m-%d')
-    echo $DATE
-}
-
-
-_test() {
-    _test_base
-    # _test_journal
-    # _test_date_cmd
-}
 # }}}
 
 # Main {{{
 
+# TODO: Merge journal and journal-todo funcs
 journal() {
     DRAFT="$JOURNAL/content/journal/draft.md"
-    FILENAME="$JOURNAL/content/journal/$YNUMF/m$MNUM/w$WNUM.md"
-    WFILE="$(find "$JOURNAL" -wholename $FILENAME)"
+    FILENAME="$JOURNAL/content/journal/${YNUMF}/m${MNUM}/w${WNUM}.md"
+    WFILE="$(find "${JOURNAL}" -wholename "$FILENAME")"
 
-	if [[ ! -e "$WFILE" ]]; then
-		if [ ! -f $FILENAME ]; then
-			mkdir -p "$JOURNAL/content/journal/$YNUMF/m$MNUM/"
-			touch $FILENAME
-			echo "$FILENAME created"
+	if [[ ! -e "${WFILE}" ]]; then
+		if [ ! -f "${FILENAME}" ]; then
+			mkdir -p "${JOURNAL}/content/journal/${YNUMF}/m${MNUM}/"
+			touch "${FILENAME}"
+			echo "${FILENAME} created"
 		fi
 
 	    # copy draft.md to $FILENAME
-	    cat "$DRAFT" > $FILENAME
+	    cat "${DRAFT}" > "${FILENAME}"
 	    # replace with current $_date and times
-	    $_sed -i "s/2021-01-01/$YNUMF-$MNUM-$DAY/" $FILENAME
-	    $_sed -i "s/w01/w$WNUM/" $FILENAME
-	    $_sed -i "s/JAN/$MNAME_UPPER/" $FILENAME
-	    $_sed -i "s/Q1/$QNAME/" $FILENAME
-	    $_sed -i "s/21/$YNUM/" $FILENAME
-	    $_sed -i 's/2021/'$YNUMF'/' $FILENAME
-	    $_sed -i "s/draft: true/draft: false/" $FILENAME
+	    sed_cmd -i "s/2021-01-01/${YNUMF}-${MNUM}-${DAY}/" "${FILENAME}"
+	    sed_cmd -i "s/w01/w${WNUM}/" "${FILENAME}"
+	    sed_cmd -i "s/JAN/${MNAME_UPPER}/" "$FILENAME"
+	    sed_cmd -i "s/Q1/${QNAME}/" "$FILENAME"
+	    sed_cmd -i "s/21/${YNUM}/" "$FILENAME"
+	    sed_cmd -i 's/2021/'${YNUMF}'/' "$FILENAME"
+	    sed_cmd -i "s/draft: true/draft: false/" "$FILENAME"
 
-	    FIRST_SUN=$($_date +%y-%m-%d)
+	    FIRST_SUN=$(date_cmd +%y-%m-%d)
 	    # check today is sunday
-	    if [[ $($_date +%w -d $DATE) -gt 0 ]]; then
+	    if [[ $(date_cmd +%w -d "${DATE}") -gt 0 ]]; then
 		    # FIRST_SUN=$($_date +%y-%m-%d -d "last sunday")
-		    FIRST_SUN=$($_date +%y-%m-%d -d "$DATE -$($_date -d $DATE +%u) days")
+		    FIRST_SUN=$(date_cmd +%y-%m-%d -d "$DATE -$(date_cmd -d $DATE +%u) days")
 	    fi
 
 	    # date to change
@@ -196,10 +121,12 @@ journal() {
 
 	    for i in {0..6}
 	    do
-		    NEXT_DATE=$($_date "+%d %b" -d "$FIRST_SUN + $i day")
-		    NEXT_CDATE=$($_date "+%d %b" -d "$CDATE + $i day")
-		    $_sed -i "s/$NEXT_CDATE/$NEXT_DATE/" $FILENAME
+		    NEXT_DATE=$(date_cmd "+%d %b" -d "$FIRST_SUN + $i day")
+		    NEXT_CDATE=$(date_cmd "+%d %b" -d "$CDATE + $i day")
+		    sed_cmd -i "s/$NEXT_CDATE/$NEXT_DATE/" $FILENAME
 	    done
+    else
+        echo "${FILENAME} already exists!"
     fi
 }
 
@@ -209,22 +136,24 @@ journal-todo() {
     WFILE="$(find "$JOURNAL" -wholename $FILENAME)"
 
 	if [[ ! -e "$WFILE" ]]; then
-		if [ ! -f $FILENAME ]; then
-			mkdir -p "$JOURNAL/content/journal/$YNUMF/m$MNUM/"
-			touch $FILENAME
-			echo "$FILENAME created"
+		if [ ! -f "${FILENAME}" ]; then
+			mkdir -p "${JOURNAL}/content/journal/${YNUMF}/m${MNUM}/"
+			touch "${FILENAME}"
+			echo "${FILENAME} created"
 		fi
 
 	    # copy draft.md to $FILENAME
-	    cat "$DRAFT" > $FILENAME
-	    # replace with current date and times
-	    $_sed -i "s/2021-01-01/$YNUMF-$MNUM-$DAY/" $FILENAME
-	    $_sed -i "s/w01/w$WNUM/" $FILENAME
-	    $_sed -i "s/JAN/$MNAME_UPPER/" $FILENAME
-	    $_sed -i "s/Q1/$QNAME/" $FILENAME
-	    $_sed -i "s/21/$YNUM/" $FILENAME
-	    $_sed -i 's/2021/'$YNUMF'/' $FILENAME
-	    $_sed -i "s/draft: true/draft: false/" $FILENAME
+	    cat "${DRAFT}" > "${FILENAME}"
+	    # replace with current $_date and times
+	    sed_cmd -i "s/2021-01-01/${YNUMF}-${MNUM}-${DAY}/" "${FILENAME}"
+	    sed_cmd -i "s/w01/w${WNUM}/" "${FILENAME}"
+	    sed_cmd -i "s/JAN/${MNAME_UPPER}/" "$FILENAME"
+	    sed_cmd -i "s/Q1/${QNAME}/" "$FILENAME"
+	    sed_cmd -i "s/21/${YNUM}/" "$FILENAME"
+	    sed_cmd -i 's/2021/'${YNUMF}'/' "$FILENAME"
+	    sed_cmd -i "s/draft: true/draft: false/" "$FILENAME"
+    else
+        echo "${FILENAME} already exists!"
     fi
 }
 
