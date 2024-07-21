@@ -7,7 +7,6 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
 # Doc {{{
 
 # -e: Returns true value if file exists.
@@ -66,19 +65,15 @@ set -o pipefail
 # %Z     alphabetic time zone abbreviation (e.g., EDT)
 # }}}
 
-
 # Variables {{{
 
-# TODO: Use FIRST_SUN as $DATE
 # Dates
-DATE=$(date_cmd +%Y-%m-%d)
-## nums
-DAY=$(date_cmd +%d)
-MNAME=$(date_cmd +%b)
+DAY="$(date_cmd +%d)"
+MNAME="$(date_cmd +%b)"
 # # MNAME_UPPER="$(echo $MNAME | tr [a-z] [A-Z])"
 MNAME_UPPER="$(echo "${MNAME}" | tr a-z A-Z)"
-MNUM=$(date_cmd +%m)
-YNUMF=$(date_cmd +%Y)
+MNUM="$(date_cmd +%m)"
+YNUMF="$(date_cmd +%Y)"
 QNAME="$(qnum)"
 # }}}
 
@@ -86,82 +81,53 @@ QNAME="$(qnum)"
 
 # TODO: Merge journal and journal-todo funcs
 journal() {
-    DRAFT="$JOURNAL/content/journal/draft.md"
-    FILENAME="$JOURNAL/content/journal/${YNUMF}/m${MNUM}/w${WNUM}.md"
-    WFILE="$(find "${JOURNAL}" -wholename "$FILENAME")"
-
-	if [[ ! -e "${WFILE}" ]]; then
-		if [ ! -f "${FILENAME}" ]; then
-			mkdir -p "${JOURNAL}/content/journal/${YNUMF}/m${MNUM}/"
-			touch "${FILENAME}"
-			echo "${FILENAME} created"
-		fi
-
-	    # copy draft.md to $FILENAME
-	    cat "${DRAFT}" > "${FILENAME}"
-	    # replace with current $_date and times
-	    sed_cmd -i "s/2021-01-01/${YNUMF}-${MNUM}-${DAY}/" "${FILENAME}"
-	    sed_cmd -i "s/w01/w${WNUM}/" "${FILENAME}"
-	    sed_cmd -i "s/JAN/${MNAME_UPPER}/" "$FILENAME"
-	    sed_cmd -i "s/Q1/${QNAME}/" "$FILENAME"
-	    sed_cmd -i "s/21/${YNUM}/" "$FILENAME"
-	    sed_cmd -i 's/2021/'${YNUMF}'/' "$FILENAME"
-	    sed_cmd -i "s/draft: true/draft: false/" "$FILENAME"
-
-	    FIRST_SUN=$(date_cmd +%y-%m-%d)
-	    # check today is sunday
-	    if [[ $(date_cmd +%w -d "${DATE}") -gt 0 ]]; then
-		    # FIRST_SUN=$($_date +%y-%m-%d -d "last sunday")
-		    FIRST_SUN=$(date_cmd +%y-%m-%d -d "$DATE -$(date_cmd -d $DATE +%u) days")
-	    fi
-
-	    # date to change
-	    ## 11 Jan | Sun | 0
-	    CDATE=2021-01-11
-
-	    for i in {0..6}
-	    do
-		    NEXT_DATE=$(date_cmd "+%d %b" -d "$FIRST_SUN + $i day")
-		    NEXT_CDATE=$(date_cmd "+%d %b" -d "$CDATE + $i day")
-		    sed_cmd -i "s/$NEXT_CDATE/$NEXT_DATE/" $FILENAME
-	    done
+    JOURNAL_PATH="${JOURNAL}/content/journal"
+    if [[ "$1" == "todo" ]]; then
+        DRAFT="${JOURNAL_PATH}/todo_draft.md"
+        FILEPATH="${JOURNAL_PATH}/${YNUMF}/m${MNUM}/w${WNUM}_todo.md"
     else
-        echo "${FILENAME} already exists!"
+        DRAFT="${JOURNAL_PATH}/draft.md"
+        FILEPATH="${JOURNAL_PATH}/${YNUMF}/m${MNUM}/w${WNUM}.md"
     fi
-}
 
-journal-todo() {
-    DRAFT="$JOURNAL/content/journal/todo_draft.md"
-    FILENAME="${JOURNAL}/content/journal/${YNUMF}/m${MNUM}/w${WNUM}_todo.md"
-    WFILE="$(find "$JOURNAL" -wholename $FILENAME)"
+    WFILE="$(find "${JOURNAL}" -wholename "${FILEPATH}")"
+    if [[ ! -e "${WFILE}" ]]; then
+        if [ ! -f "${FILEPATH}" ]; then
+            mkdir -p "${JOURNAL}/content/journal/${YNUMF}/m${MNUM}/"
+            touch "${FILEPATH}"
+            echo "${FILEPATH} created"
+        fi
 
-	if [[ ! -e "$WFILE" ]]; then
-		if [ ! -f "${FILENAME}" ]; then
-			mkdir -p "${JOURNAL}/content/journal/${YNUMF}/m${MNUM}/"
-			touch "${FILENAME}"
-			echo "${FILENAME} created"
-		fi
+        # copy draft.md to $FILENAME
+        cat "${DRAFT}" >"${FILEPATH}"
+        # replace with current $_date and times
+        sed_cmd -i "s/2021-01-01/${YNUMF}-${MNUM}-${DAY}/" "${FILEPATH}"
+        sed_cmd -i "s/w01/w${WNUM}/" "${FILEPATH}"
+        sed_cmd -i "s/JAN/${MNAME_UPPER}/" "$FILEPATH"
+        sed_cmd -i "s/Q1/${QNAME}/" "$FILEPATH"
+        sed_cmd -i "s/21/${YNUM}/" "$FILEPATH"
+        sed_cmd -i 's/2021/'${YNUMF}'/' "$FILEPATH"
+        sed_cmd -i "s/draft: true/draft: false/" "$FILEPATH"
 
-	    # copy draft.md to $FILENAME
-	    cat "${DRAFT}" > "${FILENAME}"
-	    # replace with current $_date and times
-	    sed_cmd -i "s/2021-01-01/${YNUMF}-${MNUM}-${DAY}/" "${FILENAME}"
-	    sed_cmd -i "s/w01/w${WNUM}/" "${FILENAME}"
-	    sed_cmd -i "s/JAN/${MNAME_UPPER}/" "$FILENAME"
-	    sed_cmd -i "s/Q1/${QNAME}/" "$FILENAME"
-	    sed_cmd -i "s/21/${YNUM}/" "$FILENAME"
-	    sed_cmd -i 's/2021/'${YNUMF}'/' "$FILENAME"
-	    sed_cmd -i "s/draft: true/draft: false/" "$FILENAME"
+        FIRST_SUN=$(date_cmd +%y-%m-%d -d "this week sunday")
+        # date to change
+        ## 11 Jan | Sun | 0
+        CDATE=2021-01-11
+
+        for i in {0..6}; do
+            NEXT_DATE=$(date_cmd "+%d %b" -d "${FIRST_SUN} + $i day")
+            NEXT_CDATE=$(date_cmd "+%d %b" -d "${CDATE} + $i day")
+            sed_cmd -i "s/${NEXT_CDATE}/${NEXT_DATE}/" "${FILEPATH}"
+        done
     else
-        echo "${FILENAME} already exists!"
+        echo "${FILEPATH} already exists!"
     fi
 }
 
 main() {
-    journal
-    journal-todo
+    journal "todo"
+    journal "draft"
 }
 # }}}
 
-# _test
 main
