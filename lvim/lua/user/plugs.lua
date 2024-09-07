@@ -161,7 +161,11 @@ lvim.plugins = {
         config = function()
             -- change_background()
             require("gruvbox").setup({
-                contrast = "hard"
+                contrast = "hard",
+                -- invert_tabline = true,
+                overrides = {
+                    TabLineSel = { fg = "#b8bb26", bg = "#b8bb26", reverse = false },
+                },
             })
             -- vim.cmd([[colorscheme gruvbox]])
         end,
@@ -442,7 +446,7 @@ lvim.plugins = {
             -- opts.
             -- override default ones from options.
             vim.o.foldcolumn = "1" -- '0' is not bad
-            vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+            vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
             vim.o.foldlevelstart = 99
             vim.o.foldenable = true
             -- mappigs
