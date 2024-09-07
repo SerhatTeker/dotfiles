@@ -164,7 +164,7 @@ lvim.plugins = {
                 contrast = "hard",
                 -- invert_tabline = true,
                 overrides = {
-                    TabLineSel = { fg = "#b8bb26", bg = "#b8bb26", reverse = false },
+                    TabLineSel = { fg = "#cc241d", bg = "#cc241d", reverse = false },
                 },
             })
             -- vim.cmd([[colorscheme gruvbox]])
