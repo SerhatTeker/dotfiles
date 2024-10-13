@@ -143,7 +143,7 @@ alias dps='docker ps'
 alias dpsa='docker ps -a'
 
 # docker-compose
-alias dcol='docker-compose logs --tail 20'
+alias dcol='docker compose logs --tail 20'
 # }}}
 
 # kubernetes - k8s {{{
