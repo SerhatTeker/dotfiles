@@ -187,23 +187,30 @@ esc = 'mode main'
 [[on-window-detected]]
 if.app-id = 'org.alacritty'
 run = 'move-node-to-workspace 3'
-
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.datagrip'
 run = 'move-node-to-workspace 4'
-
 [[on-window-detected]]
 if.app-id = 'com.postmanlabs.mac'
 run = 'move-node-to-workspace 5'
-
 [[on-window-detected]]
 if.app-id = 'com.electron.dockerdesktop'
 run = 'move-node-to-workspace 7'
-
+# https://github.com/nikitabobko/AeroSpace/issues/20
+# The limitations are:
+# - 'layout floating', 'layout tiling' and 'mode-node-to-workspace' are the only commands that are supported in 'on-window-detected'
+# - 'move-node-to-workspace' must be the latest instruction in the callback (otherwise it's error-prone)
+# - 'move-node-to-workspace' can be mentioned only once in 'run' callback
 [[on-window-detected]]
 if.app-id = 'com.bitwarden.desktop'
-run = 'move-node-to-workspace 8'
-
+run = ['layout floating', 'move-node-to-workspace 8']
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
 run = 'move-node-to-workspace 9'
+
+[[on-window-detected]]
+if.app-id = 'ru.keepcoder.Telegram'
+run = 'layout floating'
+[[on-window-detected]]
+if.app-id = 'net.whatsapp.WhatsApp'
+run = 'layout floating'
