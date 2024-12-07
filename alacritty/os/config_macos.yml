@@ -50,6 +50,7 @@ font:
 use_thin_strokes: true
 
 window:
+  # startup_mode = "Windowed" | "Maximized" | "Fullscreen" | "SimpleFullscreen"
   startup_mode: Fullscreen
   dynamic_title: true
   # Send ESC (\x1b) before characters when alt is pressed.
