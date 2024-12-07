@@ -31,6 +31,7 @@ source "${ROOT}/install/common.sh"
 dot_configs() {
     declare -a arr=(
         "alacritty"
+        "aerospace"
         "bat"
         "git"
         "gh"

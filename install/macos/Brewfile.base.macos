@@ -29,3 +29,4 @@ brew "wget"
 cask "google-chrome"
 cask "iterm2"
 cask "yubico-authenticator"
+cask "nikitabobko/tap/aerospace"  # https://github.com/nikitabobko/AeroSpace
