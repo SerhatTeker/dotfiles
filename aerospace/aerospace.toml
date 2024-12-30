@@ -203,14 +203,14 @@ run = 'move-node-to-workspace 7'
 # - 'move-node-to-workspace' can be mentioned only once in 'run' callback
 [[on-window-detected]]
 if.app-id = 'com.bitwarden.desktop'
-run = ['layout floating', 'move-node-to-workspace 8']
+# run = ['layout floating', 'move-node-to-workspace 8']
+run = move-node-to-workspace 8'
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
 run = 'move-node-to-workspace 9'
-
-[[on-window-detected]]
-if.app-id = 'ru.keepcoder.Telegram'
-run = 'layout floating'
-[[on-window-detected]]
-if.app-id = 'net.whatsapp.WhatsApp'
-run = 'layout floating'
+# [[on-window-detected]]
+# if.app-id = 'ru.keepcoder.Telegram'
+# run = 'layout floating'
+# [[on-window-detected]]
+# if.app-id = 'net.whatsapp.WhatsApp'
+# run = 'layout floating'
