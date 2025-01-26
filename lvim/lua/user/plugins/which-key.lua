@@ -34,7 +34,16 @@ wk.mappings["F"] = nil
 wk.mappings["e"] = nil -- DEBUG: NW
 
 -- lvim.builtin.which_key.mappings["F"] = { require("lvim.core.telescope.custom-finders").find_project_files, "Find File" }
-wk.mappings["f"] = { require("lvim.lsp.utils").format, "Format" }
+
+local function format_with_timeout()
+    require("lvim.lsp.utils").format({ timeout_ms = 2000 })
+end
+
+
+wk.mappings["f"] = {
+    format_with_timeout,
+    "Format",
+}
 wk.mappings["D"] = { cmd("Trouble document_diagnostics"), "Diagnostics" }
 -- }}}
 
@@ -59,7 +68,10 @@ wk.mappings["r"] = { cmd("Telescope lsp_references"), "Refences" }
 wk.mappings["l"] = {
     name = "LSP",
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-    f = { require("lvim.lsp.utils").format, "Format" },
+    f = {
+        format_with_timeout,
+        "Format",
+    },
     i = { "<cmd>LspInfo<cr>", "Info" },
     I = { "<cmd>Mason<cr>", "Mason Info" },
     -- diagnostic
