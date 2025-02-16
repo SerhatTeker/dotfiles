@@ -62,11 +62,13 @@
 
 
 main() {
-    local wnum ynum
+    local wnum wnum_decimal ynum
 
-    wnum=$(wnum)
+    wnum="$(wnum)"
+    wnum_decimal="$((10#$wnum))"
+
     ynum="$(date_cmd +%y)"
-    if [[ "${wnum}" -gt 52 ]]; then
+    if (( wnum_decimal > 52 )); then
 		ynum=$((ynum + 1))
     fi
 
