@@ -67,7 +67,10 @@
 # * %V ISO week number, with Monday as first day of week (01..53)
 main() {
     local wnum
-    wnum=$(date_cmd +%U)
+    wnum=$(date +%U)
+
+    # Remove any leading zeros to ensure decimal interpretation
+    wnum=$(echo $wnum | sed 's/^0*//')
 
     if [[ $wnum -gt 52 ]]; then
         wnum=1

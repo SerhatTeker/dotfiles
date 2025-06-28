@@ -33,7 +33,7 @@ function M.change_background()
         if string.find(theme, "Dark") == nil then -- ^Dark
             bg = "Light"
         end
-    -- Linux
+        -- Linux
     else
         local theme = vim.fn.system("gsettings get org.gnome.desktop.interface gtk-theme")
         if string.find(theme, "light") then -- Yaru-light
@@ -47,6 +47,7 @@ function M.change_background()
         vim.o.background = "light"
     end
 end
+
 -- }}}
 
 function M.setup()
@@ -66,6 +67,11 @@ function M.setup()
     --     callback = M.change_background,
     --     -- command = "AdaptGlobalTheme",
     -- })
+end
+
+function M.setup_new()
+    -- change_background not needed anymore
+    M.init_gruvbox()
 end
 
 return M
