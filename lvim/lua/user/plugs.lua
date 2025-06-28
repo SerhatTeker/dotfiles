@@ -172,6 +172,26 @@ lvim.plugins = {
     },
     { 'navarasu/onedark.nvim' }, -- alternative onedark
     { "Mofiqul/vscode.nvim" },
+    -- -- automatic dark mode
+    -- -- requires: brew install cormacrelf/tap/dark-notify
+    {
+        "cormacrelf/dark-notify",
+        commit = "dcc39f2d7bbff64b6c3a19b3094f588ff64b4578",
+        config = function()
+            require("dark_notify").run({
+                -- -- Gruvbox
+                schemes = {
+                    dark  = "gruvbox",
+                    light = "gruvbox",
+                },
+                -- -- OneDark
+                -- schemes = {
+                --     dark  = "neodarker",
+                --     light = "onedark",
+                -- },
+            })
+        end,
+    },
     -- ## Harpoon
     { "ThePrimeagen/harpoon" },
     -- ## Trim

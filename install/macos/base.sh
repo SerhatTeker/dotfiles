@@ -40,6 +40,8 @@ session    required       pam_permit.so
 EOF
 }
 
+# NOTE: not needed anymore
+# ghostty and 'cormacrelf/dark-notify'
 dark_mode_notify() {
     ln -sf "${DOTFILES}/os/macos/bin/adapt_term_bg_macos" "${XDG_BIN_HOME}"
 
@@ -76,7 +78,7 @@ main() {
 
     bash "${ROOT}/install/macos/defaults.sh"
     bash "${ROOT}/install/macos/brew.sh"
-    dark_mode_notify
+    # dark_mode_notify  # not needed anymore
     remap_capslock_to_esc
 
     success "Finished base ${OSTYPE}"
