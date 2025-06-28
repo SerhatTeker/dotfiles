@@ -2,7 +2,8 @@
 # macos-titlebar-style = tabs
 # window-save-state = never
 
-theme = light:GruvboxLightHard,dark:GruvboxDarkHard
+# theme = light:GruvboxLightHard,dark:GruvboxDarkHard
+theme = light:OneHalfLight,dark:OneHalfDark
 
 fullscreen = true
 
