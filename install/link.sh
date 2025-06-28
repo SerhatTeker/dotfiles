@@ -34,6 +34,7 @@ dot_configs() {
         "aerospace"
         "bat"
         "git"
+        "ghostty"
         "gh"
         "fd"
         "httpie"
