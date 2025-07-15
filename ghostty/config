@@ -23,8 +23,8 @@ confirm-close-surface = false
 #
 # Theme
 # ----------------------------------------------------------------------------
-# theme = light:GruvboxLightHard,dark:GruvboxDarkHard
-theme = light:AtomLight,dark:Atom
+theme = light:GruvboxLightHard,dark:GruvboxDarkHard
+# theme = light:AtomOneLight,dark:Atom
 # theme = light:OneHalfLight,dark:OneHalfDark
 #
 # Colors
