@@ -1,28 +1,73 @@
+# ----------------------------------------------------------------------------
+# DEFAULT
+# ----------------------------------------------------------------------------
+# https://ghostty.org/docs/config/reference
+# https://gist.github.com/alexjsteffen/867c9688be84de4acacbbf18afe7dab1
+#
+#
+# Generic
+# ----------------------------------------------------------------------------
+window-theme = system
+shell-integration = zsh
+# don't ask when closing
+confirm-close-surface = false
+window-theme = system
+shell-integration = zsh
+fullscreen = true
+auto-update = off
+confirm-close-surface = false
+#
 # macos-non-native-fullscreen = true
 # macos-titlebar-style = tabs
 # window-save-state = never
-
-theme = light:GruvboxLightHard,dark:GruvboxDarkHard
+#
+# Theme
+# ----------------------------------------------------------------------------
+# theme = light:GruvboxLightHard,dark:GruvboxDarkHard
+theme = light:AtomLight,dark:Atom
 # theme = light:OneHalfLight,dark:OneHalfDark
-
-fullscreen = true
-
+#
+# Colors
+# ----------------------------------------------------------------------------
+# https://gist.github.com/alexjsteffen/867c9688be84de4acacbbf18afe7dab1#alpha-blending
+# alpha-blending = native
+alpha-blending = linear
+# alpha-blending = linear-corrected
+#
+# https://gist.github.com/alexjsteffen/867c9688be84de4acacbbf18afe7dab1#window-colorspace
+window-colorspace = srgb
+# window-colorspace = display-p3
+#
+bold-is-bright = true
+#
+# Clipboard
+# ----------------------------------------------------------------------------
+clipboard-read = allow
+clipboard-write = allow
+copy-on-select = false
+clipboard-trim-trailing-spaces = false
+#
+# Cursor
+# ----------------------------------------------------------------------------
 # mouse-hide-while-typing = true
 cursor-style-blink = true
 cursor-style = block
 cursor-color = #ffc600
 # adjust-cursor-thickness = 300%
-
+#
+# Font
+# ----------------------------------------------------------------------------
 font-family = "JetBrainsMono Nerd Font Mono"
+# font-family = "JetBrains Mono"
+# font-family = "Berkeley Mono"
+# font-family = "BerkeleyMono Nerd Font Mono"
+#
 font-size = 13
-
-# don't ask when closing
-confirm-close-surface = false
-
-window-theme = system
-
-shell-integration = zsh
-
+#
+font-feature = -calt, -liga, -dlig
+#
+# Others
+# ----------------------------------------------------------------------------
 # # The opacity level (opposite of transparency) of an unfocused split.
 # # Unfocused splits by default are slightly faded out to make it easier to see
 # # which split is focused. To disable this feature, set this value to 1.
