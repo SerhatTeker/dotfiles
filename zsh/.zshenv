@@ -37,6 +37,10 @@ export XLIB="${XDG_LIB_HOME}"
 # Zsh root
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
+# zsh-autosuggestions highlight
+# https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
+# export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#808080"
+
 # Disable coredumps for systemd
 # https://www.cyberciti.biz/faq/disable-core-dumps-in-linux-with-systemd-sysctl
 ulimit -S -c 0
