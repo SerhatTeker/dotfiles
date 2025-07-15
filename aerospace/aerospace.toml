@@ -206,7 +206,10 @@ run = 'move-node-to-workspace 7'
 # - 'move-node-to-workspace' can be mentioned only once in 'run' callback
 [[on-window-detected]]
 if.app-id = 'com.bitwarden.desktop'
+run = 'move-node-to-workspace 9'
 # run = ['layout floating', 'move-node-to-workspace 8']
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
 run = 'move-node-to-workspace 9'
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
