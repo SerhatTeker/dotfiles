@@ -372,5 +372,8 @@ activate_venv_on_cd() {
 
 autoload -U add-zsh-hook
 add-zsh-hook chpwd activate_venv_on_cd
+
+# Run once on shell startup (handles new Tmux windows/panes)
+activate_venv_on_cd
 # }}}2
 # }}}1
