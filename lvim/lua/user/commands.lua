@@ -10,7 +10,8 @@ vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { forc
 
 -- Git
 -- Changes have been made in your current branch that are not yet in the develop branch
-vim.api.nvim_create_user_command("DiffviewUpstream", "DiffviewOpen upstream/develop...HEAD", { force = true })
+vim.api.nvim_create_user_command("DiffviewUpstream", "DiffviewOpen upstream/master...HEAD", { force = true })
+
 
 -- Lvim Autocommands {{{
 
@@ -25,4 +26,9 @@ lvim.autocommands = {
         },
     },
 }
+-- }}}
+
+-- Private {{{
+
+pcall(require, "user.private")
 -- }}}
