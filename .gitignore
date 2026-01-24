@@ -63,11 +63,14 @@ tmux/resurrect
 
 # Zsh
 .oh-my-zsh
-.private.zsh
+.local.zsh
 .zsh_history
 .zcompdump
 .zcompdump*
-.local.zsh
+
+# Private
+.private.*
+private.*
 
 # GH
 hosts.yml
