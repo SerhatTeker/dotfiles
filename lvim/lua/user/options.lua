@@ -2,7 +2,7 @@
 
 local set = vim.opt -- set options
 
-set.relativenumber = true -- set relative numbered lines
+set.relativenumber = false -- set relative numbered lines
 set.guicursor = "n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor50"
 set.cmdheight = 1
 -- tabs, spaces
@@ -64,5 +64,3 @@ vim.api.nvim_create_user_command(
     end,
     { force = true, nargs = 0 }
 )
-
-
