@@ -185,7 +185,7 @@ fi
 
 # Node npm modules global
 if [ -d "${XDG_LIB_HOME}/node/npm" ] ; then
-    path+=("${XDG_LIB_HOME}/node/npm")
+    path+=("${XDG_LIB_HOME}/node/npm/bin")
 fi
 
 # Python
