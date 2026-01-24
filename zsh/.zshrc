@@ -353,4 +353,27 @@ export WDAYNUM=$(wday)
 # Unix times
 export UNIX_MILISEC=$(timestamp)
 # }}}2
+
+# Hooks {{{2
+#
+# Activate Python venv when entering a directory containing a ".venv" subdirectory
+activate_venv_on_cd() {
+    local venv_dir=".venv"
+    if [[ -d "${PWD}/${venv_dir}" ]]; then
+        # Check if we are already inside this .venv to avoid noise
+        if [[ "$VIRTUAL_ENV" != "${PWD}/${venv_dir}" ]]; then
+            source "${PWD}/${venv_dir}/bin/activate"
+        fi
+    elif [[ -n "$VIRTUAL_ENV" ]]; then
+        # If we are NOT in a .venv folder, but a .venv is active, deactivate it
+        deactivate
+    fi
+}
+
+autoload -U add-zsh-hook
+add-zsh-hook chpwd activate_venv_on_cd
+
+# Run once on shell startup (handles new Tmux windows/panes)
+activate_venv_on_cd
+# }}}2
 # }}}1
