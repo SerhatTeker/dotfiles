@@ -1,3 +1,7 @@
+[user]
+    # TODO: You need to change these
+    # name = YourName
+    # email = youremail@domain.com
 [core]
     editor = nvim
     # Already default. http://git-scm.com/docs/gitignore#_description
