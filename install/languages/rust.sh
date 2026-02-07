@@ -26,21 +26,19 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck disable=1091
 source "${ROOT}/common.sh"
 
-APP="rush"
-
 # Install rust for macOS, Linux, or another Unix-like OS
-_install() {
-    # Disable confirmation and go with Option 1
-    curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
+install() {
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 }
 
+# TODO: Test locally
 main() {
     local _RUST="${HOME}/rust"
     export RUSTUP_HOME="${_RUST}/.rustup"
     export CARGO_HOME="${_RUST}/.cargo"
 
     # Install if not present
-    command_exists cargo -V || _install
+    command_exists cargo -V || install
 
     # check_rights
     "${CARGO_HOME}/.cargo/bin/rustup" override set stable
@@ -48,7 +46,7 @@ main() {
 
     # Ensure install
     command_exists "${CARGO_HOME}/.cargo/bin/cargo" -V &&
-        success "${APP} installed at your system"
+        success "Rust installed at your system"
 }
 
-main "$@"
+main
