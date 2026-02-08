@@ -26,16 +26,29 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck disable=1091
 source "${ROOT}/common.sh"
 
+RUST_HOME="${HOME}/rust"
+
 # Install rust for macOS, Linux, or another Unix-like OS
 install() {
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    mkdir -p "${RUSTUP_HOME}"
+    # https://rust-lang.org/tools/install/
+    # no-interactive: continue without user prompt
+    # 1) Proceed with standard installation (default - just press enter)
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+    # default command
+    # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 }
 
-# TODO: Test locally
+# in case of need
+_uninstall() {
+    rustup self uninstall
+    rm -rf $"{RUSTUP_HOME}"
+}
+
 main() {
-    local _RUST="${HOME}/rust"
-    export RUSTUP_HOME="${_RUST}/.rustup"
-    export CARGO_HOME="${_RUST}/.cargo"
+    export RUSTUP_HOME="${RUST_HOME}/.rustup"
+    export CARGO_HOME="${RUST_HOME}/.cargo"
 
     # Install if not present
     command_exists cargo -V || install
