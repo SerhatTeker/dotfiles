@@ -29,6 +29,7 @@ brew "tree"
 # brew "watch"
 brew "wget"
 # Cask
+cask ghostty
 # cask "google-chrome"
 # cask "iterm2"
 # cask "yubico-authenticator"

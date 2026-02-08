@@ -14,6 +14,22 @@ set -o pipefail
 # Preferred language : English US (primary)
 # Security : Enable firewall except SSH
 
+# INFO: Not using since not working inside tmux
+# Enable Touch ID for sudo
+# Separate pam module needed for tmux
+# https://github.com/fabianishere/pam_reattach
+touch_id_sudo() {
+    sudo tee /etc/pam.d/sudo &>/dev/null <<EOF
+# sudo: auth account password session
+auth       sufficient     pam_tid.so
+auth       sufficient     pam_smartcard.so
+auth       required       pam_opendirectory.so
+account    required       pam_permit.so
+password   required       pam_deny.so
+session    required       pam_permit.so
+EOF
+}
+
 # Dock
 dock() {
     # Autohide the Dock when the mouse is out
@@ -122,4 +138,4 @@ main() {
     see_changes
 }
 
-main "$@"
+main

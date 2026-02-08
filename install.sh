@@ -24,13 +24,39 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck disable=1091
 source "${ROOT}/dotfiles/install/common.sh"
 
-# TODO: Add base/full separation
-main() {
-    info "Started installation"
 
-    bash "${ROOT}/install/base.sh"
+main_scripts() {
+    # Run Install scripts
+    declare -a installs=(
+        "defaults"
+        "brew"
+        "zsh"
+        "link"
+        "tmux"
+        "languages/python"
+        "languages/rust"
+        # "languages/node"
+        "nvchad"
+        "fonts"
+    )
+
+    for install in "${installs[@]}"; do
+        bash "${ROOT}/install/${install}.sh"
+    done
+}
+
+main() {
+    info "Install started"
+
+    sudo -v # Get sudo beforehand
+    main_scripts
+    install_dark_notify
+
+    # TODO: Move to main brew file
+    # https://github.com/cormacrelf/dark-notify
+    brew install cormacrelf/tap/dark-notify
 
     success "Finished installation. Go build something!"
 }
 
-main
+main "${@}"
