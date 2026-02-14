@@ -25,21 +25,21 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "${ROOT}/install/common.sh"
 
 install_tmux() {
-    check_dep brew
     brew install tmux
 }
 
-plugins() {
-    local target="${XDG_DATA_HOME}/tmux/plugins"
+install_plugins() {
+    local tmux_plugins_dir="${XDG_DATA_HOME}/tmux/plugins"
 
-    mkdir -p "${target}"
-    git clone https://github.com/tmux-plugins/tpm "${target}/tpm"
+    [ -d "${tmux_plugins_dir}" ] && rm -rf "${tmux_plugins_dir}"
+    mkdir -p "${tmux_plugins_dir}"
+    git clone https://github.com/tmux-plugins/tpm "${tmux_plugins_dir}/tpm"
 }
 
 main() {
     install_tmux
     force_remove "${DOTFILES}/tmux" "${XDG_CONFIG_HOME}/tmux"
-    plugins
+    install_plugins
 
     success "tmux and tpm installed."
 }
