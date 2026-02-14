@@ -15,7 +15,7 @@ set -o pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # shellcheck disable=1091
-source "${ROOT}/common.sh"
+source "${ROOT}/install/common.sh"
 
 install_brew() {
     # If brew presents
@@ -38,9 +38,6 @@ install_brew() {
 
     # close analytics
     brew analytics off
-
-    # install cask
-    brew install cask
 }
 
 brew_bundle_base() {
