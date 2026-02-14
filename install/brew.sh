@@ -41,7 +41,7 @@ install_brew() {
 }
 
 brew_bundle_base() {
-    brew bundle install --file="${ROOT}/install/brews/Brewfile.base.macos"
+    brew bundle install --file="${ROOT}/install/brews/Brewfile.base"
 }
 
 main() {
