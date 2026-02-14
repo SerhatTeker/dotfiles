@@ -28,73 +28,37 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
-# Reset font cache on Linux
-reset_fc_cache() {
-    if which fc-cache >/dev/null 2>&1; then
-        info "Resetting font cache, this may take a moment..."
-        fc-cache -f -v
-    fi
-}
+
+FONT_DIR="${HOME}/Library/Fonts"
+TMP_DIR="/tmp/dotfiles-fonts"
+
 
 # Copy all fonts to user fonts directory
 copy_fonts() {
     find \
-        "${dir}" \
+        "${TMP_DIR}" \
         \( -name "*.[ot]tf" -or -name "*.pcf.gz" \) \
         -type f -print0 |
-        xargs -0 -n1 -I % cp "%" "${font_dir}/"
-    info "${name} fonts installed to ${font_dir}"
+        xargs -0 -n1 -I % cp "%" "${FONT_DIR}/"
+
+    msg "Fonts copied to ${FONT_DIR}."
 }
-
-install_font() {
-    local name="${1}"
-    local repo="${2}"
-    local dir="/tmp/${1}"
-
-    [ -d ${dir} ] && rm -rf ${dir}
-    git clone ${repo} ${dir} --depth=1
-    copy_fonts
-}
-
-# Separate {{{
-
-powerline_patched() {
-    # for Debian or Ubuntu there should be a package available to install
-    # $ sudo apt-get install fonts-powerline
-    local dir=/tmp/power-line-fonts
-
-    [ -d ${dir} ] && rm -rf ${dir}
-    git clone https://github.com/powerline/fonts.git ${dir} --depth=1
-    ${dir}/install.sh
-}
-
-# Separately
-# INFO: Deprecated: Install fonts separetaley
-main_separate() {
-    install_font "SF-Mono-Nerd-Font" "https://github.com/epk/SF-Mono-Nerd-Font.git"
-    install_font "SF-Mono-Powerline" "https://github.com/Twixes/SF-Mono-Powerline.git"
-    powerline_patched
-}
-# }}}
 
 # All together
-dotfiles_fonts() {
-    install_font "dotfiles-fonts" "https://github.com/SerhatTeker/dotfiles-fonts.git"
+clone_fonts() {
+    local dir="/tmp/dotfiles-fonts"
+
+    [ -d ${TMP_DIR} ] && rm -rf ${TMP_DIR}
+    git clone "dotfiles-fonts" "https://github.com/SerhatTeker/dotfiles-fonts.git" --depth=1
 }
 
 main() {
-    # Use user directory
-    if is_macos; then
-        local font_dir="${HOME}/Library/Fonts"
-    else
-        local font_dir="${XDG_DATA_HOME}/fonts"
-    fi
-    mkdir -p "${font_dir}"
+    mkdir -p "${FONT_DIR}"
 
-    dotfiles_fonts
+    clone_fonts
+    copy_fonts
 
-    reset_fc_cache
-    success "Fonts installed"
+    success "Fonts installed."
 }
 
 main
