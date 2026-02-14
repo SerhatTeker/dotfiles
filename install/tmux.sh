@@ -39,7 +39,8 @@ install_plugins() {
 main() {
     install_tmux
     force_remove "${DOTFILES}/tmux" "${XDG_CONFIG_HOME}/tmux"
-    install_plugins
+    # Not needed, tmux.conf runs this
+    # install_plugins
 
     success "tmux and tpm installed."
 }
