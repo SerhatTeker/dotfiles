@@ -13,8 +13,6 @@
 # Source: https://github.com/SerhatTeker/dotfiles
 #
 # Install and customize nvim
-# Default nvim version is 0.6.1. Pass $NVIM_VERSION variable to overwrite it
-# NVIM_VERSION=0.6.1 bash nvim.sh
 # ----------------------------------------------------------------------------#
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
@@ -28,33 +26,34 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck disable=1091
 source "${ROOT}/install/common.sh"
 
+NVIM_CONFIG_DIR="${HOME}/.config/nvim"
+
+
+
 install_dep() {
-    # Ripgrep
-    check_dep rg
-    # NvChad
+    local RUST_HOME="${HOME}/rust"
+    local CARGO_HOME="${RUST_HOME}/.cargo"
+    local RUSTUP_HOME="${RUST_HOME}/.rustup"
+
+    source "${CARGO_HOME}/env"
+
     cargo install --locked tree-sitter-cli
-    msg "Dependencies installed."
+    info "Dependencies installed."
 }
 
-clone_nvchad() {
-    # TODO: Replace with your configs
-    git clone https://github.com/NvChad/starter ~/.config/nvim && nvim
+link_config() {
+    [ -d "${NVIM_CONFIG_DIR}" ] && rm -rf "${NVIM_CONFIG_DIR}"
+    force_remove "${DOTFILES}/nvchad/improved" "${NVIM_CONFIG_DIR}"
 }
 
 
 main() {
     info "Started NvChad install"
 
-    # If nvim bin already exists quit
-    if command_exists "nvim"; then
-        install_dep
-        clone_nvchad
+    install_dep
+    link_config
 
-        success "NvChad install completed."
-    else
-        error "NvChad not installed, install it first."
-        exit 1
-    fi
+    success "NvChad install completed."
 }
 
 main
