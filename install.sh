@@ -30,11 +30,12 @@ main_scripts() {
     declare -a installs=(
         "defaults"
         "brew"
-        "zsh"
         "link"
+        "zsh"
         "tmux"
         "languages/python"
         "languages/rust"
+        # TODO: Improve and test
         # "languages/node"
         "nvchad"
         "fonts"
@@ -48,13 +49,8 @@ main_scripts() {
 main() {
     info "Install started"
 
-    sudo -v # Get sudo beforehand
+    sudo -v  # Get sudo beforehand
     main_scripts
-    install_dark_notify
-
-    # TODO: Move to main brew file
-    # https://github.com/cormacrelf/dark-notify
-    brew install cormacrelf/tap/dark-notify
 
     success "Finished installation. Go build something!"
 }
