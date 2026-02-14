@@ -82,7 +82,7 @@ export ANSIBLE_CONFIG="${XDG_CONFIG_HOME}/ansible/ansible.cfg"
 
 # Python {{{2
 
-export PYTHON_VERSION="3.8"
+export PYTHON_VERSION="3.9"
 export PYTHON="python${PYTHON_VERSION}"
 
 # Install libs in virtualenv
@@ -91,10 +91,10 @@ export PIP_REQUIRE_VIRTUALENV=true
 # https://docs.python.org/3.8/using/cmdline.html?highlight=pythonpycacheprefix#envvar-PYTHONPYCACHEPREFIX
 export PYTHONPYCACHEPREFIX="${HOME}/.cache/cpython/"
 
-# Use pudb instead of pdb
-export PYTHONBREAKPOINT=pudb.set_trace
-# Alternative: use ipdb instead of pdb
-# export PYTHONBREAKPOINT=ipdb.set_trace
+# Use ipdb
+export PYTHONBREAKPOINT=ipdb.set_trace
+# Alternative: use pudb
+# export PYTHONBREAKPOINT=pudb.set_trace
 
 export IPYTHONDIR="${XDG_CONFIG_HOME}/.ipython"
 # }}}2
@@ -208,8 +208,8 @@ fi
 export RUSTUP_HOME="${HOME}/rust/.rustup"
 export CARGO_HOME="${HOME}/rust/.cargo"
 
-if [ -d "${HOME}/rust/.cargo" ]; then
-    source "${HOME}/rust/.cargo/env"
+if [ -d "${CARGO_HOME}" ]; then
+    source "${CARGO_HOME}/env"
 fi
 
 # Homebrew {{{

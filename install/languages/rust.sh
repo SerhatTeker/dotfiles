@@ -26,29 +26,45 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck disable=1091
 source "${ROOT}/common.sh"
 
-APP="rush"
+RUST_HOME="${HOME}/rust"
+RUSTUP_HOME="${RUST_HOME}/.rustup"
+CARGO_HOME="${RUST_HOME}/.cargo"
+RUSTUP_BIN="${CARGO_HOME}/bin/rustup"
+
+# in case of need
+_uninstall() {
+    # rustup self uninstall
+    rm -rf "${RUST_HOME}"
+}
 
 # Install rust for macOS, Linux, or another Unix-like OS
-_install() {
-    # Disable confirmation and go with Option 1
-    curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh -s -- -y
+install() {
+    mkdir -p "${RUSTUP_HOME}"
+    # https://rust-lang.org/tools/install/
+    # no-interactive: continue without user prompt
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+    # default command
+    # 1) Proceed with standard installation (default - just press enter)
+    # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 }
 
 main() {
-    local _RUST="${HOME}/rust"
-    export RUSTUP_HOME="${_RUST}/.rustup"
-    export CARGO_HOME="${_RUST}/.cargo"
-
     # Install if not present
-    command_exists cargo -V || _install
+    [ ! -d "${RUST_HOME}" ] && install
+
+    source "${CARGO_HOME}/env"
+
+    "${RUSTUP_BIN}" default stable
 
     # check_rights
-    "${CARGO_HOME}/.cargo/bin/rustup" override set stable
-    "${CARGO_HOME}/.cargo/bin/rustup" update stable
+    "${RUSTUP_BIN}" override set stable
+    "${RUSTUP_BIN}" update stable
 
     # Ensure install
-    command_exists "${CARGO_HOME}/.cargo/bin/cargo" -V &&
-        success "${APP} installed at your system"
+    command_exists "${CARGO_HOME}/bin/cargo" -V &&
+        success "Rust installed at your system"
 }
 
-main "$@"
+main
+# _uninstall

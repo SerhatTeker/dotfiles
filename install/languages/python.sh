@@ -27,88 +27,66 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck disable=1091
 source "${ROOT}/common.sh"
 
-# Use default python3 as base. You can choose specific minor versions: VERSION=${PYTHON_VERSION:-3.8}
-VERSION="3"
-PYTHON="python${VERSION}"
-
-# New python installation version
-_INSTALL_PYTHON_VERSION=${INSTALL_PYTHON_VERSION:-3.9.15}
-# INSTALL_URL="https://git.io/JLQFl" # WARNING: Github deprecated git.io
-INSTALL_URL="https://gist.githubusercontent.com/SerhatTeker/7d0fc99d27e9bf1d75b4435a38a89fe9/raw/install-python"
+# Default python version to install is 3.9
+PYTHON_VERSION="${INSTALL_PYTHON_VERSION:-3.9}"
+PYTHON="python${PYTHON_VERSION}"
 
 # Install {{{
 
-# TODO: Run it manually on full.sh
-install_specific_python_version() {
+install_python_version() {
     if command_exists "${PYTHON}"; then
-        info "You have already ${PYTHON}"
+        info "You have already ${PYTHON} installed."
         return
-    fi
-
-    if is_macos; then
-        # Installing on MacOS complicated
-        error "You should install ${PYTHON} on MacOS manually!"
-        exit 1
     else
-        INSTALL_PYTHON_VERSION="${_INSTALL_PYTHON_VERSION}" \
-            wget -O - ${INSTALL_URL} | bash
-
-        success "Python installed!"
-        "${PYTHON}" --version --version
+        msg "installing ${PYTHON}"
+        brew install "python@${PYTHON_VERSION}"
     fi
-}
-
-check_python3() {
-    # NOTE: Use default python3 on the OS.
-    # Skip the function if $PYTHON_VERSION already exists
-    if command_exists python3; then
-        info "You have already ${PYTHON}"
-        return
-    fi
-
-    if is_macos; then
-        # Installing on MacOS complicated
-        error "You should install python3 on MacOS manually!"
-        exit 1
-    fi
-}
-
-install_packages() {
-    # Can't use ensurepip cause it's disabled for Ubuntu
-    # ${PYTHON} -m ensurepip --upgrade
-    # https://pip.pypa.io/en/stable/installation/#ensurepip
-    if is_linux; then
-        sudo apt update -y
-        sudo apt install -y \
-            python3-pip \
-            python3-venv
-        info "Python Linux packages installed"
-    fi
-}
-
-install_requirements() {
-    PIP_REQUIRE_VIRTUALENV=false \
-        ${PYTHON} -m pip install --user \
-        -r "${ROOT}/python/requirements/base.txt"
-
-    success "Global user packages installed"
-}
-
-main_install() {
-    info "Python install started"
-    check_python3
-    install_packages
-    install_requirements
 }
 # }}}
 
 # Configure {{{
 
-# Disable: use rich
-pretty_errors() {
-    local site_dir="$(${PYTHON} -c "import site; print(f'{site.USER_SITE}')")"
-    ln -sf "${ROOT}/python/usercustomize.py" "${site_dir}"
-    msg_cli white "Pretty errors configuration added"
+install_pip() {
+    # 1. Export PYTHONPATH so python knows where Homebrew hid the packages
+    local framework_path="$(brew --prefix "python@${PYTHON_VERSION}")/Frameworks/Python.framework/Versions/${PYTHON_VERSION}"
+
+    # Force python to look in the Frameworks directory
+    export PYTHONPATH="${framework_path}/lib/python${PYTHON_VERSION}/site-packages"
+
+    # Also add the bin folder to PATH so 'pip' command works directly if needed
+    export PATH="${framework_path}/bin:${PATH}"
+
+    # 2. Run the pip checks
+    # Ensure PIP_REQUIRE_VIRTUALENV is disabled for the bootstrap
+    if ! PIP_REQUIRE_VIRTUALENV=false "${PYTHON}" -m pip --version > /dev/null 2>&1; then
+        msg "pip module not found, installing"
+
+        curl -sS https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+
+        PIP_REQUIRE_VIRTUALENV=false \
+            # "${PYTHON}" /tmp/get-pip.py --no-warn-script-location
+            "${PYTHON}" /tmp/get-pip.py
+
+        rm /tmp/get-pip.py
+    else
+        msg "pip already installed."
+    fi
+
+    # 3. Handle the version downgrade/upgrade
+    # local current_pip_version=$(PIP_REQUIRE_VIRTUALENV=false "${PYTHON}" -m pip --version | awk '{print $2}')
+    #
+    # if [ "${current_pip_version}" != "${PIP_VERSION}" ]; then
+    #      msg "Downgrading pip to ${PIP_VERSION}..."
+    #      PIP_REQUIRE_VIRTUALENV=false "${PYTHON}" -m pip install "pip==${PIP_VERSION}"
+    # fi
+}
+
+install_requirements() {
+    PIP_REQUIRE_VIRTUALENV=false \
+        "${PYTHON}" -m pip install --break-system-packages --user \
+        -r "${ROOT}/python/requirements/base.txt"
+
+    msg "Global user packages installed"
 }
 
 rich_traceback() {
@@ -120,17 +98,7 @@ from rich.traceback import install
 install(show_locals=True)
 EOF
 
-    msg_cli white "Rich traceback added" normal
-}
-
-configure_pudb() {
-    local source="${DOTFILES}/python/pudb.cfg"
-    local target="${XDG_CONFIG_HOME}/pudb"
-
-    mkdir -p "${target}"
-    ln -sf "${source}" "${target}"
-
-    msg_cli white "pudb configured" normal
+    msg "Rich traceback added"
 }
 
 configure_ipython() {
@@ -140,21 +108,23 @@ configure_ipython() {
     mkdir -p "${target}"
     ln -sf "${source}" "${target}"
 
-    msg_cli white "ipython configured" normal
-}
-
-main_configure() {
-    info "Python configuration started"
-    rich_traceback
-    configure_pudb
-    configure_ipython
-    success "Python3 configured"
+    msg "ipython configured"
 }
 # }}}
 
-main() {
-    main_install
-    main_configure
+main_configure() {
+    msg "Python configuration started"
+    install_pip
+    install_requirements
+    rich_traceback
+    configure_ipython
 }
 
-main "${@}"
+main() {
+    info "Python install started"
+    install_python_version
+    main_configure
+    success "${PYTHON} installed and configured"
+}
+
+main

@@ -30,7 +30,6 @@ source "${ROOT}/install/common.sh"
 # Link all configs
 dot_configs() {
     declare -a arr=(
-        "alacritty"
         "aerospace"
         "bat"
         "git"
@@ -38,13 +37,13 @@ dot_configs() {
         "gh"
         "fd"
         "httpie"
-        "i3"
+        "kube" # TODO: link after docker & k8s installed
         "lsd"
         "rg"
         "node"
-        "nvim"
+        # "nvim" # this will be NvChad
         "rofi"
-        "tmux"
+        "tmux"  # done inside install/tmux.sh too
         "zsh"
     )
 
@@ -67,18 +66,12 @@ home_others() {
     force_remove "${DOTFILES}/reldb/.sqliterc" "${HOME}/.sqliterc"
 }
 
-# TODO: full.sh . Link after docker&k8s installed
-containers() {
-    force_remove "${DOTFILES}/kube" "${XDG_CONFIG_HOME}/kube"
-}
-
 main() {
     dot_configs
     bins
     home_others
-    containers
 
-    msg_cli green "All dotfiles linked"
+    success "All dotfiles linked"
 }
 
-main "$@"
+main

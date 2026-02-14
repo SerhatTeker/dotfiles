@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # vim: set ft=sh et ts=4 sw=4 sts=4:
 
-# Install and setup brew and packages
+# Install brew and bundle
 # Usage:
 # $ bash brew.sh
 
@@ -18,29 +18,35 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "${ROOT}/install/common.sh"
 
 install_brew() {
-    if is_linux; then
-        bash "${ROOT}/install/linux/brew.sh"
-    else
-        bash "${ROOT}/install/macos/brew.sh"
-    fi
+    # If brew presents
+    command_exists brew && return
+
+    # If ~/.homebrew presents
+    [[ -d "${HOME}/.homebrew" ]] && return
+
+    # Install Homebrew to $HOME/.homebrew instead of /usr/local:
+    git clone https://github.com/Homebrew/brew.git "${HOME}/.homebrew"
+
+    # Setup install
+    cd "${HOME}/" &&
+        eval "$(.homebrew/bin/brew shellenv)"
+    brew update --force --quiet
+    chmod -R go-w "$(brew --prefix)/share/zsh"
+
+    # check brew installed
+    which brew
+
+    # close analytics
+    brew analytics off
+}
+
+brew_bundle_base() {
+    brew bundle install --file="${ROOT}/install/brews/Brewfile.base"
 }
 
 main() {
-    if ! command_exists brew; then
-        printf '%sHomebrew not found, install it? (y/n)%s ' "${COLOR_YELLOW}" "${COLOR_RESET}"
-        read -r opt
-        case ${opt} in
-        y* | Y* | "")
-            install_brew
-            ;;
-        n* | N*)
-            error "Installing cancelled."
-            ;;
-        *)
-            error "Unkown flag <${@}>"
-            ;;
-        esac
-    fi
+    install_brew
+    brew_bundle_base
 }
 
-main "${@}"
+main

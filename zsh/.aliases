@@ -89,10 +89,11 @@ alias sudo='sudo '
 
 alias vi='nvim'
 alias vs='nvim -S'
+alias nv='nvim'
+# lvim not used anymore
+alias lv='nvim'
 # to remove error E138: ShaDa file exist, cannot write ShaDa file!
 alias rm-shada='rm ~/.local/share/nvim/shada/main.shada.tmp.x'
-alias lv='lvim'
-alias lvs='lvim -S'
 # }) )
 
 # Apps {{{
