@@ -133,15 +133,33 @@ custom_plugins() {
 
 # Link custom themes
 custom_themes() {
-    mkdir -p "${ZSH_CUSTOM}/themes"
-    force_remove "${DOT_ZSH}/oh-my-zsh/custom/themes/"* "${ZSH_CUSTOM}/themes"
+    local themes="${ZSH_CUSTOM}/themes"
+
+    # Clean start
+    [ -d "${themes}" ] && rm -rf "${themes}" && mkdir -p "${themes}"
+
+    for file in "${DOT_ZSH}/oh-my-zsh/custom/themes/"*; do
+        local filename="$(basename "$file")"
+        force_remove "$file" "${themes}/${filename}"
+        msg "${themes}/${filename} completed."
+    done
+
 	info "Custom themes completed."
 }
 
 # Link custom completions
 custom_completions() {
-    mkdir -p "${ZSH}/completions"
-    force_remove "${DOT_ZSH}/oh-my-zsh/completions/"* "${ZSH}/completions"
+    local completions="${ZSH}/completions"
+
+    # Clean start
+    [ -d "${completions}" ] && rm -rf "${completions}" && mkdir -p "${completions}"
+
+    for file in "${DOT_ZSH}/oh-my-zsh/completions/"*; do
+        local filename="$(basename "$file")"
+        force_remove "$file" "${completions}/${filename}"
+        msg "${completions}/${filename} completed."
+    done
+
     info "Custom completions completed."
 }
 # }}}
