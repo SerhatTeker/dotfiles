@@ -33,6 +33,7 @@ __create_home_dirs() {
         ".local/bin"
         ".local/share"
         ".local/lib"
+        "apps"
         "dotfiles"
         "system-bak"
         "Private"
@@ -45,17 +46,18 @@ __create_home_dirs() {
 
 __create_home_dirs
 
+# XDG
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_BIN_HOME="${HOME}/.local/bin"
 export XDG_LIB_HOME="${HOME}/.local/lib"
-
+# HOME others
 export DOTFILES="${HOME}/dotfiles"
 export SYSBAK="${HOME}/system-bak"
 export PRIVATE="${HOME}/Private"
 export APPS="${HOME}/apps"
-
+# ZSH
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 # ----------------------------------------------------------------------------#
 # }}}
