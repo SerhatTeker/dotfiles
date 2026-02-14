@@ -28,10 +28,13 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck source=scripts/common.sh
 source "${ROOT}/install/common.sh"
 
-
 FONT_DIR="${HOME}/Library/Fonts"
 TMP_DIR="/tmp/dotfiles-fonts"
 
+clone_fonts() {
+    [ -d ${TMP_DIR} ] && rm -rf ${TMP_DIR}
+    git clone --depth=1 "https://github.com/SerhatTeker/dotfiles-fonts.git" "${TMP_DIR}"
+}
 
 # Copy all fonts to user fonts directory
 copy_fonts() {
@@ -41,15 +44,7 @@ copy_fonts() {
         -type f -print0 |
         xargs -0 -n1 -I % cp "%" "${FONT_DIR}/"
 
-    msg "Fonts copied to ${FONT_DIR}."
-}
-
-# All together
-clone_fonts() {
-    local dir="/tmp/dotfiles-fonts"
-
-    [ -d ${TMP_DIR} ] && rm -rf ${TMP_DIR}
-    git clone "dotfiles-fonts" "https://github.com/SerhatTeker/dotfiles-fonts.git" --depth=1
+    info "Fonts copied to ${FONT_DIR}."
 }
 
 main() {
