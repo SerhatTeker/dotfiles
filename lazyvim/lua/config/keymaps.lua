@@ -6,16 +6,23 @@
 vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { force = true })
 
 local map = vim.keymap.set
+local del = vim.keymap.del
+
 local silence_opts = { silent = true, noremap = true }
 
+-- disable / delete LazyVim ones
+del({ "i", "x", "n", "s" }, "<C-s>")
+
+-- one key stroke less
 map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jk", "<ESC>")
 
 -- Telescope
 map("n", "<C-p>", "<cmd>Telescope find_files<cr>")
 map("n", "<C-b>", "<cmd>Telescope buffers initial_mode=insert<cr>")
 map("n", "<C-f>", "<cmd>Telescope current_buffer_fuzy_find initial_mode=insert<cr>")
 
+-- HACK:
+-- quit
 map("n", "Q", "<cmd>x<CR>")
 
 -- Buffers
@@ -24,5 +31,22 @@ map("n", "<S-m>", "<cmd>bp<cr>")
 map("n", "<C-b>d", "<cmd>bd<cr>")
 map("n", "<C-b>c", "<cmd>BufCurOnly<cr>")
 
+-- Tab
+map("n", "]t", "<cmd>tabnext<cr>")
+map("n", "[t", "<cmd>tabprevious<cr>")
+
 -- Fold
 map("n", "<F3>", "<cmd>set foldmethod=marker<cr>")
+
+-- Spell
+map("n", "<F7>", "<cmd>ToggleSpell<cr>")
+
+-- Toggle list chars
+map("n", "<F5>", "<cmd>set list! list?<cr>")
+
+-- Lines
+-- Visual linewise up and down by default (and use gj gk to go quicker)
+map("n", "<Up>", "gj")
+map("n", "<Down>", "gj")
+map("n", "j", "gj")
+map("n", "k", "gk")
