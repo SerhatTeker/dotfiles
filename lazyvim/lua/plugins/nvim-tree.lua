@@ -48,6 +48,10 @@ M = {
       -- Call the setup function with your translated options
       require("nvim-tree").setup({
         on_attach = on_attach,
+        update_focused_file = {
+          enable = true,
+          update_root = false,
+        },
         view = {
           side = "left",
         },
