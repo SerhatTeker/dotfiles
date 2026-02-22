@@ -12,7 +12,7 @@ local function default_config(name)
 end
 -- }}}
 
-local os_home = vim.fn.expand("$HOME")
+-- local os_home = vim.fn.expand("$HOME")
 
 M = {
   -- # Core
@@ -41,43 +41,6 @@ M = {
   --     config = default_config("nvim-dap-virtual-text"),
   --     requires = { "mfussenegger/nvim-dap" },
   -- },
-  --
-  -- ## Trouble
-  -- ## Persistence
-  -- {
-  --   "olimorris/persisted.nvim",
-  --   -- event = "BufReadPre", -- this will only start session saving when an actual file was opened
-  --   -- module = "persistence",
-  --   config = function()
-  --     require("persisted").setup({
-  --       save_dir = vim.fn.expand(vim.fn.stdpath("cache") .. "/session/"),
-  --       branch_separator = "@@", -- string used to separate session directory name from branch name
-  --       autosave = true, -- automatically save session files when exiting Neovim
-  --       autoload = true, -- automatically load the session for the cwd on Neovim startup
-  --     })
-  --     vim.o.sessionoptions = "buffers,curdir,folds,tabpages,winpos,winsize"
-  --   end,
-  -- },
-  {
-    "tpope/vim-fugitive",
-    cmd = {
-      "G",
-      "Git",
-      "Gdiffsplit",
-      "Gvdiffsplit",
-      "Gread",
-      "Gwrite",
-      "Ggrep",
-      "GMove",
-      "GDelete",
-      "GBrowse",
-      "GRemove",
-      "GRename",
-      "Glgrep",
-      "Gedit",
-    },
-    ft = { "fugitive" },
-  },
   { "tpope/vim-repeat" },
   {
     "kylechui/nvim-surround",
@@ -154,13 +117,6 @@ M = {
   -- https://github.com/sunjon/Shade.nvim/issues/2
   -- { "sunjon/shade.nvim" },
   --
-  -- ## Symbols Outline
-  {
-    "hedyhli/outline.nvim",
-    lazy = true,
-    cmd = { "Outline", "OutlineOpen" },
-    opts = {},
-  },
   -- ## Color highlighter colorizer
   {
     "norcalli/nvim-colorizer.lua",
