@@ -14,7 +14,7 @@ end
 
 local os_home = vim.fn.expand("$HOME")
 
-return {
+M = {
   -- # Core
   {
     "windwp/nvim-ts-autotag",
@@ -215,3 +215,6 @@ return {
 }
 -- }}}
 -- }}}
+--
+
+return M
