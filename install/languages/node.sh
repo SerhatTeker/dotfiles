@@ -20,52 +20,33 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-
 # Locate the root directory
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # shellcheck source=scripts/common.sh
 source "${ROOT}/common.sh"
 
+NVM_VERSION="0.40.4"
 
-# NOTE: Prefer manual install
-nvm_manual_install() {
-    local url="https://github.com/nvm-sh/nvm.git"
-
-    export NVM_DIR="${XDG_CONFIG_HOME}/nvm" && (
-      git clone ${url} "$NVM_DIR"
-      cd "${NVM_DIR}"
-      git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-    ) && \. "${NVM_DIR}/nvm.sh"
+nvm_install() {
+    # wget -qO- "https://raw.githubusercontent.com/nvm-sh/nvm/v${nvm_version}/install.sh" | bash
+    curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh" | bash
 }
 
-# Alternative install method
-# NOTE: Prefer manual install, since below adds environment and paths to .zshrc
-nvm_auto_install() {
-    local version="0.39.1"
-    local url="https://raw.githubusercontent.com/nvm-sh/nvm/v${nvm_version}/install.sh"
+install_node_and_npm() {
+    export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 
-    # install nvm
-    wget -qO- ${url} | bash
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+    nvm install node       # install last version node
+    nvm install-latest-npm # install last compatible version npm
 }
-
 
 main() {
-    # Check already installed
-    is_installed npm
-    is_installed node
+    nvm_install
+    install_node_and_npm
 
-    # Install
-    command_exists nvm || nvm_manual_install
-    nvm install node        # install last version node
-    nvm install-latest-npm  # install last comptabile version npm
-
-    # Soft link
-    force_remove "${DOTFILES}/node" "${XDG_CONFIG_HOME}/node" # link config. overwrites link.sh
-
-    # Ensure install
-    command_exists node \
-        && success "Node installed at your system!"
+    success "Node installed at your system."
 }
 
-main "$@"
+main
