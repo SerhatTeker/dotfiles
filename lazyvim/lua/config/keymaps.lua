@@ -21,7 +21,6 @@ map("n", "<C-p>", "<cmd>Telescope find_files<cr>")
 map("n", "<C-b>", "<cmd>Telescope buffers initial_mode=insert<cr>")
 map("n", "<C-f>", "<cmd>Telescope current_buffer_fuzy_find initial_mode=insert<cr>")
 
--- HACK:
 -- quit
 map("n", "Q", "<cmd>x<CR>")
 
