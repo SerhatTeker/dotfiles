@@ -99,8 +99,6 @@ M = {
   --     })
   --   end,
   -- },
-  -- ## Harpoon
-  { "ThePrimeagen/harpoon" },
   -- ## Trim
   {
     "cappyzawa/trim.nvim",
