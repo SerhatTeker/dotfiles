@@ -4,6 +4,7 @@ M = {
     -- LazyVim will deep merge this `opts` table with its own default `opts`
     opts = {
       options = {
+        always_show_bufferline = true,
         diagnostics = false,
         buffer_close_icon = "",
         close_icon = "",
