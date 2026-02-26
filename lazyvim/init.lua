@@ -3,3 +3,6 @@ require("config.lazy")
 
 -- Load custom user commands
 require("config.commands")
+
+-- Load custom user private setting
+pcall(require, "config.private")
