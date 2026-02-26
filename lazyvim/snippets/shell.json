@@ -1,0 +1,46 @@
+{
+  "bang": {
+    "prefix": "bang",
+    "body": [
+      "#!/usr/bin/env bash",
+      "# -*- coding: utf-8 -*-",
+      "# vim: set ft=sh et ts=4 sw=4 sts=4:\n",
+      "# Bash safeties: exit on error, no unset variables, pipelines can't hide errors",
+      "set -o errexit",
+      "set -o nounset",
+      "set -o pipefail\n",
+      "${1}"
+    ],
+    "description": "Custom shebang"
+  },
+  "shebang-script": {
+    "prefix": "shebang-script",
+    "body": [
+      "#!/usr/bin/env bash",
+      "# -*- coding: utf-8 -*-",
+      "# vim: set ft=sh et ts=4 sw=4 sts=4:\n",
+      "# Usage:",
+      "# $ ./${TM_FILENAME}\n",
+      "# Bash safeties: exit on error, no unset variables, pipelines can't hide errors",
+      "set -o errexit",
+      "set -o nounset",
+      "set -o pipefail\n",
+      "${0}"
+    ],
+    "description": "Shebang for scripting files"
+  },
+  "timestamp": {
+    "prefix": "timestamp",
+    "body": [
+      "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}+0300 | ${CURRENT_SECONDS_UNIX} ${1}"
+    ],
+    "description": "timestamp in ISO8601 and unix"
+  },
+  "variable": {
+    "prefix": "var",
+    "body": [
+      "\"\\${${1}}\" $0"
+    ],
+    "description": "Variable with proper format"
+  }
+}
