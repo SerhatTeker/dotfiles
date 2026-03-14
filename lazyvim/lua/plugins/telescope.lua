@@ -56,11 +56,11 @@ M = {
         live_grep_args = {
           auto_quoting = false, -- Required so we can manually manage quotes
           mappings = {
-            -- INFO: Rather to use <C-i> since it's more powerful
             -- * Search everything normally: Just type import
             -- * Search only in Python files: Type "import" -t py
             -- * Search only in pytest files: Type "import" -g "*test*.py"
             -- * Search exact word only: Type "import" -w
+            -- INFO: Rather to use <C-i> since it's more powerful
             i = {
               ["<C-h>"] = lga_actions.quote_prompt(), -- wrap word into quotes
               ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }), -- wrap into quotes and add --iglob flag
