@@ -11,8 +11,7 @@ local del = vim.keymap.del
 -- local silence_opts = { silent = true, noremap = true }
 
 -- disable / delete LazyVim ones
-del({ "i", "x", "n", "s" }, "<C-s>")
-del({ "i", "n", "s" }, "<C-f>")
+-- del({ "i", "x", "n", "s" }, "<C-s>")
 
 -- one key stroke less
 map("n", ";", ":", { desc = "CMD enter command mode" })

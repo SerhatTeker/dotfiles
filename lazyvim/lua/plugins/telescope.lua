@@ -9,11 +9,11 @@ M = {
       -- custom additions
       { "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
       {
-        "<C-f>",
+        "<C-s>",
         function()
           require("telescope").extensions.live_grep_args.live_grep_args()
         end,
-        desc = "Live grep (with args)",
+        desc = "Live grep (Args)",
       },
       -- default live_grep
       -- { "<C-f>", "<cmd>Telescope live_grep<cr>", desc = "Live grep" },
@@ -32,15 +32,21 @@ M = {
       local lga_actions = require("telescope-live-grep-args.actions")
 
       -- Core Telescope behavior overrides
-      -- Safely merge your custom mappings into the EXISTING defaults
+      -- Safely merge custom mappings into the EXISTING defaults
       opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
         mappings = {
           i = {
+            -- selection
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
-            ["<C-c>"] = actions.close,
+            -- history
             ["<C-n>"] = actions.cycle_history_next,
             ["<C-p>"] = actions.cycle_history_prev,
+            -- scroll
+            ["<C-f>"] = actions.preview_scrolling_down,
+            ["<C-b>"] = actions.preview_scrolling_up,
+            -- others
+            ["<C-c>"] = actions.close,
             ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
             ["?"] = action_layout.toggle_preview,
           },
