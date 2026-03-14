@@ -12,14 +12,10 @@ local silence_opts = { silent = true, noremap = true }
 
 -- disable / delete LazyVim ones
 del({ "i", "x", "n", "s" }, "<C-s>")
+del({ "s" }, "<C-f>")
 
 -- one key stroke less
 map("n", ";", ":", { desc = "CMD enter command mode" })
-
--- Telescope
-map("n", "<C-p>", "<cmd>Telescope find_files<cr>")
-map("n", "<C-b>", "<cmd>Telescope buffers initial_mode=insert<cr>")
-map("n", "<C-f>", "<cmd>Telescope current_buffer_fuzy_find initial_mode=insert<cr>")
 
 -- quit
 map("n", "Q", "<cmd>x<CR>")
