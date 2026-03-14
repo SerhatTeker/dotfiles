@@ -8,11 +8,11 @@ vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { forc
 local map = vim.keymap.set
 local del = vim.keymap.del
 
-local silence_opts = { silent = true, noremap = true }
+-- local silence_opts = { silent = true, noremap = true }
 
 -- disable / delete LazyVim ones
 del({ "i", "x", "n", "s" }, "<C-s>")
-del({ "s" }, "<C-f>")
+del({ "i", "n", "s" }, "<C-f>")
 
 -- one key stroke less
 map("n", ";", ":", { desc = "CMD enter command mode" })
@@ -45,3 +45,6 @@ map("n", "<Up>", "gj")
 map("n", "<Down>", "gj")
 map("n", "j", "gj")
 map("n", "k", "gk")
+
+-- Add this to lua/config/keymaps.lua
+map("n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
