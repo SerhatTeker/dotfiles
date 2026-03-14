@@ -5,7 +5,7 @@ M = {
       local wk = require("which-key")
       wk.add({
         -- Diffview
-        -- { "<leader>v", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open" },
+        { "<leader>v", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open", mode = "n" },
         { "<leader>gv", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open", mode = "n" },
       })
     end,
