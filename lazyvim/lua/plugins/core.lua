@@ -105,7 +105,7 @@ M = {
     event = "BufWritePre",
     config = function()
       require("trim").setup({
-        disable = { "markdown" },
+        ft_blocklist = { "markdown" },
         -- trim_last_line = false,
       })
     end,
