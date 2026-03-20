@@ -6,7 +6,7 @@
 vim.api.nvim_create_user_command("BufCurOnly", "%bdelete|edit#|bdelete#", { force = true })
 
 local map = vim.keymap.set
-local del = vim.keymap.del
+-- local del = vim.keymap.del
 
 -- local silence_opts = { silent = true, noremap = true }
 
@@ -45,5 +45,10 @@ map("n", "<Down>", "gj")
 map("n", "j", "gj")
 map("n", "k", "gk")
 
--- Add this to lua/config/keymaps.lua
+-- Customs {{{
+
 map("n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+
+-- rename
+map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename (LSP)" })
+-- }}}
