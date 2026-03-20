@@ -77,8 +77,22 @@ M = {
       -- vim.cmd([[colorscheme gruvbox]])
     end,
   },
-  { "navarasu/onedark.nvim" }, -- alternative onedark
   { "Mofiqul/vscode.nvim" },
+  {
+    "navarasu/onedark.nvim",
+    -- priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require("onedark").setup({
+        style = "darker",
+        colors = {
+          -- Main Backgrounds - neodarker
+          bg0 = "#1e222a", -- 'bg'
+          -- bg0 = "#1b1f27", -- 'alt_bg'
+          -- bg1 = "#282C34",
+        },
+      })
+    end,
+  },
   -- -- automatic dark mode
   -- -- requires: brew install cormacrelf/tap/dark-notify
   -- {
@@ -166,6 +180,12 @@ M = {
   --   "nvim-telescope/telescope-live-grep-args.nvim",
   --   dependencies = { "nvim-telescope/telescope.nvim" },
   -- },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "onedark",
+    },
+  },
 }
 -- }}}
 -- }}}
