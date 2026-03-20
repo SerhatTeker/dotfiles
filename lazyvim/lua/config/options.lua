@@ -23,20 +23,12 @@ vim.g.ai_cmp = true
 vim.g.root_spec = { ".git", "lsp", "cwd" }
 -- }}}
 
--- LANGUAGES {{{1
-
--- Python {{{2
-
--- LSP Server to use for Python.
-vim.g.lazyvim_python_lsp = "pyright"
--- Set to "ruff_lsp" to use the old LSP implementation version.
--- vim.g.lazyvim_python_ruff = "ruff"
--- }}}2
--- }}}1
-
 -- Options {{{
 
 local opt = vim.opt -- set options
+
+-- Remove LazyVim default margined gutter
+opt.statuscolumn = ""
 
 opt.relativenumber = false -- Relative line numbers
 opt.guicursor = "n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor50"
@@ -65,3 +57,14 @@ opt.listchars = { eol = "§", tab = "¤›", extends = "»", precedes = "«", nb
 -- Alt1:    eol:$,extends:»,precedes:«,nbsp:‡,space:␣
 -- Alt2:    eol:¬,,tab:»/,extends:»,precedes:«,nbsp:‡
 -- }}}
+
+-- Languages {{{1
+
+-- Python {{{2
+
+-- LSP Server to use for Python.
+vim.g.lazyvim_python_lsp = "pyright"
+-- Set to "ruff_lsp" to use the old LSP implementation version.
+-- vim.g.lazyvim_python_ruff = "ruff"
+-- }}}2
+-- }}}1
