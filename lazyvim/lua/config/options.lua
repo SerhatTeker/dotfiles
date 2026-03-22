@@ -4,35 +4,39 @@
 
 -- Global {{{
 
+local g = vim.g -- global
+
 -- LazyVim auto format
-vim.g.autoformat = false
+g.autoformat = false
 
 -- Snacks animations
 -- Set to `false` to globally disable all snacks animations
-vim.g.snacks_animate = false
+g.snacks_animate = false
 
 -- if the completion engine supports the AI source,
 -- use that instead of inline suggestions
-vim.g.ai_cmp = true
+g.ai_cmp = true
 
 -- LazyVim root dir detection
 -- Each entry can be:
 -- * the name of a detector function like `lsp` or `cwd`
 -- * a pattern or array of patterns like `.git` or `lua`.
 -- * a function with signature `function(buf) -> string|string[]`
-vim.g.root_spec = { ".git", "lsp", "cwd" }
+g.root_spec = { ".git", "lsp", "cwd" }
 -- }}}
 
 -- Options {{{
 
 local opt = vim.opt -- set options
 
+-- Relative line numbers
+opt.relativenumber = false
+-- Disable mouse
+opt.mouse = ""
 -- Remove LazyVim default margined gutter
 opt.statuscolumn = ""
-
-opt.relativenumber = false -- Relative line numbers
+-- Guicursor
 opt.guicursor = "n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor50"
-opt.mouse = "" -- disable moouse
 
 -- tabs, spaces
 opt.expandtab = true -- convert tabs to spaces
@@ -63,7 +67,7 @@ opt.listchars = { eol = "§", tab = "¤›", extends = "»", precedes = "«", nb
 -- Python {{{2
 
 -- LSP Server to use for Python.
-vim.g.lazyvim_python_lsp = "pyright"
+g.lazyvim_python_lsp = "pyright"
 -- Set to "ruff_lsp" to use the old LSP implementation version.
 -- vim.g.lazyvim_python_ruff = "ruff"
 -- }}}2
