@@ -17,21 +17,12 @@ M = {
       local function on_attach(bufnr)
         local api = require("nvim-tree.api")
 
-        -- Replaced LunarVim's wrapper with direct telescope calls
-        local function telescope_find_files(_)
-          require("telescope.builtin").find_files()
-        end
-
-        local function telescope_live_grep(_)
-          require("telescope.builtin").live_grep()
-        end
-
         local function opts(desc)
           return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
         end
 
-        -- Load default mappings
-        api.config.mappings.default_on_attach(bufnr)
+        -- default mappings
+        api.map.on_attach.default(bufnr)
 
         -- Add your custom mappings
         vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
@@ -40,8 +31,6 @@ M = {
         vim.keymap.set("n", "v", api.node.open.vertical, opts("Open: Vertical Split"))
         vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
         vim.keymap.set("n", "C", api.tree.change_root_to_node, opts("CD"))
-        vim.keymap.set("n", "gtg", telescope_live_grep, opts("Telescope Live Grep"))
-        vim.keymap.set("n", "gtf", telescope_find_files, opts("Telescope Find File"))
         vim.keymap.set("n", "<C-t>", api.tree.toggle, opts("Toggle"))
       end
 
@@ -50,7 +39,9 @@ M = {
         on_attach = on_attach,
         update_focused_file = {
           enable = true,
-          update_root = false,
+          update_root = {
+            enable = false,
+          },
         },
         view = {
           side = "left",
@@ -71,6 +62,7 @@ M = {
           },
         },
         filters = {
+          git_ignored = false, -- I (Shift + I) to toggle
           custom = {
             ".mypy_cache",
             "__pycache__",
