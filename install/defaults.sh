@@ -35,11 +35,24 @@ dock() {
     # Autohide the Dock when the mouse is out
     defaults write com.apple.dock "autohide" -bool "true"
 
-    # MacBook Air
+    # MacBook Air tile size
     defaults write com.apple.dock "tilesize" -int "42"
 
     # Don't show recent apps in the Dock
     defaults write com.apple.dock show-recents -bool false
+
+    # ---------------------------------------------------------
+    # Custom Dock Apps
+    # ---------------------------------------------------------
+
+    # 1. Wipe all default app icons (Finder and Trash will remain)
+    defaults write com.apple.dock persistent-apps -array
+
+    # 2. Add Google Chrome
+    defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Google Chrome.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+
+    # 3. Add Ghostty
+    defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Ghostty.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
 }
 
 # TODO: find and write
