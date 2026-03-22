@@ -87,6 +87,7 @@ M = {
         colors = {
           -- Main Backgrounds - neodarker
           bg0 = "#1e222a", -- 'bg'
+          -- bg0 = "#191b20"  -- black-ish
           -- bg0 = "#1b1f27", -- 'alt_bg'
           -- bg1 = "#282C34",
         },
