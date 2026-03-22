@@ -2,12 +2,12 @@
 
 My personal dotfiles.
 
-Always WIP.
+Don’t use my settings *AS IS*, unless you know what that entails.
 
 If you want to give these dotfiles a try, you should first fork
 this repository, review the code, and remove things you don’t want or need.
-Don’t use my settings *AS IS* unless you know what that entails.
 
+Always WIP.
 
 ## Screenshots
 
@@ -43,4 +43,4 @@ $ nvim
 
 ### Post Install
 
-There is no need to do  anything. All covered by `install.sh` script.
+There is no need to do anything. All covered by `install.sh` script.
