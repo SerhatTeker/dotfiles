@@ -146,9 +146,6 @@ M = {
       })
     end,
   },
-  { "mfussenegger/nvim-dap-python" },
-  { "nvim-neotest/neotest" },
-  { "nvim-neotest/neotest-python" },
   -- ## Search and replace
   -- TODO: Move to it's lua file
   -- {
@@ -165,11 +162,6 @@ M = {
   -- },
   -- ## Editorconfig
   { "gpanders/editorconfig.nvim" },
-  -- ## Zen Mode
-  {
-    "folke/zen-mode.nvim",
-    config = default_config("zen-mode"),
-  },
   -- },
   -- ### Navigate between neovim and terminal multiplexer
   -- {
