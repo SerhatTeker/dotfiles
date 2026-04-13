@@ -3,6 +3,7 @@
 # Brew
 brew "ansible"
 brew "awscli"
+brew "bat"
 brew "colordiff"
 brew "coreutils"
 brew "fluxcd/tap/flux"
@@ -12,17 +13,22 @@ brew "glib"
 brew "gnu-tar"
 brew "gindent"
 brew "gawk"
+brew "gh"
 brew "grep"
 brew "gnutls"
 brew "gnu-getopt"
+brew "httpie"
+brew "jq"
 brew "kind"
 brew "kubernetes-cli"
 brew "kubernetes-helm"
 brew "kustomize"
 brew "kubectx"
 brew "less"
+brew "qrencode"
 brew "telnet"
 brew "terraform"
+brew "watch"
 # Cask
 cask "docker"
 cask "microsoft-outlook"
@@ -33,16 +39,19 @@ cask "telegram"
 cask "visual-studio-code"
 cask "vlc"
 # Optional
-# brew "git-crypt"
-# brew "gopass"                   # https://github.com/gopasspw/gopass
-# brew "gnupg2"                   # Takes hours. Use alternative, like docker.
+# brew "bitwarden-cli"
 # brew "figlet"
 # brew "ffmpeg"
+# brew "git-crypt"
+# cask "google-cloud-sdk"
+# cask "google-drive"             # google drive desktop    | no linux
+# brew "gopass"                   # https://github.com/gopasspw/gopass
+# brew "gnupg2"                   # Takes hours. Use alternative, like docker.
+# brew "htop"
+# cask "iterm2"
 # cask "keycastr"                 # show keys strokes       | no linux
 # brew "ncurses"
 # brew "postgresql"               # no native M1 psycopg2 binary yet.
 # brew "vagrant"                  # not compatible with M1
-# cask "google-cloud-sdk"
-# cask "google-drive"             # google drive desktop    | no linux
 # cask "multipass"
 # cask "virtualbox"               # not compatible with M1
