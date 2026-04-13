@@ -40,7 +40,6 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 export FZF_DEFAULT_COMMAND="rg --files"
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_R_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # ripgrep
 # INITIAL_QUERY=""
