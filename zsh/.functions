@@ -140,11 +140,6 @@ cv() {
     # builtin cd "$@" && nvim -S
 }
 
-# alias : cd $DIR then run lvim
-cl() {
-    cd "${1}" && lvim
-}
-
 # }}}1
 
 # Files {{{1

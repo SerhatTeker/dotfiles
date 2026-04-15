@@ -189,12 +189,13 @@ alias space='du -hx -d 1'
 alias space-sorted='f() {du -hx -d 1 "$1" | sort -hr}; f'
 # }}}
 
-# VM {{{
-
-alias mp='multipass'
-# }}}
-
 # Others {{{
+
+# AI
+alias cl='claude'
+
+# VM
+alias mp='multipass'
 
 alias cmatrix='cmatrix -Baf'
 alias umatrix='unimatrix -a -f -b -s 96 -l m'
