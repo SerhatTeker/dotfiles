@@ -54,6 +54,6 @@ map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename (LSP)" })
 
 -- grug-far: search word under cursor
 map("n", "<leader>sx", function()
-  require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })
+  require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") }, startInInsertMode = false })
 end, { desc = "Search word under cursor (grug-far)" })
 -- }}}
