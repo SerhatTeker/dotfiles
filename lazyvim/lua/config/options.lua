@@ -37,6 +37,8 @@ opt.mouse = ""
 opt.statuscolumn = ""
 -- Guicursor
 opt.guicursor = "n-v-c-sm:block,i-ci-ve:block,r-cr-o:hor50"
+-- Swap
+opt.swapfile = false -- Don't use swapfile
 
 -- tabs, spaces
 opt.expandtab = true -- convert tabs to spaces
