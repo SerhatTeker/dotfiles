@@ -51,4 +51,9 @@ map("n", "gl", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 
 -- rename
 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename (LSP)" })
+
+-- grug-far: search word under cursor
+map("n", "<leader>sx", function()
+  require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })
+end, { desc = "Search word under cursor (grug-far)" })
 -- }}}
