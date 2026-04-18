@@ -1,6 +1,17 @@
 M = {
   {
     "folke/snacks.nvim",
+    keys = {
+      -- replace <leader>n for newtab
+      { "<leader>n", false },
+      {
+        "<leader>N",
+        function()
+          Snacks.notifier.show_history()
+        end,
+        desc = "Notification History",
+      },
+    },
     opts = {
       dashboard = {
         preset = {
