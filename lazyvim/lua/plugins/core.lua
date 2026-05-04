@@ -10,6 +10,21 @@ end
 local function default_config(name)
   return string.format('require("%s").setup()', name)
 end
+
+-- Single source of truth for onedark styling. Used at startup and by
+-- dark-notify's onchange callback. Resets vim.g.onedark_config so the dark
+-- bg0 override doesn't leak into light mode (setup() merges with `force`,
+-- which never removes prior keys).
+local function apply_onedark(mode)
+  mode = mode or "dark"
+  vim.g.onedark_config = nil
+  local opts = { style = mode == "dark" and "darker" or "light" }
+  if mode == "dark" then
+    opts.colors = { bg0 = "#191b20" }
+  end
+  require("onedark").setup(opts)
+  require("onedark").load()
+end
 -- }}}
 
 -- local os_home = vim.fn.expand("$HOME")
@@ -80,40 +95,24 @@ M = {
   { "Mofiqul/vscode.nvim" },
   {
     "navarasu/onedark.nvim",
-    -- priority = 1000, -- make sure to load this before all the other start plugins
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function() apply_onedark("dark") end,
+  },
+  -- automatic dark mode
+  -- requires: brew install cormacrelf/tap/dark-notify
+  {
+    "cormacrelf/dark-notify",
+    lazy = false,
+    dependencies = { "navarasu/onedark.nvim" },
     config = function()
-      require("onedark").setup({
-        style = "darker",
-        colors = {
-          -- Main Backgrounds - neodarker
-          -- bg0 = "#1e222a", -- default 'bg'
-          bg0 = "#191b20"  -- black-ish 'bg'
-          -- bg0 = "#1b1f27", -- 'alt_bg'
-          -- bg1 = "#282C34",
-        },
+      require("dark_notify").run({ onchange = apply_onedark })
+      -- dark-notify's async watcher occasionally misses system change events;
+      -- re-probe synchronously when nvim regains focus.
+      vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
+        callback = function() require("dark_notify").update() end,
       })
     end,
   },
-  -- -- automatic dark mode
-  -- -- requires: brew install cormacrelf/tap/dark-notify
-  -- {
-  --   "cormacrelf/dark-notify",
-  --   commit = "dcc39f2d7bbff64b6c3a19b3094f588ff64b4578",
-  --   config = function()
-  --     require("dark_notify").run({
-  --       -- -- Gruvbox
-  --       schemes = {
-  --         dark = "gruvbox",
-  --         light = "gruvbox",
-  --       },
-  --       -- -- OneDark
-  --       -- schemes = {
-  --       --     dark  = "neodarker",
-  --       --     light = "onedark",
-  --       -- },
-  --     })
-  --   end,
-  -- },
   -- ## Trim
   {
     "cappyzawa/trim.nvim",
