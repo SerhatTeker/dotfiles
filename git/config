@@ -32,7 +32,10 @@
     # https://git-scm.com/docs/git-push/2.38.0#Documentation/git-push.txt-pushautoSetupRemote
     autoSetupRemote = true
     # https://git-scm.com/docs/git-push/2.38.0#Documentation/git-push.txt-pushdefault
-    default = upstream
+    # "simple" refuses a bare `git push` when the local branch name differs from
+    # its upstream's. With "upstream", a local branch created off a shared remote
+    # branch silently pushed back to that shared PR branch (2026-06-10 incident).
+    default = simple
 [diff]
     tool = nvimdiff
     guitool = nvimdiff
