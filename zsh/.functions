@@ -773,15 +773,6 @@ msg_error() {
 
 # Tmux {{{
 
-# tmux resurrect last sessions from resurrect addon
-mux() {
-    pgrep -vx tmux >/dev/null
-    tmux new -d -s delete-me
-    tmux run-shell "${XDG_DATA_HOME}/tmux/plugins/tmux-resurrect/scripts/restore.sh"
-    tmux kill-session -t delete-me
-    tmux attach || tmux attach
-}
-
 # Crate and attach a new session with args
 # Usage:
 # - $ tnew directory
