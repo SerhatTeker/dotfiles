@@ -18,7 +18,15 @@ end
 local function apply_onedark(mode)
   mode = mode or "dark"
   vim.g.onedark_config = nil
-  local opts = { style = mode == "dark" and "darker" or "light" }
+  local opts = {
+    style = mode == "dark" and "darker" or "light",
+    -- Color `self`/`cls` like class names (yellow) instead of the
+    -- default builtin-variable salmon. Covers treesitter + pyright LSP.
+    highlights = {
+      ["@variable.builtin.python"] = { fg = "$yellow" },
+      ["@lsp.type.selfParameter.python"] = { fg = "$yellow" },
+    },
+  }
   if mode == "dark" then
     opts.colors = { bg0 = "#191b20" }
   end
@@ -79,17 +87,13 @@ M = {
   { "SerhatTeker/neodarker.nvim" },
   {
     "ellisonleao/gruvbox.nvim",
-    -- priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
-      -- change_background()
       require("gruvbox").setup({
         contrast = "hard",
-        -- invert_tabline = true,
-        overrides = {
-          TabLineSel = { fg = "#cc241d", bg = "#cc241d", reverse = false },
-        },
+        -- overrides = {
+        --   TabLineSel = { fg = "#cc241d", bg = "#cc241d", reverse = false },
+        -- },
       })
-      -- vim.cmd([[colorscheme gruvbox]])
     end,
   },
   { "Mofiqul/vscode.nvim" },
