@@ -75,6 +75,8 @@ MNAME_UPPER="$(echo "${MNAME}" | tr a-z A-Z)"
 MNUM="$(date_cmd +%m)"
 YNUMF="$(date_cmd +%Y)"
 QNAME="$(qnum)"
+WNUM="$(wnum)"
+YNUM="$(ynum)"
 # }}}
 
 # Main {{{

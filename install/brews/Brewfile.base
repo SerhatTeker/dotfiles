@@ -4,38 +4,28 @@
 tap "cormacrelf/tap"            # dark-notify
 # Brew
 brew "age"
-# brew "bat"
 brew "coreutils"
-# brew "bitwarden-cli"
-# brew "curl"                   # MacOS already has one
 brew "dark-notify"              # https://github.com/cormacrelf/dark-notify
 brew "fd"                       # https://github.com/sharkdp/fd
 brew "fzf"
-# brew "gh"
 brew "git-delta"                # https://github.com/dandavison/delta
 brew "gnu-getopt"
 brew "gnu-time"
 brew "gnu-which"
 brew "gnu-sed"
-# brew "htop"
-# brew "httpie"
-# brew "jq"
 brew "lsd"
 brew "luarocks"
 brew "nvim"
 brew "openssl"
 brew "openssh"
 brew "ripgrep"
-# brew "qrencode"
-# brew "shellcheck"
+brew "shellcheck"
 brew "shfmt"
 brew "tmux"
 brew "tree"
-# brew "watch"
 brew "wget"
 # Cask
 cask "ghostty"
 # cask "google-chrome"
-# cask "iterm2"
 # cask "yubico-authenticator"
 # cask "nikitabobko/tap/aerospace"  # https://github.com/nikitabobko/AeroSpace

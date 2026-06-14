@@ -35,14 +35,28 @@ dock() {
     # Autohide the Dock when the mouse is out
     defaults write com.apple.dock "autohide" -bool "true"
 
-    # MacBook Air
+    # MacBook Air tile size
     defaults write com.apple.dock "tilesize" -int "42"
 
     # Don't show recent apps in the Dock
     defaults write com.apple.dock show-recents -bool false
+
+    # ---------------------------------------------------------
+    # Custom Dock Apps
+    # ---------------------------------------------------------
+
+    # 1. Wipe all default app icons (Finder and Trash will remain)
+    defaults write com.apple.dock persistent-apps -array
+
+    # 2. Add Google Chrome
+    defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Google Chrome.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
+
+    # 3. Add Ghostty
+    defaults write com.apple.dock persistent-apps -array-add '<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>/Applications/Ghostty.app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>'
 }
 
-# TODO: find and write
+# TODO: need testing
+#
 ## Keyboard
 # * Key Repeat: Fastest & Delay Until Repeat: Short
 # * Disable: Adjust keyboard brightness
@@ -57,15 +71,56 @@ keyboard() {
     # Disable press-and-hold for keys in favor of key repeat
     defaults write -g ApplePressAndHoldEnabled -bool false
     defaults write -g FullKeyboardAccessEnabled -bool true
-
     defaults write com.apple.Accessibility KeyRepeatEnabled -bool true
 
-    # Set a really fast initial and subsequent key repeat
-    defaults write -g KeyRepeat -int 2         # normal minimum is 2 (30 ms)
-    defaults write -g InitialKeyRepeat -int 12 # normal minimum is 15 (225 ms)
+    # Key Repeat: Fastest & Delay Until Repeat: Short
+    # Note: 2 (30ms) is the UI minimum for KeyRepeat, 15 (225ms) is the UI minimum for InitialKeyRepeat
+    defaults write -g KeyRepeat -int 2
+    defaults write -g InitialKeyRepeat -int 15
 
-    # Turn text completion off on touchbar
-    defaults write -g NSAutomaticTextCompletionEnabled -bool false
+    # Disable: Adjust keyboard brightness
+    defaults write com.apple.BezelServices kDim -bool false
+
+    # Press "World" (Globe key): "Do Nothing"
+    defaults write com.apple.HIToolbox AppleFnUsageType -int 0
+
+    # Enable: Use F1, F2 keys as standard function keys
+    defaults write -g com.apple.keyboard.fnState -bool true
+
+    # Modifier Keys:
+    # 1. Caps Lock (0x700000039) -> Escape (0x700000029)
+    # 2. Globe/Fn (0xFF00000003) -> Left Control (0x7000000E0)
+    # 3. Left Control (0x7000000E0) -> Globe/Fn (0xFF00000003)
+    hidutil property --set '{"UserKeyMapping":[
+        {"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x700000029},
+        {"HIDKeyboardModifierMappingSrc":0xFF00000003,"HIDKeyboardModifierMappingDst":0x7000000E0},
+        {"HIDKeyboardModifierMappingSrc":0x7000000E0,"HIDKeyboardModifierMappingDst":0xFF00000003}
+    ]}' > /dev/null
+
+    # Input Sources: Add US and make it default
+    # Note: This overwrites the current array to enforce US as the clean default.
+    defaults write com.apple.HIToolbox AppleEnabledInputSources -array '<dict><key>InputSourceKind</key><string>Keyboard Layout</string><key>KeyboardLayout ID</key><integer>0</integer><key>KeyboardLayout Name</key><string>U.S.</string></dict>'
+    defaults write com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID "com.apple.keylayout.US"
+}
+
+trackpad() {
+    # Tap to click
+    defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+    defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+    defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+    # Click firmness (Medium)
+    # 0 = Light, 1 = Medium, 2 = Firm
+    defaults write com.apple.AppleMultitouchTrackpad FirstClickThreshold -int 1
+    defaults write com.apple.AppleMultitouchTrackpad SecondClickThreshold -int 1
+
+    # Tracking Speed
+    #
+    # Standard range is 0.0 (Slow) to 3.0 (Fast).
+    # Your screenshot shows it on the 4th tick mark out of 10.
+    # 0.875 closely matches that specific UI placement. (1.0 is dead center).
+    defaults write -g com.apple.trackpad.scaling -float 0.875
 }
 
 corners() {
@@ -130,6 +185,7 @@ main() {
 
     dock
     keyboard
+    trackpad
     corners
     mission_control
     desktop
