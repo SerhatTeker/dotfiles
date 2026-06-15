@@ -11,12 +11,17 @@ local function default_config(name)
   return string.format('require("%s").setup()', name)
 end
 
+-- Tracks the last appearance applied, so the FocusGained re-probe can skip a
+-- redundant (and visibly flickery) colorscheme reload when nothing changed.
+local applied_mode
+
 -- Single source of truth for onedark styling. Used at startup and by
 -- dark-notify's onchange callback. Resets vim.g.onedark_config so the dark
 -- bg0 override doesn't leak into light mode (setup() merges with `force`,
 -- which never removes prior keys).
 local function apply_onedark(mode)
   mode = mode or "dark"
+  applied_mode = mode
   vim.g.onedark_config = nil
   local opts = {
     style = mode == "dark" and "darker" or "light",
@@ -111,9 +116,16 @@ M = {
     config = function()
       require("dark_notify").run({ onchange = apply_onedark })
       -- dark-notify's async watcher occasionally misses system change events;
-      -- re-probe synchronously when nvim regains focus.
+      -- re-probe synchronously when nvim regains focus, but only reload the
+      -- colorscheme when the mode actually changed. Reloading on every focus
+      -- (e.g. switching back from another tmux window) visibly dims highlights.
       vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
-        callback = function() require("dark_notify").update() end,
+        callback = function()
+          local mode = vim.trim(vim.fn.system("dark-notify --exit"))
+          if (mode == "dark" or mode == "light") and mode ~= applied_mode then
+            apply_onedark(mode)
+          end
+        end,
       })
     end,
   },
