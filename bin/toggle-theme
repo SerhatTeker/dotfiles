@@ -19,12 +19,13 @@
 #
 #
 # File                  : toggle-theme
-# Descrtiption          : Toggle theme mode on Ubuntu 22.04 LTS and MacOS Monterey 12
+# Descrtiption          : Toggle macOS light/dark appearance.
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2022-04-23T15:41:00+0300 | 1650717660
-# Last Modified Date    : 2024-03-03T12:22:44+03:00 | 1709457764
-# Notes                 : Using <neodark> as dark mode and <one> as light mode. Tested
-# and using on Ubuntu 22.04 LTS and MacOS Monterey 12.
+# Last Modified Date    : 2026-06-15
+# Notes                 : Only flips the macOS system appearance. dark-notify
+# watches it and cascades the change to nvim (dark-notify plugin), tmux
+# (tmux-dark-notify) and Ghostty (native theme = light:...,dark:...).
 # Usage                 : $ ./toggle-theme
 #
 # or pass theme flag to use the specific theme:
@@ -32,157 +33,12 @@
 # $ ./toggle-theme -l|--light|l|light
 # Dark mode
 # $ ./toggle-theme -d|--dark|d|dark
-#
-#
-# Note to MacOS
-# May need to add your terminal (e.g. Alacritty) in accessibility:
-# Privacy & Security > Accessibility
 # =================================================================================================
 
 # Bash safeties: exit on error, no unset variables, pipelines can't hide errors
 set -o errexit
 set -o nounset
 set -o pipefail
-
-# Check OS {{{
-# Helper functions
-
-is_linux() {
-    local uname="$(uname -a)"
-    [[ "$uname" =~ Linux ]] && return
-    false
-}
-
-is_macos() {
-    local uname="$(uname -a)"
-    [[ "$uname" =~ Darwin ]] && return
-    false
-}
-
-is_different_os() {
-    if is_linux && is_macos; then
-        echo "OSTYPE: ${OSTYPE} is not implemented"
-        exit 1
-    fi
-}
-# }}}
-
-# General {{{
-
-nvim_toggle() {
-    local nvr_bin=$(command -v nvr)
-    local server_list=$($nvr_bin --serverlist)
-
-    for addr in ${server_list}; do
-        if [[ ${target_mode} =~ "light" ]]; then
-            ${nvr_bin} --servername "${addr}" -c "set background=light"
-            ${nvr_bin} --servername "${addr}" -c "AdaptGlobalTheme"
-        else
-            ${nvr_bin} --servername "${addr}" -c "AdaptGlobalTheme"
-        fi
-    done
-}
-
-alacritty_toggle() {
-    local theme_path="${HOME}/dotfiles/alacritty/colors"
-
-    # Rotating between gruvbox and one
-    if [[ ${target_mode} =~ "light" ]]; then
-        ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path}/one.yml"
-        ${sed_bin} -i 's/*theme_dark/*theme_light/g' "${theme_path}/gruvbox.yml"
-    else
-        ${sed_bin} -i 's/*theme_light/*theme_dark/g' "${theme_path}/one.yml"
-        ${sed_bin} -i 's/*theme_light/*theme_dark/g' "${theme_path}/gruvbox.yml"
-    fi
-}
-
-tmux_toggle() {
-    local file="${HOME}/dotfiles/tmux/tmux.conf"
-
-    if [[ ${target_mode} =~ "light" ]]; then
-        ${sed_bin} -i 's/dark.conf/light.conf/g' "${file}"
-    else
-        ${sed_bin} -i 's/light.conf/dark.conf/g' "${file}"
-    fi
-
-    ${tmux_bin} source "${file}"
-}
-
-# i3 rofi - only for linux
-rofi_toggle() {
-    local file="${XDG_CONFIG_HOME}/rofi/config.rasi"
-
-    # Rotating between gruvbox and one
-    if [[ ${target_mode} =~ "light" ]]; then
-        ${sed_bin} -i 's/gruvbox-dark/gruvbox-light/g' "${file}"
-    else
-        ${sed_bin} -i 's/gruvbox-light/gruvbox-dark/g' "${file}"
-    fi
-
-    # restart i3 config
-    i3-msg restart
-}
-# }}}
-
-# Chrome {{{
-
-# NOTE: Disabled. Open manually
-reopen_chrome() {
-    # If chrome session exists
-    local chrome_bin=/usr/bin/google-chrome-stable
-    if [[ -n $(pgrep tmux) ]]; then
-        # Close Chrome
-        pkill -f chrome
-
-        # Open Chrome again
-        if [[ ${target_mode} =~ "light" ]]; then
-            ${chrome_bin} \
-                >/dev/null 2>&1 &
-        else
-            nohup ${chrome_bin} \
-                --force-dark-mode \
-                --enable-features=WebUIDarkMode,CSSColorSchemeUARendering \
-                >/dev/null 2>&1 &
-        fi
-    fi
-}
-
-# TODO: Add this to startup or .zprofile/.zshenv etc.
-# Close annoying Chrome's Restore Popup in Linux
-# https://raspberrypi.stackexchange.com/a/89705
-close_restore_popup() {
-    local chrome_preferences="${XDG_CONFIG_HOME}/google-chrome/Default/Preferences"
-
-    sed -i 's/"exit_type":"Crashed"/"exit_type":"Normal"/' "${chrome_preferences}"
-    sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' "${chrome_preferences}"
-}
-
-chrome_toggle() {
-    close_restore_popup
-
-    local file="${HOME}/.local/share/applications/google-chrome.desktop"
-    local default='\/usr\/bin\/google-chrome-stable'
-    local dark='\/usr\/bin\/google-chrome-stable --force-dark-mode --enable-features=WebUIDarkMode,CSSColorSchemeUARendering'
-
-    if [[ ${target_mode} =~ "light" ]]; then
-        sed -i "s/${dark}/${default}/" "${file}"
-    else
-        sed -i "s/${default}/${dark}/" "${file}"
-    fi
-}
-# }}}
-
-# OS Toggle {{{
-
-gtk_toggle() {
-    if [[ ${target_mode} =~ "light" ]]; then
-        gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
-        gsettings set org.gnome.desktop.interface gtk-theme "Yaru-light"
-    else
-        gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-        gsettings set org.gnome.desktop.interface gtk-theme "Yaru-dark"
-    fi
-}
 
 macos_toggle() {
     if [[ ${target_mode} == "light" ]]; then
@@ -192,29 +48,15 @@ macos_toggle() {
     fi
 }
 
-os_toggle() {
-    if is_macos; then
-        macos_toggle "${target_mode}"
-    else
-        gtk_toggle "${target_mode}"
-        rofi_toggle
-        chrome_toggle
-    fi
-}
-# }}}
-
-
-# Main {{{
-
 display_usage() {
     cat <<EOF
-    Toggle the theme for developer workflow from one mode to another
+    Toggle the macOS appearance for developer workflow from one mode to another
 Usages:
 
-1. Just run without flag:
+1. Just run without flag (toggles current mode):
 $ ./toggle-theme
 
-2. If you want spesific theme, pass one of the theme flag to use the specific theme:
+2. Pass a theme flag to force a specific mode:
 For light mode:
 $ ./toggle-theme -l|--light|l|light
 For dark mode:
@@ -229,20 +71,12 @@ error_arg() {
 }
 
 main() {
-    local sed_bin=$(command -v gsed || command -v sed) # MacOS sed is pain, use gsed
-    local tmux_bin=$(command -v tmux)
     local target_mode="dark" # Default theme mode is dark
 
-    # No mode flag. Default usage
+    # No mode flag: invert the current appearance.
     if [[ "$#" -eq 0 ]]; then
-        # Check current mode and set target_mode
-        if is_linux; then
-            local theme="$(gsettings get org.gnome.desktop.interface gtk-theme)"
-            [[ "${theme}" =~ "dark" ]] && local target_mode="light"
-        else
-            local theme="$(defaults read -g AppleInterfaceStyle)"
-            [[ "${theme}" =~ "Dark" ]] && local target_mode="light"
-        fi
+        local theme="$(defaults read -g AppleInterfaceStyle 2>/dev/null || true)"
+        [[ "${theme}" =~ "Dark" ]] && local target_mode="light"
     # If theme mode passed use it
     elif [[ "$#" -eq 1 ]]; then
         case $1 in
@@ -258,13 +92,9 @@ main() {
         error_arg "$@"
     fi
 
-    os_toggle
-    alacritty_toggle
-    tmux_toggle
-    nvim_toggle
+    macos_toggle
 
     echo "Switched to ${target_mode} mode"
 }
-# }}}
 
 main "$@"
