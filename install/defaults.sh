@@ -123,6 +123,20 @@ trackpad() {
     defaults write -g com.apple.trackpad.scaling -float 0.875
 }
 
+pointer() {
+    # Accessibility > Display > Pointer
+    # Yellow fill + black outline + slightly larger size for high visibility.
+    # Values captured from the UI (macOS stores the color channels as strings).
+    defaults write com.apple.universalaccess cursorFill -dict \
+        red "0.9994240403" green "0.9855536819" blue 0 alpha 1
+    defaults write com.apple.universalaccess cursorOutline -dict \
+        red 0 green 0 blue 0 alpha 1
+    defaults write com.apple.universalaccess cursorIsCustomized -bool true
+
+    # Pointer size (1.0 = Normal, ~4.0 = Large)
+    defaults write com.apple.universalaccess mouseDriverCursorSize -float 1.2578125
+}
+
 corners() {
     # Hot corners
     # Possible values:
@@ -186,6 +200,7 @@ main() {
     dock
     keyboard
     trackpad
+    pointer
     corners
     mission_control
     desktop
