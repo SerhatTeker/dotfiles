@@ -186,6 +186,19 @@ finder() {
     chflags nohidden ~/Library
 }
 
+# Lock Screen
+# Require password immediately after sleep / screen saver begins, so closing
+# the lid (which sleeps the Mac) locks it right away.
+lock_screen() {
+    # Modern macOS (Catalina+) manages this via sysadminctl.
+    # Prompts once for your login password.
+    sysadminctl -screenLock immediate -password -
+
+    # Legacy fallback for older macOS (ignored on newer versions).
+    defaults write com.apple.screensaver askForPassword -int 1
+    defaults write com.apple.screensaver askForPasswordDelay -int 0
+}
+
 # See the changes
 see_changes() {
     killall Dock
@@ -205,6 +218,7 @@ main() {
     mission_control
     desktop
     finder
+    lock_screen
 
     see_changes
 }
