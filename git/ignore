@@ -28,7 +28,9 @@ GitHub.sublime-settings
 # Python {{{
 
 # Virtual env
-.venv/
+# No trailing slash: matches both the real dir and .venv symlinks
+# (e.g. a venv shared into a git worktree), which a dir-only "/" pattern misses
+.venv
 
 # Sqlite db
 *.sqlite3
