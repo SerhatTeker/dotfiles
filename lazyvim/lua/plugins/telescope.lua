@@ -57,6 +57,15 @@ M = {
           },
         },
       })
+      -- Picker-specific overrides
+      opts.pickers = vim.tbl_deep_extend("force", opts.pickers or {}, {
+        find_files = {
+          -- fd's default `--type f` skips symlinks (type l), so symlinked notes and
+          -- docs never showed up. Listing type l too keeps them findable without
+          -- `--follow`, which would traverse *into* symlinked dirs (loops, dupes).
+          find_command = { "fd", "--type", "f", "--type", "l", "--color", "never" },
+        },
+      })
       -- Extension-specific overrides
       opts.extensions = vim.tbl_deep_extend("force", opts.extensions or {}, {
         live_grep_args = {
