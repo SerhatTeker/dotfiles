@@ -301,6 +301,22 @@ zshaddhistory() {  whence ${${(z)1}[1]} >/dev/null || return 2 }
 
 # }}}2
 
+# Key bindings {{{2
+
+# !!! Warning !!!
+# Key bindings should be after `source $ZSH/oh-my-zsh.sh`
+
+# Edit the current command line in $EDITOR (nvim): `Ctrl-x Ctrl-e`
+# On editor exit the text returns to the prompt -- it is NOT auto-executed.
+# Quit with `:cq` to discard. (Contrast: `fc` edits the *previous* command
+# and runs it on save.)
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M viins '^X^E' edit-command-line
+bindkey -M vicmd '^X^E' edit-command-line
+
+# }}}2
+
 # Aliases, functions and others {{{2
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
