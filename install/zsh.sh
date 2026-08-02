@@ -91,10 +91,9 @@ install_oh-my-zsh() {
         -P /tmp
 
     #   --unattended: sets both CHSH and RUNZSH to 'no'
-    ZSH="${ZSH}" sh /tmp/install.sh --unattended
-
-    # somehow .oh-my-zsh overwrites my .zshrc
-    cp "${DOT_ZSH}/.zshrc.main" "${DOT_ZSH}/.zshrc"
+    #   --keep-zshrc: keep our own ${ZDOTDIR}/.zshrc; without it the installer
+    #                 moves it to .zshrc.pre-oh-my-zsh and writes its template
+    ZSH="${ZSH}" sh /tmp/install.sh --unattended --keep-zshrc
 
     info ".oh-my-zsh installed."
 }
