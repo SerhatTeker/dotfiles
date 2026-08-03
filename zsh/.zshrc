@@ -292,6 +292,14 @@ setopt INC_APPEND_HISTORY_TIME  # append command to history file immediately aft
 setopt EXTENDED_HISTORY         # record command start time
 setopt SHARE_HISTORY            # share command history data
 
+# Any line typed with a leading space is not written to $HISTFILE, e.g.
+#     $  gh auth login --with-token < token.txt
+# Pinned here on purpose: oh-my-zsh's lib/history.zsh already sets it, so this
+# is currently a no-op -- but inheriting it means the behaviour would vanish
+# silently if omz is dropped or reorganised. Note this only filters the file;
+# it is not a secrets mechanism, prefer reading secrets from a file or env.
+setopt HIST_IGNORE_SPACE        # do not record commands prefixed with a space
+
 # History
 # Don't append "not found command" to history
 # https://www.zsh.org/mla/users//2014/msg00715.html
