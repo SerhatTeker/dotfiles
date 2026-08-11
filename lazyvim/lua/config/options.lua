@@ -30,7 +30,7 @@ g.root_spec = { ".git", "lsp", "cwd" }
 local opt = vim.opt -- set options
 
 -- Relative line numbers
-opt.relativenumber = false
+opt.relativenumber = true
 -- Disable mouse
 opt.mouse = ""
 -- Remove LazyVim default margined gutter
