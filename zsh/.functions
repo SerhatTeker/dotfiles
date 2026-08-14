@@ -799,6 +799,18 @@ tnew() {
         -n ${session_window_name}
 }
 
+# give the window back its automatic name, which follows the running process
+# tmux stops automatic naming as soon as a window gets a manual name,
+# e.g. with `tnew` or prefix + ","
+# Usage:
+# - $ tmux-window-auto-rename                  # current window
+# - $ tmux-window-auto-rename session:window   # given window
+tmux-window-auto-rename() {
+    local target_window="${1:-$(tmux display-message -p '#S:#I')}"
+
+    tmux set-window-option -t "${target_window}" -u automatic-rename
+}
+
 # create dotfiles session in dotfiles dir and open saved nvim session
 tdot() {
     tmux new-session -d -s dotfiles -c "${HOME}/dotfiles" -n main
