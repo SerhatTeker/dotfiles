@@ -77,12 +77,16 @@ preset = 'qwerty'
 #                   keypadMinus, keypadMultiply, keypadPlus
 # - Arrows.         left, down, up, right
 [mode.main.binding]
+# New terminal window. The stock binding opens Terminal.app through AppleScript.
+# Ghostty has no AppleScript `do script`, and `ghostty +new-window` works on
+# Linux only, so send Cmd+N to the running instance. Needs Accessibility
+# permission for AeroSpace, which it already has as a WM.
+# Fallback without that permission: 'exec-and-forget open -na Ghostty'
+# (works, but starts a second Ghostty process on every press).
 # See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
 alt-enter = '''exec-and-forget osascript -e '
-tell application "Terminal"
-    do script
-    activate
-end tell'
+tell application "Ghostty" to activate
+tell application "System Events" to keystroke "n" using {command down}'
 '''
 
 # i3 wraps focus by default
