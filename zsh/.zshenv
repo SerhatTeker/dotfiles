@@ -27,12 +27,14 @@ export XDG_BIN_HOME="${HOME}/.local/bin"
 export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_LIB_HOME="${HOME}/.local/lib"
+export XDG_STATE_HOME="${HOME}/.local/state"
 # Aliases for XDG directories
 export XCONFIG="${XDG_CONFIG_HOME}"
 export XBIN="${XDG_BIN_HOME}"
 export XDATA="${XDG_DATA_HOME}"
 export XCACHE="${XDG_CACHE_HOME}"
 export XLIB="${XDG_LIB_HOME}"
+export XSTATE="${XDG_STATE_HOME}"
 
 # Zsh root
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
