@@ -199,6 +199,69 @@ lock_screen() {
     defaults write com.apple.screensaver askForPasswordDelay -int 0
 }
 
+# OpenSuperWhisper: local push-to-talk dictation
+# https://github.com/Starmel/OpenSuperWhisper
+#
+# Installed as a cask by install/brew.sh. Only the settings live here, because
+# the app keeps everything in UserDefaults and has no config file to link.
+#
+# Manual steps this cannot do:
+# * Grant Microphone, Accessibility and Input Monitoring in System Settings.
+#   Without Accessibility it transcribes but cannot paste anywhere.
+# * Download a model from the app: Settings > Model.
+opensuperwhisper() {
+    local domain="ru.starmel.OpenSuperWhisper"
+
+    # The first-run onboarding overwrites these, so writing them before the
+    # app has ever been opened achieves nothing. install.sh runs defaults
+    # before brew, so on a new machine open the app once, finish onboarding,
+    # then run this script again.
+    if [[ "$(defaults read ${domain} hasCompletedOnboarding 2>/dev/null || echo 0)" != "1" ]]; then
+        warn "OpenSuperWhisper: open it once and finish onboarding, then re-run"
+        return 0
+    fi
+
+    # A running app rewrites its own plist on exit and would discard these
+    if pgrep -x OpenSuperWhisper > /dev/null; then
+        killall OpenSuperWhisper
+    fi
+
+    # Push-to-talk on Right Option: hold to record, release to stop.
+    # Left Control and Globe/Fn are taken by the remap in keyboard(), and
+    # AeroSpace owns the alt-<key> combinations. A bare Right Option hold
+    # sends no key, so it collides with neither.
+    # Cost: Right Option no longer types alternate glyphs such as é.
+    defaults write ${domain} modifierOnlyHotkey -string "rightOption"
+    defaults write ${domain} lastModifierOnlyHotkey -string "rightOption"
+    defaults write ${domain} holdToRecord -bool true
+
+    # Paste the transcription into whatever has focus, which is what puts it
+    # in the Claude Code prompt. It does not press Enter.
+    defaults write ${domain} autoPasteTranscription -bool true
+    # Keep a copy on the clipboard in case another window steals focus
+    defaults write ${domain} autoCopyToClipboard -bool true
+
+    # Background menu bar app, no window on launch
+    defaults write ${domain} startHiddenInMenuBar -bool true
+    # Audible proof the key registered, silent failure is the usual annoyance
+    defaults write ${domain} playSoundOnRecordStart -bool true
+    # Esc drops a bad take without a dialog
+    defaults write ${domain} escCancelWithoutConfirmation -bool true
+
+    # Skip language auto-detection: faster and more accurate when it is known
+    defaults write ${domain} whisperLanguage -string "en"
+    defaults write ${domain} suppressBlankAudio -bool true
+    defaults write ${domain} addSpaceAfterSentence -bool true
+
+    # Whisper takes this as context and it biases the spelling of what it
+    # hears. Without it, dictated technical words come out wrong. Extend the
+    # list as needed.
+    # NOTE: only the whisper engine reads this. It is inert while
+    # selectedEngine is fluidaudio (Parakeet), which onboarding picks.
+    defaults write ${domain} initialPrompt -string \
+        "Technical dictation for a software engineer. Terms include Claude Code, git, rebase, repo, PR, Django, Python, Kubernetes, kubectl, Postgres, refactor, endpoint, migration, payload, webhook, backend, async, boolean, nullable, stdout, CLI."
+}
+
 # See the changes
 see_changes() {
     killall Dock
@@ -219,6 +282,7 @@ main() {
     desktop
     finder
     lock_screen
+    opensuperwhisper
 
     see_changes
 }

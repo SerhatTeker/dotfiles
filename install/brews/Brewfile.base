@@ -26,6 +26,7 @@ brew "tree"
 brew "wget"
 # Cask
 cask "ghostty"
+cask "opensuperwhisper"         # https://github.com/Starmel/OpenSuperWhisper
 # cask "google-chrome"
 # cask "yubico-authenticator"
 # cask "nikitabobko/tap/aerospace"  # https://github.com/nikitabobko/AeroSpace
