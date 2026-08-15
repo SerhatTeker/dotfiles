@@ -39,6 +39,12 @@ export XSTATE="${XDG_STATE_HOME}"
 # Zsh root
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
 
+# macOS Terminal.app session save/restore, from /etc/zshrc_Apple_Terminal.
+# It writes ${ZDOTDIR}/.zsh_sessions, which lands inside this repo, and its
+# per-session history hijacks HISTFILE. The path is hardcoded and cannot move,
+# so turn the whole mechanism off. Read before /etc/zshrc, hence in .zshenv.
+export SHELL_SESSIONS_DISABLE=1
+
 # zsh-autosuggestions highlight
 # https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
 # export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#808080"

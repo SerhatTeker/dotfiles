@@ -61,6 +61,9 @@ export PRIVATE="${HOME}/Private"
 export APPS="${HOME}/apps"
 # ZSH
 export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+# Keep Terminal.app from writing ${ZDOTDIR}/.zsh_sessions into the repo.
+# Same reason as zsh/.zshenv; needed here because install scripts export ZDOTDIR.
+export SHELL_SESSIONS_DISABLE=1
 # ----------------------------------------------------------------------------#
 # }}}
 # ----------------------------------------------------------------------------#
