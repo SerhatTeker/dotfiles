@@ -811,11 +811,7 @@ tmux-window-auto-rename() {
     tmux set-window-option -t "${target_window}" -u automatic-rename
 }
 
-# create dotfiles session in dotfiles dir and open saved nvim session
-tdot() {
-    tmux new-session -d -s dotfiles -c "${HOME}/dotfiles" -n main
-    tmux send-keys -t dotfiles:main "vi" C-m
-}
+# tdot moved out of this repo
 
 # backup last tmux resurrect session and clean the rest
 # when -c|--clean flag provided, clean all sessions but newest
