@@ -28,10 +28,7 @@ map("n", "<C-b>c", "<cmd>BufCurOnly<cr>")
 -- Tab
 map("n", "]t", "<cmd>tabnext<cr>")
 map("n", "[t", "<cmd>tabprevious<cr>")
-map("n", "<leader>n", function()
-  vim.cmd("tabnew")
-  vim.bo.buflisted = false
-end, { desc = "New Tab" })
+map("n", "<leader>n", "<cmd>tab split<cr>", { desc = "New Tab (current buffer)" })
 
 -- Fold
 map("n", "<F3>", "<cmd>set foldmethod=marker<cr>")
