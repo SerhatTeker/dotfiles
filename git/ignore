@@ -136,6 +136,9 @@ logs/
 # Archive
 archive/
 .archive/
+
+# Excel lock files, written beside an open workbook
+~$*.xls*
 # }}}
 
 # Terraform  {{{
