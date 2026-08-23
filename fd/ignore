@@ -1,4 +1,4 @@
 .git/*
 # .venv/*
-.node-modules/*
+node_modules/*
 !.*
