@@ -1,0 +1,89 @@
+# ----------------------------------------------------------------------------#
+#                    _                   _
+#                   | |__   ___ _ __  __| |_ __
+#                   | '_ \ / _ \ '__|/ _` | '__|
+#                   | | | |  __/ |  | (_| | |
+#                   |_| |_|\___|_|(_)__,_|_|
+#
+# Author: Serhat Teker <me@serhatteker.com>
+# Source: https://github.com/SerhatTeker/dotfiles
+#
+# herdr - agent multiplexer, run ALONGSIDE tmux (never nested).
+# Same prefix and vim-like nav/splits as tmux so the two share one muscle memory.
+# See tmux/tmux.conf for the reference bindings this mirrors.
+# Reload live with: herdr server reload-config
+# ----------------------------------------------------------------------------#
+
+# Onboarding chosen; don't show it again.
+onboarding = false
+
+[theme]
+# auto_switch makes herdr follow the terminal's OS light/dark appearance (Ghostty
+# reports it), the same way Ghostty's own `theme = light:...,dark:...` does - so a
+# macOS mode flip switches herdr with no reload. The global `theme` command
+# (bin/theme) keeps light_name/dark_name current per scheme and reloads on a
+# scheme change. Scheme map: one->one-light/one-dark, gruvbox->gruvbox-light/gruvbox.
+name = "one-dark"
+auto_switch = true
+light_name = "gruvbox-light"
+dark_name = "one-dark"
+
+[keys]
+# Same prefix as tmux (tmux/tmux.conf: unbind C-b; set -g prefix C-a).
+# Safe to share because herdr is never nested inside tmux - each app only
+# sees keys while its own terminal window is focused.
+prefix = "ctrl+a"
+
+# Splits - mirror tmux mnemonics (tmux/tmux.conf:113-115).
+# herdr names splits by divider orientation, the opposite of tmux's -h/-v flags:
+#   tmux `prefix+|` (split -h, side by side) -> herdr split_vertical
+#   tmux `prefix+-` (split -v, stacked)      -> herdr split_horizontal
+split_vertical = "prefix+|"
+split_horizontal = "prefix+minus"
+
+# Pane focus, prefixless vim keys - mirrors the tmux vim-tmux-navigator setup
+# (tmux/tmux.conf:278-282, bind -n C-h/j/k/l). Direct ctrl+letter chords, no
+# prefix. Trade-off: herdr grabs these globally, so ctrl+l (clear) and
+# ctrl+h (backspace) no longer reach the pane's program - fine for agent panes.
+focus_pane_left = "ctrl+h"
+focus_pane_down = "ctrl+j"
+focus_pane_up = "ctrl+k"
+focus_pane_right = "ctrl+l"
+
+# New tab / window (tmux `prefix+c`, tmux.conf:117).
+new_tab = "prefix+c"
+
+# Tab navigation. tmux uses prefix+C-n / prefix+C-m (tmux.conf:166-167);
+# herdr's cleaner n/p defaults are kept here (C-m is carriage-return in a
+# terminal, unreliable as a chord).
+next_tab = "prefix+n"
+previous_tab = "prefix+p"
+
+# Indexed jump to tab N - mirrors tmux's built-in `prefix + <number>` window
+# select. Same as herdr's default, pinned here for tmux parity.
+switch_tab = "prefix+1..9"
+
+# Indexed jump to workspace N (sidebar order, see herdr-workspaces --list).
+# No tmux analog; ctrl+number keeps it one layer above the tab jump.
+# Why ctrl and not shift: herdr asks the terminal for the kitty keyboard
+# protocol with flags 7 (ESC[>7u), which omits "report all keys as escape
+# codes". Under those flags a terminal delivers any text-producing key as the
+# bare character, so shift+3 arrives as '#' (or '£' on a UK layout), never as a
+# shift+digit event - so "prefix+shift+1..9" silently never fires. ctrl+digit
+# produces no text, so Ghostty encodes it as a real key event herdr can match.
+# (alt+digit is out too: option-key on macOS emits special chars.)
+# focus_agent has no analog either and stays unset.
+switch_workspace = "prefix+ctrl+1..9"
+
+# Navigate-mode movement (scrollback / copy). Plain vim keys, matches tmux's
+# vi copy-mode. These are herdr defaults, pinned here for clarity.
+navigate_pane_left = "h"
+navigate_pane_down = "j"
+navigate_pane_up = "k"
+navigate_pane_right = "l"
+
+[ui]
+# Skip the "new tab" name prompt (tmux `prefix+c` opens a window instantly).
+# Tabs are created immediately with auto-generated names.
+prompt_new_tab_name = false
+agent_panel_scope = "all"

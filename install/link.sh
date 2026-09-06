@@ -34,6 +34,7 @@ dot_configs() {
         "bat"
         "ghostty"
         "gh"
+        "herdr"
         "fd"
         "httpie"
         "kube" # TODO: link after docker & k8s installed
