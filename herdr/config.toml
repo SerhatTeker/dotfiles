@@ -82,6 +82,18 @@ navigate_pane_down = "j"
 navigate_pane_up = "k"
 navigate_pane_right = "l"
 
+# Clear screen - herdr's answer to tmux's `bind C-l send-keys 'C-l'`
+# (tmux/tmux.conf:289-291). herdr has no native clear action, so shell out to its
+# CLI: run `clear` in a shell pane, or send ctrl+l to an agent pane (where a typed
+# `clear` would post as a prompt). herdr injects $HERDR_ACTIVE_PANE_ID (focused
+# pane) and $HERDR_BIN_PATH - the latter is needed because the fired shell's PATH
+# does not include herdr. Single-quoted TOML literal so the shell expands the vars.
+[[keys.command]]
+key = "prefix+l"
+type = "shell"
+command = 'p="$HERDR_ACTIVE_PANE_ID"; h="$HERDR_BIN_PATH"; if [ -z "$("$h" pane get "$p" | jq -r ".result.pane.agent // empty")" ]; then "$h" pane run "$p" clear; else "$h" pane send-keys "$p" ctrl+l; fi'
+description = "clear screen"
+
 [ui]
 # Skip the "new tab" name prompt (tmux `prefix+c` opens a window instantly).
 # Tabs are created immediately with auto-generated names.
