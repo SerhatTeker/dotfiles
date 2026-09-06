@@ -56,6 +56,12 @@ new_tab = "prefix+c"
 next_tab = "prefix+n"
 previous_tab = "prefix+p"
 
+# Cycle focus across agents (a = agent). herdr has no agent picker analogous to
+# the workspace picker (prefix+w), so this is the way to reach agents by keyboard.
+# Both unset by default.
+next_agent = "prefix+a"
+previous_agent = "prefix+shift+a"
+
 # Indexed jump to tab N - mirrors tmux's built-in `prefix + <number>` window
 # select. Same as herdr's default, pinned here for tmux parity.
 switch_tab = "prefix+1..9"
