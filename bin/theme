@@ -1,0 +1,224 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# vim: set ft=sh et ts=4 sw=4 sts=4:
+# =================================================================================================
+#
+# Copyright 2026 Serhat Teker <me@serhatteker.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+#
+# File                  : theme
+# Description           : One global theme command with two axes: mode (light/dark)
+#                         and colorscheme (one/gruvbox). Flips macOS appearance and
+#                         applies the chosen colorscheme across Ghostty, tmux and nvim.
+# Author                : Serhat Teker <me@serhatteker.com>
+# Date                  : 2026-09-06
+# Notes                 : macOS auto-switch is preserved. This sets the per-mode
+#                         scheme (persisted in $XDG_STATE_HOME/theme/schemes) and
+#                         flips macOS; dark-notify keeps cascading mode changes,
+#                         now scheme-aware. Overrides persist per mode.
+#                         Ghostty reloads via SIGUSR2 (only USR2 - other signals
+#                         crash it). nvim reloads instantly: mode flips via
+#                         dark-notify, scheme-only changes via SIGUSR1 (this
+#                         command signals running nvims). bat is not managed.
+# Usage:
+#   theme                         # invert current mode, keep each mode's scheme
+#   theme dark | -d | d           # dark mode (default scheme: one)
+#   theme light | -l | l          # light mode (default scheme: gruvbox)
+#   theme dark  --c=gruvbox       # dark + set dark's scheme = gruvbox (persists)
+#   theme light --colorscheme=one # light + set light's scheme = one (persists)
+#   theme -h | --help
+# =================================================================================================
+
+# Bash safeties: exit on error, no unset variables, pipelines can't hide errors
+set -o errexit
+set -o nounset
+set -o pipefail
+
+readonly STATE_HOME="${XDG_STATE_HOME:-${HOME}/.local/state}"
+readonly SCHEMES_FILE="${STATE_HOME}/theme/schemes"
+readonly TMUX_COLORS="${HOME}/.config/tmux/colors"
+readonly TMUX_STATE_DIR="${STATE_HOME}/tmux"
+readonly GHOSTTY_CONFIG="${HOME}/.config/ghostty/config"
+
+# Defaults when the state file has no entry for a mode.
+readonly DEFAULT_LIGHT_SCHEME="gruvbox"
+readonly DEFAULT_DARK_SCHEME="one"
+
+light_scheme="${DEFAULT_LIGHT_SCHEME}"
+dark_scheme="${DEFAULT_DARK_SCHEME}"
+
+display_usage() {
+    cat <<'EOF'
+Global theme command: mode (light/dark) x colorscheme (one/gruvbox).
+
+Usage:
+  theme                          invert current mode, keep each mode's scheme
+  theme dark | -d | d            dark mode (default scheme: one)
+  theme light | -l | l           light mode (default scheme: gruvbox)
+  theme dark  --c=gruvbox        dark + set dark's scheme = gruvbox (persists)
+  theme light --colorscheme=one  light + set light's scheme = one (persists)
+  theme -h | --help
+
+Scheme values: one, gruvbox. --c= and --colorscheme= are aliases.
+EOF
+}
+
+error_arg() {
+    echo "Unknown argument(s): <$*>" >&2
+    display_usage
+    exit 1
+}
+
+# Ghostty theme name for a scheme+mode pair.
+ghostty_name() {
+    local scheme="$1" mode="$2"
+    case "${scheme}:${mode}" in
+    one:light) echo "Atom One Light" ;;
+    one:dark) echo "Atom One Dark" ;;
+    gruvbox:light) echo "Gruvbox Light Hard" ;;
+    gruvbox:dark) echo "Gruvbox Dark Hard" ;;
+    esac
+}
+
+load_state() {
+    [[ -f "${SCHEMES_FILE}" ]] || return 0
+    local key val
+    while IFS='=' read -r key val; do
+        case "${key}" in
+        light) [[ "${val}" == "one" || "${val}" == "gruvbox" ]] && light_scheme="${val}" ;;
+        dark) [[ "${val}" == "one" || "${val}" == "gruvbox" ]] && dark_scheme="${val}" ;;
+        esac
+    done <"${SCHEMES_FILE}"
+}
+
+save_state() {
+    mkdir -p "$(dirname "${SCHEMES_FILE}")"
+    printf 'light=%s\ndark=%s\n' "${light_scheme}" "${dark_scheme}" >"${SCHEMES_FILE}"
+}
+
+current_macos_mode() {
+    if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null || true)" =~ Dark ]]; then
+        echo "dark"
+    else
+        echo "light"
+    fi
+}
+
+macos_set_mode() {
+    local mode="$1"
+    command -v osascript >/dev/null 2>&1 || return 0
+    local flag="false"
+    [[ "${mode}" == "dark" ]] && flag="true"
+    osascript -l JavaScript \
+        -e "Application('System Events').appearancePreferences.darkMode = ${flag}" >/dev/null
+}
+
+apply_ghostty() {
+    [[ -e "${GHOSTTY_CONFIG}" ]] || return 0
+    local gl gd
+    gl="$(ghostty_name "${light_scheme}" light)"
+    gd="$(ghostty_name "${dark_scheme}" dark)"
+    # Keep the light:...,dark:... form so window-theme = system keeps auto-switching.
+    sed -i '' "s|^theme = .*|theme = light:${gl},dark:${gd}|" "${GHOSTTY_CONFIG}"
+    # Reload live. SIGUSR2 ONLY - any other signal crashes Ghostty.
+    pkill -USR2 -x ghostty 2>/dev/null || pkill -USR2 -x Ghostty 2>/dev/null || true
+}
+
+apply_tmux() {
+    command -v tmux >/dev/null 2>&1 || return 0
+    tmux info >/dev/null 2>&1 || return 0
+
+    local light_conf="\$HOME/.config/tmux/colors/${light_scheme}/light.conf"
+    local dark_conf="\$HOME/.config/tmux/colors/${dark_scheme}/dark.conf"
+
+    # Live options for the next macOS flip (tmux-dark-notify reads these).
+    tmux set-option -g @dark-notify-theme-path-light "${light_conf}"
+    tmux set-option -g @dark-notify-theme-path-dark "${dark_conf}"
+
+    # Persist across a tmux server restart (sourced from tmux.conf). Literal $HOME:
+    # the plugin evals the path in a plain shell where tmux env vars don't exist.
+    mkdir -p "${TMUX_STATE_DIR}"
+    cat >"${TMUX_STATE_DIR}/theme-paths.conf" <<EOF
+set -g @dark-notify-theme-path-light "${light_conf}"
+set -g @dark-notify-theme-path-dark "${dark_conf}"
+EOF
+
+    # Apply the current mode's conf now (covers a scheme-only change, no macOS flip),
+    # and repoint the dark-notify state symlink so a config reload keeps it.
+    local scheme conf
+    [[ "${target_mode}" == "light" ]] && scheme="${light_scheme}" || scheme="${dark_scheme}"
+    conf="${TMUX_COLORS}/${scheme}/${target_mode}.conf"
+    tmux source-file "${conf}"
+    ln -sf "${conf}" "${TMUX_STATE_DIR}/tmux-dark-notify-theme.conf"
+}
+
+apply_nvim() {
+    # Signal running nvims to re-read the state file and reload instantly (they
+    # handle SIGUSR1 via a Signal autocmd in lazyvim/lua/plugins/core.lua). nvim
+    # catches SIGUSR1 safely, so this never kills an instance.
+    pkill -USR1 -x nvim 2>/dev/null || true
+}
+
+main() {
+    local target_mode="" scheme_override=""
+
+    while [[ "$#" -gt 0 ]]; do
+        case "$1" in
+        -d | --dark | d | dark) target_mode="dark" ;;
+        -l | --light | l | light) target_mode="light" ;;
+        --c=* | --colorscheme=*) scheme_override="${1#*=}" ;;
+        --c | --colorscheme)
+            shift
+            scheme_override="${1:-}"
+            ;;
+        -h | --help)
+            display_usage
+            exit 0
+            ;;
+        *) error_arg "$@" ;;
+        esac
+        shift
+    done
+
+    # No mode given: invert the current macOS appearance.
+    if [[ -z "${target_mode}" ]]; then
+        [[ "$(current_macos_mode)" == "dark" ]] && target_mode="light" || target_mode="dark"
+    fi
+
+    if [[ -n "${scheme_override}" && "${scheme_override}" != "one" && "${scheme_override}" != "gruvbox" ]]; then
+        echo "Invalid colorscheme: <${scheme_override}> (expected: one | gruvbox)" >&2
+        exit 1
+    fi
+
+    load_state
+
+    # A scheme override applies to (and persists for) the target mode.
+    if [[ -n "${scheme_override}" ]]; then
+        [[ "${target_mode}" == "light" ]] && light_scheme="${scheme_override}" \
+            || dark_scheme="${scheme_override}"
+    fi
+    save_state
+
+    macos_set_mode "${target_mode}"
+    apply_ghostty
+    apply_tmux
+    apply_nvim
+
+    local scheme
+    [[ "${target_mode}" == "light" ]] && scheme="${light_scheme}" || scheme="${dark_scheme}"
+    echo "Switched to ${target_mode} mode (${scheme})"
+}
+
+main "$@"

@@ -181,7 +181,7 @@ alias paths='print -rl $path'
 alias sedpath='sed "s/ /\n/g" <<< "$path"'
 
 # local bins
-alias theme='~/.local/bin/toggle-theme'
+alias theme='~/.local/bin/theme'
 alias airplane='~/.local/bin/toggle-airplane'
 
 # disk usage
