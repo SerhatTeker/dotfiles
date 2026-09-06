@@ -11,17 +11,32 @@ local function default_config(name)
   return string.format('require("%s").setup()', name)
 end
 
--- Tracks the last appearance applied, so the FocusGained re-probe can skip a
--- redundant (and visibly flickery) colorscheme reload when nothing changed.
-local applied_mode
+-- Tracks the last "<mode>:<scheme>" applied, so the FocusGained re-probe can skip
+-- a redundant (and visibly flickery) reload when neither mode nor scheme changed.
+local applied_key
 
--- Single source of truth for onedark styling. Used at startup and by
--- dark-notify's onchange callback. Resets vim.g.onedark_config so the dark
--- bg0 override doesn't leak into light mode (setup() merges with `force`,
--- which never removes prior keys).
+-- Per-mode colorscheme, chosen by the `theme` command (bin/theme), persisted in
+-- ~/.local/state/theme/schemes as `light=gruvbox` / `dark=one`. Missing file or
+-- key falls back to the built-in defaults: light -> gruvbox, dark -> one.
+local function read_scheme(mode)
+  local default = mode == "light" and "gruvbox" or "one"
+  local state = vim.env.XDG_STATE_HOME or (vim.env.HOME .. "/.local/state")
+  local ok, lines = pcall(vim.fn.readfile, state .. "/theme/schemes")
+  if not ok then
+    return default
+  end
+  for _, line in ipairs(lines) do
+    local key, val = line:match("^(%w+)=(%w+)$")
+    if key == mode and (val == "one" or val == "gruvbox") then
+      return val
+    end
+  end
+  return default
+end
+
+-- onedark ("one" scheme). Resets vim.g.onedark_config so the dark bg0 override
+-- doesn't leak into light mode (setup() merges with `force`, never removing keys).
 local function apply_onedark(mode)
-  mode = mode or "dark"
-  applied_mode = mode
   vim.g.onedark_config = nil
   local opts = {
     style = mode == "dark" and "darker" or "light",
@@ -37,6 +52,27 @@ local function apply_onedark(mode)
   end
   require("onedark").setup(opts)
   require("onedark").load()
+end
+
+-- gruvbox scheme. Owns its own setup (contrast hard) so it applies regardless of
+-- plugin load order; honors vim.o.background for its light/dark variant.
+local function apply_gruvbox(mode)
+  vim.o.background = mode
+  require("gruvbox").setup({ contrast = "hard" })
+  require("gruvbox").load()
+end
+
+-- Single source of truth: apply the scheme chosen for `mode`. Used at startup and
+-- by dark-notify's onchange callback.
+local function apply_theme(mode)
+  mode = mode or "dark"
+  local scheme = read_scheme(mode)
+  if scheme == "gruvbox" then
+    apply_gruvbox(mode)
+  else
+    apply_onedark(mode)
+  end
+  applied_key = mode .. ":" .. scheme
 end
 -- }}}
 
@@ -90,22 +126,13 @@ M = {
   --
   -- ## Colorschemes
   { "SerhatTeker/neodarker.nvim" },
-  {
-    "ellisonleao/gruvbox.nvim",
-    config = function()
-      require("gruvbox").setup({
-        contrast = "hard",
-        -- overrides = {
-        --   TabLineSel = { fg = "#cc241d", bg = "#cc241d", reverse = false },
-        -- },
-      })
-    end,
-  },
+  -- gruvbox: setup + load are owned by apply_gruvbox (helper above).
+  { "ellisonleao/gruvbox.nvim" },
   { "Mofiqul/vscode.nvim" },
   {
     "navarasu/onedark.nvim",
     priority = 1000, -- make sure to load this before all the other start plugins
-    config = function() apply_onedark("dark") end,
+    config = function() apply_theme("dark") end,
   },
   -- automatic dark mode
   -- requires: brew install cormacrelf/tap/dark-notify
@@ -114,19 +141,29 @@ M = {
     lazy = false,
     dependencies = { "navarasu/onedark.nvim" },
     config = function()
-      require("dark_notify").run({ onchange = apply_onedark })
-      -- dark-notify's async watcher occasionally misses system change events;
-      -- re-probe synchronously when nvim regains focus, but only reload the
-      -- colorscheme when the mode actually changed. Reloading on every focus
-      -- (e.g. switching back from another tmux window) visibly dims highlights.
-      vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, {
-        callback = function()
-          local mode = vim.trim(vim.fn.system("dark-notify --exit"))
-          if (mode == "dark" or mode == "light") and mode ~= applied_mode then
-            apply_onedark(mode)
-          end
-        end,
-      })
+      require("dark_notify").run({ onchange = apply_theme })
+
+      -- Re-probe mode + scheme and reload only when mode:scheme actually changed
+      -- (reloading otherwise visibly dims highlights).
+      local function refresh()
+        local mode = vim.trim(vim.fn.system("dark-notify --exit"))
+        if mode ~= "dark" and mode ~= "light" then
+          return
+        end
+        if (mode .. ":" .. read_scheme(mode)) ~= applied_key then
+          apply_theme(mode)
+        end
+      end
+
+      -- SIGUSR1: the `theme` command signals running nvims so a scheme change
+      -- applies instantly, without waiting for focus. (Mode flips also arrive via
+      -- dark-notify's watcher; the guard in refresh() stops a double reload.)
+      vim.api.nvim_create_autocmd("Signal", { pattern = "SIGUSR1", callback = refresh })
+
+      -- Backstop: dark-notify's async watcher occasionally misses system change
+      -- events, and a nvim started after the signal won't have received it.
+      -- Re-probe on focus too.
+      vim.api.nvim_create_autocmd({ "FocusGained", "VimResume" }, { callback = refresh })
     end,
   },
   -- ## Trim
