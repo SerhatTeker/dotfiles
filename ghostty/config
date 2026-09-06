@@ -23,7 +23,10 @@ confirm-close-surface = false
 #
 # Theme
 # ----------------------------------------------------------------------------
-theme = light:Atom One Light,dark:Atom One Dark
+# Per-mode colorscheme is managed by the `theme` command (bin/theme), which
+# rewrites this line and reloads Ghostty (SIGUSR2). Default: light -> gruvbox,
+# dark -> one. window-theme = system keeps the light/dark auto-switch.
+theme = light:Gruvbox Light Hard,dark:Atom One Dark
 #
 # Colors
 # ----------------------------------------------------------------------------
