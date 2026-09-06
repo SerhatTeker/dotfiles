@@ -87,3 +87,7 @@ navigate_pane_right = "l"
 # Tabs are created immediately with auto-generated names.
 prompt_new_tab_name = false
 agent_panel_scope = "all"
+
+# Put the tab row below the panes (default is "top"). Prefix/Navigate/Copy/Resize
+# mode bars temporarily replace it while active.
+tab_bar_position = "bottom"
