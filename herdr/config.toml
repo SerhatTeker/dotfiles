@@ -91,3 +91,14 @@ agent_panel_scope = "all"
 # Put the tab row below the panes (default is "top"). Prefix/Navigate/Copy/Resize
 # mode bars temporarily replace it while active.
 tab_bar_position = "bottom"
+
+# tmux-style status-right, mirroring tmux/colors/*/*.conf status-right:
+# time, ISO week:weekday, date, hostname (+ herdr's zoom pill for the zoom
+# indicator). datetime uses strftime; %R=HH:MM, %V=ISO week, %u=weekday.
+tab_bar_right = [
+    { type = "zoom" },
+    { type = "datetime", format = "%R" },
+    { type = "datetime", format = "w%V:d0%u | %d-%m-%y" },
+    { type = "hostname" },
+]
+tab_bar_right_separator = " · "
