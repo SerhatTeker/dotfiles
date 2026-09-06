@@ -21,7 +21,8 @@
 # File                  : theme
 # Description           : One global theme command with two axes: mode (light/dark)
 #                         and colorscheme (one/gruvbox). Flips macOS appearance and
-#                         applies the chosen colorscheme across Ghostty, tmux and nvim.
+#                         applies the chosen colorscheme across Ghostty, tmux, nvim
+#                         and herdr.
 # Author                : Serhat Teker <me@serhatteker.com>
 # Date                  : 2026-09-06
 # Notes                 : macOS auto-switch is preserved. This sets the per-mode
@@ -31,7 +32,10 @@
 #                         Ghostty reloads via SIGUSR2 (only USR2 - other signals
 #                         crash it). nvim reloads instantly: mode flips via
 #                         dark-notify, scheme-only changes via SIGUSR1 (this
-#                         command signals running nvims). bat is not managed.
+#                         command signals running nvims). herdr follows the OS
+#                         appearance itself (auto_switch); this keeps its
+#                         light_name/dark_name current and runs `herdr server
+#                         reload-config`. bat is not managed.
 # Usage:
 #   theme                         # invert current mode, keep each mode's scheme
 #   theme dark | -d | d           # dark mode (default scheme: one)
@@ -51,6 +55,7 @@ readonly SCHEMES_FILE="${STATE_HOME}/theme/schemes"
 readonly TMUX_COLORS="${HOME}/.config/tmux/colors"
 readonly TMUX_STATE_DIR="${STATE_HOME}/tmux"
 readonly GHOSTTY_CONFIG="${HOME}/.config/ghostty/config"
+readonly HERDR_CONFIG="${HOME}/.config/herdr/config.toml"
 
 # Defaults when the state file has no entry for a mode.
 readonly DEFAULT_LIGHT_SCHEME="gruvbox"
@@ -89,6 +94,17 @@ ghostty_name() {
     one:dark) echo "Atom One Dark" ;;
     gruvbox:light) echo "Gruvbox Light Hard" ;;
     gruvbox:dark) echo "Gruvbox Dark Hard" ;;
+    esac
+}
+
+# herdr theme name for a scheme+mode pair (herdr ships no "hard" gruvbox).
+herdr_name() {
+    local scheme="$1" mode="$2"
+    case "${scheme}:${mode}" in
+    one:light) echo "one-light" ;;
+    one:dark) echo "one-dark" ;;
+    gruvbox:light) echo "gruvbox-light" ;;
+    gruvbox:dark) echo "gruvbox" ;;
     esac
 }
 
@@ -171,6 +187,22 @@ apply_nvim() {
     pkill -USR1 -x nvim 2>/dev/null || true
 }
 
+apply_herdr() {
+    command -v herdr >/dev/null 2>&1 || return 0
+    [[ -e "${HERDR_CONFIG}" ]] || return 0
+    local hl hd
+    hl="$(herdr_name "${light_scheme}" light)"
+    hd="$(herdr_name "${dark_scheme}" dark)"
+    # herdr's auto_switch follows the terminal's OS appearance, so (like Ghostty)
+    # keep both per-mode names current; the mode flip itself needs no reload.
+    sed -i '' \
+        -e "s|^light_name = .*|light_name = \"${hl}\"|" \
+        -e "s|^dark_name = .*|dark_name = \"${hd}\"|" \
+        "${HERDR_CONFIG}"
+    # Reload live if a server is running (picks up a scheme-only change); no-op otherwise.
+    herdr server reload-config >/dev/null 2>&1 || true
+}
+
 main() {
     local target_mode="" scheme_override=""
 
@@ -215,6 +247,7 @@ main() {
     apply_ghostty
     apply_tmux
     apply_nvim
+    apply_herdr
 
     local scheme
     [[ "${target_mode}" == "light" ]] && scheme="${light_scheme}" || scheme="${dark_scheme}"
