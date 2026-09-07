@@ -18,7 +18,8 @@ auto-update = off
 confirm-close-surface = false
 #
 macos-non-native-fullscreen = true
-# macos-titlebar-style = tabs
+macos-titlebar-style = transparent
+macos-window-buttons = hidden
 # window-save-state = never
 #
 # Theme
