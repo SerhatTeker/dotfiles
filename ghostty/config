@@ -11,11 +11,8 @@ window-theme = system
 shell-integration = zsh
 # don't ask when closing
 confirm-close-surface = false
-window-theme = system
-shell-integration = zsh
 fullscreen = true
 auto-update = off
-confirm-close-surface = false
 #
 macos-non-native-fullscreen = true
 macos-titlebar-style = transparent
