@@ -115,6 +115,7 @@ alias gac='git add . && git commit'
 # Initial empty commit for repos
 alias gie='git init && git commit --allow-empty -m "Initial commit"'
 alias giec='gie'
+alias gec='gie'
 # Visualize git branch tree
 alias glvb='git log --graph --simplify-by-decoration --pretty=format:'%d' --all'
 # List tracked files by git
