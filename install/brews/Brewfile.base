@@ -4,6 +4,7 @@
 tap "cormacrelf/tap"            # dark-notify
 # Brew
 brew "age"
+brew "age-plugin-yubikey"       # https://github.com/str4d/age-plugin-yubikey
 brew "coreutils"
 brew "dark-notify"              # https://github.com/cormacrelf/dark-notify
 brew "fd"                       # https://github.com/sharkdp/fd
@@ -18,6 +19,8 @@ brew "luarocks"
 brew "nvim"
 brew "openssl"
 brew "openssh"
+brew "rclone"
+brew "restic"
 brew "ripgrep"
 brew "shellcheck"
 brew "shfmt"
