@@ -1,7 +1,6 @@
-[user]
-    # TODO: You need to change these
-    # name = YourName
-    # email = youremail@domain.com
+# Per-machine identity, kept out of the repo. See README.
+[include]
+    path = ~/.config/git/user
 [core]
     editor = nvim
     # Already default. http://git-scm.com/docs/gitignore#_description

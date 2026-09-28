@@ -43,4 +43,9 @@ $ nvim
 
 ### Post Install
 
-There is no need to do anything. All covered by `install.sh` script.
+Set your git identity. It lives in `~/.config/git/user`, outside the repo:
+
+```bash
+git config --file ~/.config/git/user user.name "Your Name"
+git config --file ~/.config/git/user user.email "you@example.com"
+```
