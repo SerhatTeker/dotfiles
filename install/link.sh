@@ -32,7 +32,6 @@ dot_configs() {
     declare -a arr=(
         "aerospace"
         "bat"
-        "git"
         "ghostty"
         "gh"
         "fd"
@@ -52,6 +51,18 @@ dot_configs() {
     done
 }
 
+# Link git files one by one, not the dir, so a private config can take over
+git_configs() {
+    local target="${XDG_CONFIG_HOME}/git"
+
+    # Drop the old whole-dir link before linking files inside it
+    [ -L "${target}" ] && unlink "${target}"
+    mkdir -p "${target}"
+
+    force_remove "${DOTFILES}/git/config" "${target}/config"
+    force_remove "${DOTFILES}/git/ignore" "${target}/ignore"
+}
+
 # Link all bins
 bins() {
     local source="${DOTFILES}/bin"
@@ -68,6 +79,7 @@ home_others() {
 
 main() {
     dot_configs
+    git_configs
     bins
     home_others
 
