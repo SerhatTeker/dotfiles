@@ -175,6 +175,29 @@ desktop() {
     defaults write com.apple.screencapture location "${ss_dir}"
 }
 
+# Screenshot shortcuts
+# * Cmd+Shift+4: save selected area to file (default, unchanged)
+# * Cmd+Shift+6: copy selected area to clipboard (default is Cmd+Ctrl+Shift+4)
+#
+# Why: herdr swallows a dragged live screenshot thumbnail (herdrdev/herdr#2091).
+# Copy to clipboard instead, then Ctrl+V in the Claude Code pane.
+screenshots() {
+    # Hotkey value is (ascii, keycode, modifiers): '6' = 54, keycode 22,
+    # Cmd+Shift = 1048576 + 131072 = 1179648
+    local cmd_shift_6="<dict><key>type</key><string>standard</string><key>parameters</key><array><integer>54</integer><integer>22</integer><integer>1179648</integer></array></dict>"
+
+    # 31: Copy picture of selected area to the clipboard
+    defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 31 \
+        "<dict><key>enabled</key><true/><key>value</key>${cmd_shift_6}</dict>"
+    # 181: Save picture of the Touch Bar as a file, default Cmd+Shift+6.
+    # Disabled so it does not clash.
+    defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 181 \
+        "<dict><key>enabled</key><false/><key>value</key>${cmd_shift_6}</dict>"
+
+    # Apply without logging out
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+}
+
 finder() {
     # Show the full path at the bottom of Finder
     defaults write com.apple.finder ShowPathbar -bool true
@@ -280,6 +303,7 @@ main() {
     corners
     mission_control
     desktop
+    screenshots
     finder
     lock_screen
     opensuperwhisper
