@@ -1,0 +1,124 @@
+# ----------------------------------------------------------------------------#
+#                    _                   _
+#                   | |__   ___ _ __  __| |_ __
+#                   | '_ \ / _ \ '__|/ _` | '__|
+#                   | | | |  __/ |  | (_| | |
+#                   |_| |_|\___|_|(_)__,_|_|
+#
+# Author: Serhat Teker <me@serhatteker.com>
+# Source: https://github.com/SerhatTeker/dotfiles
+#
+# herdr - agent multiplexer, run ALONGSIDE tmux (never nested).
+# Same prefix and vim-like nav/splits as tmux so the two share one muscle memory.
+# See tmux/tmux.conf for the reference bindings this mirrors.
+# Reload live with: herdr server reload-config
+# ----------------------------------------------------------------------------#
+
+# Onboarding chosen; don't show it again.
+onboarding = false
+
+[theme]
+# auto_switch makes herdr follow the terminal's OS light/dark appearance (Ghostty
+# reports it), the same way Ghostty's own `theme = light:...,dark:...` does - so a
+# macOS mode flip switches herdr with no reload. The global `theme` command
+# (bin/theme) keeps light_name/dark_name current per scheme and reloads on a
+# scheme change. Scheme map: one->one-light/one-dark, gruvbox->gruvbox-light/gruvbox.
+name = "one-dark"
+auto_switch = true
+light_name = "gruvbox-light"
+dark_name = "one-dark"
+
+[keys]
+# Same prefix as tmux (tmux/tmux.conf: unbind C-b; set -g prefix C-a).
+# Safe to share because herdr is never nested inside tmux - each app only
+# sees keys while its own terminal window is focused.
+prefix = "ctrl+a"
+
+# Panes disabled - I run one pane per tab and never split. Every pane binding is
+# set to "" (empty disables), because omitting a line would fall back to herdr's
+# active default instead. This covers splits (default prefix+v / prefix+minus) and
+# pane focus (default prefix+h/j/k/l); navigate-mode pane keys are cleared below.
+# A bonus of dropping focus_pane: ctrl+h (backspace) and ctrl+l (clear) reach the
+# shell again instead of being grabbed globally by herdr.
+split_vertical = ""
+split_horizontal = ""
+focus_pane_left = ""
+focus_pane_down = ""
+focus_pane_up = ""
+focus_pane_right = ""
+
+# New tab / window (tmux `prefix+c`, tmux.conf:117).
+new_tab = "prefix+c"
+
+# Tab navigation. tmux uses prefix+C-n / prefix+C-m (tmux.conf:166-167);
+# herdr's cleaner n/p defaults are kept here (C-m is carriage-return in a
+# terminal, unreliable as a chord).
+next_tab = "prefix+n"
+previous_tab = "prefix+p"
+
+# Cycle focus across agents (a = agent). herdr has no agent picker analogous to
+# the workspace picker (prefix+w), so this is the way to reach agents by keyboard.
+# Both unset by default.
+next_agent = "prefix+a"
+previous_agent = "prefix+shift+a"
+
+# Indexed jump to tab N - mirrors tmux's built-in `prefix + <number>` window
+# select. Same as herdr's default, pinned here for tmux parity.
+switch_tab = "prefix+1..9"
+
+# Indexed jump to workspace N (sidebar order, see herdr-workspaces --list).
+# No tmux analog; ctrl+number keeps it one layer above the tab jump.
+# Why ctrl and not shift: herdr asks the terminal for the kitty keyboard
+# protocol with flags 7 (ESC[>7u), which omits "report all keys as escape
+# codes". Under those flags a terminal delivers any text-producing key as the
+# bare character, so shift+3 arrives as '#' (or '£' on a UK layout), never as a
+# shift+digit event - so "prefix+shift+1..9" silently never fires. ctrl+digit
+# produces no text, so Ghostty encodes it as a real key event herdr can match.
+# (alt+digit is out too: option-key on macOS emits special chars.)
+# focus_agent has no analog either and stays unset.
+switch_workspace = "prefix+ctrl+1..9"
+
+# Navigate-mode pane movement disabled too (no panes to move between). Clearing
+# these frees h/j/k/l in navigate mode; j/k below drive the workspace picker.
+navigate_pane_left = ""
+navigate_pane_down = ""
+navigate_pane_up = ""
+navigate_pane_right = ""
+
+# Workspace list up/down (workspace picker, prefix+w) - default is arrow up/down.
+# Rebound to vim k/j; replaces the arrows, fine since I never use up/down here.
+navigate_workspace_up = "k"
+navigate_workspace_down = "j"
+
+# Clear screen - herdr's answer to tmux's `bind C-l send-keys 'C-l'`
+# (tmux/tmux.conf:289-291). herdr has no native clear action, so shell out to its
+# CLI: run `clear` in a shell pane, or send ctrl+l to an agent pane (where a typed
+# `clear` would post as a prompt). herdr injects $HERDR_ACTIVE_PANE_ID (focused
+# pane) and $HERDR_BIN_PATH - the latter is needed because the fired shell's PATH
+# does not include herdr. Single-quoted TOML literal so the shell expands the vars.
+[[keys.command]]
+key = "prefix+l"
+type = "shell"
+command = 'p="$HERDR_ACTIVE_PANE_ID"; h="$HERDR_BIN_PATH"; if [ -z "$("$h" pane get "$p" | jq -r ".result.pane.agent // empty")" ]; then "$h" pane run "$p" clear; else "$h" pane send-keys "$p" ctrl+l; fi'
+description = "clear screen"
+
+[ui]
+# Skip the "new tab" name prompt (tmux `prefix+c` opens a window instantly).
+# Tabs are created immediately with auto-generated names.
+prompt_new_tab_name = false
+agent_panel_scope = "all"
+
+# Put the tab row below the panes (default is "top"). Prefix/Navigate/Copy/Resize
+# mode bars temporarily replace it while active.
+tab_bar_position = "bottom"
+
+# tmux-style status-right, mirroring tmux/colors/*/*.conf status-right:
+# time, ISO week:weekday, date, hostname (+ herdr's zoom pill for the zoom
+# indicator). datetime uses strftime; %R=HH:MM, %V=ISO week, %u=weekday.
+tab_bar_right = [
+    { type = "zoom" },
+    { type = "datetime", format = "%R" },
+    { type = "datetime", format = "w%V:d0%u | %d-%m-%y" },
+    { type = "hostname" },
+]
+tab_bar_right_separator = " · "

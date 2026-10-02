@@ -1,0 +1,5 @@
+# herdr writes runtime state into its config dir (sockets, session.json,
+# release-notes.json, logs). Track only the config; ignore everything else.
+*
+!.gitignore
+!config.toml
