@@ -181,4 +181,11 @@ override.tf.json
 terraform.rc
 # }}}
 
+# AI agents {{{
+
+# Personal settings and instructions, never shared.
+# CLAUDE.md and AGENTS.md stay tracked, they belong to the repo.
 **/.claude/settings.local.json
+CLAUDE.local.md
+AGENTS.local.md
+# }}}
