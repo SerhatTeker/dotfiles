@@ -45,8 +45,8 @@ alias '$'=''  # Copy-pasting commands with '$ ' prefix
 # shutdown
 alias shutdown='logout-sync && sudo shutdown -h now'
 
-# keep the Mac awake for 4 hours, screen may sleep
-alias caffeine='caffeinate -i -t 14400'
+# keep the Mac awake for 4 hours in the background, screen may sleep
+alias caffeine='caffeinate -i -t 14400 &!'
 
 ## apt
 alias remove-package='sudo apt remove --purge "$1" && sudo apt autoremove --purge'
