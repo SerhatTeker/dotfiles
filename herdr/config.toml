@@ -56,9 +56,9 @@ new_tab = "prefix+c"
 next_tab = "prefix+n"
 previous_tab = "prefix+p"
 
-# Cycle focus across agents (a = agent). herdr has no agent picker analogous to
-# the workspace picker (prefix+w), so this is the way to reach agents by keyboard.
-# Both unset by default.
+# Cycle focus across agents (a = agent). Both unset by default.
+# To pick a specific agent, use the Go To picker (default prefix+g, since herdr
+# 0.9.2): one row per agent, j/k to move, Left/Right to jump workspaces, Enter.
 next_agent = "prefix+a"
 previous_agent = "prefix+shift+a"
 
