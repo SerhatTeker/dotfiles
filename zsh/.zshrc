@@ -136,17 +136,6 @@ export LANG=en_US.UTF-8
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 # }}}
 
-# prompt settings {{{
-
-# INFO: define from alacritty
-# _fix_cursor() {
-#     # change cursor color
-#     # alternative: xterm 214 or 220
-#     echo -ne '\e]12;yellow\a'
-# }
-# precmd_functions+=(_fix_cursor)
-# }}}
-
 # Editor {{{2
 
 # Preferred editor for local and remote sessions

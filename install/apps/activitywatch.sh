@@ -41,7 +41,6 @@ get_release() {
 
 # Create desktop file
 desktop() {
-    # sudo cp "${SOURCE_DIR}/extra/logo/alacritty-term.svg" /usr/share/pixmaps/Alacritty.svg
     sudo desktop-file-install "${DEST_DIR}/aw-qt.desktop"
     sudo update-desktop-database
 }
