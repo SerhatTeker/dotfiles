@@ -193,7 +193,7 @@ if.app-id = 'org.alacritty'
 run = 'move-node-to-workspace 3'
 [[on-window-detected]]
 if.app-id = 'com.jetbrains.datagrip'
-run = 'move-node-to-workspace 5'
+run = 'move-node-to-workspace 4'
 [[on-window-detected]]
 if.app-id = 'com.postmanlabs.mac'
 run = 'move-node-to-workspace 5'
